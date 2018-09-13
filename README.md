@@ -3,5 +3,5 @@
 
 
 # tips
-As a repository about notes, Chinese is the first language of the files, sorry about that.
+As a repository about notes, Chinese is the first language of the files, sorry about that :)
 

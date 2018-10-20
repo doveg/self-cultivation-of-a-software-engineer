@@ -1,0 +1,299 @@
+
+Solr 索引库
+
+
+Solr 核心
+
+	是什么：
+		
+	为什么使用：
+		
+	基本原理：
+		
+	怎么使用：
+		IKAnalyzer
+		
+		Spring 配置
+	
+小结
+	Solr 搜索服务器；作为站内搜索服务器，实现搜索功能。
+	SolrJ 索引库管理；实现索引库的增删改查操作。
+	SolrCloud 搜索服务器集群；使用 Zookeeper 作为集群的配置信息中心，实现分布式索引和检索。
+	
+	SolrCloud 实现：
+		Zookeeper 集群；
+		Solr 集群。
+	使用 SolrJ 连接集群；
+		CloudSolrServer 对象连接集群。
+
+Solr 
+	Solr 搜索服务器；作为站内搜索服务器，实现搜索功能。
+	Solr 的环境
+		Solr 是 java 开发。
+		需要安装 jdk。
+		安装环境 Linux。
+		需要安装 Tomcat。
+	搭建步骤
+		第一步：把solr 的压缩包上传到Linux系统
+		第二步：解压solr。
+		第三步：安装Tomcat，解压缩即可。
+		第四步：把solr部署到Tomcat下。
+		第五步：解压缩war包。启动Tomcat解压。
+		第六步：把/root/solr-4.10.3/example/lib/ext目录下的所有的jar包，添加到solr工程中。
+			[root@localhost ext]# pwd
+			/root/solr-4.10.3/example/lib/ext
+			[root@localhost ext]# cp * /usr/local/solr/tomcat/webapps/solr/WEB-INF/lib/
+		第七步：创建一个solrhome。/example/solr目录就是一个solrhome。复制此目录到/usr/local/solr/solrhome
+			[root@localhost example]# pwd
+			/root/solr-4.10.3/example
+			[root@localhost example]# cp -r solr /usr/local/solr/solrhome
+			[root@localhost example]# 
+		第八步：关联solr及solrhome。需要修改solr工程的web.xml文件。
+		第九步：启动Tomcat。http://192.168.25.154:8080/solr/
+
+	
+实例
+	配置业务域：
+		schema.xml中定义
+			1、商品Id
+			2、商品标题
+			3、商品卖点
+			4、商品价格
+			5、商品图片
+			6、分类名称
+			7、商品描述
+	创建对应的业务域。需要制定中文分析器。
+		创建步骤：
+			第一步：把中文分析器添加到工程中。
+				1、把IKAnalyzer2012FF_u1.jar添加到solr工程的lib目录下
+				2、把扩展词典、配置文件放到solr工程的WEB-INF/classes目录下。
+			第二步：配置一个FieldType，制定使用IKAnalyzer
+				修改schema.xml文件
+				修改Solr的schema.xml文件，添加FieldType：
+				<fieldType name="text_ik" class="solr.TextField">
+				  <analyzer class="org.wltea.analyzer.lucene.IKAnalyzer"/>
+				</fieldType>
+			第三步：配置业务域，type制定使用自定义的FieldType。
+				设置业务系统Field
+				<field name="item_title" type="text_ik" indexed="true" stored="true"/>
+				<field name="item_sell_point" type="text_ik" indexed="true" stored="true"/>
+				<field name="item_price"  type="long" indexed="true" stored="true"/>
+				<field name="item_image" type="string" indexed="false" stored="true" />
+				<field name="item_category_name" type="string" indexed="true" stored="true" />
+				<field name="item_desc" type="text_ik" indexed="true" stored="false" />
+
+				<field name="item_keywords" type="text_ik" indexed="true" stored="false" multiValued="true"/>
+				<copyField source="item_title" dest="item_keywords"/>
+				<copyField source="item_sell_point" dest="item_keywords"/>
+				<copyField source="item_category_name" dest="item_keywords"/>
+				<copyField source="item_desc" dest="item_keywords"/>
+			第四步：重启tomcat
+
+
+SolrJ 
+	SolrJ 索引库管理；实现索引库的增删改查操作。
+	添加文档：
+		第一步：把solrJ的jar包添加到工程中。
+		第二步：创建一个SolrServer，使用HttpSolrServer创建对象。
+		第三步：创建一个文档对象SolrInputDocument对象。
+		第四步：向文档中添加域。必须有id域，域的名称必须在schema.xml中定义。
+		第五步：把文档添加到索引库中。
+		第六步：提交。
+	删除文档：
+		根据id删除：
+		第一步：创建一个SolrServer对象。
+		第二步：调用SolrServer对象的根据id删除的方法。
+		第三步：提交。
+	查询索引库
+		查询步骤：
+			第一步：创建一个SolrServer对象
+			第二步：创建一个SolrQuery对象。
+			第三步：向SolrQuery中添加查询条件、过滤条件。。。
+			第四步：执行查询。得到一个Response对象。
+			第五步：取查询结果。
+			第六步：遍历结果并打印。
+	把商品数据导入到索引库中
+		功能分析
+			schema.xml中定义
+				1、商品Id
+				2、商品标题
+				3、商品卖点
+				4、商品价格
+				5、商品图片
+				6、分类名称
+				7、商品描述
+			需要从tb_item, tb_item_cat, tb_item_desc表中查询数据。
+				Sql1：
+					SELECT
+						a.id,
+						a.title,
+						a.sell_point,
+						a.price,
+						a.image,
+						b. NAME category_name,
+						c.item_desc
+					FROM
+						tb_item a,
+						tb_item_cat b,
+						tb_item_desc c
+					WHERE
+						a.cid = b.id
+					AND a.id = c.item_id
+					AND a.`status` = 1;
+				Sql2：
+					SELECT
+						a.id,
+						a.title,
+						a.sell_point,
+						a.price,
+						a.image,
+						b. NAME category_name,
+						c.item_desc
+					FROM
+						tb_item a
+					JOIN tb_item_cat b ON a.cid = b.id
+					JOIN tb_item_desc c ON a.id = c.item_id
+					WHERE
+						a.`status` = 1
+			参数：无
+			业务逻辑：taotao-search中实现
+				1、查询所有商品数据。
+				2、创建一个SolrServer对象。
+				3、为每个商品创建一个SolrInputDocument对象。
+				4、为文档添加域
+				5、向索引库中添加文档。
+				6、返回TaotaoResult。
+			在 manager-web 中调用服务。实现数据导入功能。
+
+
+
+SolrCloud
+	SolrCloud 是 Solr 提供的分布式搜索方案；
+		当索引量很大，搜索请求并发很高，需要大规模，容错，分布式索引和检索能力时，需要 SolrCloud 来满足这些需求。
+		当一个系统的索引数据量少的时候是不需要使用SolrCloud的。
+	SolrCloud 是基于Solr 和 Zookeeper 的分布式搜索方案，它的主要思想是使用Zookeeper作为集群的配置信息中心。
+		它有几个特色功能：
+			1）集中式的配置信息
+			2）自动容错
+			3）近实时搜索
+			4）查询时自动负载均衡
+	Solr 集群的系统架构
+		Solr 集群的结构分析
+			SolrCloud 物理结构：
+				三个Solr实例（ 每个实例包括两个Core），组成一个SolrCloud。
+			SolrCloud 逻辑结构：
+					索引集合包括两个Shard（shard1和shard2），shard1和shard2分别由三个Core组成，
+					其中一个Leader两个Replication，Leader是由zookeeper选举产生，
+					zookeeper控制每个shard上三个Core的索引数据一致，解决高可用问题。
+					用户发起索引请求分别从shard1和shard2上获取，解决高并发问题。
+				collection：
+					Collection 在 SolrCloud 集群中是一个逻辑意义上的完整的索引结构。
+					它常常被划分为一个或多个Shard（分片），它们使用相同的配置信息。
+					比如：针对商品信息搜索可以创建一个collection。
+						collection=shard1+shard2+....+shardX
+				Shard：
+					Collection 的逻辑分片。
+					每个 Shard 被化成一个或者多个 replication，通过选举确定哪个是 Leader。
+				Master 或 Slave：
+					Master 是 master-slave 结构中的主结点（通常说主服务器），
+					Slave 是 master-slave 结构中的从结点（通常说从服务器或备服务器）。
+					同一个 Shard 下 master 和 slave 存储的数据是一致的，这是为了达到高可用目的。
+				Core：
+					每个Core是Solr中一个独立运行单位，提供 索引和搜索服务。
+					一个shard需要由一个Core或多个Core组成。
+					由于collection由多个shard组成所以collection一般由多个core组成。
+		Zookeeper 引入：
+			Zookeeper 作为集群的管理工具：
+				1、集群管理：容错、负载均衡。
+				2、配置文件的集中管理
+				3、集群的入口
+			需要实现zookeeper 高可用，需要搭建集群，建议是奇数节点。所以至少需要三个 zookeeper 服务器。
+			搭建 solr 集群至少需要7台服务器：
+				需要三个zookeeper节点
+				需要四个tomcat节点。
+	Solr 集群实现
+		Zookeeper 集群搭建：
+			第一步：需要安装jdk环境。
+			第二步：把zookeeper的压缩包上传到服务器。
+			第三步：解压缩。
+			第四步：把zookeeper复制三份。
+				[root@localhost ~]# mkdir /usr/local/solr-cloud
+				[root@localhost ~]# cp -r zookeeper-3.4.6 /usr/local/solr-cloud/zookeeper01
+				[root@localhost ~]# cp -r zookeeper-3.4.6 /usr/local/solr-cloud/zookeeper02
+				[root@localhost ~]# cp -r zookeeper-3.4.6 /usr/local/solr-cloud/zookeeper03
+			第五步：在每个zookeeper目录下创建一个data目录。
+			第六步：在data目录下创建一个myid文件，文件名就叫做“myid”。内容就是每个实例的id。例如1、2、3
+				[root@localhost data]# echo 1 >> myid
+				[root@localhost data]# ll
+				total 4
+				-rw-r--r--. 1 root root 2 Apr  7 18:23 myid
+				[root@localhost data]# cat myid 
+				1
+			第七步：修改配置文件。把conf目录下的zoo_sample.cfg文件改名为zoo.cfg
+				server.1=192.168.25.154:2881:3881
+				server.2=192.168.25.154:2882:3882
+				server.3=192.168.25.154:2883:3883
+			第八步：启动每个zookeeper实例。
+				启动bin/zkServer.sh start
+				查看zookeeper的状态：
+				bin/zkServer.sh status
+		Solr 集群搭建：
+			第一步：创建四个tomcat实例。每个tomcat运行在不同的端口。8180、8280、8380、8480
+			第二步：部署solr的war包。把单机版的solr工程复制到集群中的tomcat中。
+			第三步：为每个solr实例创建一个对应的solrhome。使用单机版的solrhome复制四份。
+			第四步：需要修改solr的web.xml文件。把solrhome关联起来。
+			第五步：配置solrCloud相关的配置。每个solrhome下都有一个solr.xml，把其中的ip及端口号配置好。
+			第六步：让zookeeper统一管理配置文件。
+				需要把solrhome/collection1/conf目录上传到zookeeper。上传任意solrhome中的配置文件即可。
+				使用工具上传配置文件：/root/solr-4.10.3/example/scripts/cloud-scripts/zkcli.sh
+					./zkcli.sh -zkhost 192.168.25.154:2181,192.168.25.154:2182,192.168.25.154:2183 -cmd upconfig -confdir /usr/local/solr-cloud/solrhome01/collection1/conf -confname myconf
+				查看zookeeper上的配置文件：
+				使用zookeeper目录下的bin/zkCli.sh命令查看zookeeper上的配置文件：
+					[root@localhost bin]# ./zkCli.sh 
+					[zk: localhost:2181(CONNECTED) 0] ls /
+					[configs, zookeeper]
+					[zk: localhost:2181(CONNECTED) 1] ls /configs
+					[myconf]
+					[zk: localhost:2181(CONNECTED) 2] ls /configs/myconf
+					[admin-extra.menu-top.html, currency.xml, protwords.txt, mapping-FoldToASCII.txt, _schema_analysis_synonyms_english.json, _rest_managed.json, solrconfig.xml, _schema_analysis_stopwords_english.json, stopwords.txt, lang, spellings.txt, mapping-ISOLatin1Accent.txt, admin-extra.html, xslt, synonyms.txt, scripts.conf, update-script.js, velocity, elevate.xml, admin-extra.menu-bottom.html, clustering, schema.xml]
+					[zk: localhost:2181(CONNECTED) 3] 
+				退出：
+					[zk: localhost:2181(CONNECTED) 3] quit
+			第七步：修改tomcat/bin目录下的catalina.sh 文件，关联solr和zookeeper。
+				把此配置添加到配置文件中：
+				JAVA_OPTS="-DzkHost=192.168.25.154:2181,192.168.25.154:2182,192.168.25.154:2183"
+			第八步：启动每个tomcat实例。要包装zookeeper集群是启动状态。
+			第九步：访问集群
+			第十步：创建新的Collection进行分片处理。
+				http://192.168.25.154:8180/solr/admin/collections?action=CREATE&name=collection2&numShards=2&replicationFactor=2
+			第十一步：删除不用的Collection。
+				http://192.168.25.154:8180/solr/admin/collections?action=DELETE&name=collection1
+
+
+SolrJ 管理集群
+	添加文档
+		使用步骤：
+			第一步：把solrJ相关的jar包添加到工程中。
+			第二步：创建一个SolrServer对象，需要使用CloudSolrServer子类。构造方法的参数是zookeeper的地址列表。
+			第三步：需要设置DefaultCollection属性。
+			第四步：创建一SolrInputDocument对象。
+			第五步：向文档对象中添加域
+			第六步：把文档对象写入索引库。
+			第七步：提交。
+	查询文档
+		创建一个CloudSolrServer对象，其他处理和单机版一致。
+
+实例
+	搜索功能切换到集群版
+		<!-- 单机版solr服务配置 -->
+		<!-- <bean id="httpSolrServer" class="org.apache.solr.client.solrj.impl.HttpSolrServer">
+			<constructor-arg name="baseURL" value="http://192.168.25.154:8080/solr"></constructor-arg>
+		</bean> -->
+		<!-- 集群版solr服务 -->
+		<bean id="cloudSolrServer" class="org.apache.solr.client.solrj.impl.CloudSolrServer">
+			<constructor-arg name="zkHost" value="192.168.25.154:2181,192.168.25.154:2182,192.168.25.154:2183"></constructor-arg>	
+			<property name="defaultCollection" value="collection2"></property>
+		</bean>
+
+
+

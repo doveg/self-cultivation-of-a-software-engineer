@@ -1,0 +1,156 @@
+
+Git 
+
+
+Git 核心
+
+	是什么：
+		
+	为什么使用：
+		
+	基本原理：
+		
+	怎么使用：
+
+
+	
+	
+	
+	
+	
+	
+Git 基本常用命令：
+
+	mkdir				XX (创建一个空目录 XX指目录名)
+	pwd					显示当前目录的路径。
+	git init				把当前的目录变成可以管理的git仓库，生成隐藏.git文件。
+	
+	git add XX				把xx文件添加到暂存区去。
+	git commit –m “XX”		提交文件 –m 后面的是注释。
+	git status					查看仓库状态
+	git diff  XX				查看XX文件修改了那些内容
+
+	git log					查看历史记录
+	git reset  --hard HEAD^	回退到上一个版本
+	git reset  --hard HEAD~ 	( 如果想回退到100个版本，使用 git reset –hard HEAD~100 )
+	cat XX					查看XX文件内容
+	git reflog				查看历史记录的版本号id
+
+	git checkout -- XX			把XX文件在工作区的修改全部撤销
+	git rm XX				删除XX文件
+
+	git remote add origin https://github.com/tugenhua0707/testgit 	关联一个远程库
+	git push –u(第一次要用-u 以后不需要) origin master 				把当前master分支推送到远程库
+	git clone https://github.com/tugenhua0707/testgit 				从远程库中克隆
+
+	git checkout –b dev 		创建dev分支，并切换到dev分支上
+	git branch 				查看当前所有的分支
+	git checkout master 		切换回master分支
+	git merge dev			在当前的分支上合并dev分支
+	
+	git branch –d dev 			删除dev分支
+	git branch name			创建分支
+
+	git stash 				把当前的工作隐藏起来 等以后恢复现场后继续工作
+	git stash list 			查看所有被隐藏的文件列表
+	git stash apply 		恢复被隐藏的文件，但是内容不删除
+	git stash drop 		删除文件
+	git stash pop 			恢复文件的同时 也删除文件
+
+	git remote 				查看远程库的信息
+	git remote –v 			查看远程库的详细信息
+	git push origin master 		Git 会把 master 分支推送到远程库对应的远程分支上
+
+
+git 提交
+	git add xx
+		可以将xx文件添加到暂存区，如果有很多改动可以通过 git add -A .来一次添加所有改变的文件。
+		注意： -A 选项后面还有一个句点。
+		git add -A表示添加所有内容， 
+		git add . 表示添加新文件和编辑过的文件不包括删除的文件; 
+		git add -u 表示添加编辑或者删除的文件，不包括新添加的文件
+
+	git commit -m "提交注释"
+
+	git push origin  分支名称，一般使用：git push origin master
+
+
+Git 介绍
+
+	Git 版本控制系统：是一个分布式的系统，是用来保存工程源代码历史状态的命令行工具。
+
+	保存点：Git的保存点可以追踪源码中的文件, 并能得到某一个时间点上的整个工程项目的状态；
+		可以在该保存点将多人提交的源码合并, 也可以回退到某一个保存点上。
+
+	Git离线操作性：Git可以离线进行代码提交，因此它称得上是完全的分布式处理，Git所有的操作不需要在线进行；
+	这意味着Git的速度要比SVN等工具快得多，
+	因为SVN等工具需要在线时才能操作，如果网络环境不好， 提交代码会变得非常缓慢。
+
+	Git基于快照：SVN等老式版本控制工具是将提交点保存成补丁文件，
+	Git提交是将提交点指向提交时的项目快照，提交的东西包含一些元数据(作者，日期，GPG等)。
+
+	Git的分支和合并：分支模型是Git最显著的特点，因为这改变了开发者的开发模式，
+	SVN等版本控制工具将每个分支都要放在不同的目录中，Git可以在同一个目录中切换不同的分支。
+	
+	分支即时性：创建和切换分支几乎是同时进行的，
+	用户可以上传一部分分支，另外一部分分支可以隐藏在本地，不必将所有的分支都上传到GitHub中去。
+
+	分支灵活性：用户可以随时创建、合并、删除分支，
+	多人实现不同的功能，可以创建多个分支进行开发，之后进行分支合并，这种方式使开发变得快速、简单、安全。
+
+
+一：Git 是什么？
+
+	Git 是目前世界上最先进的分布式版本控制系统。
+
+二：SVN 与 Git 的最主要的区别？
+
+	SVN 是集中式版本控制系统，版本库是集中放在中央服务器的，而干活的时候，用的都是自己的电脑，
+	所以首先要从中央服务器哪里得到最新的版本，然后干活，干完后，需要把自己做完的活推送到中央服务器。
+	集中式版本控制系统是必须联网才能工作，如果在局域网还可以，带宽够大，速度够快。
+
+	Git 是分布式版本控制系统，那么它就没有中央服务器的，每个人的电脑就是一个完整的版本库，
+	工作的时候就不需要联网了，因为版本都是在自己的电脑上。
+	既然每个人的电脑都有一个完整的版本库，那多个人如何协作呢？比如说自己在电脑上改了文件A，其他人也在电脑上改了文件A，这时，你们两之间只需把各自的修改推送给对方，就可以互相看到对方的修改了。
+
+
+Git 实例：
+	
+	安装设置：
+		$ git config --global user.name "bour"
+		$ git config --global user.email "bourneshu@163.com"
+		$ git config --list
+		$ git --version
+	进入 repository：
+		$ git init
+		$ git add Readme.txt
+		$ git commit -m "readme.txt 提交"
+		$ git status
+		$ git diff Readme.txt
+		$ git log
+		$ git log --pretty=oneline
+		$ git reset --hard HEAD^
+		$ cat Readme.txt
+		$ git reflog
+		$ git reset --hard 版本号
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+

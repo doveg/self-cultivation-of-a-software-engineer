@@ -1,0 +1,64 @@
+
+Zookeeper
+
+
+Zookeeper 核心
+
+	是什么：
+		
+	为什么使用：
+		
+	基本原理：
+		
+	怎么使用：
+	
+	
+Zookeeper 
+	注册中心；Dubbo服务的注册中心。
+
+
+
+Zookeeper 集群搭建
+	第一步：需要安装jdk环境。
+	第二步：把zookeeper的压缩包上传到服务器。
+	第三步：解压缩。
+	第四步：把zookeeper复制三份。
+		[root@localhost ~]# mkdir /usr/local/solr-cloud
+		[root@localhost ~]# cp -r zookeeper-3.4.6 /usr/local/solr-cloud/zookeeper01
+		[root@localhost ~]# cp -r zookeeper-3.4.6 /usr/local/solr-cloud/zookeeper02
+		[root@localhost ~]# cp -r zookeeper-3.4.6 /usr/local/solr-cloud/zookeeper03
+	第五步：在每个zookeeper目录下创建一个data目录。
+	第六步：在data目录下创建一个myid文件，文件名就叫做“myid”。内容就是每个实例的id。例如1、2、3
+		[root@localhost data]# echo 1 >> myid
+		[root@localhost data]# ll
+		total 4
+		-rw-r--r--. 1 root root 2 Apr  7 18:23 myid
+		[root@localhost data]# cat myid 
+		1
+	第七步：修改配置文件。把conf目录下的zoo_sample.cfg文件改名为zoo.cfg
+		server.1=192.168.25.154:2881:3881
+		server.2=192.168.25.154:2882:3882
+		server.3=192.168.25.154:2883:3883
+	第八步：启动每个zookeeper实例。
+		启动bin/zkServer.sh start
+		查看zookeeper的状态：
+		bin/zkServer.sh status
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

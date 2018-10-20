@@ -1,0 +1,191 @@
+
+MYSQL 工作笔记
+
+
+聚合函数中加入条件：
+	sum()：
+		case when d.STATUS=7 then d.GOODS_PAYMENT else 0 end
+	count()：
+		if(d.STATUS=7,true,null)
+	
+in 和 not in 查询：
+	in 后面的结果里只能包含一个字段，字段里面可以有多个值；
+	in 前面只能包含一个字段；
+		如 where userIds in(0,7,8)。
+
+Mybatis 迭代数组：
+	<foreach collection="userIds" index="index" item="item" open="(" separator="," close=")">
+		#{item}
+	</foreach>
+	
+日期计算：
+	NOW()；
+	interval + 时间；
+		SELECT * FROM 表名 WHERE 字段名>NOW()-INTERVAL 2 HOUR;
+		SELECT * FROM 表名 WHERE 字段名 > DATE_SUB(NOW(), INTERVAL 60 MINUTE);
+	
+子查询的子表必须要有别名。
+	
+字段去重：
+	DISTINCT 字段。	
+	
+limit：
+	如果只给定一个参数，它表示返回最大的记录行数目： 
+	SELECT * FROM table LIMIT 5;     //检索前 5 个记录行
+	也就是说：LIMIT n 等价于 LIMIT 0,n
+
+	为了检索从某一个偏移量到记录集的结束所有的记录行，可以指定第二个参数为 -1： 
+	SELECT * FROM table LIMIT 95,-1; // 检索记录行 96-last.
+	
+	常用的用法：
+	SELECT * FROM table LIMIT 5,10;  // 检索记录行 第6行至第15行的数据
+	
+TIMESTAMP 默认值：
+	1，TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+		在创建新记录和修改现有记录的时候都对这个数据列刷新
+
+	2，TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+		在创建新记录的时候把这个字段设置为当前时间，但以后修改时，不再刷新它
+
+	3，TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+		在创建新记录的时候把这个字段设置为0，以后修改时刷新它
+
+	4，TIMESTAMP DEFAULT ‘yyyy-mm-dd hh:mm:ss’ ON UPDATE CURRENT_TIMESTAMP 
+		在创建新记录的时候把这个字段设置为给定值，以后修改时刷新它
+	
+	
+	
+drop、truncate 和 delete：
+
+	1、drop  table tb 
+		drop将表格直接删除，没有办法找回
+	2、truncate (table) tb
+		删除表中的所有数据，不能与where一起使用
+	3、delete from tb (where)
+		删除表中的数据(可制定某一行)
+		
+	truncate 和 delete ：
+		1、事务：truncate是不可以rollback的，但是delete是可以rollback的；
+			原因：truncate删除整表数据(ddl语句,隐式提交)，delete是一行一行的删除，可以rollback
+		2、效果：truncate删除后将重新水平线和索引(id从零开始) ,delete不会删除索引；
+		3、truncate 不能触发任何 Delete 触发器；
+		4、delete 删除可以返回行数；
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+getPublicGoodsType
+	
+addShoppingCart
+	
+	
+	string exist="select * from product where name='A'"  --查询数据库中有没有商品
+if exist <> null --数据库中有A产品
+string sql="update product set num=num+2";   设置A的数量加上2
+	
+
+
+MYSQL 中 TIMESTAMP 类型的默认值理解
+
+	MYSQL中TIMESTAMP类型可以设定默认值，就像其他类型一样。
+
+	1、自动UPDATE 和INSERT 到当前的时间：
+	表：
+	———————————
+
+	Table   Create Table                                                                         
+	—— ————————————————————————————-
+	t1      CREATE TABLE `t1` (                                                                  
+			  `p_c` int(11) NOT NULL,                                                            
+			  `p_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+			) ENGINE=InnoDB DEFAULT CHARSET=gb2312                                              
+
+	数据：
+
+	1    2017-04-17 11:53:35
+	2    2017-04-17 11:54:00
+
+	insert into t1(p_c) select 3;
+	update t1 set p_c = 2 where p_c = 5;
+
+	数据：
+
+	1    2017-04-17 11:53:35
+	5    2017-04-17 12:00:37
+	3    2017-04-17 12:00:37
+
+	2、自动INSERT 到当前时间，不过不自动UPDATE。
+
+	表：
+	———————————
+
+	Table   Create Table                                             
+	—— ———————————————————
+	t1      CREATE TABLE `t2` (                                      
+			  `p_c` int(11) NOT NULL,                                
+			  `p_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP 
+			) ENGINE=InnoDB DEFAULT CHARSET=gb2312                  
+
+	数据：
+	insert into t2(p_c) select 4;
+	update t2 set p_c = 3 where p_c = 5;
+
+	1    2017-04-17 11:53:35
+	2    2017-04-17 12:00:37
+	5    2017-04-17 12:00:37
+	4    2017-04-17 12:05:19
+
+	3、一个表中不能有两个字段默认值是当前时间，否则就会出错。不过其他的可以。
+	表：
+	———————————
+
+	Table   Create Table                                                   
+	—— —————————————————————
+	t1      CREATE TABLE `t1` (                                            
+			  `p_c` int(11) NOT NULL,                                      
+			  `p_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,       
+			  `p_timew2` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' 
+			) ENGINE=InnoDB DEFAULT CHARSET=gb2312                        
+
+	数据：
+	1    2017-04-17 11:53:35    0000-00-00 00:00:00
+	2    2017-04-17 12:00:37    0000-00-00 00:00:00
+	3    2017-04-17 12:00:37    0000-00-00 00:00:00
+	4    2017-04-17 12:05:19    0000-00-00 00:00:00
+
+	TIMESTAMP的变体
+		1，TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+		在创建新记录和修改现有记录的时候都对这个数据列刷新
+
+		2，TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+		在创建新记录的时候把这个字段设置为当前时间，但以后修改时，不再刷新它
+
+		3，TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+		在创建新记录的时候把这个字段设置为0，以后修改时刷新它
+
+		4，TIMESTAMP DEFAULT ‘yyyy-mm-dd hh:mm:ss’ ON UPDATE CURRENT_TIMESTAMP 
+		在创建新记录的时候把这个字段设置为给定值，以后修改时刷新它
+
+
+
+
+
+
+
+
+
+
+
+

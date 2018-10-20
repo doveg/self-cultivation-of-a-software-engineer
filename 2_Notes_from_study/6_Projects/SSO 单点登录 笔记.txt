@@ -1,0 +1,55 @@
+
+SSO 系统
+
+
+SSO：
+	Single Sign On，单点登录。
+		1、主要解决分布式环境下 Session 共享的问题；
+		2、使用 redis 保存 Session；
+		3、token 相当于 jSessionid，要保存到 cookie 中。
+		3、通过token获得用户信息
+		4、Ajax跨域请求（jsonp）
+
+	SSO是在多个应用系统中，用户只需要登录一次就可以访问所有相互信任的应用系统。
+		它包括可以将这次主要的登录映射到其他应用中用于同一个用户的登录的机制。
+		是目前比较流行的企业业务整合的解决方案之一。
+	
+	解决方案：
+	1、配置tomcat集群。配置tomcatSession复制。节点数不要超过5个。
+	2、可以使用Session服务器，保存Session信息，使每个节点是无状态。需要模拟Session。
+
+
+	Cookie 跨域：
+		Cookie二级域名跨域需要设置:
+			1）setDomain，设置一级域名：
+				.itcatst.cn
+				.taotao.com
+				.taotao.com.cn
+			2）setPath。设置为“/”
+
+	ajax 请求跨域：
+		使用 jsonp。
+			客户端
+				使用jQuery。
+			服务端
+				1、接收callback参数，取回调的js的方法名。
+				2、业务逻辑处理。
+				3、响应结果，拼接一个js语句。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

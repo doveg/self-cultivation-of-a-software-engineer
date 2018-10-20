@@ -1,0 +1,112 @@
+
+FastDFS
+
+
+FastDFS 核心
+
+	是什么：
+		
+	为什么使用：
+		
+	基本原理：
+		Tracker：
+		Storage：
+	怎么使用：
+		导入 jar 包；
+		TrackerClient；
+		TrackerServer；
+	
+FastDFS：
+	C 语言编写的一款开源的 分布式文件系统。
+	FastDFS 为互联网量身定制，充分考虑了冗余备份、负载均衡、线性扩容等机制，并注重高可用、高性能等指标，
+	使用 FastDFS 很容易搭建一套高性能的文件服务器集群提供文件上传、下载等服务。
+
+FastDFS 架构：
+	FastDFS 架构包括 Tracker server 和 Storage server。
+	客户端请求 Tracker server 进行文件上传、下载，
+	通过 Tracker server 调度最终由 Storage server 完成文件上传和下载。
+		Tracker server ：追踪服务器、调度服务器；
+			作用是负载均衡和调度；
+			通过 Tracker server 在文件上传时可以根据一些策略找到 Storage server 提供文件上传服务。
+		Storage server ：存储服务器；
+			作用是存储文件，客户端上传的文件最终存储在Storage服务器上；
+			Storage server 没有实现自己的文件系统而是利用操作系统 的文件系统来管理文件。
+		
+	服务端两个角色：
+		Tracker：管理集群，tracker也可以实现集群；
+			每个tracker节点地位平等；
+			收集Storage集群的状态。
+		Storage：实际保存文件；
+			Storage分为多个组，每个组之间保存的文件是不同的；
+			每个组内部可以有多个成员，组成员内部保存的内容是一样的，组成员的地位是一致的，没有主从的概念。
+
+
+	文件上传的流程：
+		客户端上传文件后存储服务器将文件ID返回给客户端，此文件ID用于以后访问该文件的索引信息。
+		文件索引信息包括：组名，虚拟磁盘路径，数据两级目录，文件名。
+			组名：
+				文件上传后所在的storage组名称，在文件上传成功后有storage服务器返回，需要客户端自行保存。
+			虚拟磁盘路径：
+				storage配置的虚拟路径，与磁盘选项store_path*对应。
+				如果配置了store_path0则是M00，如果配置了store_path1则是M01，以此类推。
+			数据两级目录：
+				storage服务器在每个虚拟磁盘路径下创建的两级目录，用于存储数据文件。
+			文件名：
+				与文件上传时不同。是由存储服务器根据特定信息生成，
+				文件名包含：源存储服务器IP地址、文件创建时间戳、文件大小、随机数和文件拓展名等信息。
+
+			
+	上传图片步骤：
+		1、加载配置文件，配置文件中的内容就是tracker服务的地址。
+			配置文件内容：tracker_server=192.168.25.133:22122
+		2、创建一个 TrackerClient 对象。直接new一个。
+		3、使用TrackerClient对象创建连接，获得一个TrackerServer对象。
+		4、创建一个StorageServer的引用，值为null
+		5、创建一个StorageClient对象，需要两个参数TrackerServer对象、StorageServer的引用
+		6、使用StorageClient对象上传图片。
+		7、返回数组。包含组名和图片的路径。
+
+			
+	业务逻辑：
+		1、接收页面传递的图片信息uploadFile
+		2、把图片上传到图片服务器。使用封装的工具类实现。需要取文件的内容和扩展名。
+		3、图片服务器返回图片的url
+		4、将图片的url补充完整，返回一个完整的url。
+		5、把返回结果封装到一个Map对象中返回。
+
+	步骤：
+		1、需要把commons-io、fileupload 的jar包添加到工程中。
+		2、配置多媒体解析器。
+			
+			
+			
+			
+			
+			
+			
+			
+FastDFS，分布式文件系统。
+
+	存储空间可以横向扩展，可以实现服务器的高可用。支持每个节点有备份机。
+	1、存储空间可扩展。
+	2、提供一个统一的访问方式。
+
+
+FastDFS 分布式文件系统；
+	作为项目的图片服务器。
+	Nginx 为图片服务器做负载均衡。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

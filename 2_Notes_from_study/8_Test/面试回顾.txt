@@ -1,0 +1,150 @@
+
+面试回顾
+
+
+	第一场
+		自我介绍；
+		SpringMVC 的原理；
+		一年多的学习：
+			哪些培训机构的教材；
+			项目来源；
+		Dubbo ；
+		Solr 开发的代码量，配置；
+		ActiveMQ；
+		fastDFS 遇到最大的困难；
+		富媒体编辑器；
+		图片上传失败 debug；
+		备份数据库的命令：
+			mysqldump -hhostname -uusername -ppassword databasename >backupfile.sql
+		购物车的实现：
+			放在 Redis 里面。
+		SpringBoot 使用经历，debug；
+		住哪里；
+		哪里人。
+
+	第二场
+		自我介绍
+		如何自学
+		自己完成的项目
+		多表联合查询和排序
+		
+	第三场
+		笔试
+		面试
+			经历介绍
+			泛型擦除；
+			一对多的 xml 配置；
+			Lamda 表达式；
+			内部类；
+			匿名内部类；
+			UML 画图；
+			依赖注入的方式；
+			数据库表的多对多配置；
+			翻译；
+			项目介绍；
+			Hibernate 和 Mybatis；
+			Git 和 SVN；
+			MogoDB；			
+
+	第四场
+		自我介绍
+		jsp
+		css
+		Collection 的 三种集合框架
+		git / svn
+		redis
+		
+
+
+	第五场
+		== 和 equal
+		String 在 JVM 中的存放位置
+		内存模型、类加载机制
+		反射的基本原理
+		反射的应用场景
+		
+		Concurrent 包
+		多线程的中的
+		线程的状态
+		js 动态创建表单和多选框
+		薪资期待
+		住在哪里
+
+	第六场
+		基础笔试
+		自我介绍
+		投诉受理的业务流程
+		redis
+		单点登陆
+		
+	第六场
+		自我介绍
+		SSO 单点登陆实现
+		登陆状态验证细节
+		秒杀方案实现
+		分布式事务，保证操作原子性
+		分布式锁，保证线程安全
+		权限数据库设计
+		权限过滤器实现
+		Struts2 和 SpringMVC
+		SpringMVC 中不同对象模型的同名属性处理
+		Struts 版本
+		SQL 注入原理与防御
+		Hibernate 懒加载，循环查询优化
+		HQL 的缺点
+		QueryHelper 实现细节
+		POI 批量导出细节
+		Java 各版本新特性
+		集合介绍
+		博客内容
+		
+	第七场
+		笔试
+			基础选择
+			改错题
+			Spring 事务隔离级别
+			逻辑题
+			设计模式，单例
+			SQL
+			查找排序
+		面试
+			员工面
+				自我介绍
+				电商项目介绍
+				Dubbo 原理
+				Redis 基础
+				单点登陆实现
+				Spring 核心：IoC、AOP
+				AOP 在事务之外的应用
+				对分布式的理解
+				MySQL 数据库优化
+				数据库索引原理
+				数据库分布式方案
+			主管面
+				自我介绍
+				ActiveMQ 原理
+				单点登陆的实现逻辑
+		
+	第八场
+		自我介绍
+		Redis 缓存持久化方案
+		分布式事务
+		Nginx 配置与重启方式
+		SpringBoot 和 SpringMVC
+		Mybatis 中 $ 和 # 的区别
+		常用的集合
+		线程安全的 Map 实现类
+		Linux 熟练程度
+		JVM 调优
+		Java 代码的编译加载执行过程
+		公司业务介绍
+		培养方向
+
+		
+	第九场
+		笔试
+			算法题
+			找子数组
+			字符串转数字
+			
+		

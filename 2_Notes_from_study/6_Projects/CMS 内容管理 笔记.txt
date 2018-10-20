@@ -1,0 +1,109 @@
+
+CMS 系统
+
+
+CMS系统：
+	Content Management System，内容管理系统。
+
+
+实例
+	商城首页动态展示分析
+		内容信息要从数据库中获得
+			动态展示分析
+				1、内容需要进行分类
+				2、分类下有子分类，需要动态管理。
+				3、分类下有内容列表
+				4、单点的内容信息
+					a)	图片
+					b) 链接
+					c)	标题
+					d) 有价格
+					e)	包含大文本类型，可以作为公告
+		需要一个内容分类表和一个内容表。
+		内容分类和内容表是一对多的关系。
+		内容分类表，需要存储树形结构的数据。
+		内容分类表：tb_content_category
+		内容表：tb_content
+
+		需要有后台来维护内容信息：CMS 系统。
+
+
+	展示内容分类功能分析
+		请求的url：/content/category/list
+		请求的参数：id，当前节点的id。第一次请求是没有参数，需要给默认值“0”
+		响应数据：List<EasyUITreeNode>（@ResponseBody）
+		Json 数据：
+			[
+				{id:1,text:节点名称,state:open(closed)},
+				{id:2,text:节点名称2,state:open(closed)},
+				{id:3,text:节点名称3,state:open(closed)}
+			]
+		
+		
+	业务逻辑：
+		1、取查询参数id，parentId
+		2、根据parentId查询tb_content_category，查询子节点列表。
+		3、得到List<TbContentCategory>
+		4、把列表转换成List<EasyUITreeNode>
+
+
+	新增节点功能分析
+		请求的url：/content/category/create
+		请求的参数：
+			Long parentId
+			String name
+		响应的结果：
+			json数据，TaotaoResult，其中包含一个对象，对象有id属性，新生产的内容分类id
+
+	业务逻辑：
+		1、接收两个参数：parentId、name
+		2、向tb_content_category表中插入数据。
+			a)	创建一个TbContentCategory对象
+			b) 补全TbContentCategory对象的属性
+			c)	向tb_content_category表中插入数据
+		3、判断父节点的isparent是否为true，不是true需要改为true。
+		4、需要主键返回。
+		5、返回TaotaoResult，其中包装TbContentCategory对象
+
+
+	内容分类重命名
+		请求的url：/content/category/update
+		参数：id，当前节点id。name，重命名后的名称。
+		业务逻辑：根据id更新记录。
+		返回值：返回TaotaoResult.ok()
+
+	内容分类删除
+		请求的url：/content/category/delete/
+		参数：id，当前节点的id。
+		响应的数据：json。TaotaoResult。
+		
+	业务逻辑：
+		1、根据id删除记录。
+		2、判断父节点下是否还有子节点，如果没有需要把父节点的isparent改为false
+		3、如果删除的是父节点，子节点要级联删除。
+			两种解决方案：
+				1）如果判断是父节点不允许删除。
+				2）递归删除。
+		
+		
+	首页轮播图展示
+		web工程中，动态展示内容信息。
+
+	功能分析
+		只需要动态生成一个json数据，轮播图就可以动态展示；
+
+	Json数据格式：
+		[
+			{
+			"srcB": "http://image.taotao.com/images/2015/03/03/2015030304360302109345.jpg",
+			"height": 240,
+			"alt": "",
+			"width": 670,
+			"src": "http://image.taotao.com/images/2015/03/03/2015030304360302109345.jpg",
+			"widthB": 550,
+			"href": "http://sale.jd.com/act/e0FMkuDhJz35CNt.html?cpdad=1DLSUE",
+			"heightB": 240
+			}
+		]
+
+

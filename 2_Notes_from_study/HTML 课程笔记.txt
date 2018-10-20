@@ -1,0 +1,177 @@
+
+HTML 课程笔记
+
+
+HTML5：
+
+标签：
+	
+	<!DOCTYPE html>文档申明标签；
+	
+	<html></html>
+		lang=""
+		id=""
+		
+	<head>页头</head>
+		
+		<meta></meta>
+			charset=""
+			content=""
+			
+		<link></link>
+			rel=""
+				rel="dns-prefetch"：DNS 预解析；
+				rel="shortcut icon"：网站图标；
+				rel="stylesheet"：样式引入；
+			href=""
+		
+		<title>标题</title>
+		
+		<style>样式</style>
+		
+		
+	<body>页体</body>
+	
+		<h1>最大号的标题</h1>
+		<h6>最小号的标题</h6>
+		
+		<p>段落文本</p>
+		
+		<span>文本节，行内标签</span>
+		
+			<em>着重强调</em>
+			<i>斜体</i>
+			<strong>加强语气</strong>
+			<sub>定义下标</sub>
+			<sup>定义上标</sup>
+			<del>加删除线</del>
+			<ins>加下划线</ins>
+			
+			
+		
+		
+		<img>图片</imag>
+			scr=""：资源路径；
+			alt=""：图片资源不可用时显示文本；
+			title=""：鼠标停留显示标题；
+		
+		<a>超链接</a>：可以用来包裹文字，图片，表格，标题等；
+			href=""
+				href="#"：空链接；
+				href="#id"：定位到当前页的id位置；
+			target=""
+				target="_self"：当前页打开；
+				target="_blank"：新空白页打开；
+		
+		
+		
+		<ul>无序列表</ul>
+		<ol>有序列表</ol>
+		<li>列表表格</li>
+		
+		<dl>定义列表</dl>
+		<dt>定义标题</dt>
+		<dd>定义描述</dd>
+		
+		<table>表格</table>
+		<thead>表格头部</thead>
+		<tbody>表格主体</tbody>
+		<tr>表格行</tr>
+		<td>单元格</td>
+			rowspan="";占用行数；
+			colspan="";占用列数；
+		
+		
+		<hr/>水平线标签
+		<br/>换行标签
+
+		
+		
+		<div>块级元素</div>
+		<span>行内元素<span>
+		
+		
+		块级标签：div, ul, ol, li, dt, dl, h1~h6；
+		行级标签：span, em, strong；
+		
+		<form>表单</form>
+			action="#"
+		<input>输入</input>
+			type="text";文本框；
+			type="radio";单选框；
+			type="checkbox";复选框；
+			type="submit";提交；
+			type="reset";重置；
+			value=""
+		<select>下拉框</select>
+			mutiple="mutiple";多选属性；
+		<option>选项</option>
+			checked="checked";
+		<textarea>文本域</textarea>
+			cols="";
+			rows="";
+		<label>标签</label>
+			for="";
+		
+		<fieldset>表单分组</fieledset>
+		<legend>分组铭文</legend>
+		
+		<iframe>内联框架</iframe>
+			src="";
+			width="";
+			height="";
+		
+		<mete>元标签</mete>
+			charset="";
+			name="";
+			content="";
+			http-equiv="";
+		<base>页面默认路径，默认打开方式</base>
+		
+		<pre>预格式文本</pre>
+		
+		字符实体：
+			&nbsp：空格；
+			&lt：小于号；
+			&gt：大于号；
+			&amp：和号(&)；
+
+			
+	<script>脚本</script>
+
+	
+	<!-- 注释标签 -->
+	
+	
+	
+	单标签：单个；
+	闭合标签：一对；
+	
+	
+	
+路径：
+	相对路径：
+		./：当前目录；
+		../：当前目录的父目录；上级目录；
+		../../：上上级目录；
+	
+	
+	
+	
+快捷键：
+	HTML:5 + Tab：生成 HTML 模板；
+	
+	
+垫底：
+	$("#bottomDiv").append('<div style="width: 100%;height:50px;float: bottom;"><div></div></div>');
+	<div style="width: 100%;height:50px;float: bottom;"><div></div></div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

@@ -1,0 +1,128 @@
+
+
+
+
+
+
+
+google浏览器测试时清理缓存、强制不用缓存刷新快捷键（常用、效率）
+
+Ctrl+Shift+Del  清除Google浏览器缓存的快捷键 
+
+Ctrl+Shift+R  重新加载当前网页而不使用缓存内容
+
+
+
+生JavaScript无法清除浏览器缓存，但部分浏览器开发了清除缓存的js调用接口
+但这些方法只在特定页面可以调用，只能由浏览器厂商制作的页面调用，其他域名是无法调用这些高级API的
+另外，Chrome扩展有清除浏览器缓存的API，必须由用户安装才可使用，无法在页面上直接调用
+
+
+Chrome 清除某个特定网站下的缓存
+
+打开开发者工具（F12），选择 Network——Disable cache 即可。需要清除某网站缓存时 F12 打开开发者工具就会自动清除这个网站的缓存，而不必清除所有网站的缓存了。
+
+
+
+
+js清除浏览器缓存的几种方法
+
+关于浏览器缓存
+
+浏览器缓存，有时候我们需要他，因为他可以提高网站性能和浏览器速度，提高网站性能。但是有时候我们又不得不清除缓存，因为缓存可能误事，出现一些错误的数据。像股票类网站实时更新等，这样的网站是不要缓存的，像有的网站很少更新，有缓存还是比较好的。今天主要介绍清除缓存的几种方法。
+
+清理网站缓存的几种方法
+
+meta方法
+
+//不缓存
+<META HTTP-EQUIV="pragma" CONTENT="no-cache"> 
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate"> 
+<META HTTP-EQUIV="expires" CONTENT="0">
+
+清理form表单的临时缓存
+<body onLoad="javascript:document.yourFormName.reset()">
+其实form表单的缓存对于我们书写还是有帮助的，一般情况不建议清理，但是有时候为了安全问题等，需要清理一下！
+
+jquery ajax清除浏览器缓存
+
+方式一：用ajax请求服务器最新文件，并加上请求头If-Modified-Since和Cache-Control,如下:
+
+  $.ajax({
+     url:'www.haorooms.com',
+     dataType:'json',
+     data:{},
+     beforeSend :function(xmlHttp){ 
+        xmlHttp.setRequestHeader("If-Modified-Since","0"); 
+        xmlHttp.setRequestHeader("Cache-Control","no-cache");
+     },
+     success:function(response){
+         //操作
+     }
+     async:false
+  });
+  
+方法二，直接用cache:false,
+
+  $.ajax({
+     url:'www.haorooms.com',
+     dataType:'json',
+     data:{},
+     cache:false, 
+     ifModified :true ,
+
+     success:function(response){
+         //操作
+     }
+     async:false
+  });
+  
+方法三：用随机数，随机数也是避免缓存的一种很不错的方法！
+
+URL 参数后加上 "?ran=" + Math.random(); //当然这里参数 ran可以任意取了
+
+方法四：用随机时间，和随机数一样。
+
+在 URL 参数后加上 "?timestamp=" + new Date().getTime(); 
+
+
+后端清理
+
+在服务端加 header("Cache-Control: no-cache, must-revalidate");等等
+
+
+方法五：
+
+5、window.location.replace("WebForm1.aspx");   
+参数就是你要覆盖的页面，replace的原理就是用当前页面替换掉replace参数指定的页面。   
+这样可以防止用户点击back键。使用的是javascript脚本，举例如下： 
+a.html 
+以下是引用片段： 
+<html> 
+     <head> 
+         <title>a</title>      
+         <script language="javascript"> 
+             function jump(){ 
+                 window.location.replace("b.html"); 
+             } 
+         </script> 
+     </head> 
+     <body> 
+        <a href="javascript:jump()">b</a> 
+    </body> 
+</html>  
+b.html 
+以下是引用片段： 
+<html> 
+     <head> 
+         <title>b</title>      
+         <script language="javascript"> 
+             function jump(){ 
+                 window.location.replace("a.html"); 
+             } 
+         </script> 
+     </head> 
+     <body> 
+        <a href="javascript:jump()">a</a> 
+    </body> 
+</html>

@@ -1,0 +1,155 @@
+
+Servlet 笔记
+
+
+Servlet 核心
+
+	是什么：
+		处理 http 请求，生成动态网页，响应的技术；
+	为什么使用：
+		兼容性好；
+	基本原理：
+		生命周期：
+			http 请求；
+			服务器解析；
+			创建实例：反射；
+			初始化：init ( ) ；
+			服务：service ( ) ；
+			输出响应；
+			响应完成；
+			销毁：destroy ( ) 。
+	怎么使用：
+		继承 HttpServlet：
+			HttpServletRequest；
+			HttpServletResponce；
+			HttpSession；
+		
+
+Servlet 小结
+
+	Servlet的映射路径
+		精确匹配：
+			url-pattern：				浏览器输入：
+				/first						http：//localhost：8080/day10/first
+				/itc/demo1				http：//localhost：8080/day10/itc/demo1
+		模糊匹配：
+			url-pattern：				浏览器输入：
+				/* 							http：//localhost：8080/day10/任意路径
+				/itc/*						http：//localhost：8080/day10/itc/任意路径
+				*.后缀名					http：//localhost：8080/day10/任意路径.do
+					*.do
+					*.action
+					*.html（伪静态）
+	servlet缺省路径
+		缺省路径（<url-pattern>/</url-pattern>）：
+			是在tomcat服务器内置的一个路径；该路径对应的是一个DefaultServlet（缺省Servlet）；
+		缺省Servlet的作用：用于解析web应用的静态资源文件。
+			问题：URL输入http：//localhost：8080/day10/index.html如何读取文件。
+				先找动态资源，再找静态资源。
+	
+	Sevlet 生命周期
+			servlet类对象什么时候创建，什么时候调用什么方法，什么时候销毁。
+			以前的对象：new Student（）； stu.study（）； stu=null；
+		Servlet程序的生命周期由tomcat服务器控制。
+	Servlet生命周期的方法：
+		构造方法：
+			创建servlet对象时调用；只调用1次；
+			默认情况下，第一次访问servlet时创建servlet对象； 
+			证明servlet对象在tomcat是单实例的。
+		init（）：		创建完servlet对象时调用，只调用1次；
+		service（）：	每次发出请求时调用，调用n次。
+		destroy（）：	销毁servlet对象时调用，停止服务器或者重新部署web应用时销毁servlet，只调用1次。
+	伪代码演示servlet生命周期：
+		1)	通过映射找到到servlet-class的内容，字符串：gz.itc.a_servlet.FirstServlet；
+		2)	通过反射构造FirstServlet对象；
+			得到字节码对象：
+				Class clazz = class.forName（"gz.itc.a_servlet.FirstServlet"）；
+			调用无参数的构造方法来构造对象：
+				Object obj = clazz.newInstance（）； 				1.servlet的构造方法被调用；
+		3)	通过反射调用init方法，创建ServletConfig对象，；
+			得到方法对象：
+				Method m = clazz.getDeclareMethod（"init"，ServletConfig.class）；
+			调用方法：
+				m.invoke（obj，config）； 								2.servlet的init方法被调用；
+		4)	通过反射调用service方法，创建request，response对象；
+			得到方法对象：
+				Methodm m =clazz.getDeclareMethod（"service"，
+				HttpServletRequest.class，HttpServletResponse.class）；
+			调用方法：
+				m.invoke（obj，request，response）； 			3.servlet的service方法被调用；
+		5)	通过反射调用destroy方法，当tomcat服务器停止或web应用重新部署；
+			得到方法对象：
+				Method m = clazz.getDeclareMethod（"destroy"，null）；
+			调用方法：
+				m.invoke（obj，null）；									4.servlet的destroy方法被调用。
+	
+	Servlet的自动加载
+		servlet创建对象的时间：第一次访问servlet时，创建servlet对象（默认情况）；
+		改变servlet创建对象的时机：把servlet创建对象的时间提前到加载web应用时。
+		在servlet的配置信息中，加上一个<load-on-startup>：
+			让servlet对象自动加载：<load-on-startup>1</load-on-startup>
+			注意：整数值越大，创建优先级越低。
+	
+	Servlet的多线程并发问题
+		servlet对象在tomcat服务器是单实例多线程的。
+			当多个servlet的线程同时访问了servlet的共享数据（如：成员变量）时，可能会引发线程安全问题。
+		解决办法：
+			1)	把使用到共享数据的代码块进行同步（使用synchronized关键字进行同步）；
+			2)	建议在servlet类中尽量不要使用成员变量；
+				如果确实要使用成员，必须同步；
+				尽量缩小同步代码块的范围（哪用到成员变量就同步哪），避免因同步而导致并发效率降低。
+		Servlet学习：
+			HttpServletRequest对象：		获取请求信息；
+			HttpServletResponse 对象：	设置响应对象；
+			ServletConfig对象：			servlet配置对象；
+			ServletContext对象：			servlet的上下文对象。
+	
+	ServletConfig 对象
+		ServletConfig 对象的作用：
+			用于加载servlet的初始化参数；
+			在一个web应用可以存在多个ServletConfig对象（一个Servlet对应一个ServletConfig对象）。
+		对象创建和得到：
+			创建时机：	在创建完servlet对象之后，在调用init方法之前创建；
+			得到对象：	直接从有参数的init方法中得到。
+		ServletConfig 的 API：
+			java.lang.String：getInitParameter（java.lang.String name）：	根据参数名获取参数值；
+			java.util.Enumeration：getInitParameterNames（）：			获取所有参数；
+			ServletContext getServletContext（）：							得到servlet上下文对象；
+			java.lang.String getServletName（）：							得到servlet的名称。
+	
+	ServletContext对象
+		ServletContext对象：
+			Servlet的上下文对象；表示当前的web应用环境。
+			一个web应用中只有一个ServletContext对象。
+		对象创建和得到：
+			创建时机：	加载web应用时，创建ServletContext对象；
+			得到对象：	从ServletConfig对象的getServletContext方法得到。
+		ServletContext 域对象：
+			作用范围：	整个web应用中有效；
+			保存数据：	void setAttribute（java.lang.String name，java.lang.Object object）；
+			获取数据：	java.lang.Object getAttribute（java.lang.String name）；
+			删除数据：	void removeAttribute（java.lang.String name）。
+		域对象：
+			用于保存数据，获取数据；可以在不同的动态资源之间共享数据。
+		所有域对象：
+			HttpServletRequet		域对象；
+			HttpSession				域对象；
+			ServletContext			域对象；
+			PageContext				域对象。
+		转发：
+			RequestDispatcher：getRequestDispatcher（java.lang.String path）；
+	
+	转发与重定向：
+		转发：
+			1)	地址栏不会改变；
+			2)	只能转发到当前web应用内的资源；
+			3)	可以在转发过程中，把数据保存到 request 域对象中；
+		重定向：
+			1)	地址栏会改变，变成重定向到地址；
+			2)	重定向可以跳转到当前web应用，或其他 web 应用，甚至是外部域名网站；
+			3)	不能在重定向的过程，把数据保存到 request 中。
+		注意：如果要使用 request 域对象进行数据共享，只能用转发。
+
+
+
+

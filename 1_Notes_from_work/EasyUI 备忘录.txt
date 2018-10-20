@@ -1,0 +1,438 @@
+
+EasyUI 工作笔记
+
+
+微调：
+&nbsp;
+<br />
+
+风格：
+style="width: 100px"
+style="width: 110px"
+style="width: 160px"
+
+style="height: 23px"
+style="height: 30px"
+
+border-radius:5px;
+plain="true"
+data-options="prompt:''"
+
+控件样式：
+class="easyui-textbox"
+class="easyui-combobox"
+class="easyui-datebox"
+class="easyui-linkbutton"
+
+
+
+	
+icon 图标：
+a href="#" class="easyui-linkbutton" iconCls="icon-search"
+a href="#" class="easyui-linkbutton" iconCls="icon-add"
+a href="#" class="easyui-linkbutton" iconCls="icon-edit"
+a href="#" class="easyui-linkbutton" iconCls="icon-remove"
+a href="#" class="easyui-linkbutton" iconCls="icon-undo"
+a href="#" class="easyui-linkbutton" iconCls="icon-man"
+
+输入框取值：
+var combovalue = $("#").combobox("getValue");
+var combovalue = $("#").combobox("getValues");
+var value = $("#").textbox('getValue');
+var value = $("#").textbox('getText');
+var value = $('#').datebox('getValue');
+var value = $('#').datetimebox('getValue');
+var value = $("input[name='radio_name'][checked]").val(); 
+var value = $('input[@name=items][@checked]').val();
+
+输入框设置值：
+$('#').combobox('setValue', value);	
+$('#').textbox('setValue', value); 
+$('#').datebox('setValue', '6/1/2012');	
+$('#').datetimebox('setValue', '6/1/2012 12:30:56');
+
+
+datagrid选中行：
+var row = $('#dg').datagrid('getSelected');
+var rows = $('#dg').datagrid('getSelections')
+
+
+
+
+下拉框初始化：
+json = '[{"id":"0","text":"查看已上架","selected":true},{"id":"1","text":"查看已下架"}]';
+data = $.parseJSON(json);
+$('#activityStatus').combobox({
+	valueField:'id',   
+	textField:'text',
+	data:data,
+	onChange: function(){
+		initGrid();
+	}
+});
+
+
+
+
+模拟样式下拉框：
+.easyuiLike_select{
+    border: 1px solid #e2e2e2;
+    border-radius: 5px;
+    height: 23px;
+	width: 120px;
+}
+class="easyuiLike_select"
+
+
+
+
+对话框：
+$('#dd').dialog('open');
+$('#dd').dialog('close');
+
+
+
+解析：
+$.parseJSON("")里面要的是json字符串。
+
+
+
+data-options="required:true" 
+onchange="gostatus()
+name="goodsStatus"
+
+
+下拉框动作监听：
+$('#idname').combobox({
+	onChange: function(){
+		alert(1);
+	}
+});
+
+
+设置每页默认行数：
+pagination:true,
+pageSize:30,
+pageList:[10,30,50,100,150,200],
+
+
+字段格式化：
+formatter: toFix,
+function toFix(value, row, index){
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<input type="radio" name="headExclusive" value="0" id="radio0">
+	<label for="radio0">否</label>
+</input>
+<input type="radio" name="headExclusive" value="1" id="radio1">
+	<label for="radio1">是</label>
+</input>
+
+
+var combovalue = $("#cc").combobox("getValue");
+$("#MyId").combobox("select", "1");
+
+
+
+
+<select id="cc" class="easyui-combobox" data-options="panelHeight:100" style="width:120px;">   
+	 <option value="-1">按流通状态显示</option>
+	 <option value="0">显示滞留商品</option>   
+	 <option value="1">显示流通商品</option>       
+</select> 
+<select id="MyId" 
+        data-options="editable:false,
+                      valueField:'id', <%--id、name与js里面的对应--%>
+                      textField:'text'"
+        name="Myname"  
+        class="easyui-combobox" 
+        style="width:220px" 
+        onchange="viewShowflag()" >
+
+        <option value='0'>否</option>
+        <option value='1'>是</option>
+</select>
+
+$("#MyId").combobox('clear');
+
+
+
+json = '[{"id":"0","text":"否","selected":true},{"id":"1","text":"是"}]';
+data = $.parseJSON(json);
+$("#MyId").combobox({ 
+	//url:'combobox_data.json',   
+	valueField:'id',   
+	textField:'text',
+	data:data
+});
+$('#MyId').combobox('disable');
+
+
+
+
+
+<option value='99' selected="selected">全部</option>
+
+
+
+var option=$("#status option:selected");
+status=option.val();
+
+
+dataType:"json",
+
+
+
+
+
+html5：
+
+placeholder="输入活动名称"
+
+
+
+EasyUI combobox动态添加option
+samjustin	2015-07-04 原文
+<input class="easyui-combobox" id="rwlb" name="rwlb" style="width:435px" data-options="valueField:'id', textField:'text', panelHeight:'auto'" >  
+
+方法一：
+
+var data, json;
+json = '[{"id":"年计划","text":"年计划","selected":true}]';
+data = $.parseJSON(json);
+$("#rwlb").combobox("loadData", data);
+
+方法二：
+
+var data,json;
+data = [];
+data.push({  });
+$("#rwlb").combobox("loadData", data);
+
+
+
+easyui-combobox 动态加载本地数据 
+
+<input id="year" class="easyui-combobox" name="year"
+style="width: 100px;" data-options="valueField:'id',textField:'text'" />
+
+//以年份为例
+
+$(function() {
+	var date = new Date();
+	var year = date.getFullYear();
+	var yearArr = [];
+	var newY = "{'text':'" + year + "','id':'" + year
+	+ "','selected':true}";//拼接json格式字符串
+	var seletedYear = eval("(" + newY + ")");//将字符串转化成json对象
+	yearArr.push(seletedYear);
+	for ( var i = year - 1; i >= 1991; i--) {
+		var option = "{'text':'" + i + "','id':'" + i + "'}";
+		var y = eval("(" + option + ")");
+		yearArr.push(y);
+	}
+$("#year").combobox("loadData", yearArr);//使用loadData方法加载本地数组
+});
+
+PS: 方法名:loadData 参数：data 描述：读取本地列表数据。
+data 可以是本地json文件也可以是本地json对象数组
+
+
+
+
+闭包
+function fun(){
+	var a=1;
+	return function(){ 
+		return a;   
+	}
+}
+var result=fun()();
+
+
+
+
+easyui-combobox 动态添加选项
+2016年08月21日 17:29:38
+阅读数：9644
+前言
+       小编今天没事看看笔记，突然看到了一个项目中很常用的知识点——动态给easyui-combobox添加option，现在分享出来给大家！
+
+实例
+        本项目使用的是easyui-combobox，下拉框中的内容是动态的从数据库中查出来的,然后要在下拉内容中添加一个全部。
+
+html
+<span style="font-size:18px;"><input id="RewardObject" class="easyui-combobox" name="RewardObject" 
+     data-options="onSelect:function(){ SelectRewardByRewardName();},valueField:'id', textField:'text',editable:false,onBeforeLoad:function(){LoadRewardObject();}"/></font> </span>
+
+
+js
+<span style="font-size:18px;">function LoadRewardObject() { 
+        var str = window.location.search;
+       if (str != "") {
+        var ActivityID1 = str.valueOf(ActivityID);
+        var ActivityID2 = new Array();
+        ActivityID2 = ActivityID1.split("=");
+        var ActivityID = ActivityID2[1];
+        if(ActivityID !="")
+        {
+        $.ajax({
+ 
+            url: "/RewardOjbectGive/LoadRewardObject",
+            data:{"ActivityID":ActivityID},
+            type: 'post',
+            success: function (data) {
+                var themecombo2 = [{ 'text': '全部', 'id': ''}];
+                for (var i = 0; i < data.length; i++) {
+                    themecombo2.push({ "text": data[i].RewardName, "id": data[i].RewardID });
+                }
+                $("#RewardObject").combobox("loadData", themecombo2);
+            }
+        });
+        }
+        else
+        {
+          return null;
+        }
+        }
+    }</span>
+
+controller
+<span style="font-size:18px;">   public JsonResult LoadRewardObject()
+        {
+            var ActivityID = Request["ActivityID"].ToString();
+            List<ta_reward_info> list = RewardBL.LoadRewardObject(ActivityID);
+            var temptype = from c in list
+                           select new
+                           {
+                               id = c.RewardID,
+                               text = c.RewardName
+                           };
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }</span>
+   
+        曾经想过在在controller中直接将要添加的选项添加到list里面，然后返回到页面上。但是list是一个实体类型的，要添加的是string类型的，所以只能在js里面添加了。而且想想，这次是要添加string类型的，下次呢……所以看问题要长远考虑！
+
+Ps
+     如果是select标签的下拉框，就使用以下方法:
+
+<span style="font-size:18px;">function addOption(){
+     $("#下拉框的id").append( "<option value=\"1\">选项一</option>" );
+}
+</span>
+
+
+
+
+
+easyui combobox 动态加载的两种方法
+
+
+loadData 方法
+
+javascript 
+
+$(function(){
+    $('#contact_city').combobox({    
+              valueField:'id',
+              textField:'text',
+              editable:false  //是否可编辑
+         });
+ })
+
+$(document).ready(function () {
+        $("#contact_province").combobox({
+            onChange: function (newVal,oldVal) {
+                
+                var contact_province=newVal;
+                $.ajax({
+                    type: "POST",
+                    url: "Ajax-index.php?module=<{$module_name}>&action=Ajax_Contact_Province_Change",
+                    dataType: "json",
+                    data: {"contact_province":contact_province },
+                    beforeSend: function(){
+                        //$('<div id="msg" />').addClass("loading").html("加载中...").css("color","#999").appendTo('.sub1');
+                    },
+                    success: function(json){
+                        if(json.success==1){
+                            //alert(json.msg);
+                            var data = $.parseJSON(json.msg); 
+                            $("#contact_city").combobox("loadData", data);
+                            $("#contact_city ").combobox('select',data[0].text);//默认选中第一项
+                        }else{
+                            $.messager.alert('消息','数据加载失败!','error'); 
+                            return false;
+                        }
+                    }
+               });
+            }
+        });
+    });
+
+	
+reload 方法 
+
+javascript代码
+
+    //指定id 和 text  否则始终选择第一个
+    $('#contact_city').combobox({ 
+         valueField:'id',
+        textField:'text'
+    });
+
+    $('#contact_province').combobox({
+         onSelect: function (data) {var url = "Ajax-index.php?module=Contact&action=Ajax_Contact_Province_Change"+"&contact_province=" +data.text;
+                $('#contact_city').combobox('reload', url);
+           }
+    });
+
+	
+
+EasyUI datagrid 控件要求的数据格式为：
+
+	{total:”2”,rows:[{“id”:”1”,”name”:”张三”},{“id”:”2”,”name”:”李四”}]}
+		
+	json 数据格式：
+		[{    
+			"id": 1,    
+			"text": "Node 1",    
+			"state": "closed"
+		},{    
+			"id": 2,    
+			"text": "Node 2",    
+			"state": "closed"   
+		}] 
+		
+	datagrid 比 json 多了一个总行数的信息。
+
+
+
+
+
+
+
+
+

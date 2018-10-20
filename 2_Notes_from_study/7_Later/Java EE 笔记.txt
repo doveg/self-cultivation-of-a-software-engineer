@@ -1,0 +1,104 @@
+
+Java EE
+
+
+Java EE 核心
+
+	是什么：
+		
+	为什么使用：
+		
+	基本原理：
+		
+	怎么使用：
+
+RMI
+	Remote Method Invocation：远程方法调用。
+	能够让在某个java虚拟机上的对象像调用本地对象一样调用另一个java 虚拟机中的对象上的方法。
+	
+	
+	RMI远程调用步骤：
+		1，客户对象调用客户端辅助对象上的方法
+		2，客户端辅助对象打包调用信息（变量，方法名），通过网络发送给服务端辅助对象
+		3，服务端辅助对象将客户端辅助对象发送来的信息解包，找出真正被调用的方法以及该方法所在对象
+		4，调用真正服务对象上的真正方法，并将结果返回给服务端辅助对象
+		5，服务端辅助对象将结果打包，发送给客户端辅助对象
+		6，客户端辅助对象将返回值解包，返回给客户对象
+		7，客户对象获得返回值
+		对于客户对象来说，步骤2-6是完全透明的
+	
+	java RMI的缺点：
+		1，从代码中也可以看到，代码依赖于ip与端口
+		2，RMI依赖于Java远程消息交换协议JRMP（Java Remote Messaging Protocol），该协议为java定制，要求服务端与客户端都为java编写
+
+
+JMS
+	JAVA Message Service：java消息服务。
+	API是一个消息服务的标准或者说是规范。
+	P2P模式
+		消息队列（Queue）
+		发送者(Sender)
+		接收者(Receiver)
+	Pub/Sub模式
+		主题（Topic）
+		发布者（Publisher）
+		订阅者（Subscriber） 
+		客户端将消息发送到主题。多个发布者将消息发送到Topic,系统将这些消息传递给多个订阅者。
+	
+	模型
+
+		(1) ConnectionFactory
+
+		创建Connection对象的工厂，针对两种不同的jms消息模型，分别有QueueConnectionFactory和TopicConnectionFactory两种。可以通过JNDI来查找ConnectionFactory对象。
+
+		(2) Destination
+
+		Destination的意思是消息生产者的消息发送目标或者说消息消费者的消息来源。对于消息生产者来说，它的Destination是某个队列（Queue）或某个主题（Topic）;对于消息消费者来说，它的Destination也是某个队列或主题（即消息来源）。
+
+		所以，Destination实际上就是两种类型的对象：Queue、Topic可以通过JNDI来查找Destination。
+
+		(3) Connection
+
+		Connection表示在客户端和JMS系统之间建立的链接（对TCP/IP socket的包装）。Connection可以产生一个或多个Session。跟ConnectionFactory一样，Connection也有两种类型：QueueConnection和TopicConnection。
+
+		(4) Session
+
+		Session是我们操作消息的接口。可以通过session创建生产者、消费者、消息等。Session提供了事务的功能。当我们需要使用session发送/接收多个消息时，可以将这些发送/接收动作放到一个事务中。同样，也分QueueSession和TopicSession。
+
+		(5) 消息的生产者
+
+		消息生产者由Session创建，并用于将消息发送到Destination。同样，消息生产者分两种类型：QueueSender和TopicPublisher。可以调用消息生产者的方法（send或publish方法）发送消息。
+
+		(6) 消息消费者
+
+		消息消费者由Session创建，用于接收被发送到Destination的消息。两种类型：QueueReceiver和TopicSubscriber。可分别通过session的createReceiver(Queue)或createSubscriber(Topic)来创建。当然，也可以session的creatDurableSubscriber方法来创建持久化的订阅者。
+
+		(7) MessageListener
+
+		消息监听器。如果注册了消息监听器，一旦消息到达，将自动调用监听器的onMessage方法。EJB中的MDB（Message-Driven Bean）就是一种MessageListener。
+	
+	消息系统的好处
+		消息灵活
+		松散耦合
+		异步性
+	
+	
+RPC
+	Remote Procedure Call：远程过程调用。
+	RPC主要是基于TCP/IP协议。
+	RPC架构里面包含了四个核心的组件:Client ,Server,Client Stub以及Server Stub。
+		客户端（Client），服务的调用方。
+		服务端（Server），真正的服务提供者。
+		客户端存根，存放服务端的地址消息，再将客户端的请求参数打包成网络消息，然后通过网络远程发送给服务方。
+		服务端存根，接收客户端发送过来的消息，将消息解包，并调用本地的方法。
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

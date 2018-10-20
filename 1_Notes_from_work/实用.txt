@@ -1,0 +1,89 @@
+
+
+
+
+
+
+
+
+
+list 判空：
+	list == null || list.size() == 0
+
+
+包装类 转 字符串：
+	String.valueOf();
+
+对象 转 String：
+	object.toString();
+
+String 转 Integer：
+	Integer.valueOf();
+	
+String 类型转换之前，一定要对String进行非空判断，否则很可能报空指针异常。
+
+
+UUID：
+	056085ce-8e46-492a-bcec-9a4d3690ce83
+	总共56，4个-，8-4-4-4-12
+	8位：
+		String id = UUID.randomUUID().toString();
+        String[] idd=id.toString().split("-");
+        String sn = idd[0];
+	
+	
+	
+Math.Random()：
+	0.5778562302429017
+	小数点16位；
+	返回带正号的double值，该值大于等于0.0且小于1.0，即取值范围是[0.0,1.0)的左闭右开区间；
+	返回值是一个伪随机选择的数，在该范围内（近似）均匀分布。
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

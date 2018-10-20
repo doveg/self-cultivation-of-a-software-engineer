@@ -1,0 +1,74 @@
+
+Ajax
+
+
+Ajax 核心
+	是什么：
+		客户端和服务器异步交互数据的技术；能够实现局部页面刷新；
+	为什么使用：
+		减少页面的整个刷新，减轻服务器压力，提供更好的体验。
+		可以同时发送多次请求，不用等待服务器的同步响应。
+	基本原理：
+		工作流程：
+			原始请求发送给 AJAX 异步对象中；
+			AJAX 包装之后发送给服务器；
+			服务器处理请求后返回数据到 AJAX；
+			AJAX 将结果动态加载到页面。
+		异步对象调用过程中的五种状态：
+			创建 AJAX 对象；
+			AJAX 调用 open 方法；
+			AJAX 调用 send 方法；
+			AJAX 请求到达服务器，服务器进行响应；
+			AJAX 收到响应信息。
+	怎么使用：
+		原生 AJAX 的开发步骤：
+			创建 AJAX；
+			准备发送请求；
+			请求到达服务器；
+			AJAX 监听服务器状态；
+			AJAX 获取响应数据；
+			AJAX 动态加载数据到页面。
+
+
+Ajax
+	AsynchronousJavascriptAndXML
+		XMLHttpRequest：
+			事件：
+				OnReadyStateChange；
+			方法：
+				method：
+				url：
+				opend(method, url)：
+				send(content)：
+					如果是 POST：content 为非 null，格式为 key=value&key=value；
+						还要设置请求头：
+							setRequestHeader("content-type","application/x-www-form-urlencoded")
+			属性：
+				readyState：
+				status：
+				responseText：
+				responceXML：
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

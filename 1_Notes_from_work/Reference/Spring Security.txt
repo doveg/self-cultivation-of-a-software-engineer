@@ -1,0 +1,1020 @@
+
+Spring Security
+
+
+	spring security 基本原理：
+
+		使用众多的拦截器对url拦截，以此来管理权限。
+
+			AuthenticationProcessingFilter 登陆验证拦截器
+				AuthenticationManager 实现组件
+					AuthenticationProvider 进行认证 提供登录验证处理逻辑
+					ProviderManager 获取用户验证信息
+						SecurityContextHolder 全局缓存
+						
+			AbstractSecurityInterceptor 资源管理拦截器
+				FilterInvocationSecurityMetadataSource 获取被拦截url所需的全部权限
+					accessDecisionManager 授权管理器组件
+						SecurityContextHolder 获取用户的权限信息
+
+			AuthenticationProvider
+			AuthenticationDetailsSource
+			WebAuthenticationDetails
+			SimpleUrlAuthenticationSuccessHandler
+			
+			
+			WebSecurityConfigurerAdapter
+			AccessDeniedHandler
+			AuthenticationException
+			UserDetails
+			
+
+			整个流程：
+				用户登陆，会被AuthenticationProcessingFilter拦截，
+					调用AuthenticationManager的实现，
+					而且AuthenticationManager会调用ProviderManager来获取用户验证信息
+					（不同的Provider调用的服务不同，因为这些信息可以是在数据库上，可以是在LDAP服务器上，可以是xml配置文件上等），
+					如果验证通过后会将用户的权限信息封装一个User放到spring的全局缓存 SecurityContextHolder 中，以备后面访问资源时使用。
+
+				访问资源（即授权管理），访问url时，会通过 AbstractSecurityInterceptor 拦截器拦截，
+					其中会调用 FilterInvocationSecurityMetadataSource 的方法来获取被拦截url所需的全部权限，
+					在调用授权管理器 AccessDecisionManager，
+					这个授权管理器会通过spring的全局缓存 SecurityContextHolder 获取用户的权限信息，还会获取被拦截的url和被拦截url所需的全部权限，
+					然后根据所配的策略（有：一票决定，一票否定，少数服从多数等），如果权限足够，则返回，权限不够则报错并调用权限不足页面。
+
+					
+	spring security使用分类：
+		spring security 总共有四种用法，从简到深为：
+			1、不用数据库，全部数据写在配置文件，这个也是官方文档里面的demo；
+			2、使用数据库，根据spring security默认实现代码设计数据库，也就是说数据库已经固定了，这种方法不灵活，而且那个数据库设计得很简陋，实用性差；
+			3、spring security和Acegi不同，它不能修改默认filter了，但支持插入filter，所以根据这个，我们可以插入自己的filter来灵活使用；
+			4、暴力手段，修改源码，前面说的修改默认filter只是修改配置文件以替换filter而已，这种是直接改了里面的源码，但是这种不符合OO设计原则，而且不实际，不可用。
+
+
+	spring security的简单原理：
+
+		使用众多的拦截器对url拦截，以此来管理权限。但是这么多拦截器，笔者不可能对其一一来讲，主要讲里面核心流程的两个。
+
+		首先，权限管理离不开登陆验证的，所以登陆验证拦截器AuthenticationProcessingFilter要讲；
+		还有就是对访问的资源管理吧，所以资源管理拦截器AbstractSecurityInterceptor要讲；
+		但拦截器里面的实现需要一些组件来实现，所以就有了AuthenticationManager、accessDecisionManager等组件来支撑。
+
+		现在先大概过一遍整个流程，用户登陆，会被AuthenticationProcessingFilter拦截，调用AuthenticationManager的实现，
+		而且AuthenticationManager会调用ProviderManager来获取用户验证信息
+		（不同的Provider调用的服务不同，因为这些信息可以是在数据库上，可以是在LDAP服务器上，可以是xml配置文件上等），
+		如果验证通过后会将用户的权限信息封装一个User放到spring的全局缓存SecurityContextHolder中，以备后面访问资源时使用。
+
+		访问资源（即授权管理），访问url时，会通过AbstractSecurityInterceptor拦截器拦截，
+		其中会调用FilterInvocationSecurityMetadataSource的方法来获取被拦截url所需的全部权限，
+		在调用授权管理器AccessDecisionManager，这个授权管理器会通过spring的全局缓存SecurityContextHolder获取用户的权限信息，还会获取被拦截的url和被拦截url所需的全部权限，
+		然后根据所配的策略（有：一票决定，一票否定，少数服从多数等），如果权限足够，则返回，权限不够则报错并调用权限不足页面。
+
+
+		认证是由 AuthenticationManager 来管理的，但是真正进行认证的是 AuthenticationManager 中定义的 AuthenticationProvider。
+		AuthenticationManager 中可以定义有多个 AuthenticationProvider。
+		当我们使用 authentication-provider 元素来定义一个 AuthenticationProvider 时，
+		如果没有指定对应关联的 AuthenticationProvider 对象，Spring Security 默认会使用 DaoAuthenticationProvider。
+		DaoAuthenticationProvider 在进行认证的时候需要一个 UserDetailsService 来获取用户的信息 UserDetails，其中包括用户名、密码和所拥有的权限等。
+		所以如果我们需要改变认证的方式，我们可以实现自己的 AuthenticationProvider；
+		如果需要改变认证的用户信息来源，我们可以实现 UserDetailsService。
+
+		实现了自己的 AuthenticationProvider 之后，
+		我们可以在配置文件中这样配置来使用我们自己的 AuthenticationProvider。
+
+
+	spring security使用实现（基于spring security3.1.4）：
+
+		javaEE的入口：web.xml：
+			<?xml version="1.0" encoding="UTF-8"?>  
+			<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" 
+				xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+				xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">   
+				 <!--加载Spring XML配置文件 --> 
+				<context-param>  
+					<param-name>contextConfigLocation</param-name>  
+					<param-value> classpath:securityConfig.xml           </param-value>  
+				</context-param>   
+				  <!-- Spring Secutiry3.1的过滤器链配置 --> 
+				<filter>  
+					<filter-name>springSecurityFilterChain</filter-name>  
+					<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>  
+				</filter>  
+				<filter-mapping>  
+					<filter-name>springSecurityFilterChain</filter-name>  
+					<url-pattern>/*</url-pattern>  
+				</filter-mapping>   
+				   <!-- Spring 容器启动监听器 --> 
+				<listener>  
+					<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>  
+				</listener>     
+				  <!--系统欢迎页面 --> 
+				<welcome-file-list>  
+					<welcome-file>index.jsp</welcome-file>  
+				</welcome-file-list>  
+			</web-app>
+
+		spring security的配置文件securityConfig.xml：
+			<?xml version="1.0" encoding="UTF-8"?>  
+			<b:beans xmlns="http://www.springframework.org/schema/security" 
+				xmlns:b="http://www.springframework.org/schema/beans" 
+				xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+				xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd  
+									http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd">  
+			 
+			  <!--登录页面不过滤 -->  
+				<http pattern="/login.jsp" security="none" />  
+				<http access-denied-page="/accessDenied.jsp">  
+					<form-login login-page="/login.jsp" />  
+					<!--访问/admin.jsp资源的用户必须具有ROLE_ADMIN的权限 -->  
+					<!-- <intercept-url pattern="/admin.jsp" access="ROLE_ADMIN" /> -->  
+					<!--访问/**资源的用户必须具有ROLE_USER的权限 -->  
+					<!-- <intercept-url pattern="/**" access="ROLE_USER" /> -->  
+					<session-management>  
+						<concurrency-control max-sessions="1" 
+							error-if-maximum-exceeded="false" />  
+					</session-management>  
+					<!--增加一个filter，这点与 Acegi是不一样的，不能修改默认的filter了， 这个filter位于FILTER_SECURITY_INTERCEPTOR之前 -->  
+					<custom-filter ref="myFilter" before="FILTER_SECURITY_INTERCEPTOR" />  
+				</http>  
+				<!--一个自定义的filter，必须包含 authenticationManager,accessDecisionManager,securityMetadataSource三个属性，   
+					我们的所有控制将在这三个类中实现，解释详见具体配置 -->  
+				<b:bean id="myFilter" 
+					class="com.erdangjiade.spring.security.MyFilterSecurityInterceptor">  
+					<b:property name="authenticationManager" ref="authenticationManager" />  
+					<b:property name="accessDecisionManager" ref="myAccessDecisionManagerBean" />  
+					<b:property name="securityMetadataSource" ref="securityMetadataSource" />  
+				</b:bean>  
+				<!--验证配置，认证管理器，实现用户认证的入口，主要实现UserDetailsService接口即可 -->  
+				<authentication-manager alias="authenticationManager">  
+					<authentication-provider user-service-ref="myUserDetailService">  
+						<!--如果用户的密码采用加密的话 <password-encoder hash="md5" /> -->  
+					</authentication-provider>  
+				</authentication-manager>  
+				<!--在这个类中，你就可以从数据库中读入用户的密码，角色信息，是否锁定，账号是否过期等 -->  
+				<b:bean id="myUserDetailService" class="com.erdangjiade.spring.security.MyUserDetailService" />  
+				<!--访问决策器，决定某个用户具有的角色，是否有足够的权限去访问某个资源 -->  
+				<b:bean id="myAccessDecisionManagerBean" 
+					class="com.erdangjiade.spring.security.MyAccessDecisionManager">  
+				</b:bean>  
+				<!--资源源数据定义，将所有的资源和权限对应关系建立起来，即定义某一资源可以被哪些角色访问 -->  
+				<b:bean id="securityMetadataSource" 
+					class="com.erdangjiade.spring.security.MyInvocationSecurityMetadataSource" />   
+			 
+			 </b:beans>
+
+		其实所有配置都在<http></http>里面，首先这个版本的spring security不支持了filter=none的配置了，改成了独立的<http pattern=”/login.jsp” security=”none”/>，里面你可以配登陆页面、权限不足的返回页面、注销页面等，上面那些配置，我注销了一些资源和权限的对应关系，笔者这里不需要在这配死它，可以自己写拦截器来获得资源与权限的对应关系。
+
+			session-management是用来防止多个用户同时登陆一个账号的。
+
+			最重要的是笔者自己写的拦截器myFilter（终于讲到重点了），首先这个拦截器会加载在FILTER_SECURITY_INTERCEPTOR之前（配置文件上有说），最主要的是这个拦截器里面配了三个处理类，第一个是authenticationManager，这个是处理验证的，这里需要特别说明的是：这个类不单只这个拦截器用到，还有验证拦截器AuthenticationProcessingFilter也用到 了，而且实际上的登陆验证也是AuthenticationProcessingFilter拦截器调用authenticationManager来处理的，我们这个拦截器只是为了拿到验证用户信息而已（这里不太清楚，因为authenticationManager笔者设了断点，用户登陆后再也没调用这个类了，而且调用这个类时不是笔者自己写的那个拦截器调用的，看了spring技术内幕这本书才知道是AuthenticationProcessingFilter拦截器调用的）。
+
+			securityMetadataSource这个用来加载资源与权限的全部对应关系的，并提供一个通过资源获取所有权限的方法。
+
+			accessDecisionManager这个也称为授权器，通过登录用户的权限信息、资源、获取资源所需的权限来根据不同的授权策略来判断用户是否有权限访问资源。
+
+			authenticationManager类可以有许多provider（提供者）提供用户验证信息，这里笔者自己写了一个类myUserDetailService来获取用户信息。
+
+		MyUserDetailService：
+			
+			package com.erdangjiade.spring.security;  
+			 
+			import java.util.ArrayList;  
+			import java.util.Collection;  
+			 
+			import org.springframework.dao.DataAccessException;  
+			import org.springframework.security.core.GrantedAuthority;  
+			import org.springframework.security.core.authority.GrantedAuthorityImpl;  
+			import org.springframework.security.core.userdetails.User;  
+			import org.springframework.security.core.userdetails.UserDetails;  
+			import org.springframework.security.core.userdetails.UserDetailsService;  
+			import org.springframework.security.core.userdetails.UsernameNotFoundException;  
+			 
+			public class MyUserDetailService implements UserDetailsService {   
+			 
+				//登陆验证时，通过username获取用户的所有权限信息，  
+				//并返回User放到spring的全局缓存SecurityContextHolder中，以供授权器使用  
+				public UserDetails loadUserByUsername(String username)   
+						throws UsernameNotFoundException, DataAccessException {     
+					Collection<GrantedAuthority> auths=new ArrayList<GrantedAuthority>();   
+			 
+					GrantedAuthorityImpl auth2=new GrantedAuthorityImpl("ROLE_ADMIN");   
+					GrantedAuthorityImpl auth1=new GrantedAuthorityImpl("ROLE_USER");   
+			 
+					if(username.equals("lcy")){   
+						auths=new ArrayList<GrantedAuthority>();   
+						auths.add(auth1);  
+						auths.add(auth2);        
+					}       
+			 
+					User user = new User(username, "lcy", true, true, true, true, auths);   
+					return user;    
+					}   
+				}
+
+		其中UserDetailsService接口是spring提供的，必须实现的。别看这个类只有一个方法，而且这么简单，其中内涵玄机。
+
+		读者看到这里可能就大感疑惑了，不是说好的用数据库吗？对，但别急，等笔者慢慢给你们解析。
+
+		首先，笔者为什么不用数据库，还不是为了读者们测试方便，并简化spring security的流程，让读者抓住主线，而不是还要烦其他事（导入数据库，配置数据库，写dao等）。
+
+		这里笔者只是用几个数据模拟了从数据库中拿到的数据，也就是说ROLE_ADMIN、ROLE_USER、lcy(第一个是登陆账号)、lcy(第二个是密码)是从数据库拿出来的，这个不难实现吧，如果需要数据库时，读者可以用自己写的dao通过参数username来查询出这个用户的权限信息（或是角色信息，就是那个ROLE_*，对必须是ROLE_开头的，不然spring security不认账的，其实是spring security里面做了一个判断，必须要ROLE_开头，读者可以百度改一下），再返回spring自带的数据模型User即可。
+
+		这个写应该比较清晰、灵活吧，总之数据读者们通过什么方法获取都行，只要返回一个User对象就行了。（这也是笔者为什么要重写这个类的原因）
+			通过MyUserDetailService拿到用户信息后，authenticationManager对比用户的密码（即验证用户），然后这个AuthenticationProcessingFilter拦截器就过咯。
+
+		下面要说的是另外一个拦截器，就是笔者自己写的拦截器MyFilterSecurityInterceptor：
+			package com.erdangjiade.spring.security;  
+			 
+			import java.io.IOException;  
+			 
+			import javax.servlet.Filter;  
+			import javax.servlet.FilterChain;  
+			import javax.servlet.FilterConfig;  
+			import javax.servlet.ServletException;  
+			import javax.servlet.ServletRequest;  
+			import javax.servlet.ServletResponse;  
+			 
+			import org.springframework.security.access.SecurityMetadataSource;  
+			import org.springframework.security.access.intercept.AbstractSecurityInterceptor;  
+			import org.springframework.security.access.intercept.InterceptorStatusToken;  
+			import org.springframework.security.web.FilterInvocation;  
+			import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;  
+			 
+			public class MyFilterSecurityInterceptor extends AbstractSecurityInterceptor  implements Filter {    
+			 
+				//配置文件注入  
+				private FilterInvocationSecurityMetadataSource securityMetadataSource;  
+			 
+				//登陆后，每次访问资源都通过这个拦截器拦截  
+				public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {   
+					FilterInvocation fi = new FilterInvocation(request, response, chain);   
+					invoke(fi);    
+					}  
+			 
+				public FilterInvocationSecurityMetadataSource getSecurityMetadataSource() {    
+					return this.securityMetadataSource;    
+					}     
+			 
+				public Class<? extends Object> getSecureObjectClass() {   
+					return FilterInvocation.class;      
+					}    
+			 
+				public void invoke(FilterInvocation fi) throws IOException, ServletException {  
+					//fi里面有一个被拦截的url  
+					//里面调用MyInvocationSecurityMetadataSource的getAttributes(Object object)这个方法获取fi对应的所有权限  
+					//再调用MyAccessDecisionManager的decide方法来校验用户的权限是否足够  
+					InterceptorStatusToken token = super.beforeInvocation(fi);  
+					try {  
+						//执行下一个拦截器  
+						fi.getChain().doFilter(fi.getRequest(), fi.getResponse());     
+						} finally {   
+							super.afterInvocation(token, null);    
+						}     
+					}    
+				public SecurityMetadataSource obtainSecurityMetadataSource() {   
+					return this.securityMetadataSource;     
+					}   
+				public void setSecurityMetadataSource(  
+						FilterInvocationSecurityMetadataSource newSource)  
+				{   
+					this.securityMetadataSource = newSource;   
+				}   
+				public void destroy() {    
+			 
+				}     
+				public void init(FilterConfig arg0) throws ServletException {    
+			 
+				}    
+			}
+
+		继承AbstractSecurityInterceptor、实现Filter是必须的。
+
+		首先，登陆后，每次访问资源都会被这个拦截器拦截，会执行doFilter这个方法，这个方法调用了invoke方法，其中fi断点显示是一个url（可能重写了toString方法吧，但是里面还有一些方法的），最重要的是beforeInvocation这个方法，它首先会调用MyInvocationSecurityMetadataSource类的getAttributes方法获取被拦截url所需的权限，在调用MyAccessDecisionManager类decide方法判断用户是否够权限。弄完这一切就会执行下一个拦截器。
+
+		再看一下这个MyInvocationSecurityMetadataSource的实现：
+			package com.erdangjiade.spring.security;  
+			 
+			import java.util.ArrayList;  
+			import java.util.Collection;  
+			import java.util.HashMap;  
+			import java.util.Iterator;  
+			import java.util.Map;  
+			 
+			import org.springframework.security.access.ConfigAttribute;  
+			import org.springframework.security.access.SecurityConfig;  
+			import org.springframework.security.web.FilterInvocation;  
+			import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;  
+			 
+			import com.erdangjiade.spring.security.tool.AntUrlPathMatcher;  
+			import com.erdangjiade.spring.security.tool.UrlMatcher;  
+			 
+			public class MyInvocationSecurityMetadataSource implements FilterInvocationSecurityMetadataSource {   
+				private UrlMatcher urlMatcher = new AntUrlPathMatcher();   
+				private static Map<String, Collection<ConfigAttribute>> resourceMap = null;  
+			 
+				//tomcat启动时实例化一次  
+				public MyInvocationSecurityMetadataSource() {  
+					loadResourceDefine();    
+					}     
+				//tomcat开启时加载一次，加载所有url和权限（或角色）的对应关系  
+				private void loadResourceDefine() {  
+					resourceMap = new HashMap<String, Collection<ConfigAttribute>>();   
+					Collection<ConfigAttribute> atts = new ArrayList<ConfigAttribute>();   
+					ConfigAttribute ca = new SecurityConfig("ROLE_USER");  
+					atts.add(ca);   
+					resourceMap.put("/index.jsp", atts);    
+					Collection<ConfigAttribute> attsno =new ArrayList<ConfigAttribute>();  
+					ConfigAttribute cano = new SecurityConfig("ROLE_NO");  
+					attsno.add(cano);  
+					resourceMap.put("/other.jsp", attsno);     
+					}    
+			 
+				//参数是要访问的url，返回这个url对于的所有权限（或角色）  
+				public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {   
+					// 将参数转为url      
+					String url = ((FilterInvocation)object).getRequestUrl();     
+					Iterator<String>ite = resourceMap.keySet().iterator();   
+					while (ite.hasNext()) {           
+						String resURL = ite.next();    
+						if (urlMatcher.pathMatchesUrl(resURL, url)) {   
+							return resourceMap.get(resURL);           
+							}         
+						}   
+					return null;      
+					}    
+				public boolean supports(Class<?>clazz) {   
+						return true;    
+						}   
+				public Collection<ConfigAttribute> getAllConfigAttributes() {   
+					return null;    
+					}  
+				}
+
+		实现FilterInvocationSecurityMetadataSource接口也是必须的。
+
+		首先，这里也是模拟了从数据库中获取信息。
+
+		其中loadResourceDefine方法不是必须的，这个只是加载所有的资源与权限的对应关系并缓存起来，避免每次获取权限都访问数据库（提高性能），然后getAttributes根据参数（被拦截url）返回权限集合。
+
+		这种缓存的实现其实有一个缺点，因为loadResourceDefine方法是放在构造器上调用的，而这个类的实例化只在web服务器启动时调用一次，那就是说loadResourceDefine方法只会调用一次，如果资源和权限的对应关系在启动后发生了改变，那么缓存起来的就是脏数据，而笔者这里使用的就是缓存数据，那就会授权错误了。但如果资源和权限对应关系是不会改变的，这种方法性能会好很多。
+
+		现在说回有数据库的灵活实现，读者看到这，可能会说，这还不简单，和上面MyUserDetailService类一样使用dao灵活获取数据就行啦。
+
+		如果读者这样想，那只想到了一半，想一下spring的机制（依赖注入），dao需要依赖注入吧，但这是在启动时候，那个dao可能都还没加载，所以这里需要读者自己写sessionFactory，自己写hql或sql，对，就在loadResourceDefine方法里面写（这个应该会写吧，基础来的）。那如果说想用第二种方法呢（就是允许资源和权限的对应关系改变的那个），那更加简单，根本不需要loadResourceDefine方法了，直接在getAttributes方法里面调用dao（这个是加载完，后来才会调用的，所以可以使用dao），通过被拦截url获取数据库中的所有权限，封装成Collection<ConfigAttribute>返回就行了。（灵活、简单）
+
+		注意：接口UrlMatcher和实现类AntUrlPathMatcher是笔者自己写的，这本来是spring以前版本有的，现在没有了，但是觉得好用就用会来了，直接上代码（读者也可以自己写正则表达式验证被拦截url和缓存或数据库的url是否匹配）：
+
+			package com.erdangjiade.spring.security.tool;  
+			 
+			public interface UrlMatcher{  
+				Object compile(String paramString);  
+				boolean pathMatchesUrl(Object paramObject, String paramString);  
+				String getUniversalMatchPattern();   
+				boolean requiresLowerCaseUrl();  
+			}
+
+			package com.erdangjiade.spring.security.tool;   
+			import org.springframework.util.AntPathMatcher;  
+			import org.springframework.util.PathMatcher;   
+			 
+			  public class AntUrlPathMatcher implements UrlMatcher {    
+				  private boolean requiresLowerCaseUrl;  
+				  private PathMatcher pathMatcher;   
+				  public AntUrlPathMatcher()   {   
+					  this(true);   
+			 
+			  }    
+				  public AntUrlPathMatcher(boolean requiresLowerCaseUrl)   
+				  {    
+					  this.requiresLowerCaseUrl = true;  
+				  this.pathMatcher = new AntPathMatcher();   
+				  this.requiresLowerCaseUrl = requiresLowerCaseUrl;  
+				  }   
+			 
+				  public Object compile(String path) {   
+					  if (this.requiresLowerCaseUrl) {   
+						  return path.toLowerCase();    
+						  }     
+					  return path;    
+				  }    
+			 
+				  public void setRequiresLowerCaseUrl(boolean requiresLowerCaseUrl){  
+			 
+					  this.requiresLowerCaseUrl = requiresLowerCaseUrl;   
+				  }   
+			 
+				  public boolean pathMatchesUrl(Object path, String url) {   
+					  if (("/**".equals(path)) || ("**".equals(path))) {  
+						  return true;       
+						  }    
+			 
+					  return this.pathMatcher.match((String)path, url);   
+				  }   
+			 
+				  public String getUniversalMatchPattern() {  
+					  return"/**";    
+				  }  
+			 
+				  public boolean requiresLowerCaseUrl() {   
+					  return this.requiresLowerCaseUrl;    
+				  }    
+			 
+				  public String toString() {    
+					  return super.getClass().getName() + "[requiresLowerCase='"  
+				  + this.requiresLowerCaseUrl + "']";    
+				  }  
+			  }
+
+		然后MyAccessDecisionManager类的实现：
+
+			package com.erdangjiade.spring.security;  
+			 
+			import java.util.Collection;  
+			import java.util.Iterator;  
+			 
+			import org.springframework.security.access.AccessDecisionManager;  
+			import org.springframework.security.access.AccessDeniedException;  
+			import org.springframework.security.access.ConfigAttribute;  
+			import org.springframework.security.access.SecurityConfig;  
+			import org.springframework.security.authentication.InsufficientAuthenticationException;  
+			import org.springframework.security.core.Authentication;  
+			import org.springframework.security.core.GrantedAuthority;  
+			 
+			public class MyAccessDecisionManager implements AccessDecisionManager {  
+			 
+				//检查用户是否够权限访问资源  
+				//参数authentication是从spring的全局缓存SecurityContextHolder中拿到的，里面是用户的权限信息  
+				//参数object是url  
+				//参数configAttributes所需的权限  
+				public void decide(Authentication authentication, Object object,      
+						Collection<ConfigAttribute> configAttributes)   
+								throws AccessDeniedException, InsufficientAuthenticationException {  
+					if(configAttributes == null){   
+						return;         
+					}    
+			 
+					Iterator<ConfigAttribute> ite=configAttributes.iterator();  
+					while(ite.hasNext()){  
+						ConfigAttribute ca=ite.next();    
+						String needRole=((SecurityConfig)ca).getAttribute();  
+						for(GrantedAuthority ga : authentication.getAuthorities()){   
+							if(needRole.equals(ga.getAuthority())){    
+			 
+								return;                
+					}              
+				}        
+			}   
+					//注意：执行这里，后台是会抛异常的，但是界面会跳转到所配的access-denied-page页面  
+					throw new AccessDeniedException("no right");     
+			}     
+				public boolean supports(ConfigAttribute attribute) {   
+					return true;  
+				}    
+				public boolean supports(Class<?>clazz) {  
+					return true;   
+					}   
+				}
+
+		接口AccessDecisionManager也是必须实现的。
+
+		decide方法里面写的就是授权策略了，笔者的实现是，没有明说需要权限的（即没有对应的权限的资源），可以访问，用户具有其中一个或多个以上的权限的可以访问。这个就看需求了，需要什么策略，读者可以自己写其中的策略逻辑。通过就返回，不通过抛异常就行了，spring security会自动跳到权限不足页面（配置文件上配的）。
+
+		就这样，整个流程过了一遍。
+		剩下的页面代码
+
+		本来想给这个demo的源码出来的，但是笔者觉得，通过这个教程一步一步读下来，并自己敲一遍代码，会比直接运行一遍demo印象更深刻，并且更容易理解里面的原理。
+
+		而且我的源码其实都公布出来了：
+
+		login.jsp：
+
+			<%@page language="java" import="java.util.*" pageEncoding="UTF-8"%>  
+			<!DOCTYPEhtmlPUBLIC"-//W3C//DTD HTML 4.01 Transitional//EN">  
+			<html>  
+			<head>  
+			<title>登录</title>  
+			</head>  
+			<body>  
+				<form action ="j_spring_security_check" method="POST">  
+				<table>  
+					<tr>  
+						<td>用户:</td>  
+						<td><input type ='text' name='j_username'></td>  
+					</tr>  
+					<tr>  
+						<td>密码:</td>  
+						<td><input type ='password' name='j_password'></td>  
+					</tr>  
+					<tr>  
+						<td><input name ="reset" type="reset"></td>  
+						<td><input name ="submit" type="submit"></td>  
+					</tr>  
+				</table>  
+				</form>  
+			</body>  
+			</html>
+
+		index.jsp：
+
+			<%@page language="java" import="java.util.*" pageEncoding="UTF-8"%>   
+			<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>   
+			<!DOCTYPEHTMLPUBLIC"-//W3C//DTD HTML 4.01 Transitional//EN">  
+			 
+			<html>  
+			 
+			<head>  
+			 
+			<title>My JSP 'index.jsp' starting page</title>   
+			</head>  
+			 
+			<body>  
+				  <h3>这是首页</h3>欢迎  
+				<sec:authentication property ="name"/> !  
+			 
+					
+				<a href="admin.jsp">进入admin页面</a>   
+				<a href="other.jsp">进入其它页面</a>   
+			</body>  
+			 
+		</html>
+
+		admin.jsp：
+
+			<%@page language="java" import="java.util.*" pageEncoding="utf-8"%>  
+			<!DOCTYPEHTMLPUBLIC"-//W3C//DTD HTML 4.01 Transitional//EN">  
+			<html>  
+			<head>  
+			<title>My JSP 'admin.jsp' starting page</title>  
+			</head>  
+			<body>  
+				欢迎来到管理员页面.  
+				   
+			</body>  
+			</html>
+
+		accessDenied.jsp：
+
+			<%@page language="java" import="java.util.*" pageEncoding="utf-8"%>  
+			<!DOCTYPEHTMLPUBLIC"-//W3C//DTD HTML 4.01 Transitional//EN">  
+			<html>  
+			<head>  
+			<title>My JSP 'admin.jsp' starting page</title>  
+			</head>  
+			<body>  
+				欢迎来到管理员页面.  
+				   
+			</body>  
+			</html>
+
+		other.jsp：
+			
+			<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>  
+			<%  
+			String path = request.getContextPath();  
+			String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";  
+			%>  
+			 
+			<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">  
+			<html>  
+			  <head>  
+				<base href="<%=basePath%>">  
+			 
+				<title>My JSP 'other.jsp' starting page</title>  
+			 
+				<meta http-equiv="pragma" content="no-cache">  
+				<meta http-equiv="cache-control" content="no-cache">  
+				<meta http-equiv="expires" content="0">      
+				<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">  
+				<meta http-equiv="description" content="This is my page">  
+				<!-- 
+				<link rel="stylesheet" type="text/css" href="styles.css"> 
+				--> 
+			 
+			  </head>  
+			 
+			  <body>  
+				<h3>这里是Other页面</h3>  
+			  </body>  
+			</html>
+
+
+	最后的话：
+
+	虽然笔者没给读者们demo，但是所有源码和jar包都在这个教程里面，为什么不直接给？笔者的目的是让读者跟着教程敲一遍代码，使印象深刻（相信做这行的都知道，同样一段代码，看过和敲过的区别是多么的大），所以不惜如此来强迫大家了。
+
+	由于笔者有经常上csdn博客的习惯，所以读者有什么不懂的（或者指教的），笔者尽力解答。
+
+
+	补充：（2014年11月21日第一次补充）：
+
+	第一点：
+
+	MyUserDetailService这个类负责的是只是获取登陆用户的详细信息（包括密码、角色等），不负责和前端传过来的密码对比，只需返回User对象，后会有其他类根据User对象对比密码的正确性（框架帮我们做）。
+
+	第二点：
+
+	记得MyInvocationSecurityMetadataSource这个类是负责的是获取角色与url资源的所有对应关系，并根据url查询对应的所有角色。
+
+	今天为一个项目搭安全架构时，第一，发现上面MyInvocationSecurityMetadataSource这个类的代码有个bug：
+
+	上面的代码中，将所有的对应关系缓存到resourceMap，key是url，value是这个url对应所有角色。
+
+	getAttributes方法中，只要匹配到一个url就返回这个url对应所有角色，不再匹配后面的url，问题来了，当url有交集时，就有可能漏掉一些角色了：如有两个 url ，第一个是 /** ，第二个是 /role1/index.jsp ，第一个当然需要很高的权限了（因为能匹配所有 url ，即可以访问所有 url ），假设它需要的角色是 ROLE_ADMIN （不是一般人拥有的），第二个所需的角色是 ROLE_1 。    当我用 ROLE_1 这个角色访问 /role1/index.jsp 时，在getAttributes方法中，当先迭代了 /** 这个url，它就能匹配 /role1/index.jsp 这个url，并直接返回 /** 这个url对应的所有角色（在这，也就ROLE_ADMIN）给MyAccessDecisionManager这个投票类，  MyAccessDecisionManager这个类中再对比 用户的角色 ROLE_1 ，就会发现不匹配。    最后，明明可以有权访问的 url ，却不能访问了。
+
+	第二，之前不是说缓存所有对应关系，需要读者自己写sessionFactory（因为在实例化这个类时，配置的sessionFactory可能还没实例化或dao还没加载好），既然这样，那笔者可以不在构造方法中加载对应关系，可以在第一次调用getAttributes方法时再加载（用静态变量缓存起来，第二次就不用再加载了，     注：其实这样不是很严谨，不过笔者这里的对应关系是不变的，单例性不需很强，更严谨的请参考笔者另一篇博文设计模式之单件模式）。
+
+	修改过的MyInvocationSecurityMetadataSource类：
+		package com.lcy.bookcrossing.springSecurity;  
+		 
+		import java.util.ArrayList;  
+		import java.util.Collection;  
+		import java.util.HashMap;  
+		import java.util.HashSet;  
+		import java.util.Iterator;  
+		import java.util.List;  
+		import java.util.Map;  
+		import java.util.Set;  
+		 
+		import javax.annotation.Resource;  
+		 
+		import org.springframework.security.access.ConfigAttribute;  
+		import org.springframework.security.access.SecurityConfig;  
+		import org.springframework.security.web.FilterInvocation;  
+		import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;  
+		 
+		import com.lcy.bookcrossing.bean.RoleUrlResource;  
+		import com.lcy.bookcrossing.dao.IRoleUrlResourceDao;  
+		import com.lcy.bookcrossing.springSecurity.tool.AntUrlPathMatcher;  
+		import com.lcy.bookcrossing.springSecurity.tool.UrlMatcher;  
+		 
+		public class MyInvocationSecurityMetadataSource implements FilterInvocationSecurityMetadataSource {   
+			private UrlMatcher urlMatcher = new AntUrlPathMatcher();   
+		//  private static Map<String, Collection<ConfigAttribute>> resourceMap = null;  
+		 
+			//将所有的角色和url的对应关系缓存起来  
+			private static List<RoleUrlResource> rus = null;  
+		 
+			@Resource 
+			private IRoleUrlResourceDao roleUrlDao;  
+		 
+			//tomcat启动时实例化一次  
+			public MyInvocationSecurityMetadataSource() {  
+		//      loadResourceDefine();    
+				}     
+			//tomcat开启时加载一次，加载所有url和权限（或角色）的对应关系  
+			/*private void loadResourceDefine() { 
+				resourceMap = new HashMap<String, Collection<ConfigAttribute>>();  
+				Collection<ConfigAttribute> atts = new ArrayList<ConfigAttribute>();  
+				ConfigAttribute ca = new SecurityConfig("ROLE_USER"); 
+				atts.add(ca);  
+				resourceMap.put("/index.jsp", atts);   
+				Collection<ConfigAttribute> attsno =new ArrayList<ConfigAttribute>(); 
+				ConfigAttribute cano = new SecurityConfig("ROLE_NO"); 
+				attsno.add(cano); 
+				resourceMap.put("/other.jsp", attsno);    
+				}  */  
+		 
+			//参数是要访问的url，返回这个url对于的所有权限（或角色）  
+			public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {   
+				// 将参数转为url      
+				String url = ((FilterInvocation)object).getRequestUrl();     
+		 
+				//查询所有的url和角色的对应关系  
+				if(rus == null){  
+				rus = roleUrlDao.findAll();  
+				}  
+		 
+				//匹配所有的url，并对角色去重  
+				Set<String> roles = new HashSet<String>();  
+				for(RoleUrlResource ru : rus){  
+					if (urlMatcher.pathMatchesUrl(ru.getUrlResource().getUrl(), url)) {   
+								roles.add(ru.getRole().getRoleName());  
+						}       
+				}  
+				Collection<ConfigAttribute> cas = new ArrayList<ConfigAttribute>();   
+				for(String role : roles){  
+					ConfigAttribute ca = new SecurityConfig(role);  
+					cas.add(ca);   
+				}  
+				return cas;  
+		 
+				/*Iterator<String> ite = resourceMap.keySet().iterator();  
+				while (ite.hasNext()) {          
+					String resURL = ite.next();   
+					if (urlMatcher.pathMatchesUrl(resURL, url)) {  
+						return resourceMap.get(resURL);          
+						}        
+					}  
+				return null;    */ 
+				}    
+			public boolean supports(Class<?>clazz) {   
+					return true;    
+					}   
+			public Collection<ConfigAttribute> getAllConfigAttributes() {   
+				return null;    
+				}  
+			}
+
+	以上代码，在getAttributes方法中缓存起所有的对应关系（可以使用依赖注入了），并匹配所有 url ，对角色进行去重（因为多个url可能有重复的角色），这样就能修复那个bug了。
+
+	转载请标注本文链接：http://blog.csdn.net/u012367513/article/details/38866465
+
+	（2014年12月10日第二次补充）：
+
+	这次补充不是修上面的bug，而是添加新功能。
+
+	我们知道，上面的实现的登陆界面只能传递两个参数（j_username，j_password），而且是固定的。
+
+	总是有一个项目需求，我们的角色（ROLE_）不是很多，只需在登陆界面选择一种角色就行了，那么如何将角色类型传递到spring security呢，现在笔者对配置文件再修改修改：
+
+		<?xml version="1.0" encoding="UTF-8"?>  
+		<b:beans xmlns="http://www.springframework.org/schema/security" 
+			xmlns:b="http://www.springframework.org/schema/beans" 
+			xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+			xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd  
+								http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd">  
+		 
+		 <!-- 配置不需要安全管理的界面 --> 
+			 <http pattern="/jsp/css/**" security="none"></http>  
+			 <http pattern="/jsp/js/**" security="none"></http>  
+			 <http pattern="/jsp/images/**" security="none"></http>  
+			 <http pattern="/login.jsp" security="none" />  
+			 <http pattern="/accessDenied.jsp" security="none" />  
+				 <http pattern="/index.jsp" security="none" />  
+		 
+				<http use-expressions='true' entry-point-ref="myAuthenticationEntryPoint" access-denied-page="/accessDenied.jsp">  
+		 
+						<!-- 使用自己自定义的登陆认证过滤器 --><!-- 这里一定要注释掉，因为我们需要重写它的过滤器 --> 
+						<!-- <form-login login-page="/login.jsp"  
+						authentication-failure-url="/accessDenied.jsp"      
+				default-target-url="/index.jsp"  
+						 /> --> 
+						<!--访问/admin.jsp资源的用户必须具有ROLE_ADMIN的权限 --> 
+						<!-- <intercept-url pattern="/admin.jsp" access="ROLE_ADMIN" /> --> 
+						<!--访问/**资源的用户必须具有ROLE_USER的权限 --> 
+						<!-- <intercept-url pattern="/**" access="ROLE_USER" /> --> 
+						<session-management>  
+								<concurrency-control max-sessions="1" 
+										error-if-maximum-exceeded="false" />  
+						</session-management>  
+		 
+						<!-- 认证和授权 --><!-- 重写登陆认证的过滤器，使我们可以拿到任何参数  --> 
+						<custom-filter ref="myAuthenticationFilter" position="FORM_LOGIN_FILTER"  />  
+						<custom-filter ref="myFilter" before="FILTER_SECURITY_INTERCEPTOR" />  
+		 
+						 <!-- 登出管理 --> 
+				<logout invalidate-session="true" logout-url="/j_spring_security_logout" />  
+		 
+				</http>  
+		 
+				<!-- 未登录的切入点 --><!-- 需要有个切入点 --> 
+			<b:bean id="myAuthenticationEntryPoint" class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">  
+				<b:property name="loginFormUrl" value="/login.jsp"></b:property>  
+			</b:bean>  
+		 
+				<!-- 登录验证器：用户有没有登录的资格 --><!-- 这个就是重写的认证过滤器 --> 
+			<b:bean id="myAuthenticationFilter" class="com.lcy.springSecurity.MyAuthenticationFilter">  
+				<b:property name="authenticationManager" ref="authenticationManager" />  
+				<b:property name="filterProcessesUrl" value="/j_spring_security_check" />  
+				<b:property name="authenticationSuccessHandler">  
+					<b:bean class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler">  
+						<b:property name="defaultTargetUrl" value="/index.jsp" />  
+					</b:bean>  
+				</b:property>  
+				<b:property name="authenticationFailureHandler">  
+					<b:bean class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">  
+						<b:property name="defaultFailureUrl" value="/accessDenied.jsp" />  
+					</b:bean>  
+				</b:property>  
+			</b:bean>  
+		 
+				<!--一个自定义的filter，必须包含 authenticationManager,accessDecisionManager,securityMetadataSource三个属性，我们的所有控制将在这三个类中实现，解释详见具体配置 --> 
+				<b:bean id="myFilter" 
+						class="com.lcy.springSecurity.MyFilterSecurityInterceptor">  
+						<b:property name="authenticationManager" ref="authenticationManager" />  
+						<b:property name="accessDecisionManager" ref="myAccessDecisionManagerBean" />  
+						<b:property name="securityMetadataSource" ref="securityMetadataSource" />  
+				</b:bean>  
+				<!--验证配置，认证管理器，实现用户认证的入口，主要实现UserDetailsService接口即可 --> 
+				<authentication-manager alias="authenticationManager">  
+						<authentication-provider user-service-ref="myUserDetailService">  
+								<!--如果用户的密码采用加密的话 <password-encoder hash="md5" /> --> 
+								<!-- <password-encoder hash="md5" /> --> 
+						</authentication-provider>  
+				</authentication-manager>  
+				<!--在这个类中，你就可以从数据库中读入用户的密码，角色信息，是否锁定，账号是否过期等 --> 
+				<b:bean id="myUserDetailService" class="com.lcy.springSecurity.MyUserDetailService" />  
+				<!--访问决策器，决定某个用户具有的角色，是否有足够的权限去访问某个资源 --> 
+				<b:bean id="myAccessDecisionManagerBean" 
+						class="com.lcy.springSecurity.MyAccessDecisionManager">  
+				</b:bean>  
+				<!--资源源数据定义，将所有的资源和权限对应关系建立起来，即定义某一资源可以被哪些角色访问 --> 
+				<b:bean id="securityMetadataSource" 
+						class="com.lcy.springSecurity.MyInvocationSecurityMetadataSource" />   
+		 
+		 </b:beans>
+
+	我现在的项目需要的是，角色只要管理员、教师、学生，所以MyAuthenticationFilter（重写的认证过滤器）：
+		
+		package com.lcy.springSecurity;  
+		 
+		import javax.annotation.Resource;  
+		import javax.servlet.http.HttpServletRequest;  
+		import javax.servlet.http.HttpServletResponse;  
+		 
+		import org.springframework.security.authentication.AuthenticationServiceException;  
+		import org.springframework.security.authentication.BadCredentialsException;  
+		import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;  
+		import org.springframework.security.core.Authentication;  
+		import org.springframework.security.core.AuthenticationException;  
+		import org.springframework.security.core.context.SecurityContextHolder;  
+		import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;  
+		 
+		import com.lcy.dao.IAdminDao;  
+		import com.lcy.dao.IStudentDao;  
+		import com.lcy.dao.ITeacherDao;  
+		import com.lcy.entity.Admin;  
+		import com.lcy.entity.Student;  
+		import com.lcy.entity.Teacher;  
+		 
+		public class MyAuthenticationFilter extends UsernamePasswordAuthenticationFilter {  
+		 
+				private static final String USERNAME = "username";  
+				private static final String PASSWORD = "password";  
+		 
+				@Resource 
+				private IStudentDao studentdao;  
+				@Resource 
+				private ITeacherDao teacherdao;  
+				@Resource 
+				private IAdminDao admindao;  
+		 
+				@Override 
+				public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {  
+						if (!request.getMethod().equals("POST")) {  
+								throw new AuthenticationServiceException("Authentication method not supported: " + request.getMethod());  
+						}  
+		 
+						String username = obtainUsername(request);  
+						String password = obtainPassword(request);  
+						String roletype = request.getParameter("roletype");  
+		 
+						username = username.trim();  
+		 
+						UsernamePasswordAuthenticationToken authRequest = null;  
+		 
+						if(!"".equals(roletype) || roletype != null){  
+								if("student".equals(roletype)){  
+										Student stu = studentdao.findById(username);  
+		 
+										//通过session把用户对象设置到session中  
+										request.getSession().setAttribute("session_user", stu);  
+		 
+										//将角色标志在username上  
+										username = "stu"+username;  
+		 
+										try {  
+												if (stu == null || !stu.getPassword().equals(password)) {  
+														BadCredentialsException exception = new BadCredentialsException("用户名或密码不匹配");  
+														throw exception;  
+												}  
+										} catch (Exception e) {  
+												BadCredentialsException exception = new BadCredentialsException("没有此用户");  
+												throw exception;  
+										}  
+		 
+								}else if("teacher".equals(roletype)){  
+										Teacher tea = teacherdao.findById(username);  
+		 
+										//通过session把用户对象设置到session中  
+										request.getSession().setAttribute("session_user", tea);  
+		 
+										//将角色标志在username上  
+										username = "tea"+username;  
+		 
+										try {  
+												if (tea == null || !tea.getPassword().equals(password)) {  
+														BadCredentialsException exception = new BadCredentialsException("用户名或密码不匹配");  
+														throw exception;  
+												}  
+										} catch (Exception e) {  
+												BadCredentialsException exception = new BadCredentialsException("没有此用户");  
+												throw exception;  
+										}  
+		 
+								}else if("admin".equals(roletype)){  
+										Admin adm = admindao.findById(username);  
+		 
+										//通过session把用户对象设置到session中  
+										request.getSession().setAttribute("session_user", adm);  
+		 
+										//将角色标志在username上  
+										username = "adm"+username;  
+										try {  
+												if (adm == null || !password.equals(adm.getPassword())) {  
+														BadCredentialsException exception = new BadCredentialsException("用户名或密码不匹配");  
+														throw exception;  
+												}  
+										} catch (Exception e) {  
+												BadCredentialsException exception = new BadCredentialsException("没有此用户");  
+												throw exception;  
+										}  
+		 
+								}else{  
+										BadCredentialsException exception = new BadCredentialsException("系统错误：没有对应的角色！");  
+										throw exception;  
+								}  
+						}  
+		 
+						//实现验证  
+						authRequest = new UsernamePasswordAuthenticationToken(username, password);  
+						//允许设置用户详细属性  
+						setDetails(request, authRequest);  
+						//运行  
+						return this.getAuthenticationManager().authenticate(authRequest);  
+				}  
+		 
+				@Override 
+				protected String obtainUsername(HttpServletRequest request) {  
+						Object obj = request.getParameter(USERNAME);  
+						return null == obj ? "" : obj.toString();  
+				}  
+		 
+				@Override 
+				protected String obtainPassword(HttpServletRequest request) {  
+						Object obj = request.getParameter(PASSWORD);  
+						return null == obj ? "" : obj.toString();  
+				}  
+		 
+				@Override 
+				protected void setDetails(HttpServletRequest request, UsernamePasswordAuthenticationToken authRequest) {  
+						super.setDetails(request, authRequest);  
+				}  
+		}
+
+	笔者自己断点可知，执行完上面那个认证过滤器，才会执行MyUserDetailService。
+
+	注：因为 MyUserDetailService类中的loadUserByUsername(String username) 方法只能接收一个参数username，而且这个username是从认证过滤器那里传过来的，所以笔者就通过username顺带传递角色类型过来，如上面认证过滤器，将角色类型拼在username中。到MyUserDetailService类在解开。（如有更好的方法，请评论告知，谢谢）
+
+	MyUserDetailService：
+		
+		package com.lcy.springSecurity;  
+		 
+		import java.util.ArrayList;  
+		import java.util.Collection;  
+		 
+		import javax.annotation.Resource;  
+		 
+		import org.springframework.dao.DataAccessException;  
+		import org.springframework.security.core.GrantedAuthority;  
+		import org.springframework.security.core.authority.SimpleGrantedAuthority;  
+		import org.springframework.security.core.userdetails.User;  
+		import org.springframework.security.core.userdetails.UserDetails;  
+		import org.springframework.security.core.userdetails.UserDetailsService;  
+		import org.springframework.security.core.userdetails.UsernameNotFoundException;  
+		 
+		import com.lcy.dao.IAdminDao;  
+		import com.lcy.dao.IStudentDao;  
+		import com.lcy.dao.ITeacherDao;  
+		import com.lcy.entity.Admin;  
+		import com.lcy.entity.Student;  
+		import com.lcy.entity.Teacher;  
+		 
+		public class MyUserDetailService implements UserDetailsService {   
+				@Resource 
+				private IStudentDao studentdao;  
+				@Resource 
+				private ITeacherDao teacherdao;  
+				@Resource 
+				private IAdminDao admindao;  
+		 
+				//登陆验证时，通过username获取用户的所有权限信息，  
+				//并返回User放到spring的全局缓存SecurityContextHolder中，以供授权器使用  
+				public UserDetails loadUserByUsername(String username)   
+								throws UsernameNotFoundException, DataAccessException {     
+						Collection<GrantedAuthority> auths= new ArrayList<GrantedAuthority>();  
+						//获取角色标志  
+						String roletype = username.substring(0,3);  
+						username = username.substring(3);  
+						String password = "";  
+		 
+						if("stu".equals(roletype)){  
+								Student stu = studentdao.findById(username);  
+								password = stu.getPassword();  
+								auths.add(new SimpleGrantedAuthority("ROLE_STU"));  
+						}else if("tea".equals(roletype)){  
+								Teacher tea = teacherdao.findById(username);  
+								password = tea.getPassword();  
+								auths.add(new SimpleGrantedAuthority("ROLE_TEA"));  
+						}else if("adm".equals(roletype)){  
+								Admin adm = admindao.findById(username);  
+								password = adm.getPassword();  
+								auths.add(new SimpleGrantedAuthority("ROLE_ADM"));  
+						}  
+		 
+						User user = new User(username, password, true, true, true, true, auths);   
+						return user;    
+						}   
+				}
+
+

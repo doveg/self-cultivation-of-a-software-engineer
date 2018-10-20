@@ -1,0 +1,262 @@
+
+集合
+
+
+集合核心
+
+	是什么：
+		对数据结构的封装；
+	为什么使用：
+		操作方便；
+	基本原理：
+		
+	怎么使用：
+		List：
+			LinkedList
+			ArrayList
+			Stack
+		Set：
+			HashSet
+			TreeSet
+		Map：
+			HashMap
+			TreeMap
+
+集合
+
+	集合框架
+	
+		集合框架：数据结构的实现和封装。
+		
+		常用集合类：
+			1)	Set （集）：不照特定方式进行排序；不允许重复。
+			2)	List （列表）：按照索引位置排序；允许元素重复。
+			3)	Map （映射）：集合中每一个元素都包含一对key和value对象，key不能重复，值可以重复。
+
+		List 接口
+
+			ArrayList 类
+
+			LinkedList 类
+
+			Vector 类
+
+			Stack 类
+
+		Set 接口
+
+			HashSet 类
+
+				equals 方法和 hashCode 方法：
+				HashSet中判断两个对象是否相同（两者缺一不可）：
+					1) 两个对象的equals比较相等，返回true，说明对象相同；
+					2) 两个对象的hashCode方法返回值相等。	
+						对象的hashCode值决定了在哈希表中存储的位置。
+						往HashSet集合中添加新的对象的时候，先会判断该对象和集合对象中的hashCode值。
+						1) 不等：直接把该新的对象存储到hashCode指定的位置；
+						2) 相等：再继续判断新对象和集合对象中的equals做比较：
+							a) hashCode 相同，equals为true：则视为同一个对象，并且不保存在哈希表中。
+							b) hashCode 相同，equals为false：非常麻烦，存储在之前对象同槽位的链表上。
+								（拒绝，操作麻烦）
+						如果两个元素通过 equals 方法比较返回true，但它们的 hashCode 值不等，
+						HashSet 会把两个元素存储在不同的位置。
+
+			TreeSet 类
+
+			LinkedHashSet 类
+
+				Comparable接口(自然排序)
+					comparableTo（Object o）方法
+
+				Comparator接口(定制排序)
+					compare（Object o1, Object o2）方法
+
+
+		Map 接口
+
+			HashMap
+			
+				HashMap 操作：
+					get			
+					put
+					putAll
+					remove
+				EntrySet
+					getKey
+					getValue
+				KeySet
+					get
+
+			LinkedHashMap
+
+			TreeMap
+
+
+		Arrays类
+		
+		Collections类
+			集合帮助类
+
+		foreach 和 Iterator
+			foreach：
+				for（类型 变量：数组名 / Iterator的实例）{ //TODO }；
+				1) foreach 可以操作数组：底层依然采用for循环 + 索引来获取数组元素。
+				2) foreach 可以操作 Iterator 的实例：底层其实采用的 Iterator 迭代器。	
+			Iterator：
+				迭代器对象；可以把集合的元素一个一个遍历出来。
+				需要边迭代集合元素边删除制定的元素时，只能用迭代器；而且只能使用迭代器的remove方法。
+					因为迭代的时候，当前线程A会创建新的线程B，A负责迭代，B负责删除。
+					B每次都会检查和A元素个数是否相同，不同就报错：ConcurrentModificationException。
+					解决并发异常：不要使用集合对象的删除方法；使用Iterator中的remove方法，来保证两个线程的同步。
+
+		泛型类
+			GenericType
+			泛型其实也是语法糖；编译后会被擦除；
+			泛型方法：在方法上声明泛型。
+
+
+	Java提供了数种持有对象的方式，包括语言内置的Array，
+	还有就是utilities中提供的容器类(container classes)，又称群集类(collection classes)。
+
+	集合在java中非常重要，在讨论之前，先来看几个面试中的经典问题。 
+		1. Collection 和 Collections的区别。
+			Collections是个java.util下的类，它包含有各种有关集合操作的静态方法。   
+			Collection是个java.util下的接口，它是各种集合结构的父接口 		
+		2. List, Set, Map是否继承自Collection接口。
+			List，Set是 Map不是。	
+		3. ArrayList和Vector的区别。
+			同步性：Vector是线程安全的，也就是说是同步的，而ArrayList是线程序不安全的，不是同步的 
+			数据增长：当需要增长时,Vector默认增长为原来一培，而ArrayList却是原来的一半   	
+		4. HashMap和Hashtable的区别。
+			历史原因：Hashtable是基于陈旧的Dictionary类的，HashMap是Java 1.2引进的Map接口的一个实现 
+			同步性：Hashtable是线程安全的，也就是说是同步的，而HashMap是线程序不安全的，不是同步的 
+			值：只有HashMap可以让你将空值作为一个表的条目的key或value			
+
+
+	集合Collection接口   
+		Collection 是任何对象组，元素各自独立，通常拥有相同的套用规则。Set List由它派生。
+		基本操作 
+			增加元素add(Object obj); addAll(Collection c);   
+			删除元素 remove(Object obj); removeAll(Collection c); 
+			求交集 retainAll(Collection c);  
+			删除元素 remove(Object obj); removeAll(Collection c); 
+			求交集 retainAll(Collection c);   
+		访问/遍历集合元素的好办法是使用Iterator接口(迭代器用于取代Enumeration) 
+			Public interface Iterator{ 
+				Public Boolean hasNext(}; 
+				Public Object next(}; 
+				Public void remove(}; 
+			}
+	集 set 
+		没有重复项目的集合   
+		有三种特定类型的集可用 
+			HashSet：基于散列表的集，加进散列表的元素要实现hashCode()方法   
+			LinkedHashSet：对集迭代时，按增加顺序返回元素 
+			TreeSet：基于（平衡）树的数据结构     
+	清单 List 
+		位置性集合。加进清单的元素可以加在清单中特定位置或加到末尾   
+		有两个特定版本 
+			ArrayList(数组表)：类似于Vector，都用于缩放数组维护集合。区别：
+				同步性：Vector是线程安全的，也就是说是同步的，而ArrayList是线程序不安全的，不是同步的 
+				数据增长：当需要增长时,Vector默认增长为原来一培，而ArrayList却是原来的一半 
+			LinkedList(链表)：是双向链表，每个节点都有两个指针指向上一节点和下一节点。 
+				用在FIFO，用addList()加入元素 removeFirst()删除元素
+				用在FILO,用addFirst()/removeLast()   
+				ListIterator提供双向遍历next() previous()，可删除、替换、增加元素   
+	映射表 Map
+		用于关键字/数值对，像个Dictionary   
+		处理Map的三种集合：
+			关键字集KeySet()
+			数值集value()
+			项目集enrySet()
+		四个具体版本 
+			HashMap：散列表的通用映射表 
+				LinkedHashMap：扩展HashMap，对返回集合迭代时，维护插入顺序   
+				WeakHashMap：基于弱引用散列表的映射表，
+					如果不保持映射表外的关键字的引用，则内存回收程序会回收它 
+			TreeMap：基于平衡树的映射表   
+
+	Collections类，用于同步集合，还能改变集合只读方式的类 
+		e.g.：
+			Map mp=new HashMap();
+			mp=Collections.synchronizedMap(mp); //生成线程安全的映射表 
+			mp=Collections.unmodifiableMap(mp); //生成只读映射表 
+		Comparable 自然顺序的排序类 Comparator 面向树的集合排序类   
+	
+	容器分类学(Container taxonomy)   
+	集合接口：Collection List Set Map Iterator ListIterator。 
+	抽象类：AbstractCollection AbstractList AbstractSet AbstractMap AbstractSequentiaList。
+	
+	老版本中的集合类型 
+		Vector 类   
+			Vector，就是向量。
+			一种异构的混合体，可以动态增加容量。
+			对它的操作简要如下 ：
+				比如我们有一个Vector：Vector myVec=new Vector(a_Array.length)   
+				取得vector的长度：myVec.size(); 
+				赋值：set(int position,Object obj) / setElementAt(Object obj, int position)：不支持动态增长   
+					add(Object obj )/ addElement(Object obj) 在Vector末尾加入对象   
+					e.g.：myVec.add(new a_Array[0]); 
+				取出元素：get(int position) / getElement(int position) 
+		Stack 类 
+			是 Vector 的子类。
+			就是数据结构里讲滥了的堆栈（这个词可简称栈，不要混淆于heap：堆）。
+			后进先出的存取方式。   
+				Stack()构造空栈 
+				Empty()叛空   
+				Search()检查堆栈是否有元素 
+				Peek()取得栈顶元素 
+				Pop()弹栈 
+				Push()入栈   
+		Enumeration接口   
+		Dictionary类   
+			字典。关键字/数值方式存取数据，如果映射没有此关键字，取回null。 
+		Hashtable类 
+			是Dictionary结构的具体实现。
+
+			
+Collection
+    -----List
+               -----LinkedList    非同步
+                ----ArrayList      非同步，实现了可变大小的元素数组
+                ----Vector          同步
+                         ------Stack
+    -----Set   不允许有相同的元素
+Map
+    -----HashTable        同步，实现一个key--value映射的哈希表
+    -----HashMap          非同步，
+    -----WeakHashMap   改进的HashMap，实现了“弱引用”，如果一个key不被引用，则被GC回收
+
+
+
+
+如果在循环的过程中调用集合的remove()方法，就会导致循环出错，例如：
+for(int i=0;i<list.size();i++){
+    list.remove(...);
+}
+循环过程中list.size()的大小变化了，就导致了错误。
+所以，如果你想在循环语句中删除集合中的某个元素，就要用迭代器iterator的remove()方法，
+因为它的remove()方法不仅会删除元素，还会维护一个标志，用来记录目前是不是可删除状态，
+例如，你不能连续两次调用它的remove()方法，调用之前至少有一次next()方法的调用。
+
+Iterator  支持从源集合中安全地删除对象，只需在 Iterator 上调用 remove() 即可。
+这样做的好处是可以避免 ConcurrentModifiedException ，当打开 Iterator 迭代集合时，同时又在对集合进行修改。
+有些集合不允许在迭代时删除或添加元素，但是调用 Iterator 的remove() 方法是个安全的做法。 
+
+
+
+“HashMap实现Map接口，它允许任何类型的键对象” 这句话是有前提条件的。
+这需要查看HashMap底层源码，在计算hashcode的过程中会用到equals（）和hashCode（）这两个函数；
+所以键的对象类型必须遵守这两个函数的规则，保证键的不变性，即：
+1.若两对象equals，则它两hashcode一定相等；
+2.若两对象不equals，则它两hashcode有可能相等；
+3.若两对象hashcode相等，则它两不一定equals；
+4.若两对象hashcode不相等，则它两一定 不equals；
+
+HashMap的底层是由数组加链表实现的，
+对于每一个key值，都需要计算哈希值，然后通过哈希值来确定顺序，并不是按照加入顺序来存放的，
+因此可以认为是无序的，但不管是有序还是无序，它都一个自己的顺序。故A错。
+最开始有Hashtable，Hashtable是不允许key和value的值为空的，但后来开发者认为有时候也会有key值为空的情况，因为可以允许null为空，通过查看HashMap的源代码就知道：if(key = null) {putForNullKey(value);};
+Map底层都是用key/value键值对的形式存放的
+
+

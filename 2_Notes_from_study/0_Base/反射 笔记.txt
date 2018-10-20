@@ -1,0 +1,154 @@
+
+反射
+
+
+反射核心
+
+	是什么：
+		
+	为什么使用：
+		
+	基本原理：
+		
+	怎么使用：
+		如果知道类的全名称
+			Class.forName()；
+
+
+
+
+
+
+
+
+
+
+
+	反射
+		在运行时期动态创建对象，获取对象的属性、方法。
+	
+	反射创建对象：
+		类全名：
+			String className = "cn.itcast.c_reflect.Admin"；
+		得到类字节码：
+			Class<?> clazz = Class.forName（className）；
+		创建对象1: 默认构造函数简写：
+			Admin admin = （Admin） clazz.newInstance（）；
+		创建对象2：通过带参数构造器创建对象：
+			Constructor<?> constructor = clazz.getDeclaredConstructor（String.class）；
+			Admin admin = （Admin） constructor.newInstance（"Jack"）；
+	
+	反射获取属性名称、值：
+		类全名：
+			String className = "cn.itcast.c_reflect.Admin"；
+		得到类字节码：
+			Class<?> clazz = Class.forName（className）；
+		对象：
+			Admin admin =  （Admin） clazz.newInstance（）；
+	
+	获取所有的属性名称：
+		Field[]  fs =  clazz.getDeclaredFields（）；
+		遍历：输出每一个属性名称、值
+		for （Field f : fs） {
+			设置强制访问：
+			f.setAccessible（true）；
+			名称：
+			String name = f.getName（）；
+			值：
+			Object value = f.get（admin）；
+		}
+	
+	反射获取方法：
+		类全名：
+			String className = "cn.itcast.c_reflect.Admin"；
+		得到类字节码：
+			Class<?> clazz = Class.forName（className）；
+		对象实例：
+			Admin admin =  （Admin） clazz.newInstance（）；
+		获取方法对象：
+			Method m = clazz.getDeclaredMethod（"getId"）；
+		调用方法：
+			Object r_value = m.invoke（admin）；
+	
+	示例：
+		public class Admin {
+			// Field
+			private int id = 1000；
+			private String name = "匿名"；
+			// Constructor
+			public Admin（）{
+				System.out.println（"Admin.Admin（）"）；
+			}
+			public Admin（String name）{
+				System.out.println（"Admin.Admin（）" + name）；
+			}
+			// Method
+			public int getId（） {
+				return id；
+			}
+			public void setId（int id） {
+				this.id = id；
+			}
+			public String getName（） {
+				return name；
+			}
+			public void setName（String name） {
+				this.name = name；
+			}
+		}
+		// 反射技术
+		public class App {
+			// 1. 创建对象
+			@Test
+			public void testInfo（） throws Exception {
+				// 类全名
+				String className = "cn.itcast.c_reflect.Admin"；
+				// 得到类字节码
+				Class<?> clazz = Class.forName（className）；
+				// 创建对象1: 默认构造函数简写
+				//Admin admin = （Admin） clazz.newInstance（）；
+				// 创建对象2：通过带参数构造器创建对象
+				Constructor<?> constructor = clazz.getDeclaredConstructor（String.class）；
+				Admin admin = （Admin） constructor.newInstance（"Jack"）；
+			}
+			@Test
+			//2. 获取属性名称、值
+			public void testField（） throws Exception {
+				// 类全名
+				String className = "cn.itcast.c_reflect.Admin"；
+				// 得到类字节码
+				Class<?> clazz = Class.forName（className）；
+				// 对象
+				Admin admin =  （Admin） clazz.newInstance（）；
+				// 获取所有的属性名称
+				Field[]  fs =  clazz.getDeclaredFields（）；
+				// 遍历：输出每一个属性名称、值
+				for （Field f : fs） {
+					// 设置强制访问
+					f.setAccessible（true）；
+					// 名称
+					String name = f.getName（）；
+					// 值
+					Object value = f.get（admin）；
+					System.out.println（name + value）；
+				}
+			}
+			@Test
+			//3. 反射获取方法
+			public void testMethod（） throws Exception {
+				// 类全名
+				String className = "cn.itcast.c_reflect.Admin"；
+				// 得到类字节码
+				Class<?> clazz = Class.forName（className）；
+				// 对象
+				Admin admin =  （Admin） clazz.newInstance（）；
+				// 获取方法对象    public int getId（） {
+				Method m = clazz.getDeclaredMethod（"getId"）；
+				// 调用方法
+				Object r_value = m.invoke（admin）；
+				System.out.println（r_value）；
+			}
+		}
+
+
+

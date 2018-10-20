@@ -1,0 +1,541 @@
+
+商城项目分布式架构
+
+
+核心技术：
+
+	Dubbo 服务中间件；解决服务层和表现层两个工程之间的通信。在 Spring 中的配置。
+
+	PageHelper：Mybatis分页插件。
+	Druid：数据库连接池。
+
+	Zookeeper 注册中心；Dubbo 服务的注册中心，SolrCloud 的配置信息中心。
+
+	FastDFS 分布式文件系统；作为图片服务器。
+	KindEditor 富文本编辑器。
+
+	Redis 缓存数据库。
+
+	Solr 搜索服务器；作为站内搜索服务器，实现搜索功能。
+	SolrJ 索引库管理；实现索引库的增删改查操作。
+	SolrCloud 搜索服务器集群；使用 Zookeeper 作为集群的配置信息中心，实现分布式索引和检索。
+
+	ActiveMQ 消息队列：实现商品同步、同步生成静态网页。Activemq 整合 spring。
+
+	Freemarker 实现网页静态化；Freemarker 整合 spring。
+
+	Nginx 实现反向代理、负载均衡；
+	
+
+核心功能：
+
+	单点登录：为多个系统之间提供用户登录凭证以及查询登录用户的信息。
+	搜索系统：提供商品的搜索功能。
+	前台系统：用户可以在前台系统中进行注册、登录、浏览商品、首页、下单等操作。
+	后台管理：管理商品、订单、类目、商品规格属性、用户管理以及内容发布等功能。
+
+	订单系统：提供下单、查询订单、修改订单状态、定时处理订单。
+	会员系统：用户可以在该系统中查询已下的订单、收藏的商品、我的优惠券、团购等信息。
+
+
+其他
+
+	SSO系统：Single Sign On，单点登录。
+
+	SOA：Service Oriented Architecture；面向服务的架构。
+
+	POM：Project Object Model；项目对象模型。
+
+	CMS系统：Content Management System，内容管理系统。
+
+
+项目模块
+
+	parent.pom
+		项目对象模型：聚合工程。
+	
+	common.jar
+		核心工具：通用的工具类、pojo。
+	
+	portal-web.war
+		门户
+
+	content
+	content-interface
+	content-service
+		商品详情
+
+	item-web
+		商品静态资源
+
+	manager.pom
+	manager-dao.jar
+	manager-interface.jar
+	manager-pojo.jar
+	manager-service.war
+	manager-web.war
+		后台系统
+
+	search
+	search-interface
+	search-service
+	search-web
+		搜索引擎
+
+	sso
+	sso-interface
+	sso-service
+	sso-web
+		跨域单点登陆
+
+	cart-web
+		购物车
+
+	order
+	order-interface
+	order-service
+	order-web
+		订单系统
+
+
+
+项目部署分析
+
+	Taotao-manager
+	Taotao-manager-web
+	
+	Taotao-portal-web
+	
+	Taotao-content
+	
+	Taotao-search
+	Taotao-search-web
+	
+	Taotao-item-web
+	
+	Taotao-sso
+	Taotao-sso-web
+	
+	Taotao-cart-web
+	
+	Taotao-order
+	Taotao-order-web
+	
+	
+倒计时方案：
+	1、确定一个基准时间。可以使用一个sql语句从数据库中取出一个当前时间。SELECT NOW()；
+	2、活动开始的时间是固定的。
+	3、使用活动开始时间-基准时间可以计算出一个秒为单位的数值。
+	4、在redis中设置一个key（活动开始标识）。设置key的过期时间为第三步计算出来的时间。
+	5、展示页面的时候取出key的有效时间。Ttl命令。使用js倒计时。
+	6、一旦活动开始的key失效，说明活动开始。
+	7、需要在活动的逻辑中，先判断活动是否开始。
+
+	
+秒杀方案：
+	1、把商品的数量放到redis中。
+	2、秒杀时使用decr命令对商品数量减一。如果不是负数说明抢到。
+	3、一旦返回数值变为0说明商品已售完。
+
+购物车
+	1、把购物车保存到cookie中；
+	2、把购车保存到服务端。
+
+订单系统
+	1、拦截器，判断用户是否登录；
+	2、订单确认页面；
+	3、生成订单；订单号可以使用redis的incr命令生成。
+	
+	
+购物车模块
+	添加购物车
+		功能分析
+			在不登陆的情况下也可以添加购物车。把购物车信息写入cookie。
+			优点：
+				1、不占用服务端存储空间
+				2、用户体验好。
+				3、代码实现简单。
+			缺点：
+				1、cookie中保存的容量有限。最大4k
+				2、把购物车信息保存在cookie中，更换设备购物车信息不能同步。
+		业务逻辑：
+			1、从cookie中查询商品列表。
+			2、判断商品在商品列表中是否存在。
+			3、如果存在，商品数量相加。
+			4、不存在，根据商品id查询商品信息。
+			5、把商品添加到购车列表。
+			6、把购车商品列表写入cookie。
+
+	展示购物车商品列表
+		业务逻辑：
+			1、从cookie中取商品列表。
+			2、把商品列表传递给页面。
+
+	修改购物车商品数量
+		功能分析
+			1、在页面中可以修改商品数量
+			2、重新计算小计和总计。
+			3、修改需要写入cookie。
+			4、每次修改都需要向服务端发送一个ajax请求，在服务端修改cookie中的商品数量。
+		业务逻辑：
+			1、接收两个参数
+			2、从cookie中取商品列表
+			3、遍历商品列表找到对应商品
+			4、更新商品数量
+			5、把商品列表写入cookie。
+			6、响应TaoTaoResult。Json数据。
+
+	删除购物车商品
+		业务逻辑：
+			1、从url中取商品id
+			2、从cookie中取购物车商品列表
+			3、遍历列表找到对应的商品
+			4、删除商品。
+			5、把商品列表写入cookie。
+			6、返回逻辑视图：在逻辑视图中做redirect跳转。
+
+	购物车小结
+		使用 cookie 实现购物车：
+			优点：
+				1、实现简单
+				2、不需要占用服务端存储空间。
+			缺点：
+				1、存储容量有限
+				2、更换设备购车信息不能同步。
+		实现购车商品数据同步：
+			1、要求用户登录。
+			2、把购物车商品列表保存到数据库中。推荐使用 redis (用户会频繁操作购物车)。
+			3、Key：用户id，value：购车商品列表。
+				推荐使用hash，hash的field：商品id，value：商品信息。
+				Key 用户id
+				Value 
+				Key 商品id
+				Value 商品json
+			4、在用户未登录情况下写cookie。当用户登录后，访问购物车列表时，
+				a)	把cookie中的数据同步到redis。
+				b) 把cookie中的数据删除
+				c)	展示购物车列表时以redis为准。
+				d) 如果redis中有数据cookie中也有数据，需要做数据合并。相同商品数量相加，不同商品添加一个新商品。
+			5、如果用户登录状态，展示购物车列表以redis为准。如果未登录，以cookie为准。
+
+
+订单系统
+	功能分析
+		1、在购物车页面点击“去结算”按钮跳转到订单确认页面。
+			a)	展示商品列表
+			b) 配送地址列表
+			c)	选择支付方式
+		2、展示订单确认页面之前，应该确认用户身份。
+			a)	使用拦截器实现。
+			b) Cookie中取token
+			c)	取不到token跳转到登录页面
+			d) 取到token，根据token查询用户信息。
+			e)	如果没有用户信息，登录过期跳转到登录页面
+			f)	取到用户信息，放行。
+		3、提交订单
+			a)	生成订单
+			b) 展示订单提交成功页面。
+		订单系统系统：订单确认页面、订单提交成功页面。
+
+	展示订单确认页面
+		功能分析
+			1、在购物车页面点击“去结算”按钮跳转到订单确认页面。
+			2、请求的url：/order/order-cart
+			3、参数：没有参数。
+			4、购物车商品数据从cookie中取出来的。可以在订单系统中取到cookie中的购物车数据。
+			5、配送地址列表，需要用户登录。需要根据用户id查询收货地址列表。静态数据。
+			6、支付方式。静态数据。
+			7、返回值：逻辑视图String，展示订单确认页面。
+
+	用户身份认证
+			在展示订单确认页面之前，需要对用户身份进行认证，要求用户必须登录。
+		功能分析
+			1、使用springmvc的拦截器实现。需要实现一个接口HandlerInterceptor接口。
+			2、业务逻辑：
+				a)	从cookie中取token。
+				b) 没有token，需要跳转到登录页面。
+				c)	有token。调用sso系统的服务，根据token查询用户信息。
+				d) 如果查不到用户信息。用户登录已经过期。需要跳转到登录页面。
+				e)	查询到用户信息。放行。
+			3、在springmvc.xml中配置拦截器。
+
+	提交订单功能
+		功能分析
+			1、在订单确认页面点击“提交订单”按钮生成订单。
+			2、请求的url：/order/create
+			3、参数：提交的是表单的数据。保存的数据：订单、订单明细、配送地址。
+				a)	向tb_order中插入记录。
+					i.	订单号需要手动生成。
+					要求订单号不能重复。
+					订单号可读性号。
+					可以使用redis的incr命令生成订单号。订单号需要一个初始值。
+					ii.	Payment：表单数据
+					iii.	payment_type：表单数据
+					iv.	user_id：用户信息
+					v.	buyer_nick：用户名
+					vi.	其他字段null
+				b)	向tb_order_item订单明细表插入数据。
+					i.	Id：使用incr生成
+					ii.	order_id：生成的订单号
+					iii.	其他的都是表单中的数据。
+				c)	tb_order_shipping，订单配送信息
+					i.	order_id：生成的订单号
+					ii.	其他字段都是表单中的数据。
+				d)	使用pojo接收表单的数据。
+					可以扩展TbOrder，在子类中添加两个属性一个是商品明细列表，一个是配送信息。
+					把pojo放到taotao-order-interface工程中。
+		业务逻辑：
+			1、接收表单的数据
+			2、生成订单id
+			3、向订单表插入数据。
+			4、向订单明细表插入数据
+			5、向订单物流表插入数据。
+			6、返回TaotaoResult。
+
+
+项目部署
+	Linux下安装mysql
+		第一步：查看mysql是否安装。
+			rpm -qa|grep mysql
+		第二步：如果mysql的版本不是想要的版本。需要把mysql卸载。
+			yum remove mysql mysql-server mysql-libs mysql-common
+			rm -rf /var/lib/mysql
+			rm /etc/my.cnf
+		第三步：安装mysql。需要使用yum命令安装。在安装mysql之前需要安装mysql的下载源。需要从oracle的官方网站下载。
+			1）下载mysql的源包。
+				我们是centos6.4对应的rpm包为：mysql-community-release-el6-5.noarch.rpm
+			2）安装mysql下载源：
+				yum localinstall mysql-community-release-el6-5.noarch.rpm 
+			3）在线安装mysql：
+				yum install mysql-community-server
+		第四步：启动mysql
+			service mysqld start
+		第五步：需要给root用户设置密码。
+			/usr/bin/mysqladmin -u root password 'new-password'　　// 为root账号设置密码
+		第六步：远程连接授权。
+			GRANT ALL PRIVILEGES ON *.* TO 'myuser'@'%' IDENTIFIED BY 'mypassword' WITH GRANT OPTION;
+			注意：'myuser'、'mypassword' 需要替换成实际的用户名和密码。
+
+	数据库的读写分离
+		Mysql提供的解决方案：
+			使用binlog进行数据库同步。需要配置mysql。
+		代码中实现读写分类：
+			1、可以使用aop实现一个切面。动态切换数据源。需要编程实现。
+			2、使用数据库中间件实现读写分类，分库分表。
+		分库分表：
+			当数据库的表中数据非常大的时候例如上千万条数据。查询性能非常低。可以把一张表保存到不同的数中。
+			可以使用一个数据库中间件mycat，前身是cobar项目。
+
+
+	系统部署
+		部署分析
+			Taotao-manager
+			Taotao-manager-web
+			Taotao-portal-web
+			Taotao-content
+			Taotao-search
+			Taotao-search-web
+			Taotao-item-web
+			Taotao-sso
+			Taotao-sso-web
+			Taotao-cart-web
+			Taotao-order
+			Taotao-order-web
+
+			需要24台服务器。		24
+			Mysql				2
+			Solr					7
+			Redis				6
+			图片服务器			2
+			Nginx				2
+			注册中心				3
+			Activemq			2
+			共需要48台服务器。搭建伪分布式。
+
+		服务器规划
+			项目					服务器数量		虚拟机		ip
+			----------------------------------------------------------------
+			Mysql					2				1		134
+			Solr					7				1		154
+			Redis					6				1		153
+			图片服务器				2				1		133
+			Nginx					2				1		141
+			注册中心				3				1		167
+			Activemq				2				1		168
+			----------------------------------------------------------------
+			Taotao-manager		8080
+			Taotao-content			8081
+			Taotao-search			8082					
+			~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~	1		135
+			Taotao-sso				8080
+			Taotao-order			8081
+			~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 1		136
+			Taotao-manager-web	8080
+			Taotao-portal-web		8081
+			Taotao-search-web		8082
+			~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~	1		137
+			Taotao-item-web		8080
+			Taotao-sso-web			8081
+			~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~	1		138
+			Taotao-cart-web		8080
+			Taotao-order-web		8081
+			~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~	1		139
+
+		域名规划
+			序号	工程名				域名
+			1	Taotao-manager-web	manager.taotao.com
+			2	Taotao-portal-web	www.taotao.com
+
+			3	Taotao-search-web	search.taotao.com
+			4	Taotao-item-web		item.taotao.com
+			5	Taotao-sso-web		sso.taotao.com
+			6	Taotao-cart-web		cart.taotao.com
+			7	Taotao-order-web		order.taotao.com
+
+		Tomcat热部署
+			可以使用maven实现tomcat热部署。Tomcat启动时 部署工程。
+				Tomcat有个后台管理功能，可以实现工程热部署。
+			配置方法：
+				第一步：需要修改tomcat的conf/tomcat-users.xml配置文件。添加用户名、密码、权限。
+					<role rolename="manager-gui" />
+					<role rolename="manager-script" />
+					<user username="tomcat" password="tomcat" roles="manager-gui, manager-script"/>
+				第二步：重新启动tomcat。
+			使用maven的tomcat插件实现热部署：
+				第一步：配置tomcat插件，需要修改工程的pom文件。
+					<build>
+						<plugins>
+						<!-- 配置Tomcat插件 -->
+						<plugin>
+							<groupId>org.apache.tomcat.maven</groupId>
+							<artifactId>tomcat7-maven-plugin</artifactId>
+							<configuration>
+							<port>8081</port>
+							<path>/</path>
+							<url>http://192.168.25.135:8080/manager/text</url>
+							<username>tomcat</username>
+							<password>tomcat</password>
+							</configuration>	
+						</plugin>
+						</plugins>
+					</build>
+				第二步：使用maven命令进行部署。
+					tomcat7:deploy
+					tomcat7:redeploy
+					部署的路径是“/”会把系统部署到webapps/ROOT目录下。
+					部署工程跳过测试：
+					clean tomcat7:redeploy -DskipTests
+		工程部署
+			每个工程运行在不同的tomcat上，修改tomcat的端口号。
+
+			
+	反向代理的配置
+		测试时使用域名访问网站，需要修改host文件。
+		所有的域名应该指向反向代理服务器。
+
+			配置hosts文件：
+				192.168.25.141 manager.taotao.com
+				192.168.25.141 www.taotao.com
+				192.168.25.141 search.taotao.com
+				192.168.25.141 item.taotao.com
+				192.168.25.141 sso.taotao.com
+				192.168.25.141 cart.taotao.com
+				192.168.25.141 order.taotao.com
+
+			反向代理的配置：
+				upstream manager.taotao.com {
+				server 192.168.25.137:8080;
+				}
+				upstream www.taotao.com {
+				server 192.168.25.137:8081;
+				}
+				upstream search.taotao.com {
+				server 192.168.25.137:8082;
+				}
+				upstream item.taotao.com {
+				server 192.168.25.138:8080;
+				}
+				upstream sso.taotao.com {
+				server 192.168.25.138:8081;
+				}
+				upstream cart.taotao.com {
+				server 192.168.25.139:8080;
+				}
+				upstream order.taotao.com {
+				server 192.168.25.139:8081;
+				}
+				   server {
+					listen       80;
+					server_name  manager.taotao.com;
+					#charset koi8-r;
+					#access_log  logs/host.access.log  main;
+					location / {
+					proxy_pass   http://manager.taotao.com;
+					index  index.html index.htm;
+					}
+				}
+				server {
+					listen       80;
+					server_name  www.taotao.com;
+					#charset koi8-r;
+					#access_log  logs/host.access.log  main;
+					location / {
+					proxy_pass   http://www.taotao.com;
+					index  index.html index.htm;
+					}
+				}
+				server {
+					listen       80;
+					server_name  search.taotao.com;
+					#charset koi8-r;
+					#access_log  logs/host.access.log  main;
+					location / {
+					proxy_pass   http://search.taotao.com;
+					index  index.html index.htm;
+					}
+				}
+				server {
+					listen       80;
+					server_name  item.taotao.com;
+					#charset koi8-r;
+					#access_log  logs/host.access.log  main;
+					location / {
+					proxy_pass   http://item.taotao.com;
+					index  index.html index.htm;
+					}
+				}
+				server {
+					listen       80;
+					server_name  sso.taotao.com;
+					#charset koi8-r;
+					#access_log  logs/host.access.log  main;
+					location / {
+					proxy_pass   http://sso.taotao.com;
+					index  index.html index.htm;
+					}
+				}
+				server {
+					listen       80;
+					server_name  cart.taotao.com;
+					#charset koi8-r;
+					#access_log  logs/host.access.log  main;
+					location / {
+					proxy_pass   http://cart.taotao.com;
+					index  index.html index.htm;
+					}
+				}
+				server {
+					listen       80;
+					server_name  order.taotao.com;
+					#charset koi8-r;
+					#access_log  logs/host.access.log  main;
+					location / {
+					proxy_pass   http://order.taotao.com;
+					index  index.html index.htm;
+					}
+				}
+
+
+
+
+

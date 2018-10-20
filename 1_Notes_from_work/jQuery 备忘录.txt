@@ -1,0 +1,341 @@
+
+jQuery 工作笔记
+
+
+
+
+
+
+
+
+
+
+获取输入框的值：
+var value = $("#").val();
+var value = $("#").attr("value")；
+
+设置输入框的值：
+$("#").attr("value",value);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+jQuery操作input值的各种方法
+
+获取选中的值
+获取一组radio被选中项的值
+
+
+代码如下:
+
+var item = $('input[@name=items][@checked]').val();
+
+获取select被选中项的文本
+
+代码如下:
+
+var item = $("select[@name=items] option[@selected]").text();
+
+select下拉框的第二个元素为当前选中值
+
+代码如下:
+
+$('#select_id')[0].selectedIndex = 1;
+
+radio单选组的第二个元素为当前选中值
+
+代码如下:
+
+$('input[@name=items]').get(1).checked = true;
+
+获取值：
+文本框，文本区域：
+
+代码如下:
+
+$("#txt").attr("value")；
+$("#txt").val();
+
+
+多选框checkbox：
+
+代码如下:
+
+$("#checkbox_id").attr("value")；
+
+单选组radio：
+
+代码如下:
+
+$("input[@type=radio][@checked]").val();
+
+下拉框select：
+
+代码如下:
+
+$('#sel').val();
+
+控制表单元素：
+文本框，文本区域：
+
+代码如下:
+
+$("#txt").attr("value",'');//清空内容
+$("#txt").attr("value",'11');//填充内容
+
+多选框checkbox： 
+
+代码如下:
+
+$("#chk1").attr("checked",'');//不打勾
+$("#chk2").attr("checked",true);//打勾
+if($("#chk1").attr('checked')==undefined) //判断是否已经打勾
+
+单选组radio：
+
+代码如下:
+
+$("input[@type=radio]").attr("checked",'2');//设置value=2的项目为当前选中项
+
+下拉框select：
+
+代码如下:
+
+$("#sel").attr("value",'-sel3');//设置value=-sel3的项目为当前选中项
+$("<optionvalue='1'>1111</option><optionvalue='2'> 2222</option>").appendTo("#sel")//添加下拉框的option
+$("#sel").empty()；//清空下拉框
+
+＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+在Jquery中,用$("#id")来获得页面的input元素,其相当于document.getElementById("element") 但是,该获取的是一个Jquery对象,而不是一个dom element对象.value是dom element对象的属性.所以,使用 $("#id").value不能取到值 取值的方法如下: 取值：val = $("#id")[0].value; $("#id")[0].value = "new value"; 赋值： $("#id")[0].value = "new value";
+或者$("#id").val("new value"); val = $("#id").attr("value");
+
+＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+
+jquery input text radio check select 
+
+
+代码如下:
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<script src="jquery-starterkit/lib/jquery-1.3.2.min.js" type="text/javascript"></script>
+
+</head>
+
+<body>
+<input type="text" id="dd" name="dd" value="dds"/>dd
+
+<input name="rr" id="rr" type="radio" value="34" />ff
+<input name="rr" id="rr2" type="radio" value="4" />55
+
+<input name="ff" type="checkbox" value="aa" />jgdg
+<input name="ff" type="checkbox" value="gd" />jgdg
+
+<select name="ss" id="ss" size="1">
+<option value=""></option>
+<option value="8">d</option>
+<option value="2">g</option>
+</select>
+
+<br/>
+<input type="button" id="button" value="按钮一" />
+<input type="button" id="jj" value="按钮二" />
+<br/>
+
+<div id="ssd">fgfooHello</div>
+
+</body>
+
+<script language="javascript" type="text/javascript">
+<!--
+$(function(){
+$("#button").click(function(){
+
+
+//获取值
+//alert( $('#dd').val());//type=text
+// alert($('input[name=rr][checked]').val());//type=radio
+// alert($('input[name=ff][checked]').val());//type=checkbox
+// alert($("select[name=ss] option[selected]").val());//select 相等于alert($("#ss option[selected]").val());
+
+//获取文本
+//alert($("select[name=ss] option[selected]").text());//select
+
+
+//控制
+/*// Disable #dd 禁用
+$("#dd").attr("disabled","disabled");
+// Enable #dd 解禁
+$("#jj").removeAttr("disabled");*/
+
+
+// $('input[name=rr]').get(0).checked = true;//第一个radio被选中
+//alert($("input[type=radio][value=34]").attr("checked",'checked'));//value=34的radio被选中
+
+//alert($("input[type=checkbox][value=gd]").attr("checked",'checked'));//value=gd的checkbox被选中
+//$('input[name=ff]').get(1).checked = true;//第一个check被选中
+
+ 
+
+/*//根据option的text选中option
+count=$("#ss").find("option").length;
+for(var i=0;i<count;i++) 
+{           
+if($("#ss").get(0).options[i].text == 'd') 
+{ 
+$("#ss").get(0).options[i].selected = true;
+
+break; 
+} 
+} */
+
+//$("<option value='1'>1111</option><option value='25'>22s22</option>").appendTo("#ss");//增加option
+//$("#ss option[value=8]").remove("");//除去 <option value='8'>d</option>
+
+//$("#ss").attr("value",'2');//选中option                            
+//$('#ss')[0].selectedIndex = 1;//选中option
+
+//$("#ss").empty();//清空全部option
+
+/*//替换文本
+var $thirdLink = $("#ssd");
+var linkText = $thirdLink.text().replace('foo','bar');
+$thirdLink.text(linkText); */
+
+});       
+});
+-->
+</script>
+</html> 
+
+
+
+
+
+
+
+jquery获取input表单值的代码
+
+jquery取radio单选按钮的值
+$("input[name='items']:checked").val();
+jquery radio取值，checkbox取值，select取值，radio选中，checkbox选中，select选中，及其相关 
+
+
+获取一组radio被选中项的值 
+var item = $('input[name=items][checked]').val(); 
+
+
+获取select被选中项的文本 
+var item = $("select[name=items] option[selected]").text(); 
+
+
+select下拉框的第二个元素为当前选中值 
+$('#select_id')[0].selectedIndex = 1; 
+
+
+radio单选组的第二个元素为当前选中值 
+$('input[name=items]').get(1).checked = true; 
+
+获取值： 
+
+文本框，文本区域：$("#txt").attr("value")； 
+多选框checkbox：$("#checkbox_id").attr("value")； 
+单选组radio： $("input[type=radio][checked]").val(); 
+下拉框select： $('#sel').val(); 
+
+控制表单元素： 
+文本框，文本区域：$("#txt").attr("value",'');//清空内容 
+$("#txt").attr("value",'11');//填充内容 
+
+多选框checkbox： $("#chk1").attr("checked",'');//不打勾 
+$("#chk2").attr("checked",true);//打勾 
+if($("#chk1").attr('checked')==undefined) //判断是否已经打勾 
+
+单选组radio： $("input[type=radio]").attr("checked",'2');//设置value=2的项目为当前选中项 
+下拉框select： $("#sel").attr("value",'-sel3');//设置value=-sel3的项目为当前选中项 
+$("<option value='1'>1111</option><option value='2'>2222</option>").appendTo("#sel")//添加下拉框的option 
+$("#sel").empty()；//清空下拉框 
+
+刚开始接触jquery，很多东西不熟悉 
+在用$("#id")来获得页面的input元素的时候，发现$("#id").value不能取到值 
+
+后来终于在伟大的百度帮助下，找到了问题的原因： 
+$("")是一个jquery对象，而不是一个dom element 
+
+value是dom element的属性 
+
+jquery与之对应的是val 
+
+val() :获得第一个匹配元素的当前值。 
+
+val(val):设置每一个匹配元素的值。 
+
+所以，代码应该这样写： 
+
+取值：val = $("#id")[0].value; 
+赋值： 
+$("#id")[0].value = "new value"; 
+或者$("#id").val("new value"); 
+
+或者这样也可以：val = $("#id").attr("value");
+
+
+
+
+
+
+$.post("../public/getRecommendGoodsCategory.do", { goodsTypeId: goodsTypeId },
+	function(data){
+		var groupList = data.groupList;
+		var parentHtml = '<div style="padding-top: 35px;"><ul class="cat_list seach_list clearfix" style="float:right;padding-top:0px;background-color:#FFF;">';
+		if (groupList != null && groupList.length > 0) {
+			for (var i = 0; i < groupList.length; i++) {
+				var cHtml = '<li name="jd"><div class="box"><div class="bg"></div><div class="see-img"><img src=' + groupList[i].goodsImage + '></div><div class="see-info"><h4>' + groupList[i].goodsName + '</h4><h5>已售' + groupList[i].saleNum + '件</h5><p class="price clearfix"><span style="font-size:16px;color:red;">￥' + groupList[i].validPrice + '</span>' +
+					'<label class="fl-r">' +
+					'<span class="shopping_cart" onclick="toAddShoppingCart(' + groupList[i].goodsId + ')"></span>' +
+					'<span class="storage_img" onclick="addTCloudStoreInfo(' + groupList[i].goodsId + ')"></span>' +
+					'</label>'
+				'</p></div></div></li>';
+				parentHtml += cHtml;
+			}
+		}
+		parentHtml +=
+			'</ul></div><li class="botton-to-fill" id="purchase" style="width: 25%;color:#FFA540;" onclick="openUrl(\'purchase.html\')">&nbsp</li>'
+		$("#contentDiv").append(parentHtml);
+		var width = ($("body").width() - 44) / 2;
+		$("#contentDiv img").height(width);
+		$("#contentDiv img").lazyload({threshold: 200});
+		$('#item_select_sku_count1').hide();
+	});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

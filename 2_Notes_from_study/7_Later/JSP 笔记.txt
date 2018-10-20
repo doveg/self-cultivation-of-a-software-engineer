@@ -1,0 +1,207 @@
+
+JSP
+
+
+JSP(JavaServer Pages )
+	利用特殊的JSP标签，其中大部分以<%开始并以%>作为结束标志插入Java代码到HTML页面。
+	通过网页的形式，从数据库或其他来源的记录收集来自用户的输入，并动态地创建Web页面。
+	结合HTML或XHTML代码，XML元素，并嵌入JSP动作和命令。
+	
+	
+JSP创建网页过程：
+
+	对于一个正常的页面，浏览器发送一个HTTP请求到万维网服务器。
+
+	网站服务器识别HTTP请求是一个JSP页面，并将其转发给JSP引擎。这是通过使用URL或JSP页面，而这个页面使用 .jsp 后缀，而不是 .html 后缀。
+
+	JSP引擎从磁盘加载JSP页面，并将其转换成servlet的内容。这种转换是很简单的，所有的模板文本被转换给println()语句，所有JSP元素被转换为实现该页面相应动态行为的Java代码。
+
+	JSP引擎编译成servlet的一个可执行类并转发原始请求到servlet引擎。
+
+	一部分Web服务器调用servlet引擎加载Servlet类并执行它。在执行期间，Servlet产生HTML的格式输出，其servlet引擎传递到web服务器响应HTTP请求。
+
+	Web服务器响应HTTP转发静态的HTML内容到浏览器。
+
+	最后的 web 浏览器处理HTTP响应动态生成的HTML页面完全就像一个静态页面内容。
+	
+	
+JSP 指令
+	JSP指令影响的servlet类的整体结构。它通常有以下形式：
+		<%@ directive attribute="value" %>
+	有三种类型的指令标记：
+		指令	描述
+		<%@ page ... %>	定义页面依赖属性，例如脚本语言，错误页面和缓冲的要求
+		<%@ include ... %>	包括在转换阶段的文件
+		<%@ taglib ... %>	声明了一个标签库，包含自定义动作，用在页面中
+
+	
+JSP表达式
+	JSP表达式元素包含计算，转换为字符串，并插入出现在JSP文件的脚本语言表达式。
+
+	因为一个表达式的值被转换为字符串，可以在文本一行内使用表达式，不管它是否被标记使用在HTML，JSP文件中。
+
+	表达元素可以包含任何Java语言规范有效的表达式，但是不能使用一个分号来结束表达式。
+
+	下面是JSP表达式的语法：
+
+		<%= expression %>
+	
+	
+JSP注释
+	JSP注释标记的文字或语句都会被JSP容器忽略。当想要隐藏或“注释掉”JSP页面的一部分，JSP注释是很有用的。
+
+	以下是JSP注释语法：
+
+	<%-- This is JSP comment --%>
+	
+	
+JSP 声明
+	声明一个或多个变量，或者方法可以在Java代码后面的JSP文件中使用。 在JSP文件中使用变量或方法它们之前，必须先声明它们。
+
+	以下是JSP声明的语法：
+		<%! declaration; [ declaration; ]+ ... %>
+	
+	
+JSP 动作
+	JSP动作使用XML语法结构来控制Servlet引擎的行为。
+	可以动态地插入文件，重用JavaBeans组件，用户转发到另一个页面，或为Java插件生成HTML。
+	只有一个用于动作元素的语法，因为它符合XML标准：
+		<jsp:action_name attribute="value" />
+	动作元素基本上都是预先定义函数并有以下可用的JSP操作：
+		语法				目的
+		jsp:include		包括页面被一次请求的文件
+		jsp:include		包括页面被一次请求的文件
+		jsp:useBean		查找或实例化一个JavaBean
+		jsp:setProperty	设置一个JavaBean的属性
+		jsp:getProperty	插入一个JavaBean的属性到输出
+		jsp:forward		转发请求到一个新的页面
+		jsp:plugin		生成特定浏览器的代码，使对象或嵌入标签Java插件
+		jsp:element		定义XML元素动态
+		jsp:attribute		定义动态定义XML元素的属性
+		jsp:body			定义动态定义的XML元素主体
+		jsp:text			用于编写模板文本在JSP页面和文档
+
+		
+JSP 隐式对象
+	JSP支持九种自动定义的变量，这也被称为隐式对象。这些变量是：
+		对象	描述
+		request	这是与请求相关联的HttpServletRequest对象
+		response	这是用于响应客户端相关联的HttpServletResponse对象
+		out	这是用于将输出发送给客户端的PrintWriter对象
+		session	这是与请求相关联的HttpSession对象
+		application	这是应用程序上下文关联的ServletContext对象
+		config	这是与页面关联的ServletConfig对象
+		pageContext	这封装采用类似更高的性能JspWriters服务器特定的功能
+		page	这是一个简单的代名词，是用来调用由转换servlet类中定义的方法
+		Exception	Exception对象允许例外的数据由JSP指定访问
+
+控制流语句
+
+	<% if (day == 1 | day == 7) { %>
+	      <p> Today is weekend</p>
+	<% } else { %>
+	      <p> Today is not weekend</p>
+	<% } %>
+
+	<% 
+	switch(day) {
+	case 0:
+	   out.println("It\'s Sunday.");
+	   break;
+	case 1:
+	   out.println("It\'s Monday.");
+	   break;
+	case 2:
+	   out.println("It\'s Tuesday.");
+	   break;
+	case 3:
+	   out.println("It\'s Wednesday.");
+	   break;
+	case 4:
+	   out.println("It\'s Thursday.");
+	   break;
+	case 5:
+	   out.println("It\'s Friday.");
+	   break;
+	default:
+	   out.println("It's Saturday.");
+	}
+	%>
+
+循环语句
+	<%for ( fontSize = 1; fontSize <= 3; fontSize++){ %>
+	   <font color="green" size="<%= fontSize %>">
+	    JSP Tutorial
+	   </font><br />
+	<%}%>
+
+
+	<%while ( fontSize <= 5){ %>
+	   <font color="green" size="<%= fontSize %>">
+	    JSP Tutorial
+	   </font><br />
+	<%fontSize++;%>
+	<%}%>
+
+JSP 字面量
+	JSP表达式语言定义了以下字面量：
+
+		Boolean: true 或 false
+
+		Integer: 与Java中的一样
+
+		Float: 与Java中的一样
+
+		String: 单引号和双引号; " 转义为 \"。' 转义为 \'， 以及 \ 转义为 \\
+
+		Null: null
+
+JSP对象范围
+	定义为一个 JSP 对象范围	说明
+		JSP对象所使用的可用性通常是由该对象的范围限定。
+		Page 范围:
+		使用此JSP对象可以在其中创建的页面内使用。
+		Request 范围:
+		使用该JSP对象可以在请求服务任何地方使用。
+		Session 范围:
+		使用该JSP的对象可用于在属于同一个会话页面。
+		Application 范围:
+		使用该JSP的对象可以在整个应用程序页面中使用
+
+
+EL表达式
+
+	JSP EL允许为这些属性值指定一个表达式。
+	JSP EL的简单语法如下 ：
+		${expr}
+
+	JSP编译器在属性中遇到${}形式时，它会生成代码以评估表达式并替换expresson的值。
+	
+	
+EL中的基本运算符
+	JSP表达式语言(EL)支持Java支持的大多数算术和逻辑运算符。
+	下表列出了最常用的运算符 ：
+		编号	运算符	描述
+		1	.	访问一个bean属性或Map的项
+		2	[]	访问数组或List元素
+		3	()	组合子表达式以更改评估顺序
+		4	+	相加
+		5	-	减去或取反一个值
+		6	*	乘法
+		7	/ 或 div	除法
+		8	% 或 mod	求模
+		9	== 或 eq	测试等于
+		10	!= 或 ne	测试不等于
+		11	< 或 lt	测试小于
+		12	> 或 gt	测试大于
+		13	<= 或 le	测试小于或等于
+		14	>= 或 ge	测试大于或等于
+		15	&& 或 and	测试逻辑与
+		16	or	测试逻辑或
+		17	! 或 not	一元布尔互补
+		18	empty	测试空变量值
+	
+	
+	
+	
+	

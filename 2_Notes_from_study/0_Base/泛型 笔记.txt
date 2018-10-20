@@ -1,0 +1,507 @@
+
+泛型
+
+
+
+泛型
+	就是将类型当作变量处理；规范泛型的定义一般是一个大写的任意字母。
+泛型格式：
+	集合类 < 类的类型 >  变量名 = new 集合类 < 类的类型 >（）；
+	通过< >来指定容器中元素的类型。
+	public class Demo5 {
+		public static void main(String[] args) {
+			// 使用泛型后，规定该集合只能放羊，老虎就进不来了。
+			ArrayList<Sheep> arr = new ArrayList<Sheep>();
+			arr.add(new Sheep("美羊羊"));
+			arr.add(new Sheep("懒洋洋"));
+			arr.add(new Sheep("喜羊羊"));
+			// 编译失败
+			// arr.add(new Tiger("东北虎"));
+			System.out.println(arr);
+			Iterator<Sheep> it = arr.iterator();
+			while (it.hasNext()) {
+				// 使用泛型后，不需要强制类型转换了
+				Sheep next = it.next();
+				next.eat();
+			}
+		}
+	}
+泛型的好处：
+1)	将运行时的异常提前至编译时发生；
+2)	获取元素的时候无需强转类型，就避免了类型转换的异常问题。
+泛型没有多态的概念：
+泛型的两边数据必须要一致，泛型类型也可以只写一边（考虑新老兼容性）；推荐两边的数据类型都写上。
+什么时候使用泛型：
+当类中操作的引用数据类型不确定的时候，就可以使用泛型类。
+JDK5.0之前的Comparable：
+package java.lang;
+public interface Comparable {
+    public int compareTo(Object o);
+}
+JDK5.0之后的Comparable：
+package java.lang;
+public interface Comparable<T> {
+    public int compareTo(T o);
+}
+细节一：明好泛型类型之后，集合中只能存放特定类型元素
+public class Demo6 {
+	public static void main(String[] args) {
+		//创建一个存储字符串的list
+		ArrayList<String> arr=new ArrayList<String>();
+		arr.add("gz");
+		arr.add("itcast");
+		//存储非字符串编译报错。
+		arr.add(1);
+	}
+}
+细节二：泛型类型必须是引用类型
+public class Demo6 {
+	public static void main(String[] args) {
+		// 泛型类型必须是引用类型，也就是说集合不能存储基本数据类型
+		// ArrayList<int> arr2=new ArrayList<int>();
+		// 使用基本数据类型的包装类
+		ArrayList<Integer> arr2 = new ArrayList<Integer>();		
+	}
+}
+细节三：使用泛型后取出元素不需要类型转换。
+public class Demo6 {
+	public static void main(String[] args) {
+		ArrayList<String> arr = new ArrayList<String>();
+		arr.add("gzitcast");
+		arr.add("cditcast");
+		arr.add("bjitcast");
+		//使用泛型后取出元素不需要类型转换。
+		String str=arr.get(0);
+		System.out.println();
+	}
+}
+自定义泛型：
+定义：可以理解为一个数据类型的占位符，或是一个数据类型的变量。
+把T字母声明为自定义的泛型；这里的<T>表示泛型类型，随后可以传入具体的类型来替换它。
+【变量必须先声明，才能使用。】
+泛型方法：
+定义格式：
+修饰符 < 声明自定义泛型 > 返回值类型 函数名（ 形参列表… ）{ }；
+注意：
+1)	在方法上的自定义泛型的具体数据类型是调用该方法，传入实参的时候确定的；
+2)	自定义泛型使用的标识符，只要符合标识符的命名规则即可。
+函数上的泛型定义：
+	当函数中使用了一个不明确的数据类型，那么在函数上就可以进行泛型的定义。
+修饰符 < 泛型的声明 > 返回值类型  函数名（泛型 变量名） {  } ；
+public static void main(String[] args) {
+		int[] arr = { 1，2，3，4，5 };	
+		new Demo6().getData(5);
+	}
+	public <T> T getData(T data) {
+		return data;
+	}
+细节：
+使用泛型方法前需要进行泛型声明，使用一对尖括号 <泛型>，声明的位置在static后返回值类型前。
+当一个类中有多个函数声明了泛型，那么该泛型的声明可以声明在类上。
+泛型类 ：
+定义格式：
+修饰符 class 类名 < 声明自定义的泛型 > {  } ；
+注意：
+1)	在类上自定义泛型的具体数据类型，是在创建对象的时候指定的；
+2)	在类上自定义了泛型，如果创建该类对象时，没有指定泛型的具体类型，那么默认是Object类型。
+类上的泛型声明：
+修饰符 class 类名 < 泛型 >  {  } ；
+import java.util.Arrays;
+public class Demo6<T> {
+	public static void main(String[] args) {
+		// 使用泛型类，创建对象的时候需要指定具体的类型
+		new Demo6<Integer>().getData(5);
+	}
+	public T getData(T data) {
+		return data;
+	}
+	// 反序任意类型数组
+	public void reverse(T[] arr) {
+		int start = 0;
+		int end = arr.length - 1;
+		for (int i = 0; i < arr.length; i++) {
+			if (start < end) {
+				T temp = arr[start];
+				arr[start] = arr[end];
+				arr[end] = temp;
+			}
+		}	
+}
+在泛型类中定义一个静态方法
+public class Demo6<T> {
+	public static void main(String[] args) {
+		System.out.println(getData2(100));
+	}
+	public T getData(T data) {
+		return data;
+	}
+	//静态方法
+	public static T getData2(T data) {
+		return data;
+	}
+} 
+注意：
+静态方法不可以使用类中定义的泛型；
+因为类中的泛型需要在对象初始化时指定具体的类型，而静态优先于对象存在。那么类中的静态方法就需要单独进行泛型声明，声明泛型一定要写在static后，返回值类型之前。
+泛型类细节：
+1)	创建对象的时候要指定泛型的具体类型
+2)	创建对象时可以不指定泛型的具体类型(和创建集合对象一眼)。
+默认是Object，例如我们使用集合存储元素的时候没有使用泛型就是那么参数的类型就是Object
+3)	类上面声明的泛型只能应用于非静态成员函数，
+如果静态函数需要使用泛型，那么需要在函数上独立声明。
+4)	如果建立对象后指定了泛型的具体类型，那么该对象操作方法时，这些方法只能操作一种数据类型。
+5)	所以既可以在类上的泛型声明，也可以在同时在该类的方法中声明泛型。
+泛型练习：
+定义泛型成员：
+public class Demo7 {
+	public static void main(String[] args) {
+		Father<String> f = new Father<String>("jack");
+		System.out.println(f.getT());
+		Father<Integer> f2 = new Father<Integer>(20);
+		System.out.println(f2.getT());
+	}
+}
+class Father<T> {
+	private T t;
+	public Father() {
+	}
+	public Father(T t) {
+		super();
+		this.t = t;
+	}
+	public T getT() {
+		return t;
+	}
+	public void setT(T t) {
+		this.t = t;
+	}
+}
+如果Father类有子类，子类该如何实现：
+public class Demo7 {
+	public static void main(String[] args) {
+		Father<String> f = new Father<String>("jack");
+		System.out.println(f.getT());
+		Father<Integer> f2 = new Father<Integer>(20);
+		System.out.println(f2.getT());
+	}
+}
+class Father<T> {
+	private T t;
+	public Father() {
+	}
+	public Father(T t) {
+		super();
+		this.t = t;
+	}
+	public T getT() {
+		return t;
+	}
+	public void setT(T t) {
+		this.t = t;
+	}
+}
+//子类指定了具体的类型
+class Son extends Father<String>{	
+}
+//子类也需要使用泛型
+class Son3<T> extends Father<T>{	
+}
+//错误写法，父类上定义有泛型需要进行处理
+class Son2 extends Father<T>{	
+}
+泛型接口：
+定义格式：
+interface 接口名< 声明自定义的泛型 > {  } ；
+在接口上自定义泛型的注意事项：
+在接口上自定义泛型具体的数据类型，是在实现该接口的时候指定的。
+如果一个接口自定义了泛型，在实现该接口的时候没有指定具体的数据类型，那么默认是Object数据类型。
+如果想在创建接口实现类对象的时候再指定接口自定义泛型的具体类型：用<T>占位。
+public class Demo8 {
+	public static void main(String[] args) {
+		MyInter<String> my = new MyInter<String>();
+		my.print("泛型");
+		MyInter2 my2 = new MyInter2();
+		my.print("只能传字符串");
+	}
+}
+interface Inter<T> {
+	void print(T t);
+}
+// 实现不知为何类型时可以这样定义
+class MyInter<T> implements Inter<T> {
+	public void print(T t) {
+		System.out.println("myprint：" + t);
+	}
+}
+//使用接口时明确具体类型。
+class MyInter2 implements Inter<String> {
+	public void print(String t) {
+		System.out.println("myprint：" + t);
+	}
+}
+
+
+泛型
+
+概述：
+泛型可以在编译时期进行类型检查，可以避免频繁类型转化（泛型是JDK1.5才有的）。
+包括：基本用法、泛型擦除、泛型类、泛型方法、泛型接口、泛型关键字、反射泛型（案例）。
+基本用法：
+声明泛型集合的时候可以指定元素的类型。
+如：List<String> list = new ArrayList<String>（）；
+// 运行时期异常 
+	@Test
+	public void testGeneric（） throws Exception {
+		// 集合的声明
+		List list = new ArrayList（）；
+		list.add（"China"）；
+		list.add（1）；
+		// 集合的使用
+		String str = （String） list.get（1）；
+	}
+	// 使用泛型
+	@Test
+	public void testGeneric2（） throws Exception {
+		// 声明泛型集合的时候指定元素的类型
+		List<String> list = new ArrayList<String>（）；
+		list.add（"China"）；
+//list.add（1）；// 编译时期报错
+		String str = list.get（1）；
+	}
+泛型擦除：
+泛型只在编译时期有效；
+编译后的字节码文件中，不存在泛型信息。
+	// 泛型擦除实例 
+	public void save（List<Person> p）{
+	}
+	public void save（List<Dept> d）{    // 报错： 与上面方法编译后一样
+	}
+泛型的写法：
+声明泛型集合时，两端集合中泛型类型必须要一致；
+泛型类型必须是引用类型，不能是基本类型。
+// 泛型写法
+	@Test
+	public void testGeneric3（） throws Exception {
+		// 声明泛型集合，集合两端类型必须一致
+		List<Object> list = new ArrayList<Object>（）；
+		List<String> list1 = new ArrayList<String>（）；
+		List list2 = new ArrayList<String>（）；
+		List<Integer> list3 = new ArrayList（）；
+		// 错误
+		//List<Object> list4 = new ArrayList<String>（）；
+		// 错误： 泛型类型必须是引用类型，不能为基本类型
+		List<int> list5 = new ArrayList<int>（）；
+	}
+泛型方法、泛型类、泛型接口的作用：
+设计公用的类、方法，对公用的业务实现进行抽取；
+使程序更灵活。
+【java中任何对象，先定义再使用。】
+【CSR：查看当前项目中的类。】
+【CST：查看源码中的类。】
+【ASL：快速获取方法返回值。】
+泛型方法：
+使用泛型方法时确定泛型的类型。
+public class GenericDemo {
+	// 定义泛型方法
+	public <K，T> T save（T t，K k） {
+		return null；
+	}
+	// 测试方法
+	@Test
+	public void testMethod（） throws Exception {
+		// 使用泛型方法:  在使用泛型方法的时候，确定泛型类型
+		save（1.0f，1）；
+	}
+}
+泛型类：
+创建泛型类对象时确定类型。
+public class GenericDemo<T> {
+	// 定义泛型方法
+	public <K> T save（T t，K k） {
+		return null；
+	}
+	public void update（T t） {
+	}
+	// 测试方法
+	@Test
+	public void testMethod（） throws Exception {
+		// 泛型类：  在创建泛型类对象的时候，确定类型
+		GenericDemo<String> demo = new GenericDemo<String>（）；
+		demo.save（"test"，1）；
+	}
+}
+泛型接口：
+类型确定：
+如果实现泛型接口的类也是抽象，那么类型在具体的实现中确定，或创建泛型类时确定；
+业务实现类中会直接确定接口的类型。
+/**
+ * 泛型接口
+ * @param <T>
+ */
+public interface IBaseDao<T> {
+	void save（T t ）；
+	void update（T t ）；
+}
+public class BaseDao<T> implements IBaseDao<T> {	}
+public class PersonDao implements IBaseDao<Person>{	}
+泛型关键字：
+? ：			只接收值。
+extends：	元素的类型必须继承自指定的类。
+super：		元素的类型必须是指定的类的父类。
+关键字：?
+可以接收任何泛型集合，但是不能编辑集合值；
+一般在方法参数中用。如：save（List<?> list）
+// 泛型，涉及到一些关键字
+public class App_extends_super {
+	//只带泛型特征的方法
+	public void save（List<?> list） {
+		// 只能获取、迭代list； 不能编辑list
+	}
+	@Test
+	public void testGeneric（） throws Exception {
+		// ?  可以接收任何泛型集合，但是不能编辑集合值；所以一般在方法参数中用
+		List<?> list = new ArrayList<String>（）；
+		//list.add（""）；// 报错
+	}
+}
+关键字：extends
+限定元素类型范围的上限（子类）。
+如：List<? extends Number>
+public class App_extends_super {
+	/**
+	 * list集合只能处理 Double/Float/Integer等类型
+	 * 限定元素范围：元素的类型要继承自Number类 （上限）
+	 * @param list
+	 */
+	public void save（List<? extends Number> list） {
+	}
+	@Test
+	public void testGeneric（） throws Exception {
+		List<Double> list_1 = new ArrayList<Double>（）；
+		List<Float> list_2 = new ArrayList<Float>（）；
+		List<Integer> list_3 = new ArrayList<Integer>（）；
+		List<String> list_4 = new ArrayList<String>（）；
+		// 调用
+		save（list_1）；
+		save（list_2）；
+		save（list_3）；
+		//save（list_4）；
+	}
+}
+关键字：super
+限定元素类型范围的下限（父类）。
+如：List<? super String>
+// 泛型，涉及到一些关键字
+public class App_super {
+	/**
+	 * super限定元素范围：必须是String父类（下限）
+	 * @param list
+	 */
+	public void save（List<? super String> list） {
+	}
+	@Test
+	public void testGeneric（） throws Exception {
+		// 调用上面方法，必须传入String的父类
+		List<Object> list1 = new ArrayList<Object>（）；
+		List<String> list2 = new ArrayList<String>（）；
+		List<Integer> list3 = new ArrayList<Integer>（）；
+		//save（list3）；
+	}
+}
+泛型的反射：
+反射泛型涉及API：
+Type接口：		任何类型默认的接口；
+			包括：引用类型、原始类型、参数化类型。
+List<String> list = new ArrayList<String>（）；
+list：				泛型集合；
+String：				集合元素；
+ArrayList<String>：	参数化类型（ParameterizedType）。
+泛型反射：
+获取当前运行类的父类，其实就是参数化类型：
+Type type = this.getClass（）.getGenericSuperclass（）；
+强制转换为参数化类型：
+ParameterizedType pt = （ParameterizedType） type；
+获取参数化类型中，实际类型的定义： 
+Type types[] =  pt.getActualTypeArguments（）；
+获取数据的第一个元素：
+clazz = （Class） types[0]；
+表名（与类名一样，只要获取类名就可以）：
+tableName = clazz.getSimpleName（）；
+案例：设置通用方法，会用到反射泛型。
+步骤：
+a)	案例分析、实现；
+b)	涉及知识点（JDK API）；
+c)	优化、反射泛型。
+反射泛型案例：
+public class AdminDao extends BaseDao<Admin> {}
+public class AccountDao extends BaseDao<Account> {}
+// 所有dao的公用的方法，都在这里实现
+public class BaseDao<T>{
+	// 保存当前运行类的参数化类型中的实际的类型
+	private Class clazz；
+	// 表名
+	private String tableName；
+	// 构造函数： 1. 获取当前运行类的参数化类型；2. 获取参数化类型中实际类型的定义（class）
+	public BaseDao（）{
+		//  this  表示当前运行类  （AccountDao/AdminDao）
+		//  this.getClass（）  当前运行类的字节码（AccountDao.class/AdminDao.class）
+		//  this.getClass（）.getGenericSuperclass（）； 当前运行类的父类，即为BaseDao<Account>
+		//                                           其实就是“参数化类型”，ParameterizedType   
+		Type type = this.getClass（）.getGenericSuperclass（）；
+		// 强制转换为“参数化类型”  【BaseDao<Account>】
+		ParameterizedType pt = （ParameterizedType） type；
+		// 获取参数化类型中，实际类型的定义  【new Type[]{Account.class}】
+		Type types[] =  pt.getActualTypeArguments（）；
+		// 获取数据的第一个元素：Accout.class
+		clazz = （Class） types[0]；
+		// 表名  （与类名一样，只要获取类名就可以）
+		tableName = clazz.getSimpleName（）；
+	}
+	/**
+	 * 主键查询
+	 * @param id	主键值
+	 * @return      返回封装后的对象
+	 */
+	public T findById（int id）{
+		/*
+		 * 1. 知道封装的对象的类型
+		 * 2. 表名【表名与对象名称一样，且主键都为id】
+		 * 即，
+		 *   得到当前运行类继承的父类  BaseDao<Account>
+		 *   得到Account.class
+		 */
+		String sql = "select * from " + tableName + " where id=? "；
+		try {
+			return JdbcUtils.getQuerrRunner（）.query（sql，new BeanHandler<T>（clazz），id）；
+		} catch （SQLException e） {
+			throw new RuntimeException（e）；
+		}
+	}
+	/**
+	 * 查询全部
+	 * @return
+	 */
+	public List<T> getAll（）{
+		String sql = "select * from " + tableName ；
+		try {
+			return JdbcUtils.getQuerrRunner（）.query（sql，new BeanListHandler<T>（clazz））；
+		} catch （SQLException e） {
+			throw new RuntimeException（e）；
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

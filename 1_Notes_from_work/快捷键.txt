@@ -1,0 +1,161 @@
+
+常用快捷键 笔记
+
+
+IntelliJ IDEA ：
+	
+	格式化：Alt + Shift + L ；
+	自动生成：Alt + Insert ；
+	获取方法返回值：Alt + Enter ；
+	
+	修改多行：Alt + 鼠标左键 ；
+	大小写转换：Ctrl + Shift + U ；
+	
+	debug 模式：
+		跳出：F8 ；
+		跳入：Shift + F8 ；
+		全部放行：F9 ；
+	
+	
+	
+
+Eclipse ：
+
+	快速获取方法返回值：Alt + Shift + L ；
+	自动补全：Ctrl + 2 : L ；	
+	
+	字母大写：Ctrl + Shift + X ；
+	字母小写：Ctrl + Shift + Y；
+
+	文档注释：ALT + SHIFT + J ；
+	
+	
+	查看当前项目中类：Ctrl + shift + R ；
+	查看源码jar包中的类：Ctrl + shift + T ：
+	
+	
+	
+	
+
+Sublime ：
+	
+	
+	选中当前行：Ctrl + L ；
+	复制当前行：Ctrl + Shift + D ；
+	向上移动：Ctrl + Shift + up ；
+	
+	选中多行同时编辑：Shift + 鼠标右键；
+	创建新行，光标移动到新行：Ctrl + 回车；
+	
+	命令执行窗口：Ctrl + Shift + P ；
+	命令行窗口：Ctrl + ~ ；
+	
+	注释：Ctrl + / ;
+	左缩进：Ctrl + [ ；
+	右缩进：Ctrl + ] ；
+	跳转到某行：Ctrl + G ；
+	带格式粘贴：Ctrl + V ；
+	适应当前格式粘贴：Ctrl + Shift + V ；
+	
+	格式化快捷键设置：{ "keys": ["alt+shift+f"], "command": "reindent" }
+	
+	
+	
+Notepad++ ：
+	
+	
+	首写字母大写：Ctrl + Alt + U ；
+	首写字母小写：Ctrl + U ；
+	首写字母大写：Alt + U ；
+	
+	删除行：Ctrl + L ；
+	
+	
+	
+	
+	
+Windows 10 ：
+	
+	任务管理器：Ctrl + Shift + Esc ；
+	打开任务栏某个图标程序：Win + 数字；
+	退出当前程序：Alt + F4 ；
+	关闭当前标签：Ctrl + F4 ；
+	
+	
+	活动窗口切换：Alt + Tab ；
+	最大化，最小化，左右分屏：Alt + 方向键;
+	
+		
+	运行：Win + R ；
+	资源管理器：Win + E ；
+	
+	显示桌面：Win + D ；
+	锁定系统：Win + L ；
+	
+	重命名：F2 ；
+	资源管理器中显示文件地址：F4 ；
+	重复上一步的操作：F4 ；	
+	
+	开始菜单：Ctrl + Ecs ；Win ；
+	桌面切换：Ctrl + Win + 左右方向键；
+	
+	最大化窗口：Win + up ;
+	注销切换用户：Ctrl + Shift + Del ；
+	
+
+	创建快捷方式：Alt + 鼠标左键；
+	
+
+Word ：
+	
+	大小写转换：Shift + F3 ；
+	清除文档中的超级链接：Ctrl + Shift + F9 ；
+	
+	增加缩进量：Ctrl + M ；
+	减少缩进量：Ctrl + Shift + M ；
+	
+	
+	
+	
+	
+
+Chrome ：
+	
+	恢复关闭的网页：Ctrl + Shift + T ；
+	
+	
+	
+	
+
+
+
+正则 ：
+	
+	删除文档注释：/\*{1,2}[\s\S]*?\*/
+	删除单行注释：//{1,2}[\s\S]*?\n
+	
+	
+	
+WebStorm ：
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
+
+
+
+
+
+

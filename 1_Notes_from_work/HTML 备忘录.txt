@@ -1,0 +1,119 @@
+
+
+HTML 工作笔记
+
+
+
+
+
+H5页面操作提示框：
+<div class="fixbox" style="display: none; position: fixed; top: 50%; left: 50%; background: #000; opacity: .8; transform: translate(-50%,-50%); width: 200px; height: 50px; border-radius: 5px; text-align: center;line-height: 50px; color:#fff; z-index: 100; " >
+
+用于ajax 成功回调函数执行操作：
+$(".fixbox").html("未查找到其他信息！").css({'display':'block'})
+setTimeout(function () {
+    $(".fixbox").html("未查找到其他信息！").css({'display':'none'})
+},2000)
+
+
+
+
+
+
+<h1>Heading level 1</h1>
+<h2>Heading level 2</h2>
+<h3>Heading level 3</h3>
+<h4>Heading level 4</h4>
+<h5>Heading level 5</h5>
+<h6>Heading level 6</h6>
+
+
+
+
+
+
+
+
+div左右分布，只要在第一个div中加入float:left
+
+
+
+
+#loginpsd {    
+	background-image:url(../img/eye1.png);
+    background-position:right;    
+    background-repeat:no-repeat;
+}
+
+
+
+.shopping_cart{
+	background-size: 20px 20px;
+	background-image:url(img/shopping_cart_add.svg);
+	background-position:right;
+	background-repeat:no-repeat;
+	width:20px;
+	height:20px;
+	margin: 5px;
+}
+
+
+
+
+
+
+
+
+
+
+
+@font-face{
+	font-face:"family-name"; /*自定义字体名称*/
+	src:url("../font/XXX.eot"); /*解决IE9兼容模式下的兼容性问题*/
+	src:url("../font/XXX.eot?") format("embedded-opentype"), /*在eot加?或者?iefix，以解决字体文件在IE下加载失败的问题*/
+	url("../font/XXX.woff") format("woff"),
+	url("../font/XXX.ttf") format("trueytype"),
+	url("../font/XXX.syg") format("svg");
+	font-weight:normal; /*定义字体粗细*/
+	font-style:normal; /*定义字体样式*/
+｝
+.icon｛ /*按照一般的字体来写样式即可*/
+	font-family:"family-icon";
+	font-style:normal;
+	font-weight:normal;
+	font-size:20px;
+	-webkit-font-smoothing:antialiased; /*用于webkit引擎中的字体抗锯齿属性*/
+	-moz-osx-font-smoothing:graycale /*用于Mac OS系统和火狐浏览器中的字体抗锯齿属性*/
+｝
+.example{
+	color:#fff; /*可轻松改变图标颜色*/
+	font-size:24px; /*改变图标的大小*/
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

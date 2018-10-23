@@ -17,251 +17,254 @@ JavaWeb 小结
 		1)	地址栏会改变，变成重定向到地址；
 		2)	重定向可以跳转到当前web应用，或其他web应用，甚至是外部域名网站；
 		3)	不能在重定向的过程，把数据保存到request中。
-	注意：如果要使用request域对象进行数据共享，只能用转发。
+	注意：如果要使用 request 域对象进行数据共享，只能用转发。
+	
+	
+会话跟踪：
+	会话跟踪是一种灵活、轻便的机制，它使Web上的状态编程变为可能。
+		HTTP是一种无状态协议，每当用户发出请求时，服务器就会做出响应，
+		客户端与服务器之间的联系是离散的、非连续的。
+		当用户在同一网站的多个页面之间转换时，根本无法确定是否是同一个客户，
+		会话跟踪技术就可以解决这个问题，
+		当一个客户在多个页面间切换时，服务器会保存该用户的信息。
+
+	有四种方法可以实现会话跟踪技术：
+		1）隐藏表单域：<input type="hidden">，非常适合步需要大量数据存储的会话应用。
+		2）URL 重写：URL 可以在后面附加参数，和服务器的请求一起发送，这些参数为名字/值对。
+		3）Cookie：一个 Cookie 是一个小的，已命名数据元素。
+			服务器使用 SET-Cookie 头标将它作为 HTTP响应的一部分传送到客户端，
+			客户端被请求保存 Cookie 值，
+			在对同一服务器的后续请求使用一个 Cookie 头标将之返回到服务器。
+			与其它技术比较，Cookie 的一个优点是在浏览器会话结束后，
+			甚至在客户端计算机重启后它仍可以保留其值。
+		4）Session：使用 setAttribute(String str，Object obj)方法将对象捆绑到一个会话。
 
 
-会话跟踪是一种灵活、轻便的机制，它使Web上的状态编程变为可能。
-HTTP是一种无状态协议，每当用户发出请求时，服务器就会做出响应，客户端与服务器之间的联系是离散的、非连续的。
-当用户在同一网站的多个页面之间转换时，根本无法确定是否是同一个客户，会话跟踪技术就可以解决这个问题。
-当一个客户在多个页面间切换时，服务器会保存该用户的信息。
-
-有四种方法可以实现会话跟踪技术：URL重写、隐藏表单域、Cookie、Session。
-1）.隐藏表单域：<input type="hidden">，非常适合步需要大量数据存储的会话应用。
-2）.URL 重写:URL 可以在后面附加参数，和服务器的请求一起发送，这些参数为名字/值对。
-3）.Cookie:一个 Cookie 是一个小的，已命名数据元素。
-    服务器使用 SET-Cookie 头标将它作为 HTTP响应的一部分传送到客户端，
-    客户端被请求保存 Cookie 值，在对同一服务器的后续请求使用一个
-    Cookie 头标将之返回到服务器。
-    与其它技术比较，Cookie 的一个优点是在浏览器会话结束后，甚至在客户端计算机重启后它仍可以保留其值
-4）.Session：使用 setAttribute(String str,Object obj)方法将对象捆绑到一个会话
-
-
-socket 编程
-服务器端，
-首先是服务器初始化Socket，
-然后是与端口进行绑定(blind()),
-端口创建ServerSocket进行监听(listen()),
-然后调用阻塞(accept()),等待客户端连接。
-与客户端发生连接后，会进行相关的读写操作(read(),write())，
-最后调用close()关闭连接。
-
-
-
-
-1. Statement、PreparedStatement和CallableStatement都是接口(interface)。  
-2. Statement继承自Wrapper、PreparedStatement继承自Statement、CallableStatement继承自PreparedStatement。  
-3. Statement接口提供了执行语句和获取结果的基本方法；  
-    PreparedStatement接口添加了处理 IN 参数的方法；  
-    CallableStatement接口添加了处理 OUT 参数的方法。  
-4. 
-a.Statement:  普通的不带参的查询SQL；支持批量更新,批量删除;  
-b.PreparedStatement:  可变参数的SQL,编译一次,执行多次,效率高;  
-    安全性好，有效防止Sql注入等问题;  
-    支持批量更新,批量删除;  
-c.CallableStatement:  
-    继承自PreparedStatement,支持带参数的SQL操作;  
-    支持调用存储过程,提供了对输出和输入/输出参数(INOUT)的支持;  
-Statement每次执行sql语句，数据库都要执行sql语句的编译 ，  
-最好用于仅执行一次查询并返回结果的情形，效率高于PreparedStatement。  
-PreparedStatement是预编译的，使用PreparedStatement有几个好处  
-1. 在执行可变参数的一条SQL时，PreparedStatement比Statement的效率高，
-    因为DBMS预编译一条SQL当然会比多次编译一条SQL的效率要高。  
-2. 安全性好，有效防止Sql注入等问题。  
-3.  对于多次重复执行的语句，使用PreparedStament效率会更高一点，并且在这种情况下也比较适合使用batch；  
-4.  代码的可读性和可维护性。
-
-
-因为PreparedStatement有预编译的过程，所以第一次扫描的集合 
-PreparedStatement会大于等于 Statement
-
-ResultSet跟普通的数组不同，索引从1开始而不是从0开始
+socket 编程：
+	服务器端，
+	首先是服务器初始化Socket，
+	然后是与端口进行绑定(blind())，
+	端口创建ServerSocket进行监听(listen())，
+	然后调用阻塞(accept())，等待客户端连接。
+	与客户端发生连接后，会进行相关的读写操作(read()，write())，
+	最后调用close()关闭连接。
 
 
 
+JDBC 中的 Statement 相关接口：
+	1. Statement、PreparedStatement 和 CallableStatement 都是接口(interface)。  
+	2. Statement继承自Wrapper、PreparedStatement继承自Statement、CallableStatement继承自PreparedStatement。  
+	3. Statement接口提供了执行语句和获取结果的基本方法；  
+		PreparedStatement接口添加了处理 IN 参数的方法；  
+		CallableStatement接口添加了处理 OUT 参数的方法。  
+	4. Statement、PreparedStatement 和 CallableStatement 差异：
+		Statement: 
+			普通的不带参的查询SQL；支持批量更新，批量删除。
+		PreparedStatement:  
+			可变参数的SQL，编译一次，执行多次，效率高； 
+			安全性好，有效防止Sql注入等问题； 
+			支持批量更新，批量删除。
+		CallableStatement:  
+			继承自 PreparedStatement，支持带参数的SQL操作； 
+			支持调用存储过程，提供了对输出和输入/输出参数(INOUT)的支持。
+	5. Statement 和 PreparedStatement 差异：
+		Statement：
+			每次执行 sql 语句，数据库都要执行 sql 语句的编译 ，  
+			最好用于仅执行一次查询并返回结果的情形，效率高于 PreparedStatement。
+		PreparedStatement：
+			是预编译的，使用 PreparedStatement 有几个好处： 
+				a. 在执行可变参数的一条SQL时，PreparedStatement比Statement的效率高，
+					因为DBMS预编译一条SQL当然会比多次编译一条SQL的效率要高；
+				b. 安全性好，有效防止Sql注入等问题； 
+				c. 对于多次重复执行的语句，使用PreparedStament效率会更高一点，并且在这种情况下也比较适合使用batch；
+				d. 代码的可读性和可维护性。
+			因为 PreparedStatement 有预编译的过程，所以第一次扫描的集合 
+			PreparedStatement 会大于等于 Statement；
+			ResultSet跟普通的数组不同，索引从1开始而不是从0开始。
 
 
+JDBC 中加载驱动方法：
+	1. Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver")；
+	2. DriverManager.registerDriver(new com.mysql.jdbc.Driver())；
+	3. System.setProperty("jdbc.drivers"，"com.mysql.jdbc.Driver")；
 
-
-
-
-
-
-
-
-
-
-
-
+DriverManager.getConnection 方法返回一个 Connection 对象，这是加载驱动之后才能进行的。
 
 
 
 
+JSP 表达式：
+
+	(1) <%  ... %>： 可以插入一些语句。
+	(2) <%! ...  %>：只能放置全局变量、全局常量、类、函数。
+	(3) <%= ... %>：只能放置一个变量、常量。
+
+EL表达式：
+	全名为Expression Language，就是为了替代<%= %>脚本表达式。
+	在j2ee1.4以前默认是不支持el，如果需要需要指定page指令[isELIgnored="true | false" ]为false，j2ee4.0后默认支持el。
+
+	EL主要作用：
+		1、获取数据：
+			EL表达式主要用于替换JSP页面中的脚本表达式，以从各种类型的web域中检索java对象、获取数据。
+			(某个web域 中的对象，访问javabean的属性、访问list集合、访问map集合、访问数组)
+		2、执行运算：
+			利用EL表达式可以在JSP页面中执行一些基本的关系运算、逻辑运算和算术运算，以在JSP页面中完成一些简单的逻辑运算。${user==null}
+		3、获取web开发常用对象
+			EL 表达式定义了一些隐式对象，利用这些隐式对象，web开发人员可以很轻松获得对web常用对象的引用，从而获得这些对象中的数据。
+		4、调用Java方法
+			EL表达式允许用户开发自定义EL函数，以在JSP页面中通过EL表达式调用Java类的方法。
 
 
 
-JSP 表达式
-
-(1) <%  ... %>： 可以插入一些语句。
-(2) <%! ...  %>：只能放置全局变量、全局常量、类、函数。
-(3) <%= ... %>：只能放置一个变量、常量。
-
-EL表达式，全名为Expression Language，就是为了替代<%= %>脚本表达式。
-在j2ee1.4以前默认是不支持el，如果需要需要指定page指令[isELIgnored="true | false" ]为false，j2ee4.0后默认支持el
-EL主要作用：
-1、获取数据：
-    EL表达式主要用于替换JSP页面中的脚本表达式，以从各种类型的web域中检索java对象、获取数据。
-    (某个web域 中的对象，访问javabean的属性、访问list集合、访问map集合、访问数组)
-2、执行运算：
-    利用EL表达式可以在JSP页面中执行一些基本的关系运算、逻辑运算和算术运算，以在JSP页面中完成一些简单的逻辑运算。${user==null}
-3、获取web开发常用对象
-    EL 表达式定义了一些隐式对象，利用这些隐式对象，web开发人员可以很轻松获得对web常用对象的引用，从而获得这些对象中的数据。
-4、调用Java方法
-    EL表达式允许用户开发自定义EL函数，以在JSP页面中通过EL表达式调用Java类的方法。
-
-
-DriverManager.getConnection方法返回一个Connection对象，这是加载驱动之后才能进行的
-
-加载驱动方法
-1.Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-2. DriverManager.registerDriver(new com.mysql.jdbc.Driver());
-3.System.setProperty("jdbc.drivers", "com.mysql.jdbc.Driver");
 
 
 
 注释格式
 	Java：
-	// Java注释
-	/* Java注释 */ 
+		// Java 单行注释
+		/* Java 多行注释 */
+		/**
+		 * Java 文档注释
+		 */
 
 	JSP：
-	<%!-- JSP注释 --%>
-
+		<%!-- JSP注释 --%>
 	XML：
-	<!-- XML注释 -->
+		<!-- XML注释 -->
 	HTML：
 		<!-- 	HTML注释 -->
 	CSS：
-	/* CSS注释 */
+		/* CSS注释 */
+	
 	Javascript：
-	// Javascript单行注释 
-	/* Javascript多行注释 */
-
+		// Javascript单行注释 
+		/* Javascript多行注释 */
+	
 	SQL：
-	-- SQL注释 
+		-- SQL注释 
 
 	MySQL：
-	#MySQL注释
+		# MySQL注释
 
 	PLSQL：
-	--PLSQL注释
-	/* PLSQL注释 */
+		-- PLSQL注释
+		/* PLSQL注释 */
 
 语言表达式的符号
 	JSP表达式：
-	<% =JSP变量或表达式 %>；
+		<% =JSP变量或表达式 %>；
 
 	EL表达式：
-	$ { 变量或表达式 } 
-	$：EL表达式，配置文件中取值用；
+		$ { 变量或表达式 } 
+		$：EL表达式，配置文件中取值用；
 
 	OGNL表达式（struts2内置表达式）：
-	s：OGNL表达式标识；
-	%：提供ognl表达式运行环境；
-	#：获取非根元素值。
+		s：OGNL表达式标识；
+		%：提供ognl表达式运行环境；
+		#：获取非根元素值。
 
 	jQuery选择器：
-	$：区别于传统js对象。
-	#：选择属性为id的对象；
+		$：区别于传统js对象。
+		#：选择属性为id的对象；
 
-
+	
 	js选择器：
-
+	
 
 	切入点表达式：
 		<aop：pointcut expression="execution（* cn. g_pointcut. UserDao.*（..））" id="pt"/>
 
 	xPath表达式：
-	/			绝对路径：		表示从xml的根位置开始或子元素（一个层次结构）；
-	//			相对路径：		表示不分任何层次结构的选择元素；
-	*			通配符：		表示匹配所有元素；
-	[]			条件：			表示选择什么条件下的元素；
-	@			属性：			表示选择属性节点；
-	and			关系：			表示条件的与关系（等价于&&）；
-	text（）		文本：			表示选择文本内容。
+		/			绝对路径：		表示从xml的根位置开始或子元素（一个层次结构）；
+		//			相对路径：		表示不分任何层次结构的选择元素；
+		*			通配符：		表示匹配所有元素；
+		[]			条件：			表示选择什么条件下的元素；
+		@			属性：			表示选择属性节点；
+		and			关系：			表示条件的与关系（等价于&&）；
+		text（）		文本：			表示选择文本内容。
 
-	DTD约束
+DTD约束
 	内部导入：
-	<!DOCTYPE note [
-	<!ELEMENT note （to,from,heading,body）>
-	<!ELEMENT to （#PCDATA）>
-	<!ELEMENT from（#PCDATA）>
-	<!ELEMENT heading （#PCDATA）>
-	<!ELEMENT body（#PCDATA）>
-	]>
+		<!DOCTYPE note [
+		<!ELEMENT note （to，from，heading，body）>
+		<!ELEMENT to （#PCDATA）>
+		<!ELEMENT from（#PCDATA）>
+		<!ELEMENT heading （#PCDATA）>
+		<!ELEMENT body（#PCDATA）>
+		]>
 	本地文件系统：
-	<!DOCTYPE note（根元素） SYSTEM "note.dtd"（文件名）>
-	公共的外部导入：
-	<!DOCTYPE根元素PUBLIC"http：//gz.itcast.cn/itcast.dtd">
+		<!DOCTYPE note（根元素） SYSTEM "note.dtd"（文件名）>
+		公共的外部导入：
+		<!DOCTYPE根元素PUBLIC"http：//gz.itcast.cn/itcast.dtd">
 
 数据库查询语言
-	SQL：数据库基本的查询语法和关键字。
-	关键字：
-	select、from、where、group by、
-	inner join、left join、right join、fetch、
+	SQL：
+		数据库基本的查询语法和关键字。
+		关键字：
+			select、from、where、group by、
+			inner join、left join、right join、fetch、
 
-	HQL：Hibernate框架自带的查询语言。
-	语法：
-	可以省略select关键字；
-	可以直接写入对象；
-	查询可以返回数组对象，也可以把查询结果封装成指定对象；
-	不支持select *；
+	HQL：
+		Hibernate框架自带的查询语言。
+		语法：
+			可以省略select关键字；
+			可以直接写入对象；
+			查询可以返回数组对象，也可以把查询结果封装成指定对象；
+			不支持select *；
 
-	QBC（Query By Criteria）：标准查询，完全面向对象的查询。
-	session.createCriteria（）.add（Restrictions.eq（””，））
+	QBC（Query By Criteria）：
+		标准查询，完全面向对象的查询。
+		session.createCriteria（）.add（Restrictions.eq（””，））
 
 	PLSQL:
-	Oracle数据库对SQL的拓展。
-	关键字：
-	create、replace、
-	declare、as、begin、end、
-	/、%、@、
-	varchar2、
+		Oracle数据库对SQL的拓展。
+		关键字：
+			create、replace、
+			declare、as、begin、end、
+			/、%、@、
+			varchar2、
 
 	MySQL：
-	MySQL数据库对SQL的拓展。
-	关键字：
-	DML：insert into、update set、delete from、truncate table、
-	DQL：
-	select from、select as from、select distinct from、select + from；
-	where、and、or、between and、>、<、>=、<=、==、<>、is null、is not null、like、%、_；
-	order by、asc、desc；group by、having；limit；
-	DDL：
-	show、desc、databases；
-	show、desc、show create、use、create、alter、drop、database；
-	show、desc、create、drop、rename to、table；
-	add、drop、modify、change、column；
-	DCL：
-	grant select/delete on to identified by、rollback、commit；
-	存储过程：
-	create、procedure、in、out、inout、begin、declare、return、end、delimiter、call、；
-	变量：
-	declare、set、select、@、@@、show variables；
-	输入输出参数：
-	in、out、inout；
-	关联查询：
-	inner join on、left outer join on、right outer join on；
-	聚合函数：
-	sum、avg、max、min、count；
-	数据约束：
-	default、not null、unique、primary key、auto_increment、foreign key、
-	on update cascade、on delete cascade；
-	数据类型：
-	int、varchar、column、character、
-	条件判断：if  elseif  else  end if；
-	循环：while  end while；
-	赋值：into；
-	触发器：trigger、create after on；
-	>、-u、-p 、utf8、gbk、
+		MySQL数据库对SQL的拓展。
+		关键字：
+			DML：
+				insert into、update set、delete from、truncate table、
+			DQL：
+				select from、select as from、select distinct from、select + from；
+				where、and、or、between and、>、<、>=、<=、==、<>、is null、is not null、like、%、_；
+				order by、asc、desc；group by、having；limit；
+			DDL：
+				show、desc、databases；
+				show、desc、show create、use、create、alter、drop、database；
+				show、desc、create、drop、rename to、table；
+				add、drop、modify、change、column；
+			DCL：
+				grant select/delete on to identified by、rollback、commit；
+		存储过程：
+			create、procedure、in、out、inout、begin、declare、return、end、delimiter、call、；
+		变量：
+			declare、set、select、@、@@、show variables；
+		输入输出参数：
+			in、out、inout；
+		关联查询：
+			inner join on、left outer join on、right outer join on；
+		聚合函数：
+			sum、avg、max、min、count；
+		数据约束：
+			default、not null、unique、primary key、auto_increment、foreign key、
+			on update cascade、on delete cascade；
+		数据类型：
+			int、varchar、column、character、
+		条件判断：
+			if  elseif  else  end if；
+		循环：
+			while  end while；
+		赋值：
+			into；
+		触发器：
+			trigger、create after on；
+		其他：
+			>、-u、-p 、utf8、gbk、
 
 标签
 	JSTL（Java standard tag libarary）：Java标准标签库
@@ -286,7 +289,7 @@ DriverManager.getConnection方法返回一个Connection对象，这是加载驱�
 
 编码规范
 	包名：
-		package		域名倒写.	模块名称.	组件名称;
+		package		域名倒写.	模块名称.	组件名称；
 		规则：全小写	.	分割；
 	类名：
 		规则：
@@ -331,90 +334,75 @@ DriverManager.getConnection方法返回一个Connection对象，这是加载驱�
 
 
 设计模式
-
-
+	
 	单例模式
-
-
 	工厂模式
 
 数据验证
 	非空验证：
-	null；
-	空格。
-
+		null；
+		空格。
+	
 	数值验证：
-	长度；
-	中文；
-	英文；
-	数字。
+		长度；
+		中文；
+		英文；
+		数字。
 
 	数据格式验证：
-	email；
-	日期。
+		email；
+		日期。
 
 
 符号的典型含义
 	/ （斜杠）：
-	Linux命令行中，指上一指令。
-	Oracle数据库中，指过程或函数的结束。
+		Linux 命令行中，指上一指令。
+		Oracle 数据库中，指过程或函数的结束。
 	@：
-	Oracle数据库中，指定义变量。
-
-
+		Oracle数据库中，指定义变量。
+	
+	
 大小写敏感
-	HTML：
-	CSS：
-	JS：
-	XML：
-	JSP：
-	Java：
+	HTML；
+	CSS；
+	JS；
+	XML；
+	JSP；
+	Java；
 
 大小写不敏感
-	SQL：	大小写不敏感，提倡大写；
-	MySQL：
-	oracle：
+	SQL：大小写不敏感，提倡大写；
+	MySQL：大小写不敏感可以设置；
+	Oracle：
 
 
-快捷键
-	Ctrl + /				单行注释（或取消）
-	CTRL + SHFIT + C		单行注释（或取消）
-	CTRL + SHIFT + /		多行注释
-	CTRL + SHIFT + \		取消多行注释
-	ALT + SHIFT + J 		文档注释
 
-	Alt + Shift + L：		快速获取方法返回值
-
-	Ctrl + 2 后 L：		自动补全
-
-	Ctrl + shift + R：		查看当前项目中类
-	Ctrl + shift + T：		查看源码jar包中的类
-	Alt + Shift＋A			竖向选择
 
 
 正则
 	开始：
-	^
+		^
 	结束：
-	$
+		$
 	任意字符：
-	.
+		.
 	转义符：
-	\
+		\
 	大小写不敏感：
-	(?i)
+		(?i)
 	大小写敏感：
-	(?-i)
+		(?-i)
 	查找多行注释：
-	/\*{1,2}[\s\S]*?\*/
+		/\*{1，2}[\s\S]*?\*/
 	查找单行注释：
-	//{1,2}[\s\S]*?\n
+		//{1，2}[\s\S]*?\n
 
 
 常用端口
 	Tomcat：		8080
 	MySQL：			3306
-	Oracle：			1521
+	Nginx：			80
+	Oracle：		1521
 	PostgreSQL：	5432
 
 
@@ -426,8 +414,17 @@ DriverManager.getConnection方法返回一个Connection对象，这是加载驱�
 编码：
 	GB-2312
 	ISO-8859-1
+	utf-8
 
-StringBuilder中Append换行方法
+StringBuilder 中Append换行方法
 	换行："\r\n"
 	缩进：“\r\n\t”
-
+	
+	
+	
+	
+	
+	
+	
+	
+	

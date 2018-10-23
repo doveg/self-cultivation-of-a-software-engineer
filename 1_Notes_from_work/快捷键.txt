@@ -22,12 +22,16 @@ IntelliJ IDEA ：
 Eclipse ：
 
 	快速获取方法返回值：Alt + Shift + L ；
+	竖向选择：Alt + Shift＋A ；
 	自动补全：Ctrl + 2 : L ；	
 	
 	字母大写：Ctrl + Shift + X ；
 	字母小写：Ctrl + Shift + Y；
-
+	
 	文档注释：ALT + SHIFT + J ；
+	单行注释（或取消）：Ctrl + / ；
+	单行注释（或取消）：CTRL + SHFIT + C ；
+	多行注释（或取消）：CTRL + SHIFT + / ；
 	
 	
 	查看当前项目中类：Ctrl + shift + R ；
@@ -36,7 +40,6 @@ Eclipse ：
 	
 	
 	
-
 Sublime ：
 	
 	
@@ -63,9 +66,8 @@ Sublime ：
 	
 Notepad++ ：
 	
-	
-	首写字母大写：Ctrl + Alt + U ；
-	首写字母小写：Ctrl + U ；
+	小写转大写：Ctrl + Shift + U ；
+	大写转小写：Ctrl + U ；
 	首写字母大写：Alt + U ；
 	
 	删除行：Ctrl + L ；
@@ -85,7 +87,7 @@ Windows 10 ：
 	活动窗口切换：Alt + Tab ；
 	最大化，最小化，左右分屏：Alt + 方向键;
 	
-		
+
 	运行：Win + R ；
 	资源管理器：Win + E ；
 	
@@ -131,8 +133,8 @@ Chrome ：
 
 正则 ：
 	
-	删除文档注释：/\*{1,2}[\s\S]*?\*/
-	删除单行注释：//{1,2}[\s\S]*?\n
+	查找文档注释：/\*{1,2}[\s\S]*?\*/
+	查找单行注释：//{1,2}[\s\S]*?\n
 	
 	
 	

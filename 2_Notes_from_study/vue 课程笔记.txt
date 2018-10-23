@@ -193,7 +193,6 @@ vue 介绍：
 		export default 里面的属性。
 	
 总结：
-
 	0: 已经存在 node_modules 包，已经存在 package.json 和 webpack.config.js 文件；
 	1: 创建 index.html,看看其所在文件和 webpack.config.js 文件中描述的关系；
 	2: 在 index.html div -> id -> app；
@@ -219,7 +218,6 @@ vue 介绍：
 		输入: 代码编写完毕，提交到公司：npm run build
 	
 复习：
-
 	vue单文件方式 xxx.vue
 	1:准备好配置文件 package.json (包描述文件&& 封装命令npm run dev) 
 	+ webpack.config.js 文件（打包的配置文件）

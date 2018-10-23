@@ -217,7 +217,9 @@ git 配置：
 		git commit -m "messages"
 		
 	推送到远程仓库：
-		git push 
+		git push
+		git push <远程主机名> <本地分支名>:<远程分支名>
+		git push origin master
 	
 	从远程仓库拉取到本地：
 		git pull 

@@ -10,10 +10,10 @@
 		
 	基本原理：
 		线程的四种状态：
-			运行、就绪、挂起、结束。 
+			新建、就绪、运行、阻塞、结束。 
 		线程状态：
 			new：新建
-			runnable：可运行
+			runnable：可运行：
 				ready：准备；
 				running：运行。
 			blocked：阻塞
@@ -22,7 +22,7 @@
 				timed waiting：计时等待。
 			terminated：终止。
 	怎么使用：
-		创建启动线程
+		创建启动线程：
 			方式一：继承 Thread 类
 				1)	定义一个 A 类继承 Thread 类；
 				2)	在 A 类中覆盖 Thread 类中的 run 方法；
@@ -37,19 +37,19 @@
 				4)	在 main方法 (线程) 中，创建线程对象，并启动线程.
 					创建线程类对象： Thread t = new Thread ( new A ( ) )；
 					调用线程对象的 start 方法，t.start ( )；
-		线程通信
-			Object 类中的 wait 和 notify 方法：
-				1) wait()：执行该方法的线程对象，释放同步锁，
-					JVM把该线程存放到等待池中，等待其他线程唤醒该线程。
-				2) notify()：执行该方法的线程唤醒在等待池中等待的任意一个线程，把线程转到锁池中等待。
-				3) notifyAll()：执行该方法的线程唤醒在等待池等待的所有的线程，把线程转到锁池中等待。
-				上述方法只能被同步监听锁对象来调用，否则会报错 illegalMonitorStateException。
-				
+		线程通信：
 			Condition 接口中的 await 和 signal 方法：
 				reentrantLock.newCondition( )
-				1) await()：
-				2) signal()：
-				3) signalAll()：
+				1)	await()：
+				2)	signal()：
+				3)	signalAll()：
+			Object 类中的 wait 和 notify 方法（不推荐）：
+				1)	wait()：执行该方法的线程对象，释放同步锁，
+					JVM把该线程存放到等待池中，等待其他线程唤醒该线程。
+				2)	notify()：执行该方法的线程唤醒在等待池中等待的任意一个线程，把线程转到锁池中等待。
+				3)	notifyAll()：执行该方法的线程唤醒在等待池等待的所有的线程，把线程转到锁池中等待。
+				上述方法只能被同步监听锁对象来调用，否则会报错 illegalMonitorStateException。
+				
 		线程同步
 			同步锁(Lock)
 				提供了比synchronized代码块和synchronized方法更广泛的锁定操作；
@@ -65,15 +65,14 @@
 						lock.unlock();
 					}
 				}
-				
-				
-				
-				
-	并行和并发
+		
+多线程基础：
+	
+	并行和并发：
 		并发：指两个或多个时间在同一时刻点发生。
 		并行：指两个或多个事件在同一时间段内发生。
-
-	进程和线程
+	
+	进程和线程：
 		定义：
 			进程：是指一个内存中运行的应用程序。
 			线程：是指进程中的一个执行任务(控制单元)。一个进程同时并发运行多个线程。
@@ -84,7 +83,8 @@
 			线程：堆空间是共享的，栈空间是独立的，线程消耗的资源比进程小，相互之间可以影响；又称为轻型进程或进程元。
 		多线程优势：
 			1)	进程之间不能共享内存，但是线程之间共享堆内存很简单.
-			2)	系统创建进程时，需要为该进程重新分配系统资源，创建线程则代价小很多，因此实现多任务并发时，多线程效率更高。
+			2)	系统创建进程时，需要为该进程重新分配系统资源，创建线程则代价小很多，
+				因此实现多任务并发时，多线程效率更高。
 			3)	Java语言本身内置多线程功能，而不是单纯的作为底层系统的调度方式，简化了多线程。
 		创建一个进程：
 			方式一：Runtime的exct方法。
@@ -95,11 +95,9 @@
 				//方式2 使用ProcessBuilder的start方法
 				ProcessBuilder pd = new ProcessBuilder("notepad")；
 				pd.start()；
-
-	创建并启动线程
-
-		线程类(java.lang.Thread)：Thread 类和 Thread 的子类
-
+	
+	创建并启动线程：
+		线程类(java.lang.Thread)：Thread 类和 Thread 的子类：
 			方式一：继承 Thread 类。
 				步骤：
 					1)	定义一个 A 类继承 Thread 类；
@@ -108,8 +106,9 @@
 					4)	在 main 方法 (线程) 中，创建线程对象，并启动线程。
 						创建线程类：A 类 a = new A 类 ( )；
 						调用线程对象的 start 方法，a.start ( )； //启动一个线程
-					千万不要调用run方法，如果调用run方法，好比是对象调用方法，依然还是只有一个线程，并没有开启新的线程。
-
+					千万不要调用run方法，如果调用run方法，好比是对象调用方法，
+					依然还是只有一个线程，并没有开启新的线程。
+			
 			方式二：实现 Runnable 接口
 				步骤：
 					1)	定义一个类A实现于 Runnable 接口，A 类不是线程类.
@@ -118,35 +117,44 @@
 					4)	在 main方法 (线程) 中，创建线程对象，并启动线程.
 						创建线程类对象： Thread t = new Thread ( new A ( ) )；
 						调用线程对象的 start 方法，t.start ( )；
-					Thread 构造器，需要Runnable对象/ Runnable实现类的对象.
-
+					Thread 构造器，需要Runnable对象/ Runnable实现类的对象。
+			
+		创建线程的方法：
+			1.	继承Thread类，重写run方法；
+			2.	实现Runnable接口，并将对象实例作为参数传递给Thread类的构造方法；
+			3.	实现callable接口，并实现call方法，并且线程执行完毕后会有返回值。
+			注意：
+				1. 和 2. 都是调用start()方法启动线程的，然后JVM虚拟机将此线程放到就绪队列中，
+				有处理机可用时，则执行run方法。
+				这两种方法都重写了run方法，但是没有返回值。
+			
 		继承方式和实现方式的区别：
 			继承方式：
-				1)	Java中类是单继承的，如果继承了Thread类，该类就不能再有其他的直接父类了。
+				1)	Java中类是单继承的，如果继承了 Thread 类，该类就不能再有其他的直接父类了。
 				2)	从操作上分析，继承方式更简单，获取线程名字也简单，操作上更简单。
 				3)	从多线程共享同一个资源上分析，继承方式不能做到。
 			实现方式：
-				1)	Java中类可以多实现接口，该类还可以继承其他类，并且还可以实现其他接口，设计上更优雅。
-				2)	从操作上分析，实现方式稍微有点复杂，获取线程名字也比较复杂，得使用Thread.currentThread()来获取当前线程的引用。
+				1)	Java 中类可以多实现接口，该类还可以继承其他类，并且还可以实现其他接口，设计上更优雅。
+				2)	从操作上分析，实现方式稍微有点复杂，
+					获取线程名字也比较复杂，得使用 Thread.currentThread() 来获取当前线程的引用。
 				3)	从多线程共享同一个资源上分析，实现方式可以做到(是否共享同一个资源)。
-
+		
 		线程不安全的原因：
 			子类覆盖父类方法的原则，子类不能抛出新异常。
-				在Runnable接口中的run方法，都没有声明抛出异常。
+				在 Runnable 接口中的 run 方法，都没有声明抛出异常。
 			原子操作：不能分割，必须保证同步进行。
 			解决多线程并发访问同一个资源的安全性问题。
-
+		
 		注意：
-			在线程的run方法上不能使用throws来声明抛出异常，只能在方法中使用try-catch来处理异常。
-
+			在线程的 run 方法上不能使用 throws 来声明抛出异常，只能在方法中使用 try-catch 来处理异常。
+	
 	线程同步：
 		方式一：同步代码块。
 		方式二：同步方法。
 		方式三：锁机制(Lock)。
 		
 		同步代码块：
-			Synchronized(同步的)｛ 需要同步操作的代码 ｝
-			
+			格式：Synchronized()｛ 需要同步操作的代码 ｝
 			双重检查锁机制：
 				可以实现线程安全，同时使性能不受很大影响。
 				不是每次进入getInstance方法都需要同步，可以先不同步，然后进入方法，检查实例是否存在。
@@ -154,30 +162,30 @@
 					进入同步块之后，再检查实例是否存在，如果不存在，就在同步的情况下创建一个实例，这是第二重检查。
 						整个过程只需要同步一次，从而减少多次同步情况下进行判断带来的损耗。
 				volatile：
-					被volatile修饰的变量值，不会被本地线程缓存；所有对该变量的读写，都是直接操作共享内存；从而确保多个线程能正确处理该变量。
-					volatile关键字可能屏蔽掉虚拟机中一些必要的代码块，运行效率不是很高；建议没有特别的需要就别使用。
+					被 volatile 修饰的变量值，不会被本地线程缓存；
+					所有对该变量的读写，都是直接操作共享内存；
+					从而确保多个线程能正确处理该变量。
+					volatile 关键字可能屏蔽掉虚拟机中一些必要的代码块，运行效率不是很高；建议没有特别的需要就别使用。
 					双重检查加锁机制，可以用来实现线程安全的单例，但是并不建议大量采用。
-
+		
 		同步方法：
-			使用synchronized修饰的方法；保证A线程执行该方法的时候，其他线程只能在方法外等着。
-			例如：Synchronized public void doWork( ) { // TODO }
-			注意：不要使用synchronized修饰run方法；
-				因为修饰之后，某一个线程就执行完了所有的功能；好比是多个线程出现了串行。
-			解决方法：
-				把需要同步操作的代码定义在一个新的方法中，并且该方法使用synchronized修饰，再在run方法中调用该新方法即可。
-
+			使用 synchronized 修饰的方法；保证 A 线程执行该方法的时候，其他线程只能在方法外等着。
+				例如：Synchronized public void doWork( ) { // TODO }
+				注意：不要使用synchronized修饰 run 方法；
+					因为修饰之后，某一个线程就执行完了所有的功能；好比是多个线程出现了串行。
+				解决方法：
+					把需要同步操作的代码定义在一个新的方法中，并且该方法使用synchronized修饰，
+					再在run方法中调用该新方法即可。
 			synchronized：
-				StringBuilder和StringBuffer的区别：StringBuilder没有synchronized修饰，性能更强，安全性差一些。
-				ArrayList和Vector的区别：ArrayList没有synchronized修饰，性能更强，安全性差一些。
-				HashMap和Hashtable的区别：HashMap没有synchronized修饰，性能更强，安全性差一些。
-
-
-
+				StringBuilder 和 StringBuffer 的区别：StringBuilder 没有 synchronized 修饰，性能更强，安全性差一些。
+				ArrayList 和 Vector 的区别：ArrayList 没有 synchronized 修饰，性能更强，安全性差一些。
+				HashMap 和 Hashtable 的区别：HashMap 没有 synchronized 修饰，性能更强，安全性差一些。
+				
 		同步锁(Lock)
-			提供了比synchronized代码块和synchronized方法更广泛的锁定操作；
+			提供了比 synchronized 代码块和 synchronized 方法更广泛的锁定操作；
 			同步代码块和同步方法具有的功能，Lock都有，除此之外，还更强大，更体现面向对象。
 			ReentrantLock：可重入锁。
-			用法：使用Lock块来调用try，在此之前或之后的构造中。
+			用法：使用 Lock 块来调用 try，在此之前或之后的构造中。
 			实例：
 				private final ReentrantLock lock = new ReentrantLock()；
 				public void method( ) {
@@ -187,216 +195,192 @@
 						lock.unlock();
 					}
 				}
-
-	线程通信
-		Object 类中的 wait 和 notify 方法：
-			1) wait()：执行该方法的线程对象，释放同步锁，
-				JVM把该线程存放到等待池中，等待其他线程唤醒该线程。
-			2) notify()：执行该方法的线程唤醒在等待池中等待的任意一个线程，把线程转到锁池中等待。
-			3) notifyAll()：执行该方法的线程唤醒在等待池等待的所有的线程，把线程转到锁池中等待。
-			上述方法只能被同步监听锁对象来调用，否则会报错 illegalMonitorStateException。
+		
+	线程通信：
 		Condition 接口中的 await 和 signal 方法：
 			reentrantLock.newCondition( )
-			1) await()：
-			2) signal()：
-			3) signalAll()：
-
+			1)	await()：
+			2)	signal()：
+			3)	signalAll()：
+		Object 类中的 wait 和 notify 方法（不推荐）：
+			1)	wait()：执行该方法的线程对象，释放同步锁，
+				JVM把该线程存放到等待池中，等待其他线程唤醒该线程。
+			2)	notify()：执行该方法的线程唤醒在等待池中等待的任意一个线程，把线程转到锁池中等待。
+			3)	notifyAll()：执行该方法的线程唤醒在等待池等待的所有的线程，把线程转到锁池中等待。
+			上述方法只能被同步监听锁对象来调用，否则会报错 illegalMonitorStateException。
+	
 	线程状态：
 		new：新建。新建后尚未启动的线程。
 		runnable：可运行。正在 Java 虚拟机中执行的线程。
 			分成两种状态，ready 和 running。
-			ready：线程对象调用start方法之后，等待Java虚拟机调度。
-			running：线程对象获得虚拟机调度。
+			ready：就绪；线程对象调用start方法之后，等待Java虚拟机调度。
+			running：运行；线程对象获得虚拟机调度。
 		blocked：阻塞。受阻塞并等待某个监视器锁的线程。
 		waiting：等待。无期限的等待另一个线程来执行某一个特定操作的线程。
 		timed waiting：计时等待。等待另一个线程来执行取决于指定等待时间的操作的线程。
 		terminated：终止。已退出的线程。
-
-	线程睡眠
-		sleep(long millis)
-			调用sleep后，当前线程放弃CPU，在指定时间段之内，sleep所在线程不会获得执行的机会，
-			此状态下的线程不会释放同步锁和同步监听器。
-
+	
 	联合线程
 		线程的 join 方法表示一个线程等待另一个线程完成后才执行。
 		join 方法被调用之后，线程对象处于阻塞状态。
-
+	
 	后台线程
-		Daemon( )：在后台运行的线程 (守护线程)；
+		Daemon()：在后台运行的线程 (守护线程)；当主线程结束时，守护线程会自动结束；
 		目的：为其他线程提供服务。典型后台线程：虚拟机的垃圾回收线程。
 		特点：若所有的前台线程都死亡，后台线程自动死亡。前台线程没有结束，后台线程也不会结束。
-
+	
 	线程优先级
-		setPriority ( int priority )；
+		setPriority(int priority)；
 		getPriority()；
-
-	线程礼让
-		yield方法：表示当前线程对象提示调度器，自己愿意出让CPU资源，但是调度器可以自由忽略该提示。
-
-
+	
+		
+	线程操作小结：
+		
+		线程启动：start()；
+		线程中断：interrupt()；
+		线程等待：wait()；
+		线程睡眠：sleep()；
+		线程礼让：yield()。
+		
+		start()、interrupt()、wait()、sleep()、yield()：：
+			1.	启动一个线程的方法是 start()；
+			2.	结束线程用的是 interrupt() 方法；stop() 是强制结束线程，并不推荐使用，同时 stop() 方法已被弃用；
+			3.	一个线程等待另外一个线程的方法是 wait() 方法。
+				wait() 是Object的实例方法，在synchronized同步环境使用，作用当前对象，会释放对象锁，需要被唤醒。
+			4.	sleep() 是Thread的静态方法，不用在同步环境使用，作用当前线程，不释放锁。
+				sleep(long millis)：
+					调用 sleep 后，当前线程放弃CPU，在指定时间段之内，sleep所在线程不会获得执行的机会，
+					此状态下的线程不会释放同步锁和同步监听器。
+			5.	yield() 是Thread的静态方法，作用当前线程，
+				释放当前线程持有的CPU资源，将CPU让给优先级不低于自己的线程用，调用后进入就绪状态。
+				yield() 表示当前线程对象提示调度器，自己愿意出让CPU资源，但是调度器可以自由忽略该提示。
+	
 	定时器
 		Timer 类：可以定时执行特定的任务。
 		TimerTask：定时器执行的某一项任务。
 			schedule（TimerTask task,long delay,long period）；
 			schedule（TimerTask task,long delay）；
-
-
+	
+	
 	线程组
 		ThreadGroup类：表示线程组，可以对一组线程进行集中管理
 			Thread（ThreadGroup group,String name）；
-
-
-	ThreadLocal
-		本地线程变量。
-
+	
+	本地线程变量
+		
 		ThreadLocal 类：用于创建一个线程本地变量。
-			在Thread中有一个成员变量ThreadLocals，该变量的类型是 ThreadLocalMap , 也就是一个Map，
+			在 Thread 中有一个成员变量 ThreadLocals，该变量的类型是 ThreadLocalMap , 也就是一个Map，
 			它的键是threadLocal，值为就是变量的副本。
 			通过 ThreadLocal 的 get() 方法可以获取该线程变量的本地副本，在 get 方法之前要先 set ,否则就要重写 initialValue() 方法。
-
+			
 			ThreadLocal的使用场景：
-			数据库连接：在多线程中，如果使用懒汉式的单例模式创建Connection对象，
-			由于该对象是共享的，那么必须要使用同步方法保证线程安全，这样当一个线程在连接数据库时，那么另外一个线程只能等待。
-			这样就造成性能降低。
-			如果改为哪里要连接数据库就来进行连接，那么就会频繁的对数据库进行连接，性能还是不高。
-			这时使用ThreadLocal就可以既可以保证线程安全又可以让性能不会太低。但是ThreadLocal的缺点时占用了较多的空间。
+				数据库连接：在多线程中，如果使用懒汉式的单例模式创建Connection对象，
+				由于该对象是共享的，那么必须要使用同步方法保证线程安全，
+				这样当一个线程在连接数据库时，那么另外一个线程只能等待。
+				这样就造成性能降低。
+				如果改为哪里要连接数据库就来进行连接，那么就会频繁的对数据库进行连接，性能还是不高。
+				这时使用ThreadLocal就可以既可以保证线程安全又可以让性能不会太低。
+				但是ThreadLocal的缺点时占用了较多的空间。
+	
+	
+多线程补充知识：
+	
+	Condition 类中的 await()、signal() 和 signalAll()：
+		Condition 是在 java 1.5 中才出现的，它用来替代传统的 Object的wait()、notify() 实现线程间的协作，
+			相比 Object 的 wait()、notify()，用 Condition 的 await()、signal() 来实现线程间协作更加安全和高效。
+			因此通常来说比较推荐使用 Condition，阻塞队列实际上是使用了 Condition 来模拟线程间协作。
+		Condition 是个接口，基本的方法就是 await()和 signal()方法；
+			Condition 依赖于 Lock 接口：
+				生成一个 Condition 的基本代码是 lock.newCondition() 调用 Condition 的 await() 和 signal() 方法，
+				await() 和 signal() 方法 都必须在 lock 保护之内：
+					说必须在 lock.lock() 和lock.unlock 之间才可以使用 Conditon 中的 await() 对应 Object 的 wait()；
+			Condition 中的 signal() 对应 Object 的 notify()；
+			Condition 中的 signalAll() 对应 Object 的 notifyAll()。
+			
+			
+	Java中的多线程是一种抢占式的机制，而不是分时机制。
+		抢占式的机制是有多个线程处于可运行状态，但是只有一个线程在运行。 
+		共同点： 
+			1.	他们都是在多线程的环境下，都可以在程序的调用处阻塞指定的毫秒数，并返回。 
+			2.	wait()和sleep()都可以通过interrupt()方法 打断线程的暂停状态 ，从而使线程立刻抛出InterruptedException。 
+				如果线程A希望立即结束线程B，则可以对线程B对应的Thread实例调用interrupt方法。
+					如果此刻线程B正在wait/sleep/join，
+					则线程B会立刻抛出InterruptedException，在catch() {} 中直接return即可安全地结束线程。 
+				需要注意的是，InterruptedException是线程自己从内部抛出的，并不是interrupt()方法抛出的。
+					对某一线程调用 interrupt()时，如果该线程正在执行普通的代码，
+					那么该线程根本就不会抛出InterruptedException。
+					但是，一旦该线程进入到 wait()/sleep()/join()后，就会立刻抛出InterruptedException 。 
+		不同点：  
+			1.	每个对象都有一个锁来控制同步访问。Synchronized 关键字可以和对象的锁交互，来实现线程的同步。 
+				sleep方法没有释放锁，而wait方法释放了锁，使得其他线程可以使用同步控制块或者方法。 
+			2.	wait，notify 和 notifyAll 只能在同步控制方法或者同步控制块里面使用，而sleep可以在任何地方使用 
+			3.	sleep 必须捕获异常，而wait，notify 和 notifyAll 不需要捕获异常；
+			4.	sleep是线程类（Thread）的方法，导致此线程暂停执行指定时间，给执行机会给其他线程，
+				但是监控状态依然保持，到时后会自动恢复。调用sleep不会释放对象锁。
+			5.	wait是Object类的方法，对此对象调用wait方法导致本线程放弃对象锁，进入等待此对象的等待锁定池，
+				只有针对此对象发出notify方法（或notifyAll）后本线程才进入对象锁定池准备获得对象锁进入运行状态。
+	
+	
+	Object 类中的 wait()、notify() 和 notifyAll()；
+		1.	wait()、notify()和 notifyAll() 方法是本地方法，并且为 final 方法，无法被重写。
+		2.	调用某个对象的 wait() 方法能让当前线程阻塞，并且当前线程必须拥有此对象的 monitor（即锁）；
+		3.	调用某个对象的 notify() 方法能够唤醒一个正在等待这个对象的 monitor 的线程，
+			如果有多个线程都在等待这个对象的monitor，则只能唤醒其中一个线程；
+		4.	调用notifyAll()方法能够唤醒所有正在等待这个对象的monitor的线程；
+			
+		为何这三个不是 Thread 类声明中的方法，而是 Object 类中声明的方法：
+			（当然由于 Thread 类继承了 Object 类，所以 Thread 也可以调用者三个方法）？
+			其实这个问题很简单，由于每个对象都拥有 monitor（即锁），
+				所以让当前线程等待某个对象的锁，当然应该通过这个对象来操作了。
+					而不是用当前线程来操作，因为当前线程可能会等待多个线程的锁，如果通过线程来操作，就非常复杂了。
+			上面已经提到，如果调用某个对象的 wait() 方法，当前线程必须拥有这个对象的 monitor（即锁），
+			因此调用 wait() 方法必须在同步块或者同步方法中进行（synchronized 块或者 synchronized 方法）。
+			调用某个对象的 wait() 方法，相当于让当前线程交出此对象的 monitor，
+			然后进入等待状态，等待后续再次获得此对象的锁；
+				（Thread类中的sleep方法使当前线程暂停执行一段时间，从而让其他线程有机会继续执行，但它并不释放对象锁）。
+			notify() 方法能够唤醒一个正在等待该对象的monitor的线程，
+				当有多个线程都在等待该对象的monitor的话，则只能唤醒其中一个线程，具体唤醒哪个线程则不得而知。
+				同样地，调用某个对象的 notify() 方法，当前线程也必须拥有这个对象的 monitor，
+				因此调用 notify() 方法必须在同步块或者同步方法中进行（synchronized 块或者 synchronized 方法）。
+			nofityAll() 方法能够唤醒所有正在等待该对象的 monitor 的线程，这一点与 notify() 方法是不同的。
+		
+
+	
+	wait() 与  notify / notifyAll() 的执行过程：
+		由于 wait() 与  notify / notifyAll() 是放在同步代码块中的，
+		因此线程在执行它们时，肯定是进入了临界区中的，即该线程肯定是获得了锁的。
+		当线程执行 wait() 时，会把当前的锁释放，然后让出 CPU，进入等待状态。
+		当执行 notify / notifyAll 方法时，会唤醒一个处于等待该 对象锁 的线程，
+		然后继续往下执行，直到执行完退出对象锁锁住的区域（synchronized修饰的代码块）后再释放锁。
+		这里可以看出，notify / notifyAll() 执行后，并不立即释放锁，而是要等到执行完临界区中代码后，再释放。
+		实际编程中，我们应该尽量在线程调用 notify / notifyAll() 后，立即退出临界区。
+		即不要在 notify / notifyAll() 后面再写一些耗时的代码。
+		wait() 与 notify / notifyAll() 都是放在同步代码块中才能够执行的。
+		如果在执行 wait() 与 notify/notifyAll() 之前没有获得相应的对象锁，就会抛出：java.lang.IllegalMonitorStateException异常。
+			第一，wait 必须要进行异常捕获；
+			第二，调用 wait 或者 notify 方法必须采用当前锁调用，即必须采用 synchronized 中的对象。
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		
+	run() 与 start() 区别：
+		调用 run() 时只是单纯执行方法；start()是启动线程。
 
-Java中的多线程是一种抢占式的机制，而不是分时机制。抢占式的机制是有多个线程处于可运行状态，但是只有一个线程在运行。 
-共同点 ： 
-1. 他们都是在多线程的环境下，都可以在程序的调用处阻塞指定的毫秒数，并返回。 
-2. wait()和sleep()都可以通过interrupt()方法 打断线程的暂停状态 ，从而使线程立刻抛出InterruptedException。 
-如果线程A希望立即结束线程B，则可以对线程B对应的Thread实例调用interrupt方法。如果此刻线程B正在wait/sleep/join，则线程B会立刻抛出InterruptedException，在catch() {} 中直接return即可安全地结束线程。 
-需要注意的是，InterruptedException是线程自己从内部抛出的，并不是interrupt()方法抛出的。对某一线程调用 interrupt()时，如果该线程正在执行普通的代码，那么该线程根本就不会抛出InterruptedException。但是，一旦该线程进入到 wait()/sleep()/join()后，就会立刻抛出InterruptedException 。 
-不同点 ：  
-1.每个对象都有一个锁来控制同步访问。Synchronized关键字可以和对象的锁交互，来实现线程的同步。 
-sleep方法没有释放锁，而wait方法释放了锁，使得其他线程可以使用同步控制块或者方法。 
-2.wait，notify和notifyAll只能在同步控制方法或者同步控制块里面使用，而sleep可以在任何地方使用 
-3.sleep必须捕获异常，而wait，notify和notifyAll不需要捕获异常 
-4.sleep是线程类（Thread）的方法，导致此线程暂停执行指定时间，给执行机会给其他线程，但是监控状态依然保持，到时后会自动恢复。调用sleep不会释放对象锁。
-5.wait是Object类的方法，对此对象调用wait方法导致本线程放弃对象锁，进入等待此对象的等待锁定池，只有针对此对象发出notify方法（或notifyAll）后本线程才进入对象锁定池准备获得对象锁进入运行状态。
-
-
-
-1.启动一个线程的方法是 start() ；
-2.结束线程用的是 interrupt() 方法，而 stop() 是强制结束线程，并不推荐使用，同时 stop() 方法已被弃用；
-3.daemon 线程是守护线程，当主线程结束时，守护线程会自动结束；
-4.一个线程等待另外一个线程的方法是 wait() 方法。
-
-
-
-
-wait()、sleep()、yield()：
-1）wait()是Object的实例方法，在synchronized同步环境使用，作用当前对象，会释放对象锁，需要被唤醒。
-2）sleep()是Thread的静态方法，不用在同步环境使用，作用当前线程，不释放锁。
-3）yield()是Thread的静态方法，作用当前线程，释放当前线程持有的CPU资源，将CPU让给优先级不低于自己的线程用，调用后进入就绪状态。
-
-
-
-wait()、notify()和notifyAll()是 Object类 中的方法 ；
-Condition是在java 1.5中才出现的，它用来替代传统的Object的wait()、notify()实现线程间的协作，
-相比使用Object的wait()、 notify()，使用Condition1的await()、signal()这种方式实现线程间协作更加安全和高效。
-
-wait()、notify()和notifyAll()是 Object类 中的方法
-从这三个方法的文字描述可以知道以下几点信息：
-1）wait()、notify()和notifyAll()方法是本地方法，并且为final方法，无法被重写。
-2）调用某个对象的wait()方法能让当前线程阻塞，并且当前线程必须拥有此对象的monitor（即锁）
-3）调用某个对象的notify()方法能够唤醒一个正在等待这个对象的monitor的线程，如果有多个线程都在等待这个对象的monitor，则只能唤醒其中一个线程；
-4）调用notifyAll()方法能够唤醒所有正在等待这个对象的monitor的线程；
-有朋友可能会有疑问：为何这三个不是Thread类声明中的方法，而是Object类中声明的方法
-（当然由于Thread类继承了Object类，所以Thread也可以调用者三个方法）？
-其实这个问题很简单，由于每个对象都拥有monitor（即锁），所以让当前线程等待某个对象的锁，当然应该通过这个对象来操作了。
-而不是用当前线程来操作，因为当前线程可能会等待多个线程的锁，如果通过线程来操作，就非常复杂了。
-上面已经提到，如果调用某个对象的wait()方法，当前线程必须拥有这个对象的monitor（即锁），
-因此调用wait()方法必须在同步块或者同步方法中进行（synchronized块或者synchronized方法）。
-调用某个对象的wait()方法，相当于让当前线程交出此对象的monitor，然后进入等待状态，等待后续再次获得此对象的锁
-（Thread类中的sleep方法使当前线程暂停执行一段时间，从而让其他线程有机会继续执行，但它并不释放对象锁）；
-notify()方法能够唤醒一个正在等待该对象的monitor的线程，
-当有多个线程都在等待该对象的monitor的话，则只能唤醒其中一个线程，具体唤醒哪个线程则不得而知。
-同样地，调用某个对象的notify()方法，当前线程也必须拥有这个对象的monitor，
-因此调用notify()方法必须在同步块或者同步方法中进行（synchronized块或者synchronized方法）。
-nofityAll()方法能够唤醒所有正在等待该对象的monitor的线程，这一点与notify()方法是不同的。
-Condition是在java 1.5中才出现的，它用来替代传统的Object的wait()、notify()实现线程间的协作，
-相比使用Object的wait()、notify()，使用Condition1的await()、signal()这种方式实现线程间协作更加安全和高效。
-因此通常来说比较推荐使用Condition，在阻塞队列那一篇博文中就讲述到了，阻塞队列实际上是使用了Condition来模拟线程间协作。
-Condition是个接口，基本的方法就是await()和signal()方法；
-Condition依赖于Lock接口，生成一个Condition的基本代码是lock.newCondition()调用Condition的await()和signal()方法，
-都必须在lock保护之内，就是说必须在lock.lock()和lock.unlock之间才可以使用Conditon中的await()对应Object的wait()；
-Condition中的signal()对应Object的notify()； Condition中的signalAll()对应Object的notifyAll()。
-
-
-
-第一点是run与start方法区别，调用run时只是单纯执行方法，故按代码顺序执行下来结果就是SogouHello。
-
-接着我们再来看看把run换成start，结果是HelloSogou，这是为什么呢。
-
-首先调用start是开始了一个线程，那么现在程序中有了两个线程主线程main和线程T。
-
-这就涉及本题第二个知识点了，函数使用的锁是this(即对象本身)，若函数被static修饰则锁为 类名.class.
-
-那么题目中两个函数都是使用了同一个锁即HelloSogou.class，当执行t.start时，t线程准备调用Sogou方法，但是锁对象已被主线程占用，
-故要等待主线程执行完System.out.print("Hello")后释放锁才可以执行自己的Sogou方法。故此结果是HelloSogou
-
-误区有两个：
-一个是run和start区别，Thread.run()是调用方法，Thread. start()是启动线程；
-另一个是锁持有问题。这个题是调用方法，和多线程就无关。
-本题只有一个线程，持有HelloSogou.class锁。
-
-这里调用 t.run();
-并没有启动一个新的线程，启动一个新线程要用t.start();
-
-
-
-wait() 与  notify/notifyAll() 的执行过程
-由于 wait() 与  notify/notifyAll() 是放在同步代码块中的，因此线程在执行它们时，肯定是进入了临界区中的，即该线程肯定是获得了锁的。
-当线程执行wait()时，会把当前的锁释放，然后让出CPU，进入等待状态。
- 当执行notify/notifyAll方法时，会唤醒一个处于等待该 对象锁 的线程，然后继续往下执行，
-直到执行完退出对象锁锁住的区域（synchronized修饰的代码块）后再释放锁。
-从这里可以看出，notify/notifyAll()执行后，并不立即释放锁，而是要等到执行完临界区中代码后，再释放。
-实际编程中，我们应该尽量在线程调用notify/notifyAll()后，立即退出临界区。
-即不要在notify/notifyAll()后面再写一些耗时的代码。
-wait() 与  notify/notifyAll()都是放在同步代码块中才能够执行的。
-如果在执行wait() 与  notify/notifyAll() 之前没有获得相应的对象锁，就会抛出：java.lang.IllegalMonitorStateException异常。
-
-第一，记住wait必须要进行异常捕获
-第二，记住调用wait或者notify方法必须采用当前锁调用，即必须采用synchronized中的对象
-
-
-
-创建线程的方法：
-（1）继承Thread类,重写run方法；
-（2）实现Runnable接口，并将对象实例作为参数传递给Thread类的构造方法；
-（3）实现callable接口，并实现call方法，并且线程执行完毕后会有返回值。
-注意：
-（1）和（2）都是调用start()方法启动线程的，然后JVM虚拟机将此线程放到就绪队列中，有处理机可用时，则执行run方法。
-这两种方法都重写了run方法，但是没有返回值。
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

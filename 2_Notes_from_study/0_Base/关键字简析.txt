@@ -2,73 +2,109 @@
 
 关键字简析
 
-Javac（JavaCompilation）：Java编译器；
-	Java编译程序读取Java 源代码，并将其编译成字节代码。
-javac可以隐式编译一些没有在命令行中提及的源文件。
-JVM（JavaVirtualMachine）：Java虚拟机；
-JVM是可运行Java代码的假想计算机，只要根据JVM规格描述将解释器移植到特定的计算机上，就能保证经过编译的任何Java代码能够在该系统上运行。
-Java虚拟机包括一套字节码指令集、一组寄存器、一个栈、一个垃圾回收堆和一个存储方法域。
-JRE（Java Runtime Environment）：Java运行环境，运行JAVA程序所必须的环境的集合；
-包含JVM标准实现及Java核心类库。
-JDK（Java Development Kit）：Java软件开发的工具包；
-JDK 是整个Java的核心，包括了Java运行环境、Java工具和 Java基础类库。
-SDK（Software Development Kit）：软件开发工具包。
-HotSpot：HotSpot虚拟机；
-2006年底开源，主要使用C++实现，JNI接口部分用C实现。
-    HotSpot是较新的Java虚拟机，用来代替JIT（Just in Time），可以大大提高Java运行的性能。 
-Java原先是把源代码编译为字节码在虚拟机执行，这样执行速度较慢。
-HotSpot将常用的部分代码编译为本地（原生，native）代码，这样显着提高了性能。
 
-JNI（Java Native Interface）：Java本地接口；
-	JNI是JAVA平台的一部分，允许Java代码和其他语言写的代码进行交互。
-JNI一开始是为本地已编译语言，尤其是C和C++而设计的，但并不妨碍使用其他语言，只要调用约定受支持。
-JIT（just in time）：即时编译技术；
-使用该技术，能够加速java程序的执行速度。
-当JIT编译启用时（默认是启用的），JVM读入.class文件解释后，将其发给JIT编译器。
-JIT编译器将字节码编译成本机机器代码。
-JIT对每条字节码都进行编译，会造成编译过程负担过重。为了避免这种情况，JIT只对经常执行的字节码进行编译，如循环等。
-IO ：I/O；输入 / 输出；
-指的是计算机与外部世界或者一个程序与计算机的其余部分的之间的接口，是主存和外部设备（硬盘、终端和网络等）拷贝数据的过程。
-IO 是操作系统的底层功能实现，底层通过 I/O 指令进行完成。
-它对于任何计算机系统都非常关键，因而 I/O 的主体实际上是内置在操作系统中的。
-在 Java 编程中，直到最近一直使用流的方式完成 I/O。
-所有 I/O 都被视为单个的字节的移动，通过一个称为 Stream 的对象一次移动一个字节。
-流 I/O 用于与外部世界接触，它也在内部使用，用于将对象转换为字节，然后再转换回对象。
-NIO：NIO库；
-在标准 Java 代码中提供高速的、面向块的 I/O，弥补原来 I/O 的不足，块 I/O 的效率可以比流 I/O 高许多。
-NIO 的创建目的是为了让 Java 程序员可以实现高速 I/O 而无需编写自定义的本机代码。
-NIO 将最耗时的 I/O 操作（即填充和提取缓冲区）转移回操作系统，因而可以极大地提高速度。
-通过定义包含数据的类，以及通过以块的形式处理这些数据，NIO 不用使用本机代码就可以利用低级优化，这是原来的 I/O 包所无法做到的。
-SQL（Structured Query Language）：结构化查询语言；
-是一种数据库查询和程序设计语言，用于存取数据以及查询、更新和管理关系数据库系统；
-也是数据库脚本文件的扩展名。
-RPC（(Remote Procedure Call）：远程过程调用；
-通过作用在共享数据缓存器上的过程（或任务）实现程序间的通信。
+缩写名词：
 
-POJO：Plain Old Java Object。
-	指那些没有从任何类继承、也没有实现任何接口，更没有被其它框架侵入的java对象。
+	Javac（JavaCompilation）：Java编译器；
+		Java编译程序读取Java 源代码，并将其编译成字节代码。
+		javac可以隐式编译一些没有在命令行中提及的源文件。
+		
+	JVM（JavaVirtualMachine）：Java虚拟机；
+		JVM是可运行Java代码的假想计算机，
+		只要根据JVM规格描述将解释器移植到特定的计算机上，就能保证经过编译的任何Java代码能够在该系统上运行。
+		Java虚拟机包括一套字节码指令集、一组寄存器、一个栈、一个垃圾回收堆和一个存储方法域。
+	
+	JRE（Java Runtime Environment）：Java运行环境；
+		运行JAVA程序所必须的环境的集合，包含JVM标准实现及Java核心类库。
+		
+	JDK（Java Development Kit）：Java软件开发的工具包；
+		JDK 是整个Java的核心，包括了Java运行环境、Java工具和 Java基础类库。
+		
+	SDK（Software Development Kit）：软件开发工具包。
+		
+	HotSpot：HotSpot虚拟机；
+		2006年底开源，主要使用C++实现，JNI接口部分用C实现。
+			HotSpot是较新的Java虚拟机，用来代替JIT（Just in Time），可以大大提高Java运行的性能。 
+		Java原先是把源代码编译为字节码在虚拟机执行，这样执行速度较慢。
+		HotSpot将常用的部分代码编译为本地（原生，native）代码，这样显着提高了性能。
+	
+	JIT（just in time）：即时编译技术；
+		使用该技术，能够加速java程序的执行速度。
+		当JIT编译启用时（默认是启用的），JVM读入.class文件解释后，将其发给JIT编译器。
+		JIT编译器将字节码编译成本机机器代码。
+		JIT对每条字节码都进行编译，会造成编译过程负担过重。
+		为了避免这种情况，JIT只对经常执行的字节码进行编译，如循环等。
+	
+	JNI（Java Native Interface）：Java本地接口；
+		JNI是JAVA平台的一部分，允许Java代码和其他语言写的代码进行交互。
+		JNI一开始是为本地已编译语言，尤其是C和C++而设计的，但并不妨碍使用其他语言，只要调用约定受支持。
+	
+	JUC (Java Util Concurrency)：Java 并发工具包；
+		
+		
+	CAS (Compare and Swap)：比较和转换操作；
+		
+		
+	AQS (AbstractQueuedSynchronizer)：抽象队列同步；
+		锁机制实现的核心所在。
+		
+		
+		
+		
+	IO ：I/O；输入 / 输出；
+		指的是计算机与外部世界或者一个程序与计算机的其余部分的之间的接口，
+			是主存和外部设备（硬盘、终端和网络等）拷贝数据的过程。
+		IO 是操作系统的底层功能实现，底层通过 I/O 指令进行完成。
+			它对于任何计算机系统都非常关键，因而 I/O 的主体实际上是内置在操作系统中的。
+		在 Java 编程中，直到最近一直使用流的方式完成 I/O。
+			所有 I/O 都被视为单个的字节的移动，通过一个称为 Stream 的对象一次移动一个字节。
+			流 I/O 用于与外部世界接触，它也在内部使用，用于将对象转换为字节，然后再转换回对象。
+	NIO：NIO库；
+		在标准 Java 代码中提供高速的、面向块的 I/O，弥补原来 I/O 的不足，块 I/O 的效率可以比流 I/O 高许多。
+		NIO 的创建目的是为了让 Java 程序员可以实现高速 I/O 而无需编写自定义的本机代码。
+		NIO 将最耗时的 I/O 操作（即填充和提取缓冲区）转移回操作系统，因而可以极大地提高速度。
+		通过定义包含数据的类，以及通过以块的形式处理这些数据，NIO 不用使用本机代码就可以利用低级优化，这是原来的 I/O 包所无法做到的。
+	
+	SQL（Structured Query Language）：结构化查询语言；
+		是一种数据库查询和程序设计语言，用于存取数据以及查询、更新和管理关系数据库系统；
+		也是数据库脚本文件的扩展名。
+	
+	RPC（(Remote Procedure Call）：远程过程调用；
+		通过作用在共享数据缓存器上的过程（或任务）实现程序间的通信。
+
+	POJO：Plain Old Java Object。
+		指那些没有从任何类继承、也没有实现任何接口，更没有被其它框架侵入的java对象。
 
 
-Iaas（基础设施即服务Infrastructure as a Servic），
+	Iaas（Infrastructure as a Servic）：基础设施即服务；
+		给你虚拟机。
+		
+	Paas（Platform-as-a-Service）：平台即服务；
+		给你api，比如 amazon 的对象存储 api。
+		
+	Saas（Software-as-a-Service）：软件即服务；
+		给你一套软件，比如销售管理系统，但是运行在卖方的云上，而不是你公司内网的服务器上， 比如 salesforce。
 
-Paas（平台即服务Platform-as-a-Service），
-
-Saas（软件即服务Software-as-a-Service）
-IaaS: 给你虚拟机
-PaaS: 给你api，比如amazon的对象存储api
-SaaS: 给你一套软件，比如销售管理系统，但是运行在卖方的云上，而不是你公司内网的服务器上，
-	例如salesforce
-
-
-catalina：Tomcat服务器使用的 Apache实现的servlet容器的名字。
-Tomcat的核心分为3个部分：
-Web容器：处理静态页面；
-catalina：一个servlet容器，处理servlet;
-JSP容器：把jsp页面翻译成一般的servlet。
-
-
-
-
+	catalina：Tomcat 服务器使用的 Apache 实现的 servlet 容器的名字。
+		Tomcat 的核心分为3个部分：
+			Web 容器：处理静态页面；
+			catalina：一个 servlet 容器，处理 servlet;
+			JSP 容器：把 jsp 页面翻译成一般的 servlet。
+	
+	
+		
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+Java 关键字：
 static：
 static表示“全局”或者“静态”的意思，用来修饰成员变量和成员方法，也可以形成静态static代码块；
 但是Java语言中没有全局变量的概念。

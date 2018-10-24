@@ -2,211 +2,235 @@
 CSS 工作笔记
 
 
+CSS 基础核心：
 
-width：宽；
-	max-width: 段落的最大宽度；
-		如：max-width: 497px;
-	min-width: 段落的最小宽度；
-		如：min-width: 212px;
-	
-height：高；
-	line-height：行高；
-		如：line-height：30px;
-
-align：排列；
-	vertical-align：垂直对齐；
-		如：vertical-align: top;
-	text-align：文本对齐方式；
-		如：text-align: center;
-
-border：边框；
-	border-radius：边框圆角；
-		如：border-radius: 5px;
-	border-bottom：
-		如：border-bottom:solid 1px #EEE;
+	width：宽；
+		max-width: 段落的最大宽度；
+			如：max-width: 497px;
+		min-width: 段落的最小宽度；
+			如：min-width: 212px;
 		
-			border-radius可以同时设置1到4个值。
-			如果设置1个值，表示4个圆角都使用这个值。
-			如果设置两个值，表示左上角和右下角使用第一个值，右上角和左下角使用第二个值。
-			如果设置三个值，表示左上角使用第一个值，右上角和左下角使用第二个值，右下角使用第三个值。
-			如果设置四个值，则依次对应左上角、右上角、右下角、左下角（顺时针顺序）。
-			　　border-radius: 15px 5px;
-			　　border-radius: 15px 5px 25px;
-			　　border-radius: 15px 5px 25px 0px;
+	height：高；
+		line-height：行高；
+			如：line-height：30px;
 
-margin：外边距；
-	margin-top：属性设置元素的上外边距；
-		如：
-	margin-bottom：属性设置元素的下外边距；
-		如：
-		
-padding：内边距；
-	padding-right：元素的右内边距；
-		如：
-	padding-left：元素的左内边距；
-		如：
+	align：排列；
+		vertical-align：垂直对齐；
+			如：vertical-align: top;
+		text-align：文本对齐方式；
+			如：text-align: center;
 
-color：颜色；
-	background-color：背景色；
-		如：background-color: #FFFFFF;
-	颜色：
-		浅紫：#c9396d;
-		红唐：#d23f40；
-		蜜柑：#f08300；
-		蓝绿：#00BCD4;
-		橙黄：#F28D09;
-		淡灰：#b9b9b9;
-		天蓝：#1296DB;
-		橙红：rgba(255,93,36)
-		
-		
-opacity：透明度：
-		opacity:0.80;
-		
-		
-display：生成的框的类型；
-	如：display: block;
-	如：display:inline-block; 设置了这个属性，就会认为所在元素是一个块级元素。
-		
-float：漂浮；
-	如：float: left; 设置了这个属性，就会认为所在元素是一个块级元素。
-		
-position：定位元素；
-	如：position: absolute;
-	如：position: fixed;
-	
-	
-font-size: 字号；
-	如：font-size: 14px;			
-		
-appearance：设置元素外形
-	如：appearance:button;	// 使元素看上去像一个按钮
-	
-cursor：光标变化；
-	如：cursor: pointer;
+	border：边框；
+		border-radius：边框圆角；
+			如：border-radius: 5px;
+		border-bottom：
+			如：border-bottom:solid 1px #EEE;
+			
+				border-radius可以同时设置1到4个值。
+				如果设置1个值，表示4个圆角都使用这个值。
+				如果设置两个值，表示左上角和右下角使用第一个值，右上角和左下角使用第二个值。
+				如果设置三个值，表示左上角使用第一个值，右上角和左下角使用第二个值，右下角使用第三个值。
+				如果设置四个值，则依次对应左上角、右上角、右下角、左下角（顺时针顺序）。
+				　　border-radius: 15px 5px;
+				　　border-radius: 15px 5px 25px;
+				　　border-radius: 15px 5px 25px 0px;
 
-
-transition：光标停留的触发事件；
-	如：
-		transition: width 2s;
-		-moz-transition: width 2s; 		/* Firefox 4 */
-		-webkit-transition: width 2s; 	/* Safari 和 Chrome */
-		-o-transition: width 2s; 		/* Opera */
-	
-	
-
-	
-
-
-
-flex-wrap：让弹性盒元素在必要的时候拆行
-	如；flex-wrap: wrap;
-	
-transform：旋转；
-	如：
-		transform:rotate(45deg);
-		-ms-transform:rotate(45deg); 	/* IE 9 */
-		-moz-transform:rotate(45deg); 	/* Firefox */
-		-webkit-transform:rotate(45deg); /* Safari 和 Chrome */
-		-o-transform:rotate(45deg); 	/* Opera */
-	
-overflow：当内容溢出元素框时发生的事情
-	如：overflow:scroll;	// 滚动
-
-
-
-
-
-
-A>B：表示选择A元素的所有子B元素；
-	如：.gc-item>.label
-
-
-!important：增加权重
-
-
-
-置于顶层：
-<div style="z-index:999"></div>
-
-
-
-
-left
-right
-top
-bottom
-
-
-
-
-
-
-
-
-
-
-常见伪类：
-	:hover,:link,:active,:target,:not(),:focus。
-		:hover：选择器用于选择鼠标指针浮动在上面的元素。
+	margin：外边距；
+		margin-top：属性设置元素的上外边距；
 			如：
+		margin-bottom：属性设置元素的下外边距；
+			如：
+			
+	padding：内边距；
+		padding-right：元素的右内边距；
+			如：
+		padding-left：元素的左内边距；
+			如：
+
+	color：颜色；
+		background-color：背景色；
+			如：background-color: #FFFFFF;
+		颜色：
+			浅紫：#c9396d;
+			红唐：#d23f40；
+			蜜柑：#f08300；
+			蓝绿：#00BCD4;
+			橙黄：#F28D09;
+			淡灰：#b9b9b9;
+			天蓝：#1296DB;
+			橙红：rgba(255,93,36)
+			
+			
+	opacity：透明度：
+			opacity:0.80;
+			
+			
+	display：生成的框的类型；
+		如：display: block;
+		如：display:inline-block; 设置了这个属性，就会认为所在元素是一个块级元素。
+			
+	float：漂浮；
+		如：float: left; 设置了这个属性，就会认为所在元素是一个块级元素。
+			
+	position：定位元素；
+		如：position: absolute;
+		如：position: fixed;
 		
-常见伪元素
-	::first-letter,::first-line,::before,::after,::selection。
-		::before和::after下特有的content：
-			用于在css渲染中向元素逻辑上的头部或尾部添加内容。
-				这些添加不会出现在DOM中，不会改变文档内容，不可复制，仅仅是在css渲染层加入。
-				所以不要用:before或:after展示有实际意义的内容，尽量使用它们显示修饰性内容，
-					如：图标；网站有些联系电话，希望在它们前加一个icon☎，就可以使用:before伪元素。
+		
+	font-size: 字号；
+		如：font-size: 14px;			
+			
+	appearance：设置元素外形
+		如：appearance:button;	// 使元素看上去像一个按钮
+		
+	cursor：光标变化；
+		如：cursor: pointer;
+
+
+	transition：光标停留的触发事件；
+		如：
+			transition: width 2s;
+			-moz-transition: width 2s; 		/* Firefox 4 */
+			-webkit-transition: width 2s; 	/* Safari 和 Chrome */
+			-o-transition: width 2s; 		/* Opera */
+		
 		
 
-svg：
-	fill="#b9b9b9"
+		
 
 
 
-提示框：
-.load_cart {
-	background-size: 130px 30px;
-	background-repeat: no-repeat;
-	background-color: #bbb;
-	position: fixed;
-	display: block;
-	width: 130px;
-	height: 30px;
-	bottom: 50%;
-	left: 35%;
-	border-radius: 5px;
-}
+	flex-wrap：让弹性盒元素在必要的时候拆行
+		如；flex-wrap: wrap;
+		
+	transform：旋转；
+		如：
+			transform:rotate(45deg);
+			-ms-transform:rotate(45deg); 	/* IE 9 */
+			-moz-transform:rotate(45deg); 	/* Firefox */
+			-webkit-transform:rotate(45deg); /* Safari 和 Chrome */
+			-o-transform:rotate(45deg); 	/* Opera */
+		
+	overflow：当内容溢出元素框时发生的事情
+		如：overflow:scroll;	// 滚动
+		
+		
 
-弹窗：
-<section class="load_cart" style="display: none;">
-    <img src="img/success.svg" style=" width:15px;height:15px; display: inline-block;padding-left: 4px;padding-bottom: 4px;">
-    <span style="display: inline-block;padding-left: 5px;padding-top: 5px;">加入购物车成功</span>
-</section>
+	A>B：表示选择A元素的所有子B元素；
+		如：.gc-item>.label
 
-打开：
-success: function (data) {
-	if (data.code == "success") {
-		$(".load_cart").show();
-		setTimeout("hideSuccessInfo()", 1200);
-	} else {
-		alert("加入购物车失败");
+
+	!important：增加权重
+	left
+	right
+	top
+	bottom
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+CSS 实用：
+	
+	置于顶层：
+		<div style="z-index:999"></div>
+
+
+	svg 格式图片颜色：
+		fill="#b9b9b9"
+
+
+
+	提示框：
+	.load_cart {
+		background-size: 130px 30px;
+		background-repeat: no-repeat;
+		background-color: #bbb;
+		position: fixed;
+		display: block;
+		width: 130px;
+		height: 30px;
+		bottom: 50%;
+		left: 35%;
+		border-radius: 5px;
 	}
-}
 
-关闭：
-function hideSuccessInfo() {
-	$(".load_cart").hide();
-}
+	弹窗：
+	<section class="load_cart" style="display: none;">
+		<img src="img/success.svg" style=" width:15px;height:15px; display: inline-block;padding-left: 4px;padding-bottom: 4px;">
+		<span style="display: inline-block;padding-left: 5px;padding-top: 5px;">加入购物车成功</span>
+	</section>
 
+	显示：
+	success: function (data) {
+		if (data.code == "success") {
+			$(".load_cart").show();
+			setTimeout("hideSuccessInfo()", 1200);
+		} else {
+			alert("加入购物车失败");
+		}
+	}
 
-
-
-
-
-
-
-
-
-
+	隐藏：
+	function hideSuccessInfo() {
+		$(".load_cart").hide();
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	常见伪类：
+		:hover,:link,:active,:target,:not(),:focus。
+			:hover：选择器用于选择鼠标指针浮动在上面的元素。
+				如：
+			
+	常见伪元素
+		::first-letter,::first-line,::before,::after,::selection。
+			::before和::after下特有的content：
+				用于在css渲染中向元素逻辑上的头部或尾部添加内容。
+					这些添加不会出现在DOM中，不会改变文档内容，不可复制，仅仅是在css渲染层加入。
+					所以不要用:before或:after展示有实际意义的内容，尽量使用它们显示修饰性内容，
+						如：图标；网站有些联系电话，希望在它们前加一个icon☎，就可以使用:before伪元素。
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

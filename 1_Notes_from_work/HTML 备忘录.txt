@@ -7,25 +7,25 @@ HTML 工作笔记
 
 
 H5页面操作提示框：
-<div class="fixbox" style="display: none; position: fixed; top: 50%; left: 50%; background: #000; opacity: .8; transform: translate(-50%,-50%); width: 200px; height: 50px; border-radius: 5px; text-align: center;line-height: 50px; color:#fff; z-index: 100; " >
+	<div class="fixbox" style="display: none; position: fixed; top: 50%; left: 50%; background: #000; opacity: .8; transform: translate(-50%,-50%); width: 200px; height: 50px; border-radius: 5px; text-align: center;line-height: 50px; color:#fff; z-index: 100; " >
 
 用于ajax 成功回调函数执行操作：
-$(".fixbox").html("未查找到其他信息！").css({'display':'block'})
-setTimeout(function () {
-    $(".fixbox").html("未查找到其他信息！").css({'display':'none'})
-},2000)
+	$(".fixbox").html("未查找到其他信息！").css({'display':'block'})
+	setTimeout(function () {
+		$(".fixbox").html("未查找到其他信息！").css({'display':'none'})
+	},2000)
 
 
 
 
 
 
-<h1>Heading level 1</h1>
-<h2>Heading level 2</h2>
-<h3>Heading level 3</h3>
-<h4>Heading level 4</h4>
-<h5>Heading level 5</h5>
-<h6>Heading level 6</h6>
+	<h1>Heading level 1</h1>
+	<h2>Heading level 2</h2>
+	<h3>Heading level 3</h3>
+	<h4>Heading level 4</h4>
+	<h5>Heading level 5</h5>
+	<h6>Heading level 6</h6>
 
 
 

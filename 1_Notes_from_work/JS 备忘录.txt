@@ -4,8 +4,8 @@ JS 工作笔记
 
 
 
-
 时间戳转日期：
+	
 	10位的时间戳 转 脚本里乘1000  要么你直接后面加3个000 变成13位的!!!  
 	//10位的时间戳转换为时间  方法1
 	function getLocalTime(nS) 
@@ -35,12 +35,14 @@ JS 工作笔记
 	
 	
 获得 Map 的长度：
+	
 	var length  = Object.keys(map).length ;
 	
 	
 	
 	
-ajax异步数据保存：
+Ajax 异步请求的数据，传给外部函数：
+	
 	$.ajax({
 		url: 'data.json',
 		type: 'post',
@@ -60,55 +62,99 @@ ajax异步数据保存：
 	}
 	
 
+生成随机数：
+	
+	Math.ceil();  //向上取整。
+
+	Math.floor();  //向下取整。
+
+	Math.round();  //四舍五入。
+
+	Math.random();  //0.0 ~ 1.0 之间的一个伪随机数。【包含0不包含1】 //比如0.8647578968666494
+
+	Math.ceil(Math.random()*10);      // 获取从1到10的随机整数 ，取0的概率极小。
+
+	Math.round(Math.random());   //可均衡获取0到1的随机整数。
+
+	Math.floor(Math.random()*10);  //可均衡获取0到9的随机整数。
+
+	Math.round(Math.random()*10);  //基本均衡获取0到10的随机整数，其中获取最小值0和最大值10的几率少一半。
+
+	因为结果在0~0.4 为0，0.5到1.4为1...8.5到9.4为9，9.5到9.9为10。所以头尾的分布区间只有其他数字的一半。
+
+	
+	
 
 保留两位小数：
-toFixed(2);
+	
+	toFixed(2);
+	
+	
+截取字符串后几位：
 
 
+	把后四位反过来成了前四位：
 
+		var str = 'abcdefgh';
+		var arr = str.split('');
+		arr = arr.reverse();
+		str = arr.join('');
+		var result = str.substring(0,4);
+		
+	普通方法：
+		
+		var str = '121221212131312312ewsqdasdsa';
+		str.substring(x.length-4);
+	
+	用数组的slice方法：
+	
+		var str = '121221212131312312ewsqdasdsa';
+		str.slice(-4);
+	
+
+	
+定时方法：
+	
+	setTimeout('yourFunction()',5000);   5秒后执行yourFunction(),只执行一次     
+	setInterval('yourFunction()',5000);   每隔5秒执行一次u     
+		如果在yourFunction() 中再次调用了 setTimeout('yourFunction()',5000)，
+		可以完成类似于 setInterval('yourFunction()',5000)的功能。
+	
+	window.setTimeout('$("#liveShow").hide()', 4000 + Math.random());
+	
+	for 循环中 setTimeout 的问题：
+		for语句不会因为有setTimeout的存在而停止，他会跳过setTimeout，setTimeout设定的是100毫秒的延迟，
+		而for语句执行根本用不了那么长时间所以会先弹出九个alert，然后才setTimeout中的alert。
+	可以使用递归来解决这个问题：
+		var i=0;
+		function al(){   
+			i++;
+			if(i<10){
+				setTimeout('$("#liveShow").hide()', 4000 + Math.random());
+			}
+		}
+		al();
+	
+	
+	
 页面跳转带参数：
-var path_url='../goods.html?flag=6&groupClassId='+supplierId+"&supplierCode="+supplierCode;
-window.location.href=path_url;
-window.open("../NewGoodsEdit.html?goodsId="+0+"&storeId="+storeId+"&appType="+appType+"&instan="+instan+"&supplierId="+supplierId);
+	
+	var path_url='../goods.html?flag=6&groupClassId='+supplierId+"&supplierCode="+supplierCode;
+	window.location.href=path_url;
+	window.open("../NewGoodsEdit.html?goodsId="+0+"&storeId="+storeId+"&appType="+appType+"&instan="+instan+"&supplierId="+supplierId);
+	
+	location=path_url;
+	window.location.href=path_url;
+	
+	window.history.back(-1);
+	window.navigate("jb51.jsp"); 
 
-location=theurl 
-
-window.location.href=
-
-
-window.history.back(-1);
-
-window.navigate("jb51.jsp"); 
-
-
-
-self.location='jb51.htm'; 
-top.location='jb51.jsp'; 
-
-
-
-
-
-
+	self.location='jb51.htm'; 
+	top.location='jb51.jsp'; 
+	
 页面刷新：
-
-
-
-window.location.reload();
-
-
-
-
-
-
 	
-	
-	
-	
-	
-	
-	
-	
+	window.location.reload();
 	
 	
 	

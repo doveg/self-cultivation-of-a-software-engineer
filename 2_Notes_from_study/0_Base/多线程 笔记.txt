@@ -9,17 +9,16 @@
 	为什么使用：
 		
 	基本原理：
-		线程的四种状态：
+		线程的五种状态：
 			新建、就绪、运行、阻塞、结束。 
 		线程状态：
 			new：新建
-			runnable：可运行：
-				ready：准备；
-				running：运行。
+			runnable：就绪，可运行：
+			running：运行。
 			blocked：阻塞
-			等待：
-				waiting：等待，无期限的等待；
-				timed waiting：计时等待。
+				等待：
+					waiting：等待，无期限的等待；
+					timed waiting：计时等待。
 			terminated：终止。
 	怎么使用：
 		创建启动线程：
@@ -95,6 +94,32 @@
 				//方式2 使用ProcessBuilder的start方法
 				ProcessBuilder pd = new ProcessBuilder("notepad")；
 				pd.start()；
+	
+	线程的 5 种状态：
+		1. 新建状态(New): 
+				线程对象被创建后，就进入了新建状态。例如，Thread thread = new Thread()。
+		2. 就绪状态(Runnable): 
+				可执行状态。
+				线程对象被创建后，其它线程调用了该对象的start()方法，从而来启动该线程。、
+				例如，thread.start()。处于就绪状态的线程，随时可能被CPU调度执行。
+		3. 运行状态(Running):
+				线程获取CPU权限进行执行。需要注意的是，线程只能从就绪状态进入到运行状态。
+		4. 阻塞状态(Blocked):
+				阻塞状态是线程因为某种原因放弃CPU使用权，暂时停止运行。
+				直到线程进入就绪状态，才有机会转到运行状态。
+				阻塞的情况分三种：
+					1) 等待阻塞：通过调用线程的 wait() 方法，让线程等待某工作的完成。
+					2) 同步阻塞：线程在获取 synchronized 同步锁失败(因为锁被其它线程所占用)，它会进入同步阻塞状态。
+					3) 其他阻塞：通过调用线程的 sleep() 或 join() 或发出了 I/O 请求时，线程会进入到阻塞状态。
+						当 sleep() 状态超时、join() 等待线程终止或者超时、或者 I/O 处理完毕时，线程重新转入就绪状态。
+		5. 死亡状态(Dead): 线程执行完了或者因异常退出了run()方法，该线程结束生命周期。
+	
+	这5种状态涉及到的内容包括 Object 类, Thread 和 synchronized 关键字。
+		Object类，定义了 wait(), notify(), notifyAll() 等休眠/唤醒函数。
+		Thread类，定义了一些列的线程操作函数。例如，sleep()休眠函数, interrupt()中断函数, getName()获取线程名称等。
+		synchronized 关键字；它区分为 synchronized 代码块和 synchronized 方法。
+			synchronized 的作用是让线程获取对象的同步锁。
+	
 	
 	创建并启动线程：
 		线程类(java.lang.Thread)：Thread 类和 Thread 的子类：
@@ -327,22 +352,26 @@
 		3.	调用某个对象的 notify() 方法能够唤醒一个正在等待这个对象的 monitor 的线程，
 			如果有多个线程都在等待这个对象的monitor，则只能唤醒其中一个线程；
 		4.	调用notifyAll()方法能够唤醒所有正在等待这个对象的monitor的线程；
-			
-		为何这三个不是 Thread 类声明中的方法，而是 Object 类中声明的方法：
-			（当然由于 Thread 类继承了 Object 类，所以 Thread 也可以调用者三个方法）？
-			其实这个问题很简单，由于每个对象都拥有 monitor（即锁），
-				所以让当前线程等待某个对象的锁，当然应该通过这个对象来操作了。
-					而不是用当前线程来操作，因为当前线程可能会等待多个线程的锁，如果通过线程来操作，就非常复杂了。
-			上面已经提到，如果调用某个对象的 wait() 方法，当前线程必须拥有这个对象的 monitor（即锁），
-			因此调用 wait() 方法必须在同步块或者同步方法中进行（synchronized 块或者 synchronized 方法）。
-			调用某个对象的 wait() 方法，相当于让当前线程交出此对象的 monitor，
-			然后进入等待状态，等待后续再次获得此对象的锁；
-				（Thread类中的sleep方法使当前线程暂停执行一段时间，从而让其他线程有机会继续执行，但它并不释放对象锁）。
-			notify() 方法能够唤醒一个正在等待该对象的monitor的线程，
-				当有多个线程都在等待该对象的monitor的话，则只能唤醒其中一个线程，具体唤醒哪个线程则不得而知。
-				同样地，调用某个对象的 notify() 方法，当前线程也必须拥有这个对象的 monitor，
-				因此调用 notify() 方法必须在同步块或者同步方法中进行（synchronized 块或者 synchronized 方法）。
-			nofityAll() 方法能够唤醒所有正在等待该对象的 monitor 的线程，这一点与 notify() 方法是不同的。
+	
+	为什么 wait()，notify() 函数定义在Object中，而不是Thread中：
+		因为 notify(), wait() 依赖于“同步锁”，而“同步锁”是对象锁持有，并且每个对象有且仅有一个。
+		这就是为什么notify(), wait()等函数定义在Object类，而不是Thread类中的原因。
+	
+	为何这三个不是 Thread 类声明中的方法，而是 Object 类中声明的方法：
+		（当然由于 Thread 类继承了 Object 类，所以 Thread 也可以调用者三个方法）？
+		其实这个问题很简单，由于每个对象都拥有 monitor（即锁），
+			所以让当前线程等待某个对象的锁，当然应该通过这个对象来操作了。
+				而不是用当前线程来操作，因为当前线程可能会等待多个线程的锁，如果通过线程来操作，就非常复杂了。
+		上面已经提到，如果调用某个对象的 wait() 方法，当前线程必须拥有这个对象的 monitor（即锁），
+		因此调用 wait() 方法必须在同步块或者同步方法中进行（synchronized 块或者 synchronized 方法）。
+		调用某个对象的 wait() 方法，相当于让当前线程交出此对象的 monitor，
+		然后进入等待状态，等待后续再次获得此对象的锁；
+			（Thread类中的sleep方法使当前线程暂停执行一段时间，从而让其他线程有机会继续执行，但它并不释放对象锁）。
+		notify() 方法能够唤醒一个正在等待该对象的monitor的线程，
+			当有多个线程都在等待该对象的monitor的话，则只能唤醒其中一个线程，具体唤醒哪个线程则不得而知。
+			同样地，调用某个对象的 notify() 方法，当前线程也必须拥有这个对象的 monitor，
+			因此调用 notify() 方法必须在同步块或者同步方法中进行（synchronized 块或者 synchronized 方法）。
+		nofityAll() 方法能够唤醒所有正在等待该对象的 monitor 的线程，这一点与 notify() 方法是不同的。
 		
 
 	

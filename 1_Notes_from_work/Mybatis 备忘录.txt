@@ -1,0 +1,70 @@
+
+Mybatis 工作笔记
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+resultType 和 resultMap 区别：
+
+	resultType：
+		不需要和实体类进行映射转换；
+		比如：
+			resultType="java.lang.Integer"
+			resultType="map"
+			resultType="hashmap"
+			resultType="string"
+	
+	resultMap：
+		需要和实体类进行映射转换；
+		需要在配置文件中定义一个对应的 resultMap 作为映射的标准；
+		比如：
+			<resultMap id="PrizeDrawRulesMap" type="com.marketing.mobile.domain.PrizeDrawRules">
+				<id column="PRIZE_DRAW_ID" jdbcType="BIGINT" property="prizeDrawId"/>
+				<result column="PRIZE_DRAW_LIMIT" jdbcType="BIGINT" property="prizeDrawLimit"/>
+				<result column="PRIZE_WIN_LIMIT" jdbcType="BIGINT" property="prizeWinLimit"/>
+				<result column="PRIZE_DRAW_NOTES" jdbcType="VARCHAR" property="prizeDrawNotes"/>
+				<result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+				<result column="INSTANCE_ID" jdbcType="BIGINT" property="instanceId"/>
+			</resultMap>
+		比如：
+			resultMap="PrizeDrawRulesMap"
+	
+	
+	
+	
+	
+parameterType 和 resultMap 区别：
+	比如：
+		parameterType="com.livedoing.app.marketing.mobile.wxPublicAcountPrize.domain.PrizeRecord"
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

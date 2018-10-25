@@ -209,7 +209,7 @@
 		同步锁(Lock)
 			提供了比 synchronized 代码块和 synchronized 方法更广泛的锁定操作；
 			同步代码块和同步方法具有的功能，Lock都有，除此之外，还更强大，更体现面向对象。
-			ReentrantLock：可重入锁。
+			ReentrantLock：可重入锁；一种可重入的互斥锁，又被称为独占锁；
 			用法：使用 Lock 块来调用 try，在此之前或之后的构造中。
 			实例：
 				private final ReentrantLock lock = new ReentrantLock()；

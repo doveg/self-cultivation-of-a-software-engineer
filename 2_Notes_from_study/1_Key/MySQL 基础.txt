@@ -330,7 +330,7 @@ MySQL 语句
 					CURRENT_DATE ()
 					CURRENT_TIME()
 					CURRENT_TIMESTAMP ()
-					DATE (datetime )			
+					DATE (datetime ) 		
 				select addtime('16:58:30','01:01:01'); 注意：字符串、时间日期的引号问题
 				select date_add(entry_date,INTERVAL 2 year) from student;／／增加两年
 				select addtime(time,‘1 1-1 10:09:09’) from student;　／／时间戳上增加，注意年后没有-

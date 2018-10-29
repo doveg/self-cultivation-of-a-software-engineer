@@ -14,11 +14,11 @@ CMS 系统：
 				2、分类下有子分类，需要动态管理。
 				3、分类下有内容列表
 				4、单点的内容信息
-					a)	图片
+					a) 图片
 					b) 链接
-					c)	标题
+					c) 标题
 					d) 有价格
-					e)	包含大文本类型，可以作为公告
+					e) 包含大文本类型，可以作为公告
 		需要一个内容分类表和一个内容表。
 		内容分类和内容表是一对多的关系。
 		内容分类表，需要存储树形结构的数据。
@@ -58,9 +58,9 @@ CMS 系统：
 	业务逻辑：
 		1、接收两个参数：parentId、name
 		2、向 tb_content_category 表中插入数据。
-			a)	创建一个 TbContentCategory 对象
+			a) 创建一个 TbContentCategory 对象
 			b) 补全 TbContentCategory 对象的属性
-			c)	向 tb_content_category 表中插入数据
+			c) 向 tb_content_category 表中插入数据
 		3、判断父节点的 isparent 是否为 true，不是 true 需要改为 true。
 		4、需要主键返回。
 		5、返回 TaotaoResult，其中包装 TbContentCategory 对象

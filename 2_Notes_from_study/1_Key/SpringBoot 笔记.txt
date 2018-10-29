@@ -51,7 +51,7 @@ Spring Boot 基础
 	注解：
 		@Controller					所在类为控制器，由于数量多，建子包集中保存。
 		@EnableAutoConfiguration		开启自动配置，是 springboot 的启动注解配置。
-		@RequestMapping("/")			设置 URL 映射路径
+		@RequestMapping("/") 		设置 URL 映射路径
 		@ResponseBody				Restful 架构中，将返回的数据以字符串或 json 形式接收
 		
 		@ComponentScan				定义扫描路径

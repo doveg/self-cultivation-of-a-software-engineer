@@ -60,24 +60,24 @@ Servlet 小结
 		service () ：	每次发出请求时调用，调用 n 次。
 		destroy () ：	销毁 servlet 对象时调用，停止服务器或者重新部署 web 应用时销毁 servlet，只调用 1 次。
 	伪代码演示 servlet 生命周期：
-		1)	通过映射找到到 servlet-class 的内容，字符串：gz.itc.a_servlet.FirstServlet；
-		2)	通过反射构造 FirstServlet 对象；
+		1) 通过映射找到到 servlet-class 的内容，字符串：gz.itc.a_servlet.FirstServlet；
+		2) 通过反射构造 FirstServlet 对象；
 			得到字节码对象：
 				Class clazz = class.forName ("gz.itc.a_servlet.FirstServlet") ；
 			调用无参数的构造方法来构造对象：
 				Object obj = clazz.newInstance () ； 				1.servlet 的构造方法被调用；
-		3)	通过反射调用 init 方法，创建 ServletConfig 对象，；
+		3) 通过反射调用 init 方法，创建 ServletConfig 对象，；
 			得到方法对象：
 				Method m = clazz.getDeclareMethod ("init"，ServletConfig.class) ；
 			调用方法：
 				m.invoke (obj，config) ； 								2.servlet 的 init 方法被调用；
-		4)	通过反射调用 service 方法，创建 request，response 对象；
+		4) 通过反射调用 service 方法，创建 request，response 对象；
 			得到方法对象：
 				Methodm m =clazz.getDeclareMethod ("service"，
 				HttpServletRequest.class，HttpServletResponse.class) ；
 			调用方法：
 				m.invoke (obj，request，response) ； 			3.servlet 的 service 方法被调用；
-		5)	通过反射调用 destroy 方法，当 tomcat 服务器停止或 web 应用重新部署；
+		5) 通过反射调用 destroy 方法，当 tomcat 服务器停止或 web 应用重新部署；
 			得到方法对象：
 				Method m = clazz.getDeclareMethod ("destroy"，null) ；
 			调用方法：
@@ -94,8 +94,8 @@ Servlet 小结
 		servlet 对象在 tomcat 服务器是单实例多线程的。
 			当多个 servlet 的线程同时访问了 servlet 的共享数据 (如：成员变量) 时，可能会引发线程安全问题。
 		解决办法：
-			1)	把使用到共享数据的代码块进行同步 (使用 synchronized 关键字进行同步) ；
-			2)	建议在 servlet 类中尽量不要使用成员变量；
+			1) 把使用到共享数据的代码块进行同步 (使用 synchronized 关键字进行同步) ；
+			2) 建议在 servlet 类中尽量不要使用成员变量；
 				如果确实要使用成员，必须同步；
 				尽量缩小同步代码块的范围 (哪用到成员变量就同步哪) ，避免因同步而导致并发效率降低。
 		Servlet 学习：
@@ -141,13 +141,13 @@ Servlet 小结
 	
 	转发与重定向：
 		转发：
-			1)	地址栏不会改变；
-			2)	只能转发到当前 web 应用内的资源；
-			3)	可以在转发过程中，把数据保存到 request 域对象中；
+			1) 地址栏不会改变；
+			2) 只能转发到当前 web 应用内的资源；
+			3) 可以在转发过程中，把数据保存到 request 域对象中；
 		重定向：
-			1)	地址栏会改变，变成重定向到地址；
-			2)	重定向可以跳转到当前 web 应用，或其他 web 应用，甚至是外部域名网站；
-			3)	不能在重定向的过程，把数据保存到 request 中。
+			1) 地址栏会改变，变成重定向到地址；
+			2) 重定向可以跳转到当前 web 应用，或其他 web 应用，甚至是外部域名网站；
+			3) 不能在重定向的过程，把数据保存到 request 中。
 		注意：如果要使用 request 域对象进行数据共享，只能用转发。
 
 

@@ -1,0 +1,368 @@
+
+图片上传
+
+
+
+基于 jQuery 上传插件 Uploadify：
+
+	页面代码：
+
+		//form 元素中需添加" enctype='multipart/form-data' "
+		<form id="fm" method="post" enctype="multipart/form-data">
+			<div style="padding-top:50px; float:left; width:95%; padding-left:30px;">
+				<div id="i_do_wrap">
+					<div id="pic11" style="display:none;" class="i_do_div rel">
+
+					</div>
+					<div class="i_do_div rel" id="picture"><p class="i_do_tle r_txt abs font14">展示图片</p>
+					</div>
+				</div>
+			</div>
+		</form>
+	
+	js 上传及回调方法：
+
+		//这里只是上传图片的 js 方法，并将服务端返回的 url 放入 input 标签中
+		function initUploadify() {
+			$("#uploadify2").uploadify({
+				'uploader': 'swf/uploadify2.swf', //flash 文件的相对路径
+				'script': '../loadimg/upload.do', //后台处理接口的相对路径
+				'fileDataName': 'file', //设置上传文件名称, 默认为 Filedata
+				'cancelImg': 'images/cancel.png', //每一个文件上的关闭按钮图标
+				'queueID': 'div_progress', //文件队列的 ID，该 ID 与存放文件队列的 div 的 ID 一致
+				'queueSizeLimit': 1, //当允许多文件生成时，设置选择文件的个数，默认值：999
+				'fileDesc': '*.jpg;*.gif;*.png;*.ppt;*.pdf;*.jpeg', //用来设置选择文件对话框中的提示文本
+				'fileExt': '*.jpg;*.gif;*.png;*.ppt;*.pdf;*.jpeg', //设置可以选择的文件的类型
+				'auto': true, //设置为 true 当选择文件后就直接上传了，为 false 需要点击上传按钮才上传
+				'multi': true, //设置为 true 时可以上传多个文件
+				'simUploadLimit': 1, //允许同时上传的个数 默认值：1
+				'sizeLimit': 2048000, //上传文件的大小限制
+				'buttonText': '上传图片', //浏览按钮的文本，默认值：BROWSE
+				'displayData': 'percentage', //上传队列显示的数据类型，percentage 是百分比，speed 是上传速度
+				//回调函数
+				'onComplete': function (evt, queueID, fileObj, response, data) {
+					$("#img11").attr("src", "../" + response);
+					$("#input11").val(response);
+					$("#pic11").removeAttr("style");
+					$("#img11").removeAttr("style");
+					return false;
+				},
+				'onError': function (event, queueID, fileObj, errorObj) {
+					if (errorObj.type === "File Size") {
+						alert("文件最大为 3M");
+						$("#uploadify").uploadifyClearQueue();
+					}
+				},
+				'onQueueFull': function (event, queueSizeLimit) {
+					alert("最多上传" + queueSizeLimit + "张图片");
+					return false;
+				}
+			});
+		}
+		
+	新建 upload 文件夹
+
+	SpringMVC 配置文件
+
+		服务端代码中实现图片上传使用的是 MultipartFile 类，需要在 SpringMVC 配置文件中新增配置如下：
+		<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+			<property name="maxUploadSize" value="1000000"/>
+			<property name="defaultEncoding" value="UTF-8"/>
+		</bean>
+			
+	图片上传处理代码
+		@RequestMapping("/upload")
+		public String upload(HttpServletRequest request, HttpServletResponse response, @RequestParam("file") MultipartFile file) throws Exception {
+			ServletContext sc = request.getSession().getServletContext();
+			String dir = sc.getRealPath("/upload");
+			String type = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".")+1, file.getOriginalFilename().length());
+
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
+			Random r = new Random();
+			String imgName = "";
+			if (type.equals("jpg")) {
+				imgName = sdf.format(new Date()) + r.nextInt(100) + ".jpg";
+			} else if (type.equals("png")) {
+				imgName = sdf.format(new Date()) + r.nextInt(100) + ".png";
+			} else if (type.equals("jpeg")) {
+				imgName = sdf.format(new Date()) + r.nextInt(100) + ".jpeg";
+			} else {
+				return null;
+			}
+			FileUtils.writeByteArrayToFile(new File(dir, imgName), file.getBytes());
+			//返回图片的 url，结合前端 js 回调实现上传并回显的功能
+			response.getWriter().print("upload/" + imgName);
+			return null;
+		}
+		
+	SpringMVC 图片上传，成功后异步回传 url，上传与实体存储步骤分开。
+		//保存到数据库中
+		function savePicture() {
+			$("#fm").form("submit", {
+				url: url,
+				onSubmit: function () {
+					return $(this).form("validate");
+				},
+				success: function (result) {
+					var result = eval('(' + result + ')');
+					if (result.success) {
+						$.messager.alert("系统提示", "保存成功");
+						$("#dlg").dialog("close");
+						$("#dg").datagrid("reload");
+						resetValue();
+					} else {
+						$.messager.alert("系统提示", "保存失败");
+						window.location.reload();
+						return;
+					}
+				}
+			});
+		}
+		
+	数据库文件：
+		DROP TABLE IF EXISTS `ssm_picture`;
+		CREATE TABLE `ssm_picture` (
+		 `id` int(11) NOT NULL AUTO_INCREMENT,
+		 `path` varchar(150) DEFAULT NULL,
+		 `type` int(11) DEFAULT NULL,
+		 `time` varchar(100) DEFAULT NULL,
+		 `url` varchar(200) DEFAULT NULL,
+		 `grade` int(11) DEFAULT NULL,
+		 PRIMARY KEY (`id`)
+		) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+		LOCK TABLES `ssm_picture` WRITE;
+		UNLOCK TABLES;
+
+
+SpringMVC easyUI 图片上传
+
+	HTML：
+		<form id="p" method="POST" enctype="multipart/form-data"accept="image/gif, image/jpeg,image/jpg, image/png"> 
+			<div style="width: 100%;height: 100%">
+				<div style="text-align: center;margin-top: 20px">
+					上传的文件: <input id="file" type="file" name="myfiles"/><br/> 
+					<input type="button" value="确定" onclick="uploadPic()" style="margin-top: 10px">
+				 </div>
+			</div>
+		</form>
+		
+		
+		
+	js：
+		<script type="text/javascript">
+			function uploadPic(){
+				if($("#file").val()==""){
+					$.messager.alert("提示","请选择文件夹");
+					return false;
+				}
+				 $("#p").ajaxSubmit({ 
+					type:"post", //提交方式 
+					url:"${pageContext.request.contextPath}/student/filesUpload", //请求 url 
+					success:function(data){ //提交成功的回调函数 
+						$.messager.alert("提示",data);
+					} 
+				}); 
+			}
+		</script>
+
+
+	contorller 层：
+		@ResponseBody
+		@RequestMapping("/filesUpload"
+		public String filesUpload(@RequestParam("myfiles") MultipartFile[] files, HttpServletRequest request) {
+			String result =OperatorEnum.OperatorFailure.getName();
+			if (files != null && files.length > 0) {
+				for (int i = 0; i < files.length; i++) {
+					MultipartFile file = files[i];
+					// 保存文件
+					boolean a = saveFile(request, file);
+					if(a){
+						result = OperatorEnum.OperatorSuccess.getName();
+					}
+				}
+			}
+			// 重定向
+			return result;
+		}
+
+		private boolean saveFile(HttpServletRequest request, MultipartFile file) {
+			// 判断文件是否为空
+			if (!file.isEmpty()) {
+				try {
+					// 保存的文件路径 (如果用的是 Tomcat 服务器，文件会上传到\\%TOMCAT_HOME%\\webapps\\YourWebProject\\upload\\文件夹中 )
+					String filePath = request.getSession().getServletContext()
+						.getRealPath("/") + "upload/" + file.getOriginalFilename();
+					System.err.println(filePath);
+					File saveDir = new File(filePath);
+					if (!saveDir.getParentFile().exists())
+						saveDir.getParentFile().mkdirs();
+					 System.err.println(filePath);
+					// 转存文件
+					file.transferTo(saveDir);
+					return true;
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			return false;
+		}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+EasyUI 上传图片，前台预览
+
+	HTML：
+		<form id="upload_form" enctype="multipart/form-data" action="upload_deal.do" method="post">
+			<input class="easyui-filebox" style="width:300px" data-options='onChange:change_photo' id="file_upload" name="file_upload2"/><br/> 
+			<input type="submit" value="提交" /> <br/>
+		</form>
+		<div id="Imgdiv">
+			<img id="Img" width="200px" height="200px"/>
+		</div>
+
+		
+	js：
+		function change_photo(){
+			PreviewImage($("input[name='file_upload2']")[0], 'Img', 'Imgdiv');
+		}
+
+		预览本地图片：
+			function PreviewImage(fileObj,imgPreviewId,divPreviewId){ 
+				var allowExtention=".jpg,.bmp,.gif,.png";//允许上传文件的后缀名 document.getElementById("hfAllowPicSuffix").value; 
+				var extention=fileObj.value.substring(fileObj.value.lastIndexOf(".")+1).toLowerCase(); 
+				var browserVersion= window.navigator.userAgent.toUpperCase(); 
+				if(allowExtention.indexOf(extention)>-1){ 
+					if(fileObj.files){//HTML5 实现预览，兼容 chrome、火狐 7+ 等 
+						if(window.FileReader){ 
+							var reader = new FileReader(); 
+							reader.onload = function(e){ 
+								document.getElementById(imgPreviewId).setAttribute("src",e.target.result); 
+							} 
+							reader.readAsDataURL(fileObj.files[0]); 
+						}else if(browserVersion.indexOf("SAFARI")>-1){ 
+							alert("不支持 Safari6.0 以下浏览器的图片预览!"); 
+						} 
+					}else if (browserVersion.indexOf("MSIE")>-1){ 
+						if(browserVersion.indexOf("MSIE 6")>-1){//ie6 
+							document.getElementById(imgPreviewId).setAttribute("src",fileObj.value); 
+						}else{//ie[7-9] 
+							fileObj.select(); 
+							if(browserVersion.indexOf("MSIE 9")>-1) 
+								fileObj.blur();//不加上 document.selection.createRange().text 在 ie9 会拒绝访问 
+							var newPreview =document.getElementById(divPreviewId+"New"); 
+							if(newPreview==null){ 
+								newPreview =document.createElement("div"); 
+								newPreview.setAttribute("id",divPreviewId+"New"); 
+								newPreview.style.width = document.getElementById(imgPreviewId).width+"px"; 
+								newPreview.style.height = document.getElementById(imgPreviewId).height+"px"; 
+								newPreview.style.border="solid 1px #d2e2e2"; 
+							} 
+							newPreview.style.filter="progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod='scale',src='" + document.selection.createRange().text + "')"; 
+							var tempDivPreview=document.getElementById(divPreviewId); 
+							tempDivPreview.parentNode.insertBefore(newPreview,tempDivPreview); 
+							tempDivPreview.style.display="none"; 
+						} 
+					}else if(browserVersion.indexOf("FIREFOX")>-1){//firefox 
+						var firefoxVersion= parseFloat(browserVersion.toLowerCase().match(/firefox\/([\d.]+)/)[1]); 
+						if(firefoxVersion<7){//firefox7 以下版本 
+							document.getElementById(imgPreviewId).setAttribute("src",fileObj.files[0].getAsDataURL()); 
+						}else{//firefox7.0+ 
+							document.getElementById(imgPreviewId).setAttribute("src",window.URL.createObjectURL(fileObj.files[0])); 
+						} 
+					}else{ 
+						document.getElementById(imgPreviewId).setAttribute("src",fileObj.value); 
+					} 
+				}else{ 
+					alert("仅支持"+allowExtention+"为后缀名的文件!"); 
+					fileObj.value="";//清空选中文件 
+					if(browserVersion.indexOf("MSIE")>-1){ 
+						fileObj.select(); 
+						document.selection.clear(); 
+					} 
+					fileObj.outerHTML=fileObj.outerHTML; 
+				} 
+			}
+			
+		预览本地图片调用：
+			<input type="file" name="file" onchange="PreviewImage(this,'imgHeadPhoto','divPreview')" /> 
+			<font color="red">图片大小为 40＊40</font>
+			<br/>
+			<div id="divPreview">
+				 <img id="imgHeadPhoto" width="200" height="200" src="/admin/upload/">
+			</div>
+		
+		
+		
+		
+		
+		
+		
+	Action：
+		
+		@RequestMapping("/upload_deal")
+		public ModelAndView upload_deal(
+				@RequestParam(value="file_upload", required=false) MultipartFile file, 
+				HttpServletRequest request, HttpServletResponse response) throws IOException{
+			savePicture(file, request);//保存图片
+
+			List<Picture> pics = (List<Picture>)hibernateTemplate.find("from Picture");
+			ModelAndView mav = new ModelAndView();
+			mav.addObject("photo", pics.get(0).getPhoto_path());
+			mav.setViewName("/Test/showPicture");
+			return mav;
+		}
+
+
+		//文件保存到服务器上
+		protected void savePicture(MultipartFile file, HttpServletRequest request)
+				throws IOException, FileNotFoundException {
+			String ImagePath = request.getSession().getServletContext().getRealPath("/static/img");
+			File targetfile = new File(ImagePath, file.getOriginalFilename());
+			Date date = new Date(System.currentTimeMillis());
+			if(targetfile.exists()){
+				String[] s = file.getOriginalFilename().split("\\.");
+				s[0] += date.getTime();
+				targetfile = new File(ImagePath, s[0] + "." + s[1]);
+			}
+			InputStream ins = file.getInputStream();
+			FileOutputStream fos = new FileOutputStream(targetfile);
+
+			byte b[] = new byte[1024];
+			int temp = 0;
+
+			while((temp = ins.read(b)) != -1){
+				fos.write(b, 0, temp);
+			}
+
+			fos.close();
+			ins.close();
+		}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

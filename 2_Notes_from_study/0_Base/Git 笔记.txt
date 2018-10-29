@@ -20,44 +20,44 @@ Git 核心
 	
 Git 基本常用命令：
 
-	mkdir				XX (创建一个空目录 XX 指目录名)
-	pwd					显示当前目录的路径。
-	git init				把当前的目录变成可以管理的 git 仓库，生成隐藏.git 文件。
+	mkdir						XX (创建一个空目录 XX 指目录名)
+	pwd							显示当前目录的路径。
+	git init					把当前的目录变成可以管理的 git 仓库，生成隐藏.git 文件。
 	
-	git add XX				把 xx 文件添加到暂存区去。
-	git commit –m“XX”		提交文件 –m 后面的是注释。
+	git add XX					把 xx 文件添加到暂存区去。
+	git commit –m“XX”			提交文件 –m 后面的是注释。
 	git status					查看仓库状态
-	git diff XX				查看 XX 文件修改了那些内容
+	git diff XX					查看 XX 文件修改了那些内容
 
-	git log					查看历史记录
-	git reset --hard HEAD^	回退到上一个版本
-	git reset --hard HEAD~ 	( 如果想回退到 100 个版本，使用 git reset –hard HEAD~100 )
-	cat XX					查看 XX 文件内容
-	git reflog				查看历史记录的版本号 id
+	git log						查看历史记录
+	git reset --hard HEAD^		回退到上一个版本
+	git reset --hard HEAD~ 		( 如果想回退到 100 个版本，使用 git reset –hard HEAD~100 )
+	cat XX						查看 XX 文件内容
+	git reflog					查看历史记录的版本号 id
 
 	git checkout -- XX			把 XX 文件在工作区的修改全部撤销
-	git rm XX				删除 XX 文件
+	git rm XX					删除 XX 文件
 
 	git remote add origin https://github.com/tugenhua0707/testgit 	关联一个远程库
 	git push –u(第一次要用-u 以后不需要) origin master 				把当前 master 分支推送到远程库
 	git clone https://github.com/tugenhua0707/testgit 				从远程库中克隆
 
 	git checkout –b dev 		创建 dev 分支，并切换到 dev 分支上
-	git branch 				查看当前所有的分支
+	git branch 					查看当前所有的分支
 	git checkout master 		切换回 master 分支
-	git merge dev			在当前的分支上合并 dev 分支
+	git merge dev				在当前的分支上合并 dev 分支
 	
 	git branch –d dev 			删除 dev 分支
-	git branch name			创建分支
+	git branch name				创建分支
 
-	git stash 				把当前的工作隐藏起来 等以后恢复现场后继续工作
-	git stash list 			查看所有被隐藏的文件列表
-	git stash apply 		恢复被隐藏的文件，但是内容不删除
-	git stash drop 		删除文件
-	git stash pop 			恢复文件的同时 也删除文件
+	git stash 					把当前的工作隐藏起来 等以后恢复现场后继续工作
+	git stash list 				查看所有被隐藏的文件列表
+	git stash apply 			恢复被隐藏的文件，但是内容不删除
+	git stash drop 				删除文件
+	git stash pop 				恢复文件的同时 也删除文件
 
-	git remote 				查看远程库的信息
-	git remote –v 			查看远程库的详细信息
+	git remote 					查看远程库的信息
+	git remote –v 				查看远程库的详细信息
 	git push origin master 		Git 会把 master 分支推送到远程库对应的远程分支上
 
 

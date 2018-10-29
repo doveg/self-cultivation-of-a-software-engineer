@@ -29,9 +29,9 @@
 		集合框架：数据结构的实现和封装。
 		
 		常用集合类：
-			1)	Set (集) ：不照特定方式进行排序；不允许重复。
-			2)	List (列表) ：按照索引位置排序；允许元素重复。
-			3)	Map (映射) ：集合中每一个元素都包含一对 key 和 value 对象，key 不能重复，值可以重复。
+			1) Set (集) ：不照特定方式进行排序；不允许重复。
+			2) List (列表) ：按照索引位置排序；允许元素重复。
+			3) Map (映射) ：集合中每一个元素都包含一对 key 和 value 对象，key 不能重复，值可以重复。
 
 		List 接口
 
@@ -214,49 +214,62 @@
 		Hashtable 类 
 			是 Dictionary 结构的具体实现。
 
-			
-Collection
- -----List
- -----LinkedList 非同步
- ----ArrayList 非同步，实现了可变大小的元素数组
- ----Vector 同步
- ------Stack
- -----Set 不允许有相同的元素
-Map
- -----HashTable 同步，实现一个 key--value 映射的哈希表
- -----HashMap 非同步，
- -----WeakHashMap 改进的 HashMap，实现了“弱引用”，如果一个 key 不被引用，则被 GC 回收
+		
+	Collection
+		List
+			LinkedList 非同步
+			ArrayList 非同步，实现了可变大小的元素数组
+			Vector 同步
+			Stack
+		Set 不允许有相同的元素
+	Map
+		HashTable 同步，实现一个 key--value 映射的哈希表
+		HashMap 非同步，
+		WeakHashMap 改进的 HashMap，实现了“弱引用”，如果一个 key 不被引用，则被 GC 回收
 
 
 
+Iterator：
+	如果在循环的过程中调用集合的 remove() 方法，就会导致循环出错，
+		例如：
+			for(int i=0;i<list.size();i++){
+				list.remove(...);
+			}
+	循环过程中 list.size() 的大小变化了，就导致了错误。
+	所以，如果你想在循环语句中删除集合中的某个元素，就要用迭代器 iterator 的 remove() 方法，
+	因为它的 remove() 方法不仅会删除元素，还会维护一个标志，用来记录目前是不是可删除状态，
+	例如，你不能连续两次调用它的 remove() 方法，调用之前至少有一次 next() 方法的调用。
 
-如果在循环的过程中调用集合的 remove() 方法，就会导致循环出错，例如：
-for(int i=0;i<list.size();i++){
- list.remove(...);
-}
-循环过程中 list.size() 的大小变化了，就导致了错误。
-所以，如果你想在循环语句中删除集合中的某个元素，就要用迭代器 iterator 的 remove() 方法，
-因为它的 remove() 方法不仅会删除元素，还会维护一个标志，用来记录目前是不是可删除状态，
-例如，你不能连续两次调用它的 remove() 方法，调用之前至少有一次 next() 方法的调用。
-
-Iterator 支持从源集合中安全地删除对象，只需在 Iterator 上调用 remove() 即可。
-这样做的好处是可以避免 ConcurrentModifiedException，当打开 Iterator 迭代集合时，同时又在对集合进行修改。
-有些集合不允许在迭代时删除或添加元素，但是调用 Iterator 的 remove() 方法是个安全的做法。
-
-
-
-“HashMap 实现 Map 接口，它允许任何类型的键对象”这句话是有前提条件的。
-这需要查看 HashMap 底层源码，在计算 hashcode 的过程中会用到 equals () 和 hashCode () 这两个函数；
-所以键的对象类型必须遵守这两个函数的规则，保证键的不变性，即：
-1. 若两对象 equals，则它两 hashcode 一定相等；
-2. 若两对象不 equals，则它两 hashcode 有可能相等；
-3. 若两对象 hashcode 相等，则它两不一定 equals；
-4. 若两对象 hashcode 不相等，则它两一定 不 equals；
-
-HashMap 的底层是由数组加链表实现的，
-对于每一个 key 值，都需要计算哈希值，然后通过哈希值来确定顺序，并不是按照加入顺序来存放的，
-因此可以认为是无序的，但不管是有序还是无序，它都一个自己的顺序。故 A 错。
-最开始有 Hashtable，Hashtable 是不允许 key 和 value 的值为空的，但后来开发者认为有时候也会有 key 值为空的情况，因为可以允许 null 为空，通过查看 HashMap 的源代码就知道：if(key = null) {putForNullKey(value);};
-Map 底层都是用 key/value 键值对的形式存放的
+	Iterator 支持从源集合中安全地删除对象，只需在 Iterator 上调用 remove() 即可。
+	这样做的好处是可以避免 ConcurrentModifiedException，当打开 Iterator 迭代集合时，同时又在对集合进行修改。
+	有些集合不允许在迭代时删除或添加元素，但是调用 Iterator 的 remove() 方法是个安全的做法。
 
 
+
+“HashMap 实现 Map 接口，它允许任何类型的键对象”，这句话是有前提条件的。
+	这需要查看 HashMap 底层源码，在计算 hashcode 的过程中会用到 equals () 和 hashCode () 这两个函数；
+	所以键的对象类型必须遵守这两个函数的规则，保证键的不变性，即：
+		1. 若两对象 equals，则它两 hashcode 一定相等；
+		2. 若两对象不 equals，则它两 hashcode 有可能相等；
+		3. 若两对象 hashcode 相等，则它两不一定 equals；
+		4. 若两对象 hashcode 不相等，则它两一定 不 equals；
+	
+	HashMap 的底层是由数组加链表实现的，
+		对于每一个 key 值，都需要计算哈希值，然后通过哈希值来确定顺序，并不是按照加入顺序来存放的，
+		因此可以认为是无序的，但不管是有序还是无序，它都一个自己的顺序。
+		最开始有 Hashtable，Hashtable 是不允许 key 和 value 的值为空的，
+			但后来开发者认为有时候也会有 key 值为空的情况，因为可以允许 null 为空，
+		通过查看 HashMap 的源代码就知道：if(key = null) {putForNullKey(value);};
+		Map 底层都是用 key/value 键值对的形式存放的
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

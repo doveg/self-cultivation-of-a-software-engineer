@@ -6,10 +6,10 @@ HTML 工作笔记
 
 
 
-H5页面操作提示框：
+H5 页面操作提示框：
 	<div class="fixbox" style="display: none; position: fixed; top: 50%; left: 50%; background: #000; opacity: .8; transform: translate(-50%,-50%); width: 200px; height: 50px; border-radius: 5px; text-align: center;line-height: 50px; color:#fff; z-index: 100; " >
 
-用于ajax 成功回调函数执行操作：
+用于 ajax 成功回调函数执行操作：
 	$(".fixbox").html("未查找到其他信息！").css({'display':'block'})
 	setTimeout(function () {
 		$(".fixbox").html("未查找到其他信息！").css({'display':'none'})
@@ -34,7 +34,7 @@ H5页面操作提示框：
 
 
 
-div左右分布，只要在第一个div中加入float:left
+div 左右分布，只要在第一个 div 中加入 float:left
 
 
 
@@ -69,8 +69,8 @@ div左右分布，只要在第一个div中加入float:left
 
 @font-face{
 	font-face:"family-name"; /*自定义字体名称*/
-	src:url("../font/XXX.eot"); /*解决IE9兼容模式下的兼容性问题*/
-	src:url("../font/XXX.eot?") format("embedded-opentype"), /*在eot加?或者?iefix，以解决字体文件在IE下加载失败的问题*/
+	src:url("../font/XXX.eot"); /*解决 IE9 兼容模式下的兼容性问题*/
+	src:url("../font/XXX.eot?") format("embedded-opentype"), /*在 eot 加? 或者?iefix，以解决字体文件在 IE 下加载失败的问题*/
 	url("../font/XXX.woff") format("woff"),
 	url("../font/XXX.ttf") format("trueytype"),
 	url("../font/XXX.syg") format("svg");
@@ -82,8 +82,8 @@ div左右分布，只要在第一个div中加入float:left
 	font-style:normal;
 	font-weight:normal;
 	font-size:20px;
-	-webkit-font-smoothing:antialiased; /*用于webkit引擎中的字体抗锯齿属性*/
-	-moz-osx-font-smoothing:graycale /*用于Mac OS系统和火狐浏览器中的字体抗锯齿属性*/
+	-webkit-font-smoothing:antialiased; /*用于 webkit 引擎中的字体抗锯齿属性*/
+	-moz-osx-font-smoothing:graycale /*用于 Mac OS 系统和火狐浏览器中的字体抗锯齿属性*/
 ｝
 .example{
 	color:#fff; /*可轻松改变图标颜色*/

@@ -19,52 +19,52 @@ Java 中常见的异常
 	
 	
 	
-Java语言中的异常处理包括声明异常、抛出异常、捕获异常和处理异常四个环节。
-throw用于抛出异常。
-throws关键字可以在方法上声明该方法要抛出的异常，然后在方法内部通过throw抛出异常对象。
-try是用于检测被包住的语句块是否出现异常，如果有异常，则抛出异常，并执行catch语句。
-cacth用于捕获从try中抛出的异常并作出处理。
-finally语句块是不管有没有出现异常都要执行的内容。
+Java 语言中的异常处理包括声明异常、抛出异常、捕获异常和处理异常四个环节。
+throw 用于抛出异常。
+throws 关键字可以在方法上声明该方法要抛出的异常，然后在方法内部通过 throw 抛出异常对象。
+try 是用于检测被包住的语句块是否出现异常，如果有异常，则抛出异常，并执行 catch 语句。
+cacth 用于捕获从 try 中抛出的异常并作出处理。
+finally 语句块是不管有没有出现异常都要执行的内容。
 
-1. 受检查的异常(checked exceptions),其必须被 try{}catch语句块所捕获,或者在方法签名里通过throws子句声明.
+1. 受检查的异常 (checked exceptions), 其必须被 try{}catch 语句块所捕获, 或者在方法签名里通过 throws 子句声明.
 受检查的异常必须在编译时被捕捉处理,
-命名为 Checked Exception 是因为Java编译器要进行检查,Java虚拟机也要进行检查,以确保这个规则得到遵守.
-2. 运行时异常(runtime exceptions),需要程序员自己分析代码决定是否捕获和处理,比如 空指针,被0除...
+命名为 Checked Exception 是因为 Java 编译器要进行检查,Java 虚拟机也要进行检查, 以确保这个规则得到遵守.
+2. 运行时异常 (runtime exceptions), 需要程序员自己分析代码决定是否捕获和处理, 比如 空指针, 被 0 除...
 3. Error，则属于严重错误，如系统崩溃、虚拟机错误、动态链接失败等，
-这些错误无法恢复或者不可能捕捉，将导致应用程序中断，Error不需要捕捉。
+这些错误无法恢复或者不可能捕捉，将导致应用程序中断，Error 不需要捕捉。
 
 
 
-1、不管有木有出现异常，finally块中代码都会执行；
-2、当try和catch中有return时，finally仍然会执行；
-3、finally是在return后面的表达式运算后执行的
-    （此时并没有返回运算后的值，而是先把要返回的值保存起来，管finally中的代码怎么样，返回的值都不会改变，任然是之前保存的值），
-    所以函数返回值是在finally执行前确定的；        
-4、finally中最好不要包含return，否则程序会提前退出，返回值不是try或catch中保存的返回值。
+1、不管有木有出现异常，finally 块中代码都会执行；
+2、当 try 和 catch 中有 return 时，finally 仍然会执行；
+3、finally 是在 return 后面的表达式运算后执行的
+ (此时并没有返回运算后的值，而是先把要返回的值保存起来，管 finally 中的代码怎么样，返回的值都不会改变，任然是之前保存的值) ，
+ 所以函数返回值是在 finally 执行前确定的； 
+4、finally 中最好不要包含 return，否则程序会提前退出，返回值不是 try 或 catch 中保存的返回值。
 
-任何执行try 或者catch中的return语句之前，都会先执行finally语句，如果finally存在的话。
-如果finally中有return语句，那么程序就return了，所以finally中的return是一定会被return的，
-编译器把finally中的return实现为一个warning。
-
-
-
-假如try中有异常抛出，则会去执行catch块，再去执行finally块；
-假如没有catch 块，可以直接执行finally 块，方法就以抛出异常的方式结束，而finally 后的内容也不会被执行，
-所以catch 和 finally 不能同时省略。
+任何执行 try 或者 catch 中的 return 语句之前，都会先执行 finally 语句，如果 finally 存在的话。
+如果 finally 中有 return 语句，那么程序就 return 了，所以 finally 中的 return 是一定会被 return 的，
+编译器把 finally 中的 return 实现为一个 warning。
 
 
-如果try语句里有return，返回的是try语句块中变量值。 
+
+假如 try 中有异常抛出，则会去执行 catch 块，再去执行 finally 块；
+假如没有 catch 块，可以直接执行 finally 块，方法就以抛出异常的方式结束，而 finally 后的内容也不会被执行，
+所以 catch 和 finally 不能同时省略。
+
+
+如果 try 语句里有 return，返回的是 try 语句块中变量值。
 详细执行过程如下：
 
 如果有返回值，就把返回值保存到局部变量中；
-执行jsr指令跳到finally语句里执行；
-执行完finally语句后，返回之前保存在局部变量表里的值。
-如果try，finally语句里均有return，忽略try的return，而使用finally的return.
+执行 jsr 指令跳到 finally 语句里执行；
+执行完 finally 语句后，返回之前保存在局部变量表里的值。
+如果 try，finally 语句里均有 return，忽略 try 的 return，而使用 finally 的 return.
 
 
-error是系统出错，catch是无法处理的，难以修复的，
-RuntimeException不需要程序员进行捕获处理，
-error和exception都是throwable的子类，我们只需要对exception的实例进行捕获即可。
+error 是系统出错，catch 是无法处理的，难以修复的，
+RuntimeException 不需要程序员进行捕获处理，
+error 和 exception 都是 throwable 的子类，我们只需要对 exception 的实例进行捕获即可。
 
 
 
@@ -85,40 +85,40 @@ error和exception都是throwable的子类，我们只需要对exception的实例
 	对数组操作中出现空指针，很多情况下是一些刚开始学习编程的朋友常犯的错误，
 	即把数组的初始化和数组元素的初始化混淆起来了。
 	数组的初始化是对数组分配需要的空间，而初始化后的数组，其中的元素并没有实例化，依然是空的，
-	所以还需要对每个元素都进行初始化（如果要调用的话） 
+	所以还需要对每个元素都进行初始化 (如果要调用的话) 
 
 2. java.lang.ClassNotFoundException 
 
-	这个异常是很多原本在JB等开发环境中开发的程序员，把JB下的程序包放在WTk下编译经常出现的问题，
+	这个异常是很多原本在 JB 等开发环境中开发的程序员，把 JB 下的程序包放在 WTk 下编译经常出现的问题，
 	异常的解释是"指定的类不存在"，这里主要考虑一下类的名称和路径是否正确即可，
-	如果是在JB下做的程序包，一般都是默认加上Package的，所以转到WTK下后要注意把Package的路径加上。 
+	如果是在 JB 下做的程序包，一般都是默认加上 Package 的，所以转到 WTK 下后要注意把 Package 的路径加上。
 
 3. java.lang.ArithmeticException 
 
 	这个异常的解释是"数学运算异常"，
 	比如程序中出现了除以零这样的运算就会出这样的异常，
-	对这种异常，要好好检查一下自己程序中涉及到数学运算的地方，公式是不是有不妥了。 
+	对这种异常，要好好检查一下自己程序中涉及到数学运算的地方，公式是不是有不妥了。
 
 4. java.lang.ArrayIndexOutOfBoundsException 
 
 	这个异常相信很多朋友也经常遇到过，异常的解释是"数组下标越界"，
 	现在程序中大多都有对数组的操作，因此在调用数组的时候一定要认真检查，看调用的下标是不是超出了数组的范围，
-	一般来说，显示（即直接用常数当下标）调用不太容易出这样的错，但隐式（即用变量表示下标）调用就经常出错了，
+	一般来说，显示 (即直接用常数当下标) 调用不太容易出这样的错，但隐式 (即用变量表示下标) 调用就经常出错了，
 	还有一种情况，是程序中定义的数组的长度是通过某些特定方法决定的，不是事先声明的，
-	这个时候，最好先查看一下数组的length，以免出现这个异常。 
+	这个时候，最好先查看一下数组的 length，以免出现这个异常。
 
 5. java.lang.IllegalArgumentException 
 
-	这个异常的解释是"方法的参数错误"，很多J2ME的类库中的方法在一些情况下都会引发这样的错误，
+	这个异常的解释是"方法的参数错误"，很多 J2ME 的类库中的方法在一些情况下都会引发这样的错误，
 	比如音量调节方法中的音量参数如果写成负数就会出现这个异常，
-	再比如g.setColor(int red,int green,int blue)这个方法中的三个值，如果有超过２５５的也会出现这个异常，
-	因此一旦发现这个异常，我们要做的，就是赶紧去检查一下方法调用中的参数传递是不是出现了错误。 
+	再比如 g.setColor(int red,int green,int blue) 这个方法中的三个值，如果有超过２５５的也会出现这个异常，
+	因此一旦发现这个异常，我们要做的，就是赶紧去检查一下方法调用中的参数传递是不是出现了错误。
 
 6. java.lang.IllegalAccessException 
 
 	这个异常的解释是"没有访问权限"，
 	当应用程序要调用一个类，但当前的方法即没有对该类的访问权限便会出现这个异常。
-	对程序中用了Package的情况下要注意这个异常。 
+	对程序中用了 Package 的情况下要注意这个异常。
 
 
 

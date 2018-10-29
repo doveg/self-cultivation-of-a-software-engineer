@@ -56,7 +56,7 @@ HTML5 标签：
 		<a>超链接</a>：可以用来包裹文字，图片，表格，标题等；
 			href=""
 				href="#"：空链接；
-				href="#id"：定位到当前页的id位置；
+				href="#id"：定位到当前页的 id 位置；
 			target=""
 				target="_self"：当前页打开；
 				target="_blank"：新空白页打开；
@@ -132,7 +132,7 @@ HTML5 标签：
 			&nbsp：空格；
 			&lt：小于号；
 			&gt：大于号；
-			&amp：和号(&)；
+			&amp：和号 (&)；
 
 			
 	<script>脚本</script>

@@ -6,182 +6,182 @@ MySQL 数据库优化
 数据库 sql 优化方案
 
 	为什么要优化：
-		 随着实际项目的启动，数据库经过一段时间的运行，最初的数据库设置，会与实际数据库运行性能会有一些差异，这时我们         就需要做一个优化调整。
+		 随着实际项目的启动，数据库经过一段时间的运行，最初的数据库设置，会与实际数据库运行性能会有一些差异，这时我们 就需要做一个优化调整。
 
 	数据库优化这个课题较大，可分为四大类：
-		   》主机性能
-		   》内存使用性能
-		   》网络传输性能
-		   》SQL语句执行性能【软件工程师】
+		》主机性能
+		》内存使用性能
+		》网络传输性能
+		》SQL 语句执行性能【软件工程师】
 
 
-	下面列出一些数据库SQL优化方案：
+	下面列出一些数据库 SQL 优化方案：
 
 
-	（01）选择最有效率的表名顺序（笔试常考） 
-		  数据库的解析器按照从右到左的顺序处理FROM子句中的表名， 
-		  FROM子句中写在最后的表将被最先处理，
-		  在FROM子句中包含多个表的情况下,你必须选择记录条数最少的表放在最后，
-		  如果有3个以上的表连接查询,那就需要选择那个被其他表所引用的表放在最后。
-		  例如：查询员工的编号，姓名，工资，工资等级，部门名
-		  select emp.empno,emp.ename,emp.sal,salgrade.grade,dept.dname
-		  from salgrade,dept,emp
-		  where (emp.deptno = dept.deptno) and (emp.sal between salgrade.losal and salgrade.hisal)  		
-		  1)如果三个表是完全无关系的话，将记录和列名最少的表，写在最后，然后依次类推
-		  2)如果三个表是有关系的话，将引用最多的表，放在最后，然后依次类推
+	 (01) 选择最有效率的表名顺序 (笔试常考) 
+		 数据库的解析器按照从右到左的顺序处理 FROM 子句中的表名，
+		 FROM 子句中写在最后的表将被最先处理，
+		 在 FROM 子句中包含多个表的情况下, 你必须选择记录条数最少的表放在最后，
+		 如果有 3 个以上的表连接查询, 那就需要选择那个被其他表所引用的表放在最后。
+		 例如：查询员工的编号，姓名，工资，工资等级，部门名
+		 select emp.empno,emp.ename,emp.sal,salgrade.grade,dept.dname
+		 from salgrade,dept,emp
+		 where (emp.deptno = dept.deptno) and (emp.sal between salgrade.losal and salgrade.hisal) 		
+		 1) 如果三个表是完全无关系的话，将记录和列名最少的表，写在最后，然后依次类推
+		 2) 如果三个表是有关系的话，将引用最多的表，放在最后，然后依次类推
 
 
-	（02）WHERE子句中的连接顺序（笔试常考）  
-		  数据库采用自右而左的顺序解析WHERE子句,根据这个原理,表之间的连接必须写在其他WHERE条件之左,
-		  那些可以过滤掉最大数量记录的条件必须写在WHERE子句的之右。  
-		  例如：查询员工的编号，姓名，工资，部门名  
-		  select emp.empno,emp.ename,emp.sal,dept.dname
-		  from emp,dept
-		  where (emp.deptno = dept.deptno) and (emp.sal > 1500)   
+	 (02) WHERE 子句中的连接顺序 (笔试常考) 
+		 数据库采用自右而左的顺序解析 WHERE 子句, 根据这个原理, 表之间的连接必须写在其他 WHERE 条件之左,
+		 那些可以过滤掉最大数量记录的条件必须写在 WHERE 子句的之右。
+		 例如：查询员工的编号，姓名，工资，部门名 
+		 select emp.empno,emp.ename,emp.sal,dept.dname
+		 from emp,dept
+		 where (emp.deptno = dept.deptno) and (emp.sal > 1500) 
 		
-	（03）SELECT子句中避免使用*号
-		  数据库在解析的过程中,会将*依次转换成所有的列名，这个工作是通过查询数据字典完成的，这意味着将耗费更多的时间
-		  select empno,ename from emp;
+	 (03) SELECT 子句中避免使用*号
+		 数据库在解析的过程中, 会将*依次转换成所有的列名，这个工作是通过查询数据字典完成的，这意味着将耗费更多的时间
+		 select empno,ename from emp;
 
-	（04）用TRUNCATE替代DELETE
-	   
-	（05）尽量多使用COMMIT
-		  因为COMMIT会释放回滚点
+	 (04) 用 TRUNCATE 替代 DELETE
+	 
+	 (05) 尽量多使用 COMMIT
+		 因为 COMMIT 会释放回滚点
 
-	（06）用WHERE子句替换HAVING子句
-		  WHERE先执行，HAVING后执行
+	 (06) 用 WHERE 子句替换 HAVING 子句
+		 WHERE 先执行，HAVING 后执行
 		 
-	（07）多使用内部函数提高SQL效率
+	 (07) 多使用内部函数提高 SQL 效率
 		 
-	（08）使用表的别名
-		  salgrade s
+	 (08) 使用表的别名
+		 salgrade s
 		 
-	（09）使用列的别名
-		  ename e
-		  
+	 (09) 使用列的别名
+		 ename e
+		 
 
 
 MySQL 性能调优
 
 	运行环境调优
 	
-		调整Linux默认的IO调度算法.
+		调整 Linux 默认的 IO 调度算法.
 			
-			IO调度器的总体目标是希望让磁头能够总是往一个方向移动，移动到底了再往反方向走，
-			这恰恰就是现实生活中的电梯模型，所以IO调度器也被叫做电梯 (elevator)，而相应的算法也就被叫做电梯算法.
-			而Linux中IO调度的电梯算法有好几种，一个叫做as(Anticipatory)，一个叫做 cfq(Complete Fairness Queueing)，一个叫做deadline，还有一个叫做noop(No Operation).
+			IO 调度器的总体目标是希望让磁头能够总是往一个方向移动，移动到底了再往反方向走，
+			这恰恰就是现实生活中的电梯模型，所以 IO 调度器也被叫做电梯 (elevator)，而相应的算法也就被叫做电梯算法.
+			而 Linux 中 IO 调度的电梯算法有好几种，一个叫做 as(Anticipatory)，一个叫做 cfq(Complete Fairness Queueing)，一个叫做 deadline，还有一个叫做 noop(No Operation).
 
-			IO对数据库的影响较大，linux默认的IO调度算法为cfq，需要修改为deadline，
-			如果是SSD或者PCIe-SSD设备，需要修改为noop，可以使用下面两种修改方式。
+			IO 对数据库的影响较大，linux 默认的 IO 调度算法为 cfq，需要修改为 deadline，
+			如果是 SSD 或者 PCIe-SSD 设备，需要修改为 noop，可以使用下面两种修改方式。
 
 				1、在线动态修改，重启失效。
-					echo “deadline” > /sys/block/sda/queue/scheduler
+					echo“deadline”> /sys/block/sda/queue/scheduler
 
 				2、修改/etc/grub.conf，永久生效。
-					修改/etc/grub.conf配置文件，在kernel那行增加一个配置，例如:
+					修改/etc/grub.conf 配置文件，在 kernel 那行增加一个配置，例如:
 						elevator=deadline
-				主要关注elevator这个参数，设置内核的话需要重启系统才能生效。
+				主要关注 elevator 这个参数，设置内核的话需要重启系统才能生效。
 
-		禁用numa特性
+		禁用 numa 特性
 			
-			新一代架构的NUMA不适合跑数据库，NUMA是为了内存利用率的提高，
-			但反而可能导致一CPU的内存尚有剩余，另外一个却不够用了，发生swap的问题，
-			因此一般建议关闭或修改NUMA的调度。
+			新一代架构的 NUMA 不适合跑数据库，NUMA 是为了内存利用率的提高，
+			但反而可能导致一 CPU 的内存尚有剩余，另外一个却不够用了，发生 swap 的问题，
+			因此一般建议关闭或修改 NUMA 的调度。
 
-			1、修改/etc/grub.conf关闭NUMA，重启后生效。
+			1、修改/etc/grub.conf 关闭 NUMA，重启后生效。
 				numa=off
-			2、修改/etc/init.d/mysql或mysqld_safe脚本，设置启动mysqld进程时的NUMA调度机制，
+			2、修改/etc/init.d/mysql 或 mysqld_safe 脚本，设置启动 mysqld 进程时的 NUMA 调度机制，
 				如 numactl –interleave=all。
 
-		修改swappiness设置
+		修改 swappiness 设置
 		
-			swappiness是linux的一个内核参数，用来控制物理内存交换出去的策略.
-			它允许一个百分比的值，最小的为0，最大的为100，改值默认是60.这个设置值到底有什么影响呢？
+			swappiness 是 linux 的一个内核参数，用来控制物理内存交换出去的策略.
+			它允许一个百分比的值，最小的为 0，最大的为 100，改值默认是 60. 这个设置值到底有什么影响呢？
 
-			vm.swappiness设置为0表示尽量少使用swap，100表示尽量将inactive的内存页交换到swap里或者释放cache。
-			inactive内存的意思是程序映射着，但是”长时间”不用的内存。
-			我们可以利用vmstat查看系统里面有多少inactive的内存。
+			vm.swappiness 设置为 0 表示尽量少使用 swap，100 表示尽量将 inactive 的内存页交换到 swap 里或者释放 cache。
+			inactive 内存的意思是程序映射着，但是”长时间”不用的内存。
+			我们可以利用 vmstat 查看系统里面有多少 inactive 的内存。
 				# vmstat -a 1
-			这个值推荐设置为1，设置方法如下，在/etc/sysctl.conf文件中增加一行。
+			这个值推荐设置为 1，设置方法如下，在/etc/sysctl.conf 文件中增加一行。
 				vm.swappiness = 1
 			
 		扩大文件描述符
 		
 			这个是经常修改的参数，高并发的程序都会修改.
 
-				1、动态修改，重启失效，只能使用root，并且当前session有效。
+				1、动态修改，重启失效，只能使用 root，并且当前 session 有效。
 					ulimit -n 51200
 				2、修改配置文件，永久生效。
-					在/etc/security/limits.conf配置文件中增加
+					在/etc/security/limits.conf 配置文件中增加
 						* hard nofile 51200
 						* soft nofile 51200
 			
-			面向session的进程文件描述符的修改稍有不同，在云上的修改也略有差异，可以参见一样的“open too many files”
+			面向 session 的进程文件描述符的修改稍有不同，在云上的修改也略有差异，可以参见一样的“open too many files”
 
 		优化文件系统挂载参数
 		
-			对于文件系统，如无特殊要求，最好采用ext4.
+			对于文件系统，如无特殊要求，最好采用 ext4.
 
-			文件系统挂载参数是在/etc/fstab文件中修改，重启时候生效。
-			noatime表示不记录访问时间，nodiratime不记录目录的访问时间。
-			barrier=0，表示关闭barrier功能.
+			文件系统挂载参数是在/etc/fstab 文件中修改，重启时候生效。
+			noatime 表示不记录访问时间，nodiratime 不记录目录的访问时间。
+			barrier=0，表示关闭 barrier 功能.
 
-			barrier的主要目的是为了保证磁盘写数据的安全性，但是会降低性能。
-			如果有BBU之类的电池备份电源保证控制卡不瞬间掉电，那么这个功能就可以放心大胆的关闭。
+			barrier 的主要目的是为了保证磁盘写数据的安全性，但是会降低性能。
+			如果有 BBU 之类的电池备份电源保证控制卡不瞬间掉电，那么这个功能就可以放心大胆的关闭。
 
 	配置参数调优
 	
-			my.cnf中的配置参数调优取决于业务，负载或硬件，在慢内存和快磁盘、高并发和写密集型负载情况下，都需要特殊的调整。
+			my.cnf 中的配置参数调优取决于业务，负载或硬件，在慢内存和快磁盘、高并发和写密集型负载情况下，都需要特殊的调整。
 
 		基本配置
 		
 			query_cache_size
 			
-				query cache是一个众所周知的瓶颈，甚至在并发并不多时也如此。 
-				最好是一开始就停用，设置query_cache_size = 0，并利用其他方法加速查询：
-				优化索引、增加拷贝分散负载或者启用额外的缓存（比如memcache或redis）。
-				如果已经启用了query cache并且还没有发现任何问题，query cache可能有用。如果想停用它，那就得小心了。
+				query cache 是一个众所周知的瓶颈，甚至在并发并不多时也如此。
+				最好是一开始就停用，设置 query_cache_size = 0，并利用其他方法加速查询：
+				优化索引、增加拷贝分散负载或者启用额外的缓存 (比如 memcache 或 redis) 。
+				如果已经启用了 query cache 并且还没有发现任何问题，query cache 可能有用。如果想停用它，那就得小心了。
 
 			innodb_buffer_pool_size
 
 				缓冲池是数据和索引缓存的地方：这个值越大越好，这能保证你在大多数的读取操作时使用的是内存而不是硬盘。
-				典型的值是5-6GB(8GB内存)，20-25GB(32GB内存)，100-120GB(128GB内存)。
+				典型的值是 5-6GB(8GB 内存)，20-25GB(32GB 内存)，100-120GB(128GB 内存)。
 
 			innodb_log_file_size
 
-				redo日志被用于确保写操作快速而可靠并且在崩溃时恢复。
-				从MySQL 5.5之后，崩溃恢复的性能的到了很大提升，可以同时拥有较高的写入性能和崩溃恢复性能。
-				在MySQL 5.6里可以被提高到4GB以上。如果应用程序需要频繁的写入数据，可以一开始就把它这是成4G。
+				redo 日志被用于确保写操作快速而可靠并且在崩溃时恢复。
+				从 MySQL 5.5 之后，崩溃恢复的性能的到了很大提升，可以同时拥有较高的写入性能和崩溃恢复性能。
+				在 MySQL 5.6 里可以被提高到 4GB 以上。如果应用程序需要频繁的写入数据，可以一开始就把它这是成 4G。
 
 			max_connections
 			
-				max_connection值被设高了(例如1000或更高)之后一个主要缺陷是当服务器运行1000个或更高的活动事务时会变的没有响应。
-				在应用程序里使用连接池或者在MySQL里使用进程池有助于解决这一问题。
+				max_connection 值被设高了 (例如 1000 或更高) 之后一个主要缺陷是当服务器运行 1000 个或更高的活动事务时会变的没有响应。
+				在应用程序里使用连接池或者在 MySQL 里使用进程池有助于解决这一问题。
 
 			back_log
 			
 				要求 mysql 能有的连接数量。
-				当主要mysql线程在一个很短时间内得到非常多的连接请求，这就起作用，然后主线程花些时间检查连接并且启动一个新线程。
-				back_log指明在mysql暂时停止回答新请求之前的短时间内多少个请求可以被存在堆栈中。
-				只有如果期望在一个短时间内有很多连接，需要增加它，换句话说，该值对到来的tcp/ip连接的侦听队列的大小。
+				当主要 mysql 线程在一个很短时间内得到非常多的连接请求，这就起作用，然后主线程花些时间检查连接并且启动一个新线程。
+				back_log 指明在 mysql 暂时停止回答新请求之前的短时间内多少个请求可以被存在堆栈中。
+				只有如果期望在一个短时间内有很多连接，需要增加它，换句话说，该值对到来的 tcp/ip 连接的侦听队列的大小。
 
-		Innodb配置
+		Innodb 配置
 		
 			innodb_file_per_table
 
-				这项设置告知InnoDB是否需要将所有表的数据和索引存放在共享表空间里（innodb_file_per_table = OFF）或者为每张表的数据单独放在一个.ibd文件（innodb_file_per_table = ON）。每张表一个文件允许你在drop、truncate或者rebuild表时回收磁盘空间。这对于一些高级特性也是有必要的，比如数据压缩。但是它不会带来任何性能收益。MySQL 5.6中，这个属性默认值是ON。
+				这项设置告知 InnoDB 是否需要将所有表的数据和索引存放在共享表空间里 (innodb_file_per_table = OFF) 或者为每张表的数据单独放在一个.ibd 文件 (innodb_file_per_table = ON) 。每张表一个文件允许你在 drop、truncate 或者 rebuild 表时回收磁盘空间。这对于一些高级特性也是有必要的，比如数据压缩。但是它不会带来任何性能收益。MySQL 5.6 中，这个属性默认值是 ON。
 
 			innodb_flush_log_at_trx_commit
 
-				默认值为1，表示InnoDB完全支持ACID特性。当关注点是数据安全的时候这个值是最合适的，比如在一个主节点上。但是对于磁盘（读写）速度较慢的系统，它会带来很巨大的开销，因为每次将改变flush到redo日志都需要额外的fsyncs。如果值为0速度就更快了，但在系统崩溃时可能丢失一些数据， 所以一遍只适用于备份节点。
+				默认值为 1，表示 InnoDB 完全支持 ACID 特性。当关注点是数据安全的时候这个值是最合适的，比如在一个主节点上。但是对于磁盘 (读写) 速度较慢的系统，它会带来很巨大的开销，因为每次将改变 flush 到 redo 日志都需要额外的 fsyncs。如果值为 0 速度就更快了，但在系统崩溃时可能丢失一些数据，所以一遍只适用于备份节点。
 
 			innodb_flush_method
 
-				这项配置决定了数据和日志写入硬盘的方式。一般来说，如果你有硬件RAID控制器，并且其独立缓存采用write-back机制，并有着电池断电保护，那么应该设置配置为O_DIRECT；否则，大多数情况下应将其设为fdatasync（默认值）。sysbench是一个可以帮助你决定这个选项的好工具。
+				这项配置决定了数据和日志写入硬盘的方式。一般来说，如果你有硬件 RAID 控制器，并且其独立缓存采用 write-back 机制，并有着电池断电保护，那么应该设置配置为 O_DIRECT；否则，大多数情况下应将其设为 fdatasync (默认值) 。sysbench 是一个可以帮助你决定这个选项的好工具。
 
 			innodb_log_buffer_size
 
-				这项配置决定了为尚未执行的事务分配的缓存。但是如果事务中包含有二进制大对象或者大文本字段的话，看Innodb_log_waits状态变量，如果它不是0，增加innodb_log_buffer_size。
+				这项配置决定了为尚未执行的事务分配的缓存。但是如果事务中包含有二进制大对象或者大文本字段的话，看 Innodb_log_waits 状态变量，如果它不是 0，增加 innodb_log_buffer_size。
 
 		其他配置
 		
@@ -196,31 +196,31 @@ MySQL 性能调优
 			interactive_timeout
 
 				服务器在关闭它前在一个交互连接上等待行动的秒数。
-				一个交互的客户被定义为对 mysql_real_connect()使用 client_interactive 选项的客户。
-				默认数值是28800，建议改为7200。
+				一个交互的客户被定义为对 mysql_real_connect() 使用 client_interactive 选项的客户。
+				默认数值是 28800，建议改为 7200。
 
 			table_open_cache
 
-				MySQL每打开一个表，都会读入一些数据到table_open_cache缓存中，
-				当MySQL在这个缓存中找不到相应信息时，才会去磁盘上读取。
-				假定系统有200个并发连接，则需将此参数设置为200*N(N为每个连接所需的文件描述符数目)；
-				当把table_open_cache设置为很大时，如果系统处理不了那么多文件描述符，那么就会出现客户端失效，连接不上。
+				MySQL 每打开一个表，都会读入一些数据到 table_open_cache 缓存中，
+				当 MySQL 在这个缓存中找不到相应信息时，才会去磁盘上读取。
+				假定系统有 200 个并发连接，则需将此参数设置为 200*N(N 为每个连接所需的文件描述符数目)；
+				当把 table_open_cache 设置为很大时，如果系统处理不了那么多文件描述符，那么就会出现客户端失效，连接不上。
 
 			max_allowed_packet
 
 				接受的数据包大小；增加该变量的值十分安全，这是因为仅当需要时才会分配额外内存。
-				例如，仅当你发出长查询或MySQLd必须返回大的结果行时MySQLd才会分配更多内存。
+				例如，仅当你发出长查询或 MySQLd 必须返回大的结果行时 MySQLd 才会分配更多内存。
 				该变量之所以取较小默认值是一种预防措施，以捕获客户端和服务器之间的错误信息包，
 				并确保不会因偶然使用大的信息包而导致内存溢出
 			
 			skip_name_resolve
 
-				当客户端连接数据库服务器时，且当DNS很慢时，建立连接也会很慢。
-				因此建议在启动服务器时关闭skip_name_resolve选项而不进行DNS查找。
+				当客户端连接数据库服务器时，且当 DNS 很慢时，建立连接也会很慢。
+				因此建议在启动服务器时关闭 skip_name_resolve 选项而不进行 DNS 查找。
 
 	SQL 语句调优
 	
-		在应用层，通过pt工具和慢查询日志的配合，可以轻松地分辨出全表扫描的语句。
+		在应用层，通过 pt 工具和慢查询日志的配合，可以轻松地分辨出全表扫描的语句。
 
 		基本原则
 		
@@ -233,7 +233,7 @@ MySQL 性能调优
 		
 		雕虫小技
 		
-			关于where 后的条件
+			关于 where 后的条件
 
 				应尽量避免在 where 子句中使用 != 或 <> 操作符，否则将引擎放弃使用索引而进行全表扫描；
 				应尽量避免在 where 子句中使用 or 来连接条件，可以考虑使用 union 来代替；
@@ -243,28 +243,28 @@ MySQL 性能调优
 			关于数据类型
 
 				尽量使用数字型字段，若只含数值信息的字段尽量不要设计为字符型，这会降低查询和连接的性能，并会增加存储开销；
-				尽可能的使用 varchar/nvarchar 代替 char/nchar ，
+				尽可能的使用 varchar/nvarchar 代替 char/nchar，
 					因为变长字段存储空间小，对于查询来说，在一个相对较小的字段内搜索效率显然要高些。
-				最好不要给数据库留NULL，尽可能的使用 NOT NULL填充数据库；
-					备注、描述、评论之类的可以设置为 NULL，其他的，最好不要使用NULL。
-				任何地方都不要使用 select * from t ，用具体的字段列表代替“*”，不要返回用不到的任何字段。
+				最好不要给数据库留 NULL，尽可能的使用 NOT NULL 填充数据库；
+					备注、描述、评论之类的可以设置为 NULL，其他的，最好不要使用 NULL。
+				任何地方都不要使用 select * from t，用具体的字段列表代替“*”，不要返回用不到的任何字段。
 			
 			关于临时表
 
-				避免频繁创建和删除临时表，以减少系统表资源的消耗。对于一次性事件， 最好使用导出表。
-				在新建临时表时，如果一次性插入数据量很大，那么可以使用 select into 代替 create table，避免造成大量 log ，以提高速度；
-					如果数据量不大，为了缓和系统表的资源，应先create table，然后insert。
+				避免频繁创建和删除临时表，以减少系统表资源的消耗。对于一次性事件，最好使用导出表。
+				在新建临时表时，如果一次性插入数据量很大，那么可以使用 select into 代替 create table，避免造成大量 log，以提高速度；
+					如果数据量不大，为了缓和系统表的资源，应先 create table，然后 insert。
 				如果使用到了临时表，在最后将所有的临时表显式删除时，
-					先 truncate table ，然后 drop table ，这样可以避免系统表的较长时间锁定。
+					先 truncate table，然后 drop table，这样可以避免系统表的较长时间锁定。
 			
 			关于索引
 
 				先应考虑在 where 及 order by 涉及的列上建立索引。
 				在使用索引字段作为条件时，如果该索引是复合索引，那么必须使用到该索引中的第一个字段作为条件时才能保证系统使用该索引，
 					否则该索引将不会 被使用，并且应尽可能的让字段顺序与索引顺序相一致。
-				索引并不是越多越好，索引固然可以提高相应的 select 的效率，但同时也降低了 insert和 update 的效率，
+				索引并不是越多越好，索引固然可以提高相应的 select 的效率，但同时也降低了 insert 和 update 的效率，
 					因为 insert 或 update 时有可能会重建索引，所以视具体情况而定。
-					一个表的索引数最好不要超过7个，若太多则应考虑一些不常使用到的列上建的索引是否有必要.
+					一个表的索引数最好不要超过 7 个，若太多则应考虑一些不常使用到的列上建的索引是否有必要.
 		
 	数据库架构调优
 	
@@ -275,59 +275,59 @@ MySQL 性能调优
 			业务分库；
 			主从同步与读写分离；
 			数据缓存；
-			主从热备与HA双活。
+			主从热备与 HA 双活。
 
 
 
-MySQL 数据库调优和性能优化的21条最佳实践
+MySQL 数据库调优和性能优化的 21 条最佳实践
 
 	1. 简介 
 	
-		在Web应用程序体系架构中，数据持久层（通常是一个关系数据库）是关键的核心部分，它对系统的性能有非常重要的影响。
-		MySQL是目前使用最多的开源数据库，但是MySQL数据库的默认设置性能非常的差，仅仅是一个玩具数据库。
-		因此在产品中使用MySQL数据库必须进行必要的优化。
-		优化是一个复杂的任务，本文描述MySQL相关的数据库设计和查询优化，服务器端优化，存储引擎优化。
+		在 Web 应用程序体系架构中，数据持久层 (通常是一个关系数据库) 是关键的核心部分，它对系统的性能有非常重要的影响。
+		MySQL 是目前使用最多的开源数据库，但是 MySQL 数据库的默认设置性能非常的差，仅仅是一个玩具数据库。
+		因此在产品中使用 MySQL 数据库必须进行必要的优化。
+		优化是一个复杂的任务，本文描述 MySQL 相关的数据库设计和查询优化，服务器端优化，存储引擎优化。
 
 	2. 数据库设计和查询优化
 	
-			在MySQL Server性能调优中，首先要考虑的就是Database Schema设计，这一点是非常重要的。一个糟糕的Schema设计即使在性能调优的MySQL Server上运行，也会表现出很差的性能；和Schema相似，查询语句的设计也会影响MySQL的性能，应该避免写出低效的SQL查询。这一节将详细讨论这两方面的优化。
+			在 MySQL Server 性能调优中，首先要考虑的就是 Database Schema 设计，这一点是非常重要的。一个糟糕的 Schema 设计即使在性能调优的 MySQL Server 上运行，也会表现出很差的性能；和 Schema 相似，查询语句的设计也会影响 MySQL 的性能，应该避免写出低效的 SQL 查询。这一节将详细讨论这两方面的优化。
 
 		2.1 Schema Design 约束设计
 		
-			Schema的优化取决于将要运行什么样的query，不同的query会有不同的Schema优化方案。
-			2.2节将介绍Query Design的优化。Schema设计同样受到预期数据集大小的影响。
-			Schema设计时主要考虑：标准化，数据类型，索引。
+			Schema 的优化取决于将要运行什么样的 query，不同的 query 会有不同的 Schema 优化方案。
+			2.2 节将介绍 Query Design 的优化。Schema 设计同样受到预期数据集大小的影响。
+			Schema 设计时主要考虑：标准化，数据类型，索引。
 
 			2.1.1 标准化 
 
 				标准化是在数据库中组织数据的过程。
 					其中包括，根据设计规则创建表并在这些表间建立关系；通过取消冗余度与不一致相关性，该设计规则可以同时保护数据并提高数据的灵活性。
 					通常数据库标准化是让数据库设计符合某一级别的范式，通常满足第三范式即可。
-					也有第四范式（也称为 Boyce Codd范式，BCNF)）与第五范式存在，但是在实际设计中很少考虑。
+					也有第四范式 (也称为 Boyce Codd 范式，BCNF)) 与第五范式存在，但是在实际设计中很少考虑。
 					忽视这些规则可能使得数据库的设计不太完美，但这不应影响功能。
 				标准化的特点：
-					1) 所有的“对象”都在它自己的table中，没有冗余。
-					2) 数据库通常由E-R图生成。
+					1) 所有的“对象”都在它自己的 table 中，没有冗余。
+					2) 数据库通常由 E-R 图生成。
 					3) 简洁，更新属性通常只需要更新很少的记录。
-					4) Join操作比较耗时。
-					5) Select，sort优化措施比较少。
-					6) 适用于OLTP应用。
+					4) Join 操作比较耗时。
+					5) Select，sort 优化措施比较少。
+					6) 适用于 OLTP 应用。
 				非标准化的特点：
 					1) 在一张表中存储很多数据，数据冗余。
 					2) 更新数据开销很大，更新一个属性可能会更新很多表，很多记录。
 					3) 在删除数据是有可能丢失数据。
-					4) Select，order有很多优化的选择。
-					5) 适用于DSS应用。
+					4) Select，order 有很多优化的选择。
+					5) 适用于 DSS 应用。
 				标准化和非标准化都有各自的优缺点，通常在一个数据库设计中可以混合使用，一部分表格标准化，一部分表格保留一些冗余数据：
-					1) 对OLTP使用标准化，对DSS使用非标准化
-					2) 使用物化视图。MySQL不直接支持该数据库特性，但是可以用MyISAM表代替。
-					3) 冗余一些数据在表格中，例如将ref_id和name存在同一张表中。但是要注意更新问题。
-					4) 对于一些简单的对象，直接使用value作为建。例如IP address等
-					5) Reference by PRIMARY/UNIQUE KEY。MySQL可以优化这种操作，例如：
+					1) 对 OLTP 使用标准化，对 DSS 使用非标准化
+					2) 使用物化视图。MySQL 不直接支持该数据库特性，但是可以用 MyISAM 表代替。
+					3) 冗余一些数据在表格中，例如将 ref_id 和 name 存在同一张表中。但是要注意更新问题。
+					4) 对于一些简单的对象，直接使用 value 作为建。例如 IP address 等
+					5) Reference by PRIMARY/UNIQUE KEY。MySQL 可以优化这种操作，例如：
 						java 代码
 						select city_name
 						from city,state
-						where state_id=state.id and state.code=‘CA’” converted to “select city_name from city where state_id=12
+						where state_id=state.id and state.code=‘CA’”converted to“select city_name from city where state_id=12
 
 			2.1.2 数据类型 
 			
@@ -336,74 +336,74 @@ MySQL 数据库调优和性能优化的21条最佳实践
 				同时，在更小的列上建索引，索引也会占用更少的资源。
 				可以使用下面的技术可以使表的性能更好并且使存储空间最小：
 					1) 使用正确合适的类型，不要将数字存储为字符串。
-					2) 尽可能地使用最有效(最小)的数据类型。MySQL有很多节省磁盘空间和内存的专业化类型。
-					3) 尽可能使用较小的整数类型使表更小。例如，MEDIUMINT经常比INT好一些，因为MEDIUMINT列使用的空间要少25%。
-					4) 如果可能，声明列为NOT NULL。它使任何事情更快而且每列可以节省一位。注意如果在应用程序中确实需要NULL，应该毫无疑问使用它，只是避免 默认地在所有列上有它。
-					5) 对于MyISAM表，如果没有任何变长列(VARCHAR、TEXT或BLOB列)，使用固定尺寸的记录格式。这比较快但是不幸地可能会浪费一些空间。即使你已经用CREATE选项让VARCHAR列ROW_FORMAT=fixed，也可以提示想使用固定长度的行。
-					6) 使用sample character set，例如latin1。尽量少使用utf-8，因为utf-8占用的空间是latin1的3倍。可以在不需要使用utf-8的字段上面使用latin1，例如mail，url等。
+					2) 尽可能地使用最有效 (最小) 的数据类型。MySQL 有很多节省磁盘空间和内存的专业化类型。
+					3) 尽可能使用较小的整数类型使表更小。例如，MEDIUMINT 经常比 INT 好一些，因为 MEDIUMINT 列使用的空间要少 25%。
+					4) 如果可能，声明列为 NOT NULL。它使任何事情更快而且每列可以节省一位。注意如果在应用程序中确实需要 NULL，应该毫无疑问使用它，只是避免 默认地在所有列上有它。
+					5) 对于 MyISAM 表，如果没有任何变长列 (VARCHAR、TEXT 或 BLOB 列)，使用固定尺寸的记录格式。这比较快但是不幸地可能会浪费一些空间。即使你已经用 CREATE 选项让 VARCHAR 列 ROW_FORMAT=fixed，也可以提示想使用固定长度的行。
+					6) 使用 sample character set，例如 latin1。尽量少使用 utf-8，因为 utf-8 占用的空间是 latin1 的 3 倍。可以在不需要使用 utf-8 的字段上面使用 latin1，例如 mail，url 等。
 
 			2.1.3 索引 
-				所有MySQL列类型可以被索引。对相关列使用索引是提高SELECT操作性能的最佳途径。
+				所有 MySQL 列类型可以被索引。对相关列使用索引是提高 SELECT 操作性能的最佳途径。
 				使用索引应该注意以下几点：
-					1) MySQL只会使用前缀，例如key(a, b) …where b=5 将使用不到索引。
+					1) MySQL 只会使用前缀，例如 key(a, b) …where b=5 将使用不到索引。
 					2) 要选择性的使用索引。在变化很少的列上使用索引并不是很好，例如性别列。
-					3) 在Unique列上定义Unique index。
+					3) 在 Unique 列上定义 Unique index。
 					4) 避免建立使用不到的索引。
-					5) 在Btree index中（InnoDB使用Btree），可以在需要排序的列上建立索引。
+					5) 在 Btree index 中 (InnoDB 使用 Btree) ，可以在需要排序的列上建立索引。
 					6) 避免重复的索引。
-					7) 避免在已有索引的前缀上建立索引。例如：如果存在index（a，b）则去掉index（a）。
-					8) 控制单个索引的长度。使用key（name（8））在数据的前面几个字符建立索引。
-					9) 越是短的键值越好，最好使用integer。
-					10) 在查询中要使用到索引（使用explain查看），可以减少读磁盘的次数，加速读取数据。
-					11) 相近的键值比随机好。Auto_increment就比uuid好。
-					12) Optimize table可以压缩和排序index，注意不要频繁运行。
-					13) Analyze table可以更新数据。
+					7) 避免在已有索引的前缀上建立索引。例如：如果存在 index (a，b) 则去掉 index (a) 。
+					8) 控制单个索引的长度。使用 key (name (8) ) 在数据的前面几个字符建立索引。
+					9) 越是短的键值越好，最好使用 integer。
+					10) 在查询中要使用到索引 (使用 explain 查看) ，可以减少读磁盘的次数，加速读取数据。
+					11) 相近的键值比随机好。Auto_increment 就比 uuid 好。
+					12) Optimize table 可以压缩和排序 index，注意不要频繁运行。
+					13) Analyze table 可以更新数据。
 		
 		2.2 Designing queries 设计查询
 		
-			查询语句的优化是一个Case by case的问题，不同的sql有不同的优化方案，在这里我只列出一些通用的技巧。
-				1) 在有index的情况下，尽量保证查询使用了正确的index。可以使用EXPLAIN select …查看结果，分析查询。
-				2) 查询时使用匹配的类型。例如select * from a where id=5， 如果这里id是字符类型，同时有index，这条查询则使用不到index，会做全表扫描，速度会很慢。正确的应该是 … where id=”5” ，加上引号表明类型是字符。
-				3) 使用--log-slow-queries –long-query-time=2查看查询比较慢的语句。然后使用explain分析查询，做出优化。
+			查询语句的优化是一个 Case by case 的问题，不同的 sql 有不同的优化方案，在这里我只列出一些通用的技巧。
+				1) 在有 index 的情况下，尽量保证查询使用了正确的 index。可以使用 EXPLAIN select …查看结果，分析查询。
+				2) 查询时使用匹配的类型。例如 select * from a where id=5，如果这里 id 是字符类型，同时有 index，这条查询则使用不到 index，会做全表扫描，速度会很慢。正确的应该是 … where id=”5”，加上引号表明类型是字符。
+				3) 使用--log-slow-queries –long-query-time=2 查看查询比较慢的语句。然后使用 explain 分析查询，做出优化。
 
 	3. 服务器端优化
 			
-		3.1 MySQL安装 
+		3.1 MySQL 安装 
 		
-			MySQL有很多发行版本，最好使用MySQL AB发布的二进制版本。
-			也可以下载源代码进行编译安装，但是编译器和类库的一些bug可能会使编译完成的MySQL存在潜在的问题。
-			如果安装MySQL的服务器使用的是Intel公司的处理器，可以使用intel c++编译的版本，在Linux World2005的一篇PPT中提到，
-				使用intel C++编译器编译的MySQL查询速度比正常版本快30%左右。
-			Intel c++编译版本可以在MySQL官方网站下载。
+			MySQL 有很多发行版本，最好使用 MySQL AB 发布的二进制版本。
+			也可以下载源代码进行编译安装，但是编译器和类库的一些 bug 可能会使编译完成的 MySQL 存在潜在的问题。
+			如果安装 MySQL 的服务器使用的是 Intel 公司的处理器，可以使用 intel c++ 编译的版本，在 Linux World2005 的一篇 PPT 中提到，
+				使用 intel C++ 编译器编译的 MySQL 查询速度比正常版本快 30%左右。
+			Intel c++ 编译版本可以在 MySQL 官方网站下载。
 
 		3.2 服务器设置优化 
 			
-			MySQL默认的设置性能很差，所以要做一些参数的调整。这一节介绍一些通用的参数调整，不涉及具体的存储引擎（主要指MyISAM，InnoDB，相关优化在4中介绍）。
+			MySQL 默认的设置性能很差，所以要做一些参数的调整。这一节介绍一些通用的参数调整，不涉及具体的存储引擎 (主要指 MyISAM，InnoDB，相关优化在 4 中介绍) 。
 
-				--character-set：如果是单一语言使用简单的character set例如latin1。尽量少用Utf-8，utf-8占用空间较多。
-				--memlock：锁定MySQL只能运行在内存中，避免swapping，但是如果内存不够时有可能出现错误。
-				--max_allowed_packet：要足够大，以适应比较大的SQL查询，对性能没有太大影响，主要是避免出现packet错误。
-				--max_connections：server允许的最大连接。太大的话会出现out of memory。
-				--table_cache：MySQL在同一时间保持打开的table的数量。打开table开销比较大。一般设置为512。
+				--character-set：如果是单一语言使用简单的 character set 例如 latin1。尽量少用 Utf-8，utf-8 占用空间较多。
+				--memlock：锁定 MySQL 只能运行在内存中，避免 swapping，但是如果内存不够时有可能出现错误。
+				--max_allowed_packet：要足够大，以适应比较大的 SQL 查询，对性能没有太大影响，主要是避免出现 packet 错误。
+				--max_connections：server 允许的最大连接。太大的话会出现 out of memory。
+				--table_cache：MySQL 在同一时间保持打开的 table 的数量。打开 table 开销比较大。一般设置为 512。
 				--query_cache_size： 用于缓存查询的内存大小。
-				--datadir：mysql存放数据的根目录，和安装文件分开在不同的磁盘可以提高一点性能。
+				--datadir：mysql 存放数据的根目录，和安装文件分开在不同的磁盘可以提高一点性能。
 
 	4. 存储引擎优化 
 			
-			MySQL支持不同的存储引擎，主要使用的有MyISAM和InnoDB。
+			MySQL 支持不同的存储引擎，主要使用的有 MyISAM 和 InnoDB。
 
 		4.1 MyISAM 
 		
-			MyISAM管理非事务表。它提供高速存储和检索，以及全文搜索能力。MyISAM在所有MySQL配置里被支持，它是默认的存储引擎，除非配置MySQL默认使用另外一个引擎。
+			MyISAM 管理非事务表。它提供高速存储和检索，以及全文搜索能力。MyISAM 在所有 MySQL 配置里被支持，它是默认的存储引擎，除非配置 MySQL 默认使用另外一个引擎。
 
-			4.1.1 MyISAM特性 
+			4.1.1 MyISAM 特性 
 			
 				4.1.1.1 MyISAM Properties
 
 					1) 不支持事务，宕机会破坏表
 					2) 使用较小的内存和磁盘空间
 					3) 基于表的锁，并发更新数据会出现严重性能问题
-					4) MySQL只缓存Index，数据由OS缓存
+					4) MySQL 只缓存 Index，数据由 OS 缓存
 					
 				4.1.1.2 Typical MyISAM usages
 
@@ -413,55 +413,55 @@ MySQL 数据库调优和性能优化的21条最佳实践
 					4) 批量导入数据
 					5) 没有事务的低并发读/写
 				
-				4.1.2 MyISAM优化要点
+				4.1.2 MyISAM 优化要点
 
-					1) 声明列为NOT NULL，可以减少磁盘存储。
-					2) 使用optimize table做碎片整理，回收空闲空间。注意仅仅在非常大的数据变化后运行。
-					3) Deleting/updating/adding大量数据的时候禁止使用index。使用ALTER TABLE t DISABLE KEYS。
-					4) 设置myisam_max_[extra]_sort_file_size足够大，可以显著提高repair table的速度。
+					1) 声明列为 NOT NULL，可以减少磁盘存储。
+					2) 使用 optimize table 做碎片整理，回收空闲空间。注意仅仅在非常大的数据变化后运行。
+					3) Deleting/updating/adding 大量数据的时候禁止使用 index。使用 ALTER TABLE t DISABLE KEYS。
+					4) 设置 myisam_max_[extra]_sort_file_size 足够大，可以显著提高 repair table 的速度。
 				
 				4.1.3 MyISAM Table Locks
 
-					1) 避免并发insert，update。
-					2) 可以使用insert delayed，但是有可能丢失数据。
+					1) 避免并发 insert，update。
+					2) 可以使用 insert delayed，但是有可能丢失数据。
 					3) 优化查询语句。
 					4) 水平分区。
 					5) 垂直分区。
-					6) 如果都不起作用，使用InnoDB。
+					6) 如果都不起作用，使用 InnoDB。
 				
 				4.1.4 MyISAM Key Cache
 
-					1) 设置key_buffer_size variable。MyISAN最主要的cache设置，用于缓存MyISAM表格的index数据，该参数只对MyISAM有影响。
-						通常在只使用MyISAM的Server中设置25-33%的内存大小。
-					2) 可以使用几个不同的Key Caches（对一些hot data）。
+					1) 设置 key_buffer_size variable。MyISAN 最主要的 cache 设置，用于缓存 MyISAM 表格的 index 数据，该参数只对 MyISAM 有影响。
+						通常在只使用 MyISAM 的 Server 中设置 25-33%的内存大小。
+					2) 可以使用几个不同的 Key Caches (对一些 hot data) 。
 						a) SET GLOBAL test.key_buffer_size=512*1024;
 						b) CACHE INDEX t1.i1, t2.i1, t3 IN test;
-					2) Preload index到Cache中可以提高查询速度。因为preloading index是顺序的，所以非常快。
+					2) Preload index 到 Cache 中可以提高查询速度。因为 preloading index 是顺序的，所以非常快。
 						a) LOAD INDEX INTO CACHE t1, t2 IGNORE LEAVES；
 
 		4.2 InnoDB
 			
-			InnoDB给MySQL提供了具有提交，回滚和崩溃恢复能力的事务安全（ACID兼容）存储引擎。
-			InnoDB提供row level lock，并且也在SELECT语句提供一个Oracle风格一致的非锁定读。
+			InnoDB 给 MySQL 提供了具有提交，回滚和崩溃恢复能力的事务安全 (ACID 兼容) 存储引擎。
+			InnoDB 提供 row level lock，并且也在 SELECT 语句提供一个 Oracle 风格一致的非锁定读。
 			这些特色增加了多用户部署和性能。
-			没有在InnoDB中扩大锁定的需要，因为在InnoDB中row level lock适合非常小的空间。
-			InnoDB也支持FOREIGN KEY约束。在SQL查询中，你可以自由地将InnoDB类型的表与其它MySQL的表的类型混合起来，甚至在同一个查询中也可以混合。
-			InnoDB是为在处理巨大数据量时获得最大性能而设计的。它的CPU使用效率非常高。
-			InnoDB存储引擎已经完全与MySQL服务器整合，InnoDB存储引擎为在内存中缓存数据和索引而维持它自己的缓冲池。 InnoDB存储它的表＆索引在一个表空间中，表空间可以包含数个文件（或原始磁盘分区）。这与MyISAM表不同，比如在MyISAM表中每个表被存在分离的文件中。
-			InnoDB 表可以是任何大小，即使在文件尺寸被限制为2GB的操作系统上。
-			许多需要高性能的大型数据库站点上使用了InnoDB引擎。著名的Internet新闻站点Slashdot.org运行在InnoDB上。 
-			Mytrix, Inc.在InnoDB上存储超过1TB的数据，还有一些其它站点在InnoDB上处理平均每秒800次插入/更新的负荷。
+			没有在 InnoDB 中扩大锁定的需要，因为在 InnoDB 中 row level lock 适合非常小的空间。
+			InnoDB 也支持 FOREIGN KEY 约束。在 SQL 查询中，你可以自由地将 InnoDB 类型的表与其它 MySQL 的表的类型混合起来，甚至在同一个查询中也可以混合。
+			InnoDB 是为在处理巨大数据量时获得最大性能而设计的。它的 CPU 使用效率非常高。
+			InnoDB 存储引擎已经完全与 MySQL 服务器整合，InnoDB 存储引擎为在内存中缓存数据和索引而维持它自己的缓冲池。InnoDB 存储它的表＆索引在一个表空间中，表空间可以包含数个文件 (或原始磁盘分区) 。这与 MyISAM 表不同，比如在 MyISAM 表中每个表被存在分离的文件中。
+			InnoDB 表可以是任何大小，即使在文件尺寸被限制为 2GB 的操作系统上。
+			许多需要高性能的大型数据库站点上使用了 InnoDB 引擎。著名的 Internet 新闻站点 Slashdot.org 运行在 InnoDB 上。
+			Mytrix, Inc. 在 InnoDB 上存储超过 1TB 的数据，还有一些其它站点在 InnoDB 上处理平均每秒 800 次插入/更新的负荷。
 			
-			4.2.1 InnoDB特性 
+			4.2.1 InnoDB 特性 
 			
 				4.2.1.1 InnoDB Properties
 
 					1) 支持事务，ACID，外键。
-					2) Row level locks。 
+					2) Row level locks。
 					3) 支持不同的隔离级别。
-					4) 和MyISAM相比需要较多的内存和磁盘空间。
+					4) 和 MyISAM 相比需要较多的内存和磁盘空间。
 					5) 没有键压缩。
-					6) 数据和索引都缓存在内存hash表中。
+					6) 数据和索引都缓存在内存 hash 表中。
 				
 				4.2.1.2 InnoDB Good For
 
@@ -470,163 +470,163 @@ MySQL 数据库调优和性能优化的21条最佳实践
 					3) 自动恢复。
 					4) 较快速的基于主键的操作。
 			
-			4.2.2 InnoDB优化要点
+			4.2.2 InnoDB 优化要点
 
-				1) 尽量使用short，integer的主键。
-				2) Load/Insert数据时按主键顺序。如果数据没有按主键排序，先排序然后再进行数据库操作。
-				3) 在Load数据是为设置SET UNIQUE_CHECKS=0，SET FOREIGN_KEY_CHECKS=0，可以避免外键和唯一性约束检查的开销。
-				4) 使用prefix keys。因为InnoDB没有key压缩功能。
+				1) 尽量使用 short，integer 的主键。
+				2) Load/Insert 数据时按主键顺序。如果数据没有按主键排序，先排序然后再进行数据库操作。
+				3) 在 Load 数据是为设置 SET UNIQUE_CHECKS=0，SET FOREIGN_KEY_CHECKS=0，可以避免外键和唯一性约束检查的开销。
+				4) 使用 prefix keys。因为 InnoDB 没有 key 压缩功能。
 			
-			4.2.3 InnoDB服务器端设定
+			4.2.3 InnoDB 服务器端设定
 
 				innodb_buffer_pool_size：
-					这是InnoDB最重要的设置，对InnoDB性能有决定性的影响。默认的设置只有8M，所以默认的数据库设置下面InnoDB性能很差。
-					在只有InnoDB存储引擎的数据库服务器上面，可以设置60-80%的内存。更精确一点，在内存容量允许的情况下面设置比InnoDB tablespaces大10%的内存大小。
+					这是 InnoDB 最重要的设置，对 InnoDB 性能有决定性的影响。默认的设置只有 8M，所以默认的数据库设置下面 InnoDB 性能很差。
+					在只有 InnoDB 存储引擎的数据库服务器上面，可以设置 60-80%的内存。更精确一点，在内存容量允许的情况下面设置比 InnoDB tablespaces 大 10%的内存大小。
 
 				innodb_data_file_path：
 					指定表数据和索引存储的空间，可以是一个或者多个文件。最后一个数据文件必须是自动扩充的，也只有最后一个文件允许自动扩充。
-					这样，当空间用完后，自动扩充数据文件就会自动增长（以8MB为单位）以容纳额外的数据。
-					例如： innodb_data_file_path=/disk1/ibdata1:900M;/disk2/ibdata2:50M:autoextend两个数据文件放在不同的磁盘上。
-					数据首先放在ibdata1中，当达到900M以后，数据就放在ibdata2中。一旦达到50MB，ibdata2将以8MB为单位自动增长。
+					这样，当空间用完后，自动扩充数据文件就会自动增长 (以 8MB 为单位) 以容纳额外的数据。
+					例如： innodb_data_file_path=/disk1/ibdata1:900M;/disk2/ibdata2:50M:autoextend 两个数据文件放在不同的磁盘上。
+					数据首先放在 ibdata1 中，当达到 900M 以后，数据就放在 ibdata2 中。一旦达到 50MB，ibdata2 将以 8MB 为单位自动增长。
 					如果磁盘满了，需要在另外的磁盘上面增加一个数据文件。
 				
-				innodb_autoextend_increment: 默认是8M, 如果一次insert数据量比较多的话, 可以适当增加.
+				innodb_autoextend_increment: 默认是 8M, 如果一次 insert 数据量比较多的话, 可以适当增加.
 
-				innodb_data_home_dir：放置表空间数据的目录，默认在mysql的数据目录，设置到和MySQL安装文件不同的分区可以提高性能。
+				innodb_data_home_dir：放置表空间数据的目录，默认在 mysql 的数据目录，设置到和 MySQL 安装文件不同的分区可以提高性能。
 
-				innodb_log_file_size：该参数决定了recovery speed。太大的话recovery就会比较慢，太小了影响查询性能，一般取256M可以兼顾性能和recovery的速度
+				innodb_log_file_size：该参数决定了 recovery speed。太大的话 recovery 就会比较慢，太小了影响查询性能，一般取 256M 可以兼顾性能和 recovery 的速度
 				。
-				innodb_log_buffer_size：磁盘速度是很慢的，直接将log写道磁盘会影响InnoDB的性能，该参数设定了log buffer的大小，一般4M。如果有大的blob操作，可以适当增大。
+				innodb_log_buffer_size：磁盘速度是很慢的，直接将 log 写道磁盘会影响 InnoDB 的性能，该参数设定了 log buffer 的大小，一般 4M。如果有大的 blob 操作，可以适当增大。
 
-				innodb_flush_logs_at_trx_commit=2： 该参数设定了事务提交时内存中log信息的处理。
-					1) =1时，在每个事务提交时，日志缓冲被写到日志文件，对日志文件做到磁盘操作的刷新。Truly ACID。速度慢。
-					2) =2时，在每个事务提交时，日志缓冲被写到文件，但不对日志文件做到磁盘操作的刷新。只有操作系统崩溃或掉电才会删除最后一秒的事务，不然不会丢失事务。
-					3) =0时， 日志缓冲每秒一次地被写到日志文件，并且对日志文件做到磁盘操作的刷新。任何mysqld进程的崩溃会删除崩溃前最后一秒的事务
+				innodb_flush_logs_at_trx_commit=2： 该参数设定了事务提交时内存中 log 信息的处理。
+					1) =1 时，在每个事务提交时，日志缓冲被写到日志文件，对日志文件做到磁盘操作的刷新。Truly ACID。速度慢。
+					2) =2 时，在每个事务提交时，日志缓冲被写到文件，但不对日志文件做到磁盘操作的刷新。只有操作系统崩溃或掉电才会删除最后一秒的事务，不然不会丢失事务。
+					3) =0 时，日志缓冲每秒一次地被写到日志文件，并且对日志文件做到磁盘操作的刷新。任何 mysqld 进程的崩溃会删除崩溃前最后一秒的事务
 				
-				innodb_file_per_table：可以存储每个InnoDB表和它的索引在它自己的文件中。
+				innodb_file_per_table：可以存储每个 InnoDB 表和它的索引在它自己的文件中。
 
-				transaction-isolation=READ-COMITTED: 如果应用程序可以运行在READ-COMMITED隔离级别，做此设定会有一定的性能提升。
+				transaction-isolation=READ-COMITTED: 如果应用程序可以运行在 READ-COMMITED 隔离级别，做此设定会有一定的性能提升。
 
-				innodb_flush_method： 设置InnoDB同步IO的方式：
-					1) Default – 使用fsync（）。
-					2) O_SYNC 以sync模式打开文件，通常比较慢。
-					3) O_DIRECT，在Linux上使用Direct IO。可以显著提高速度，特别是在RAID系统上。避免额外的数据复制和double buffering（mysql buffering 和OS buffering）。
+				innodb_flush_method： 设置 InnoDB 同步 IO 的方式：
+					1) Default – 使用 fsync () 。
+					2) O_SYNC 以 sync 模式打开文件，通常比较慢。
+					3) O_DIRECT，在 Linux 上使用 Direct IO。可以显著提高速度，特别是在 RAID 系统上。避免额外的数据复制和 double buffering (mysql buffering 和 OS buffering) 。
 				
-				innodb_thread_concurrency： InnoDB kernel最大的线程数。
-					1) 最少设置为(num_disks+num_cpus)*2。
-					2) 可以通过设置成1000来禁止这个限制
+				innodb_thread_concurrency： InnoDB kernel 最大的线程数。
+					1) 最少设置为 (num_disks+num_cpus)*2。
+					2) 可以通过设置成 1000 来禁止这个限制
 
 	5. 缓存 
 
-		缓存有很多种，为应用程序加上适当的缓存策略会显著提高应用程序的性能。由于应用缓存是一个比较大的话题，所以这一部分还需要进一步调研。 
+		缓存有很多种，为应用程序加上适当的缓存策略会显著提高应用程序的性能。由于应用缓存是一个比较大的话题，所以这一部分还需要进一步调研。
 
 
 
 
 MySQL 性能调优技巧
 
-	技巧#1：确定MySQL的最大连接数
+	技巧 #1：确定 MySQL 的最大连接数
 	
-		对于MySQL的最大连接数，一次最好是发送5个请求到Web服务器。对Web服务器的5个请求中的一部分将用于CSS样式表，图像和脚本等资源。
-		由于诸如浏览器缓存等原因，要获得准确的MySQL到Web服务器的请求比率可能很困难; 要想得到一个确切的数字，就需要分析Web服务器的日志文件。
-		例如，可以手动访问Apache的“access_log”日志文件，也可以通过Analog或Webalizer等实用程序访问日志文件。
+		对于 MySQL 的最大连接数，一次最好是发送 5 个请求到 Web 服务器。对 Web 服务器的 5 个请求中的一部分将用于 CSS 样式表，图像和脚本等资源。
+		由于诸如浏览器缓存等原因，要获得准确的 MySQL 到 Web 服务器的请求比率可能很困难; 要想得到一个确切的数字，就需要分析 Web 服务器的日志文件。
+		例如，可以手动访问 Apache 的“access_log”日志文件，也可以通过 Analog 或 Webalizer 等实用程序访问日志文件。
 
-		一旦有了对特定使用情况的准确估计，请将该比率乘以Web服务器的最大连接数。
-		例如，如果Web服务器配置为最多为256个客户端提供服务，MySQL请求与Web请求的比率为1/8，则最好将最大数据库连接数设置为32。
-		还要考虑留有安全余量，把这个数乘以2，得到最终的数量。只有在基础设施支持的情况下，才能尝试将数据库连接数的最大数量与Web服务器的客户端限制相匹配。
-		在大多数情况下，最好保持接近32。
+		一旦有了对特定使用情况的准确估计，请将该比率乘以 Web 服务器的最大连接数。
+		例如，如果 Web 服务器配置为最多为 256 个客户端提供服务，MySQL 请求与 Web 请求的比率为 1/8，则最好将最大数据库连接数设置为 32。
+		还要考虑留有安全余量，把这个数乘以 2，得到最终的数量。只有在基础设施支持的情况下，才能尝试将数据库连接数的最大数量与 Web 服务器的客户端限制相匹配。
+		在大多数情况下，最好保持接近 32。
 
-		在Monyog中查看MySQL连接：
+		在 Monyog 中查看 MySQL 连接：
 
-			在MySQL数据库中，MySQL的最大并发连接数是存储在全局变量max_connections中的。
-			Monyog报告变量“max_connections”作为当前连接监控组中的“最大允许”指标。它还将该数字除以打开的连接数，以生成连接使用百分比：
+			在 MySQL 数据库中，MySQL 的最大并发连接数是存储在全局变量 max_connections 中的。
+			Monyog 报告变量“max_connections”作为当前连接监控组中的“最大允许”指标。它还将该数字除以打开的连接数，以生成连接使用百分比：
 
 			还有一个连接历史记录监控，可以帮助计算最佳的最大并发连接数。它包括尝试，拒绝和成功连接的数量。
 			此外，允许达到的最大指标的百分比显示为一个进度条，可以让你快速评估服务器在过去达到的最大并发连接数。
 
-	技巧#2：为临时表分配足够的内存
+	技巧 #2：为临时表分配足够的内存
 	
 		在某些情况下，服务器在处理语句时会创建内部临时表。
-		临时表用于内部操作如GROUP BY和distinct，还有一些ORDER BY查询以及UNION和FROM子句（派生表）中的子查询。
-		这些都是在内存中创建的内存表。内存中临时表的最大大小由tmp_table_size和max_heap_table_size中较小的值确定。
-		如果临时表的大小超过这个阈值，则将其转换为磁盘上的InnoDB或MyISAM表。
-		此外，如果查询涉及BLOB或TEXT列，而这些列不能存储在内存表中，临时表总是直接指向磁盘。
+		临时表用于内部操作如 GROUP BY 和 distinct，还有一些 ORDER BY 查询以及 UNION 和 FROM 子句 (派生表) 中的子查询。
+		这些都是在内存中创建的内存表。内存中临时表的最大大小由 tmp_table_size 和 max_heap_table_size 中较小的值确定。
+		如果临时表的大小超过这个阈值，则将其转换为磁盘上的 InnoDB 或 MyISAM 表。
+		此外，如果查询涉及 BLOB 或 TEXT 列，而这些列不能存储在内存表中，临时表总是直接指向磁盘。
 
-		这种转换的代价很大，所以考虑增加max_heap_table_size和tmp_table_size变量的大小来帮助减少在磁盘上创建临时表的数量。
+		这种转换的代价很大，所以考虑增加 max_heap_table_size 和 tmp_table_size 变量的大小来帮助减少在磁盘上创建临时表的数量。
 		请记住，这将需要大量内存，因为内存中临时表的大小是基于“最坏情况”的。
-		例如，内存表总是使用固定长度的列，所以字符列使用VARCHAR（255）。
+		例如，内存表总是使用固定长度的列，所以字符列使用 VARCHAR (255) 。
 		这可以使内存中的临时表比想象的要大得多—事实上，这比查询表的总大小要大很多倍！
-		当增加max_heap_table_size和tmp_table_sizevariables的大小时，一定要监视服务器的内存使用情况，
+		当增加 max_heap_table_size 和 tmp_table_sizevariables 的大小时，一定要监视服务器的内存使用情况，
 		因为内存中的临时表可能会增加达到服务器内存容量的风险。
 
-		一般来说，32M到64M是建议值，从这两个变量开始并根据需要进行调优。
+		一般来说，32M 到 64M 是建议值，从这两个变量开始并根据需要进行调优。
 
-		在Monyog中的临时表监测：
+		在 Monyog 中的临时表监测：
 
-			临时表的监测是许多预定义的Monyog监测之一。它提供了一些临时表使用的指标，包括：
+			临时表的监测是许多预定义的 Monyog 监测之一。它提供了一些临时表使用的指标，包括：
 				允许的最大值：
-					显示tmp_table_size服务器变量的值，它定义了在内存中创建的临时表的最大大小。
-					与max_heap_table_size一起，这个值定义了可以在内存中创建的临时表的最大大小。如果内存临时表大于此大小，则将其存储在磁盘上。
+					显示 tmp_table_size 服务器变量的值，它定义了在内存中创建的临时表的最大大小。
+					与 max_heap_table_size 一起，这个值定义了可以在内存中创建的临时表的最大大小。如果内存临时表大于此大小，则将其存储在磁盘上。
 				内存表的最大大小：
-					显示max_heap_table_size服务器变量的值，该值定义了显式创建的MEMORY存储引擎表的最大大小。
+					显示 max_heap_table_size 服务器变量的值，该值定义了显式创建的 MEMORY 存储引擎表的最大大小。
 				创建的临时表总数：
-					显示created_tmp_tables服务器变量的值，它定义了在内存中创建的临时表的数量。
+					显示 created_tmp_tables 服务器变量的值，它定义了在内存中创建的临时表的数量。
 				在磁盘上创建的临时表：
-					显示created_tmp_disk_tables服务器变量的值，该变量定义了在磁盘上创建的临时表的数量。
-					如果这个值很高，则应该考虑增加tmp_table_size和max_heap_table_size的值，以便增加创建内存临时表的数量，从而减少在磁盘上创建临时表的数量。
+					显示 created_tmp_disk_tables 服务器变量的值，该变量定义了在磁盘上创建的临时表的数量。
+					如果这个值很高，则应该考虑增加 tmp_table_size 和 max_heap_table_size 的值，以便增加创建内存临时表的数量，从而减少在磁盘上创建临时表的数量。
 				磁盘：总比率：
-					基于created_tmp_disk_tables除以created_tmp_tables的计算值。由于tmp_table_size或max_heap_table_size不足而在磁盘上创建的临时表的百分比。
-					Monyog将这个数字显示为一个进度条和百分比，以便快速确定有多少磁盘用于临时表，而不是内存。
+					基于 created_tmp_disk_tables 除以 created_tmp_tables 的计算值。由于 tmp_table_size 或 max_heap_table_size 不足而在磁盘上创建的临时表的百分比。
+					Monyog 将这个数字显示为一个进度条和百分比，以便快速确定有多少磁盘用于临时表，而不是内存。
 			趋势图可用于创建的总表，磁盘上创建的表和磁盘的总比值。这些让我们看到了它们随着时间的演变：
 
-	技巧#3：增加线程缓存大小
+	技巧 #3：增加线程缓存大小
 	
 		连接管理器线程处理服务器监听的网络接口上的客户端连接请求。
 		连接管理器线程将每个客户端连接与专用于它的线程关联，该线程负责处理该连接的身份验证和所有请求处理。
 		因此，线程和当前连接的客户端之间是一对一的比例。确保线程缓存足够大以容纳所有传入请求是非常重要的。
 
-		MySQL提供了许多与连接线程相关的服务器变量：
+		MySQL 提供了许多与连接线程相关的服务器变量：
 
-			线程缓存大小由thread_cache_size系统变量决定。默认值为0（无缓存），这将导致为每个新连接设置一个线程，并在连接终止时需要处理该线程。
-			如果希望服务器每秒接收数百个连接请求，那么应该将thread_cache_size设置的足够高，以便大多数新连接可以使用缓存线程。
-			可以在服务器启动或运行时设置max_connections的值。
+			线程缓存大小由 thread_cache_size 系统变量决定。默认值为 0 (无缓存) ，这将导致为每个新连接设置一个线程，并在连接终止时需要处理该线程。
+			如果希望服务器每秒接收数百个连接请求，那么应该将 thread_cache_size 设置的足够高，以便大多数新连接可以使用缓存线程。
+			可以在服务器启动或运行时设置 max_connections 的值。
 
-			还应该监视缓存中的线程数（Threads_cached）以及创建了多少个线程，因为无法从缓存中获取线程（Threads_created）。
-			关于后者，如果Threads_created继续以每分钟多于几个线程的增加，请考虑增加thread_cache_size的值。
+			还应该监视缓存中的线程数 (Threads_cached) 以及创建了多少个线程，因为无法从缓存中获取线程 (Threads_created) 。
+			关于后者，如果 Threads_created 继续以每分钟多于几个线程的增加，请考虑增加 thread_cache_size 的值。
 
-		使用MySQL show status命令显示MySQL的变量和状态信息。这里有几个例子：
+		使用 MySQL show status 命令显示 MySQL 的变量和状态信息。这里有几个例子：
 		
 			SHOW GLOBAL STATUS LIKE '%Threads_connected%';
 			SHOW GLOBAL STATUS LIKE '%Threads_running%';
 
-		Monyog线程缓存监测
+		Monyog 线程缓存监测
 
-			Monyog提供了一个监控线程缓存的屏幕，名为“线程”。
-			与MySQL线程相关的服务器变量映射到以下Monyog指标：
+			Monyog 提供了一个监控线程缓存的屏幕，名为“线程”。
+			与 MySQL 线程相关的服务器变量映射到以下 Monyog 指标：
 				thread_cache_size：可以缓存的线程数。
 				Threads_cached：缓存中的线程数。
 				Threads_created：创建用于处理连接的线程。
 				
-			Monyog线程屏幕还包括“线程缓存命中率”指标。这是一个提示线程缓存命中率的指标。
-			如果值较低，则应该考虑增加线程缓存。在状态栏以百分比形式显示该值；它的值越接近100％越好。
+			Monyog 线程屏幕还包括“线程缓存命中率”指标。这是一个提示线程缓存命中率的指标。
+			如果值较低，则应该考虑增加线程缓存。在状态栏以百分比形式显示该值；它的值越接近 100％越好。
 			如果这些指标的值等于或超过指定值，则可以将每一个指标配置为发出警告和/或严重警报。
 
 	其他相关的服务器变量
 	
 		除了上述指标以外，还应该监控以下内容：
 
-			InnoDB缓冲池大小：
-				InnoDB缓冲池大小在使用InnoDB的MySQL数据库中起着至关重要的作用。
+			InnoDB 缓冲池大小：
+				InnoDB 缓冲池大小在使用 InnoDB 的 MySQL 数据库中起着至关重要的作用。
 				缓冲池同时缓存数据和索引。它的值应该尽可能的大，以确保数据库使用内存而不是硬盘驱动器进行读取操作。
 			临时表大小： 
-				MySQL使用max_heap_table_size和tmp_table_size中较小的一个来限制内存中临时表的大小。
+				MySQL 使用 max_heap_table_size 和 tmp_table_size 中较小的一个来限制内存中临时表的大小。
 				拥有较大的值可以帮助减少在磁盘上创建临时表的数量，但也会增加服务器内存容量的风险，因为这个指标适用于每个客户端。
-				一般来说，32M到64M是建议的值，从这两个变量开始并根据需要进行调优。
-			InnoDB日志缓冲区大小： 
-			MySQL每次写入日志文件时，它都会利用可用于处理销售数据的重要系统资源。
-			因此将InnoDB日志缓冲区大小设置为较大值才有意义。
+				一般来说，32M 到 64M 是建议的值，从这两个变量开始并根据需要进行调优。
+			InnoDB 日志缓冲区大小： 
+			MySQL 每次写入日志文件时，它都会利用可用于处理销售数据的重要系统资源。
+			因此将 InnoDB 日志缓冲区大小设置为较大值才有意义。
 			这样服务器在大型事务中写入磁盘的次数就减少了，从而最大限度地减少了这些耗时的操作。
-			64M是这个变量的一个很好的起点。
+			64M 是这个变量的一个很好的起点。
 
 
 
@@ -639,11 +639,11 @@ MySQL 服务器调优
 			对 MySQL 进程的设置进行调优。
 			对查询进行优化。
 
-		替换有问题的硬件通常是我们的第一考虑，主要原因是数据库会占用大量资源。不过这种解决方案也就仅限于此了。实际上，您通常可以让中央处理器（CPU）或磁盘速度加倍，也可以让内存增大 4 到 8 倍。
+		替换有问题的硬件通常是我们的第一考虑，主要原因是数据库会占用大量资源。不过这种解决方案也就仅限于此了。实际上，您通常可以让中央处理器 (CPU) 或磁盘速度加倍，也可以让内存增大 4 到 8 倍。
 
-		第二种方法是对 MySQL 服务器（也称为 mysqld）进行调优。对这个进程进行调优意味着适当地分配内存，并让 mysqld 了解将会承受何种类型的负载。加快磁盘运行速度不如减少所需的磁盘访问次数。类似地，确保 MySQL 进程正确操作就意味着它花费在服务查询上的时间要多于花费在处理后台任务（如处理临时磁盘表或打开和关闭文件）上的时间。对 mysqld 进行调优是本文的重点。
+		第二种方法是对 MySQL 服务器 (也称为 mysqld) 进行调优。对这个进程进行调优意味着适当地分配内存，并让 mysqld 了解将会承受何种类型的负载。加快磁盘运行速度不如减少所需的磁盘访问次数。类似地，确保 MySQL 进程正确操作就意味着它花费在服务查询上的时间要多于花费在处理后台任务 (如处理临时磁盘表或打开和关闭文件) 上的时间。对 mysqld 进行调优是本文的重点。
 
-		最好的方法是确保查询已经进行了优化。这意味着对表应用了适当的索引，查询是按照可以充分利用 MySQL 功能的方式来编写的。尽管本文并没有包含查询调优方面的内容（很多著作中已经针对这个主题进行了探讨），不过它会配置 mysqld 来报告可能需要进行调优的查询。
+		最好的方法是确保查询已经进行了优化。这意味着对表应用了适当的索引，查询是按照可以充分利用 MySQL 功能的方式来编写的。尽管本文并没有包含查询调优方面的内容 (很多著作中已经针对这个主题进行了探讨) ，不过它会配置 mysqld 来报告可能需要进行调优的查询。
 
 		虽然已经为这些任务指派了次序，但是仍然要注意硬件和 mysqld 的设置以利于适当地调优查询。机器速度慢也就罢了，我曾经见过速度很快的机器在运行设计良好的查询时由于负载过重而失败，因为 mysqld 被大量繁忙的工作所占用而不能服务查询。
 
@@ -653,14 +653,14 @@ MySQL 服务器调优
 		当必须要搜索整个表时，就称为表扫描。通常来说，您可能只希望获得表中数据的一个子集，因此全表扫描会浪费大量的磁盘 I/O，因此也就会浪费大量时间。
 		当必须对数据进行连接时，这个问题就更加复杂了，因为必须要对连接两端的多行数据进行比较。
 
-		当然，表扫描并不总是会带来问题；有时读取整个表反而会比从中挑选出一部分数据更加有效（服务器进程中查询规划器用来作出这些决定）。
+		当然，表扫描并不总是会带来问题；有时读取整个表反而会比从中挑选出一部分数据更加有效 (服务器进程中查询规划器用来作出这些决定) 。
 		如果索引的使用效率很低，或者根本就不能使用索引，则会减慢查询速度，而且随着服务器上的负载和表大小的增加，这个问题会变得更加显著。执行时间超过给定时间范围的查询就称为慢速查询。
 
 		您可以配置 mysqld 将这些慢速查询记录到适当命名的慢速查询日志中。管理员然后会查看这个日志来帮助他们确定应用程序中有哪些部分需要进一步调查。
 		清单 1 给出了要启用慢速查询日志需要在 my.cnf 中所做的配置。
 		清单 1. 启用 MySQL 慢速查询日志：
 			[mysqld]
-			; enable the slow query log， default 10 seconds
+			; enable the slow query log，default 10 seconds
 			log-slow-queries
 			; log queries taking longer than 5 seconds
 			long_query_time = 5
@@ -677,7 +677,7 @@ MySQL 服务器调优
 
 		很多 LAMP 应用程序都严重依赖于数据库，但却会反复执行相同的查询。
 		每次执行查询时，数据库都必须要执行相同的工作 —— 对查询进行分析，确定如何执行查询，从磁盘中加载信息，然后将结果返回给客户机。
-		MySQL 有一个特性称为查询缓存，它将（后面会用到的）查询结果保存在内存中。
+		MySQL 有一个特性称为查询缓存，它将 (后面会用到的) 查询结果保存在内存中。
 		在很多情况下，这会极大地提高性能。不过，问题是查询缓存在默认情况下是禁用的。
 
 		将 query_cache_size = 32M 添加到 /etc/my.conf 中可以启用 32MB 的查询缓存。
@@ -695,9 +695,9 @@ MySQL 服务器调优
 			Qcache_free_memory	缓存中的空闲内存。
 			Qcache_hits	每次查询在缓存中命中时就增大。
 			Qcache_inserts	每次插入一个查询时就增大。命中次数除以插入次数就是不中比率；用 1 减去这个值就是命中率。在上面这个例子中，大约有 87% 的查询都在缓存中命中。
-			Qcache_lowmem_prunes	缓存出现内存不足并且必须要进行清理以便为更多查询提供空间的次数。这个数字最好长时间来看；如果这个数字在不断增长，就表示可能碎片非常严重，或者内存很少。（上面的 free_blocks 和 free_memory 可以告诉您属于哪种情况）。
+			Qcache_lowmem_prunes	缓存出现内存不足并且必须要进行清理以便为更多查询提供空间的次数。这个数字最好长时间来看；如果这个数字在不断增长，就表示可能碎片非常严重，或者内存很少。 (上面的 free_blocks 和 free_memory 可以告诉您属于哪种情况) 。
 			Qcache_not_cached	不适合进行缓存的查询的数量，通常是由于这些查询不是 SELECT 语句。
-			Qcache_queries_in_cache	当前缓存的查询（和响应）的数量。
+			Qcache_queries_in_cache	当前缓存的查询 (和响应) 的数量。
 			Qcache_total_blocks	缓存中块的数量。
 		通常，间隔几秒显示这些变量就可以看出区别，这可以帮助确定缓存是否正在有效地使用。运行 FLUSH STATUS 可以重置一些计数器，如果服务器已经运行了一段时间，这会非常有帮助。
 
@@ -737,12 +737,12 @@ MySQL 服务器调优
 			mysql> SHOW STATUS LIKE 'open%tables';
 
 			清单 4 说明目前有 5，000 个表是打开的，有 195 个表需要打开，因为现在缓存中已经没有可用文件描述符了
-			（由于统计信息在前面已经清除了，因此可能会存在 5，000 个打开表中只有 195 个打开记录的情况）。
+			 (由于统计信息在前面已经清除了，因此可能会存在 5，000 个打开表中只有 195 个打开记录的情况) 。
 			如果 Opened_tables 随着重新运行 SHOW STATUS 命令快速增加，就说明缓存命中率不够。
-			如果 Open_tables 比 table_cache 设置小很多，就说明该值太大了（不过有空间可以增长总不是什么坏事）。
+			如果 Open_tables 比 table_cache 设置小很多，就说明该值太大了 (不过有空间可以增长总不是什么坏事) 。
 			例如，使用 table_cache = 5000 可以调整表的缓存。
 
-			与表的缓存类似，对于线程来说也有一个缓存。 mysqld 在接收连接时会根据需要生成线程。在一个连接变化很快的繁忙服务器上，对线程进行缓存便于以后使用可以加快最初的连接。
+			与表的缓存类似，对于线程来说也有一个缓存。mysqld 在接收连接时会根据需要生成线程。在一个连接变化很快的繁忙服务器上，对线程进行缓存便于以后使用可以加快最初的连接。
 
 		清单 5 显示如何确定是否缓存了足够的线程。
 			mysql> SHOW STATUS LIKE 'threads%';
@@ -756,12 +756,12 @@ MySQL 服务器调优
 		清单 6. 确定关键字效率
 			mysql> show status like '%key_read%';
 
-			Key_reads 代表命中磁盘的请求个数， Key_read_requests 是总数。
+			Key_reads 代表命中磁盘的请求个数，Key_read_requests 是总数。
 			命中磁盘的读请求数除以读请求总数就是不中比率 —— 在本例中每 1，000 个请求，大约有 0.6 个没有命中内存。
 			如果每 1，000 个请求中命中磁盘的数目超过 1 个，就应该考虑增大关键字缓冲区了。
 			例如，key_buffer = 384M 会将缓冲区设置为 384MB。
 
-			临时表可以在更高级的查询中使用，其中数据在进一步进行处理（例如 GROUP BY 字句）之前，都必须先保存到临时表中；
+			临时表可以在更高级的查询中使用，其中数据在进一步进行处理 (例如 GROUP BY 字句) 之前，都必须先保存到临时表中；
 			理想情况下，在内存中创建临时表。但是如果临时表变得太大，就需要写入磁盘中。
 			清单 7 给出了与临时表创建有关的统计信息。
 			清单 7. 确定临时表的使用
@@ -769,7 +769,7 @@ MySQL 服务器调优
 
 			每次使用临时表都会增大 Created_tmp_tables；基于磁盘的表也会增大 Created_tmp_disk_tables。
 			对于这个比率，并没有什么严格的规则，因为这依赖于所涉及的查询。
-			长时间观察 Created_tmp_disk_tables 会显示所创建的磁盘表的比率，您可以确定设置的效率。 
+			长时间观察 Created_tmp_disk_tables 会显示所创建的磁盘表的比率，您可以确定设置的效率。
 			tmp_table_size 和 max_heap_table_size 都可以控制临时表的最大大小，因此请确保在 my.cnf 中对这两个值都进行了设置。
 
 	每个会话的设置
@@ -783,9 +783,9 @@ MySQL 服务器调优
 		清单 8. 显示排序统计信息
 			mysql> SHOW STATUS LIKE "sort%";
 
-			如果 sort_merge_passes 很大，就表示需要注意 sort_buffer_size。例如， sort_buffer_size = 4M 将排序缓冲区设置为 4MB。
-			MySQL 也会分配一些内存来读取表。理想情况下，索引提供了足够多的信息，可以只读入所需要的行，但是有时候查询（设计不佳或数据本性使然）需要读取表中大量数据。
-			要理解这种行为，需要知道运行了多少个 SELECT 语句，以及需要读取表中的下一行数据的次数（而不是通过索引直接访问）。
+			如果 sort_merge_passes 很大，就表示需要注意 sort_buffer_size。例如，sort_buffer_size = 4M 将排序缓冲区设置为 4MB。
+			MySQL 也会分配一些内存来读取表。理想情况下，索引提供了足够多的信息，可以只读入所需要的行，但是有时候查询 (设计不佳或数据本性使然) 需要读取表中大量数据。
+			要理解这种行为，需要知道运行了多少个 SELECT 语句，以及需要读取表中的下一行数据的次数 (而不是通过索引直接访问) 。
 		
 		实现这种功能的命令如清单 9 所示。
 		清单 9. 确定表扫描比率
@@ -800,10 +800,10 @@ MySQL 服务器调优
 		尽管在了解具体设置时，SHOW STATUS 命令会非常有用，但是您还需要一些工具来解释 mysqld 所提供的大量数据。
 		我发现有 3 个工具是必不可少的；在 参考资料 一节中您可以找到相应的链接。
 
-		大部分系统管理员都非常熟悉 top 命令，它为任务所消耗的 CPU 和内存提供了一个不断更新的视图。 
+		大部分系统管理员都非常熟悉 top 命令，它为任务所消耗的 CPU 和内存提供了一个不断更新的视图。
 		mytop 对 top 进行了仿真；它为所有连接上的客户机以及它们正在运行的查询提供了一个视图。
 		mytop 还提供了一个有关关键字缓冲区和查询缓存效率的实时数据和历史数据，以及有关正在运行的查询的统计信息。
-		这是一个很有用的工具，可以查看系统中（比如 10 秒钟之内）的状况，您可以获得有关服务器健康信息的视图，并显示导致问题的任何连接。
+		这是一个很有用的工具，可以查看系统中 (比如 10 秒钟之内) 的状况，您可以获得有关服务器健康信息的视图，并显示导致问题的任何连接。
 
 		mysqlard 是一个连接到 MySQL 服务器上的守护程序，负责每 5 分钟搜集一次数据，并将它们存储到后台的一个 Round Robin Database 中。
 		有一个 Web 页面会显示这些数据，例如表缓存的使用情况、关键字效率、连接上的客户机以及临时表的使用情况。
@@ -817,268 +817,268 @@ MySQL 服务器调优
 		
 MySQL 性能调优 my.cnf 详解
 
-提供一个MySQL 5.6版本适合在1GB内存VPS上的my.cnf配置文件
+提供一个 MySQL 5.6 版本适合在 1GB 内存 VPS 上的 my.cnf 配置文件
 
-	[client]  
-	port = 3306  
-	socket = /tmp/mysql.sock  
-	  
-	[mysqld]  
-	port = 3306  
-	socket = /tmp/mysql.sock  
-	  
-	basedir = /usr/local/mysql  
-	datadir = /data/mysql  
-	pid-file = /data/mysql/mysql.pid  
-	user = mysql  
-	bind-address = 0.0.0.0  
-	server-id = 1 #表示是本机的序号为1，一般来讲就是master的意思  
-	  
-	skip-name-resolve  
-	# 禁止MySQL对外部连接进行DNS解析，使用这一选项可以消除MySQL进行DNS解析的时间。但需要注意，如果开启该选项，  
-	# 则所有远程主机连接授权都要使用IP地址方式，否则MySQL将无法正常处理连接请求  
-	  
-	#skip-networking  
-	  
-	back_log = 600  
-	# MySQL能有的连接数量。当主要MySQL线程在一个很短时间内得到非常多的连接请求，这就起作用，  
-	# 然后主线程花些时间(尽管很短)检查连接并且启动一个新线程。back_log值指出在MySQL暂时停止回答新请求之前的短时间内多少个请求可以被存在堆栈中。  
-	# 如果期望在一个短时间内有很多连接，你需要增加它。也就是说，如果MySQL的连接数据达到max_connections时，新来的请求将会被存在堆栈中，  
-	# 以等待某一连接释放资源，该堆栈的数量即back_log，如果等待连接的数量超过back_log，将不被授予连接资源。  
-	# 另外，这值（back_log）限于您的操作系统对到来的TCP/IP连接的侦听队列的大小。  
-	# 你的操作系统在这个队列大小上有它自己的限制（可以检查你的OS文档找出这个变量的最大值），试图设定back_log高于你的操作系统的限制将是无效的。  
-	  
-	max_connections = 1000  
-	# MySQL的最大连接数，如果服务器的并发连接请求量比较大，建议调高此值，以增加并行连接数量，当然这建立在机器能支撑的情况下，因为如果连接数越多，介于MySQL会为每个连接提供连接缓冲区，就会开销越多的内存，所以要适当调整该值，不能盲目提高设值。可以过'conn%'通配符查看当前状态的连接数量，以定夺该值的大小。  
-	  
-	max_connect_errors = 6000  
-	# 对于同一主机，如果有超出该参数值个数的中断错误连接，则该主机将被禁止连接。如需对该主机进行解禁，执行：FLUSH HOST。  
-	  
-	open_files_limit = 65535  
-	# MySQL打开的文件描述符限制，默认最小1024;当open_files_limit没有被配置的时候，比较max_connections*5和ulimit -n的值，哪个大用哪个，  
-	# 当open_file_limit被配置的时候，比较open_files_limit和max_connections*5的值，哪个大用哪个。  
-	  
-	table_open_cache = 128  
-	# MySQL每打开一个表，都会读入一些数据到table_open_cache缓存中，当MySQL在这个缓存中找不到相应信息时，才会去磁盘上读取。默认值64  
-	# 假定系统有200个并发连接，则需将此参数设置为200*N(N为每个连接所需的文件描述符数目)；  
-	# 当把table_open_cache设置为很大时，如果系统处理不了那么多文件描述符，那么就会出现客户端失效，连接不上  
-	  
-	max_allowed_packet = 4M  
-	# 接受的数据包大小；增加该变量的值十分安全，这是因为仅当需要时才会分配额外内存。例如，仅当你发出长查询或MySQLd必须返回大的结果行时MySQLd才会分配更多内存。  
-	# 该变量之所以取较小默认值是一种预防措施，以捕获客户端和服务器之间的错误信息包，并确保不会因偶然使用大的信息包而导致内存溢出。  
-	  
-	binlog_cache_size = 1M  
-	# 一个事务，在没有提交的时候，产生的日志，记录到Cache中；等到事务提交需要提交的时候，则把日志持久化到磁盘。默认binlog_cache_size大小32K  
-	  
-	max_heap_table_size = 8M  
-	# 定义了用户可以创建的内存表(memory table)的大小。这个值用来计算内存表的最大行数值。这个变量支持动态改变  
-	  
-	tmp_table_size = 16M  
-	# MySQL的heap（堆积）表缓冲大小。所有联合在一个DML指令内完成，并且大多数联合甚至可以不用临时表即可以完成。  
-	# 大多数临时表是基于内存的(HEAP)表。具有大的记录长度的临时表 (所有列的长度的和)或包含BLOB列的表存储在硬盘上。  
-	# 如果某个内部heap（堆积）表大小超过tmp_table_size，MySQL可以根据需要自动将内存中的heap表改为基于硬盘的MyISAM表。还可以通过设置tmp_table_size选项来增加临时表的大小。也就是说，如果调高该值，MySQL同时将增加heap表的大小，可达到提高联接查询速度的效果  
-	  
-	read_buffer_size = 2M  
-	# MySQL读入缓冲区大小。对表进行顺序扫描的请求将分配一个读入缓冲区，MySQL会为它分配一段内存缓冲区。read_buffer_size变量控制这一缓冲区的大小。  
-	# 如果对表的顺序扫描请求非常频繁，并且你认为频繁扫描进行得太慢，可以通过增加该变量值以及内存缓冲区大小提高其性能  
-	  
-	read_rnd_buffer_size = 8M  
-	# MySQL的随机读缓冲区大小。当按任意顺序读取行时(例如，按照排序顺序)，将分配一个随机读缓存区。进行排序查询时，  
-	# MySQL会首先扫描一遍该缓冲，以避免磁盘搜索，提高查询速度，如果需要排序大量数据，可适当调高该值。但MySQL会为每个客户连接发放该缓冲空间，所以应尽量适当设置该值，以避免内存开销过大  
-	  
-	sort_buffer_size = 8M  
-	# MySQL执行排序使用的缓冲大小。如果想要增加ORDER BY的速度，首先看是否可以让MySQL使用索引而不是额外的排序阶段。  
-	# 如果不能，可以尝试增加sort_buffer_size变量的大小  
-	  
-	join_buffer_size = 8M  
-	# 联合查询操作所能使用的缓冲区大小，和sort_buffer_size一样，该参数对应的分配内存也是每连接独享  
-	  
-	thread_cache_size = 8  
-	# 这个值（默认8）表示可以重新利用保存在缓存中线程的数量，当断开连接时如果缓存中还有空间，那么客户端的线程将被放到缓存中，  
-	# 如果线程重新被请求，那么请求将从缓存中读取，如果缓存中是空的或者是新的请求，那么这个线程将被重新创建，如果有很多新的线程，  
-	# 增加这个值可以改善系统性能.通过比较Connections和Threads_created状态的变量，可以看到这个变量的作用。(–>表示要调整的值)  
-	# 根据物理内存设置规则如下：  
-	# 1G  —> 8  
-	# 2G  —> 16  
-	# 3G  —> 32  
-	# 大于3G  —> 64  
-	  
-	query_cache_size = 8M  
-	#MySQL的查询缓冲大小（从4.0.1开始，MySQL提供了查询缓冲机制）使用查询缓冲，MySQL将SELECT语句和查询结果存放在缓冲区中，  
-	# 今后对于同样的SELECT语句（区分大小写），将直接从缓冲区中读取结果。根据MySQL用户手册，使用查询缓冲最多可以达到238%的效率。  
-	# 通过检查状态值'Qcache_%'，可以知道query_cache_size设置是否合理：如果Qcache_lowmem_prunes的值非常大，则表明经常出现缓冲不够的情况，  
-	# 如果Qcache_hits的值也非常大，则表明查询缓冲使用非常频繁，此时需要增加缓冲大小；如果Qcache_hits的值不大，则表明你的查询重复率很低，  
-	# 这种情况下使用查询缓冲反而会影响效率，那么可以考虑不用查询缓冲。此外，在SELECT语句中加入SQL_NO_CACHE可以明确表示不使用查询缓冲  
-	  
-	query_cache_limit = 2M  
-	#指定单个查询能够使用的缓冲区大小，默认1M  
-	  
-	key_buffer_size = 4M  
-	#指定用于索引的缓冲区大小，增加它可得到更好处理的索引(对所有读和多重写)，到你能负担得起那样多。如果你使它太大，  
-	# 系统将开始换页并且真的变慢了。对于内存在4GB左右的服务器该参数可设置为384M或512M。通过检查状态值Key_read_requests和Key_reads，  
-	# 可以知道key_buffer_size设置是否合理。比例key_reads/key_read_requests应该尽可能的低，  
-	# 至少是1:100，1:1000更好(上述状态值可以使用SHOW STATUS LIKE 'key_read%'获得)。注意：该参数值设置的过大反而会是服务器整体效率降低  
-	  
-	ft_min_word_len = 4  
-	# 分词词汇最小长度，默认4  
-	  
-	transaction_isolation = REPEATABLE-READ  
-	# MySQL支持4种事务隔离级别，他们分别是：  
-	# READ-UNCOMMITTED， READ-COMMITTED， REPEATABLE-READ， SERIALIZABLE.  
-	# 如没有指定，MySQL默认采用的是REPEATABLE-READ，ORACLE默认的是READ-COMMITTED  
-	  
-	log_bin = mysql-bin  
-	binlog_format = mixed  
-	expire_logs_days = 30 #超过30天的binlog删除  
-	  
-	log_error = /data/mysql/mysql-error.log #错误日志路径  
-	slow_query_log = 1  
-	long_query_time = 1 #慢查询时间 超过1秒则为慢查询  
-	slow_query_log_file = /data/mysql/mysql-slow.log  
-	  
-	performance_schema = 0  
-	explicit_defaults_for_timestamp  
-	  
-	#lower_case_table_names = 1 #不区分大小写  
-	  
-	skip-external-locking #MySQL选项以避免外部锁定。该选项默认开启  
-	  
-	default-storage-engine = InnoDB #默认存储引擎  
-	  
-	innodb_file_per_table = 1  
-	# InnoDB为独立表空间模式，每个数据库的每个表都会生成一个数据空间  
-	# 独立表空间优点：  
-	# 1．每个表都有自已独立的表空间。  
-	# 2．每个表的数据和索引都会存在自已的表空间中。  
-	# 3．可以实现单表在不同的数据库中移动。  
-	# 4．空间可以回收（除drop table操作处，表空不能自已回收）  
-	# 缺点：  
-	# 单表增加过大，如超过100G  
-	# 结论：  
-	# 共享表空间在Insert操作上少有优势。其它都没独立表空间表现好。当启用独立表空间时，请合理调整：innodb_open_files  
-	  
-	innodb_open_files = 500  
-	# 限制Innodb能打开的表的数据，如果库里的表特别多的情况，请增加这个。这个值默认是300  
-	  
-	innodb_buffer_pool_size = 64M  
-	# InnoDB使用一个缓冲池来保存索引和原始数据， 不像MyISAM.  
-	# 这里你设置越大，你在存取表里面数据时所需要的磁盘I/O越少.  
-	# 在一个独立使用的数据库服务器上，你可以设置这个变量到服务器物理内存大小的80%  
-	# 不要设置过大，否则，由于物理内存的竞争可能导致操作系统的换页颠簸.  
-	# 注意在32位系统上你每个进程可能被限制在 2-3.5G 用户层面内存限制，  
-	# 所以不要设置的太高.  
-	  
-	innodb_write_io_threads = 4  
-	innodb_read_io_threads = 4  
-	# innodb使用后台线程处理数据页上的读写 I/O(输入输出)请求，根据你的 CPU 核数来更改，默认是4  
-	# 注:这两个参数不支持动态改变，需要把该参数加入到my.cnf里，修改完后重启MySQL服务，允许值的范围从 1-64  
-	  
-	innodb_thread_concurrency = 0  
-	# 默认设置为 0，表示不限制并发数，这里推荐设置为0，更好去发挥CPU多核处理能力，提高并发量  
-	  
-	innodb_purge_threads = 1  
-	# InnoDB中的清除操作是一类定期回收无用数据的操作。在之前的几个版本中，清除操作是主线程的一部分，这意味着运行时它可能会堵塞其它的数据库操作。  
-	# 从MySQL5.5.X版本开始，该操作运行于独立的线程中，并支持更多的并发数。用户可通过设置innodb_purge_threads配置参数来选择清除操作是否使用单  
-	# 独线程，默认情况下参数设置为0(不使用单独线程)，设置为 1 时表示使用单独的清除线程。建议为1  
-	  
-	innodb_flush_log_at_trx_commit = 2  
-	# 0：如果innodb_flush_log_at_trx_commit的值为0，log buffer每秒就会被刷写日志文件到磁盘，提交事务的时候不做任何操作（执行是由mysql的master thread线程来执行的。  
-	# 主线程中每秒会将重做日志缓冲写入磁盘的重做日志文件(REDO LOG)中。不论事务是否已经提交）默认的日志文件是ib_logfile0，ib_logfile1  
-	# 1：当设为默认值1的时候，每次提交事务的时候，都会将log buffer刷写到日志。  
-	# 2：如果设为2，每次提交事务都会写日志，但并不会执行刷的操作。每秒定时会刷到日志文件。要注意的是，并不能保证100%每秒一定都会刷到磁盘，这要取决于进程的调度。  
-	# 每次事务提交的时候将数据写入事务日志，而这里的写入仅是调用了文件系统的写入操作，而文件系统是有 缓存的，所以这个写入并不能保证数据已经写入到物理磁盘  
-	# 默认值1是为了保证完整的ACID。当然，你可以将这个配置项设为1以外的值来换取更高的性能，但是在系统崩溃的时候，你将会丢失1秒的数据。  
-	# 设为0的话，mysqld进程崩溃的时候，就会丢失最后1秒的事务。设为2，只有在操作系统崩溃或者断电的时候才会丢失最后1秒的数据。InnoDB在做恢复的时候会忽略这个值。  
-	# 总结  
-	# 设为1当然是最安全的，但性能页是最差的（相对其他两个参数而言，但不是不能接受）。如果对数据一致性和完整性要求不高，完全可以设为2，如果只最求性能，例如高并发写的日志服务器，设为0来获得更高性能  
-	  
-	innodb_log_buffer_size = 2M  
-	# 此参数确定些日志文件所用的内存大小，以M为单位。缓冲区更大能提高性能，但意外的故障将会丢失数据。MySQL开发人员建议设置为1－8M之间  
-	  
-	innodb_log_file_size = 32M  
-	# 此参数确定数据日志文件的大小，更大的设置可以提高性能，但也会增加恢复故障数据库所需的时间  
-	  
-	innodb_log_files_in_group = 3  
-	# 为提高性能，MySQL可以以循环方式将日志文件写到多个文件。推荐设置为3  
-	  
-	innodb_max_dirty_pages_pct = 90  
-	# innodb主线程刷新缓存池中的数据，使脏数据比例小于90%  
-	  
-	innodb_lock_wait_timeout = 120   
-	# InnoDB事务在被回滚之前可以等待一个锁定的超时秒数。InnoDB在它自己的锁定表中自动检测事务死锁并且回滚事务。InnoDB用LOCK TABLES语句注意到锁定设置。默认值是50秒  
-	  
-	bulk_insert_buffer_size = 8M  
-	# 批量插入缓存大小， 这个参数是针对MyISAM存储引擎来说的。适用于在一次性插入100-1000+条记录时， 提高效率。默认值是8M。可以针对数据量的大小，翻倍增加。  
-	  
-	myisam_sort_buffer_size = 8M  
-	# MyISAM设置恢复表之时使用的缓冲区的尺寸，当在REPAIR TABLE或用CREATE INDEX创建索引或ALTER TABLE过程中排序 MyISAM索引分配的缓冲区  
-	  
-	myisam_max_sort_file_size = 10G  
-	# 如果临时文件会变得超过索引，不要使用快速排序索引方法来创建一个索引。注释：这个参数以字节的形式给出  
-	  
-	myisam_repair_threads = 1  
-	# 如果该值大于1，在Repair by sorting过程中并行创建MyISAM表索引(每个索引在自己的线程内)    
-	  
-	interactive_timeout = 28800  
-	# 服务器关闭交互式连接前等待活动的秒数。交互式客户端定义为在mysql_real_connect()中使用CLIENT_INTERACTIVE选项的客户端。默认值：28800秒（8小时）  
-	  
-	wait_timeout = 28800  
-	# 服务器关闭非交互连接之前等待活动的秒数。在线程启动时，根据全局wait_timeout值或全局interactive_timeout值初始化会话wait_timeout值，  
-	# 取决于客户端类型(由mysql_real_connect()的连接选项CLIENT_INTERACTIVE定义)。参数默认值：28800秒（8小时）  
-	# MySQL服务器所支持的最大连接数是有上限的，因为每个连接的建立都会消耗内存，因此我们希望客户端在连接到MySQL Server处理完相应的操作后，  
-	# 应该断开连接并释放占用的内存。如果你的MySQL Server有大量的闲置连接，他们不仅会白白消耗内存，而且如果连接一直在累加而不断开，  
-	# 最终肯定会达到MySQL Server的连接上限数，这会报'too many connections'的错误。对于wait_timeout的值设定，应该根据系统的运行情况来判断。  
-	# 在系统运行一段时间后，可以通过show processlist命令查看当前系统的连接状态，如果发现有大量的sleep状态的连接进程，则说明该参数设置的过大，  
-	# 可以进行适当的调整小些。要同时设置interactive_timeout和wait_timeout才会生效。  
-	  
-	[mysqldump]  
-	quick  
-	max_allowed_packet = 16M #服务器发送和接受的最大包长度  
-	  
-	[myisamchk]  
-	key_buffer_size = 8M  
-	sort_buffer_size = 8M  
-	read_buffer = 4M  
-	write_buffer = 4M  
+	[client] 
+	port = 3306 
+	socket = /tmp/mysql.sock 
+	 
+	[mysqld] 
+	port = 3306 
+	socket = /tmp/mysql.sock 
+	 
+	basedir = /usr/local/mysql 
+	datadir = /data/mysql 
+	pid-file = /data/mysql/mysql.pid 
+	user = mysql 
+	bind-address = 0.0.0.0 
+	server-id = 1 # 表示是本机的序号为 1，一般来讲就是 master 的意思 
+	 
+	skip-name-resolve 
+	# 禁止 MySQL 对外部连接进行 DNS 解析，使用这一选项可以消除 MySQL 进行 DNS 解析的时间。但需要注意，如果开启该选项，
+	# 则所有远程主机连接授权都要使用 IP 地址方式，否则 MySQL 将无法正常处理连接请求 
+	 
+	#skip-networking 
+	 
+	back_log = 600 
+	# MySQL 能有的连接数量。当主要 MySQL 线程在一个很短时间内得到非常多的连接请求，这就起作用，
+	# 然后主线程花些时间 (尽管很短) 检查连接并且启动一个新线程。back_log 值指出在 MySQL 暂时停止回答新请求之前的短时间内多少个请求可以被存在堆栈中。
+	# 如果期望在一个短时间内有很多连接，你需要增加它。也就是说，如果 MySQL 的连接数据达到 max_connections 时，新来的请求将会被存在堆栈中，
+	# 以等待某一连接释放资源，该堆栈的数量即 back_log，如果等待连接的数量超过 back_log，将不被授予连接资源。
+	# 另外，这值 (back_log) 限于您的操作系统对到来的 TCP/IP 连接的侦听队列的大小。
+	# 你的操作系统在这个队列大小上有它自己的限制 (可以检查你的 OS 文档找出这个变量的最大值) ，试图设定 back_log 高于你的操作系统的限制将是无效的。
+	 
+	max_connections = 1000 
+	# MySQL 的最大连接数，如果服务器的并发连接请求量比较大，建议调高此值，以增加并行连接数量，当然这建立在机器能支撑的情况下，因为如果连接数越多，介于 MySQL 会为每个连接提供连接缓冲区，就会开销越多的内存，所以要适当调整该值，不能盲目提高设值。可以过'conn%'通配符查看当前状态的连接数量，以定夺该值的大小。
+	 
+	max_connect_errors = 6000 
+	# 对于同一主机，如果有超出该参数值个数的中断错误连接，则该主机将被禁止连接。如需对该主机进行解禁，执行：FLUSH HOST。
+	 
+	open_files_limit = 65535 
+	# MySQL 打开的文件描述符限制，默认最小 1024;当 open_files_limit 没有被配置的时候，比较 max_connections*5 和 ulimit -n 的值，哪个大用哪个，
+	# 当 open_file_limit 被配置的时候，比较 open_files_limit 和 max_connections*5 的值，哪个大用哪个。
+	 
+	table_open_cache = 128 
+	# MySQL 每打开一个表，都会读入一些数据到 table_open_cache 缓存中，当 MySQL 在这个缓存中找不到相应信息时，才会去磁盘上读取。默认值 64 
+	# 假定系统有 200 个并发连接，则需将此参数设置为 200*N(N 为每个连接所需的文件描述符数目)； 
+	# 当把 table_open_cache 设置为很大时，如果系统处理不了那么多文件描述符，那么就会出现客户端失效，连接不上 
+	 
+	max_allowed_packet = 4M 
+	# 接受的数据包大小；增加该变量的值十分安全，这是因为仅当需要时才会分配额外内存。例如，仅当你发出长查询或 MySQLd 必须返回大的结果行时 MySQLd 才会分配更多内存。
+	# 该变量之所以取较小默认值是一种预防措施，以捕获客户端和服务器之间的错误信息包，并确保不会因偶然使用大的信息包而导致内存溢出。
+	 
+	binlog_cache_size = 1M 
+	# 一个事务，在没有提交的时候，产生的日志，记录到 Cache 中；等到事务提交需要提交的时候，则把日志持久化到磁盘。默认 binlog_cache_size 大小 32K 
+	 
+	max_heap_table_size = 8M 
+	# 定义了用户可以创建的内存表 (memory table) 的大小。这个值用来计算内存表的最大行数值。这个变量支持动态改变 
+	 
+	tmp_table_size = 16M 
+	# MySQL 的 heap (堆积) 表缓冲大小。所有联合在一个 DML 指令内完成，并且大多数联合甚至可以不用临时表即可以完成。
+	# 大多数临时表是基于内存的 (HEAP) 表。具有大的记录长度的临时表 (所有列的长度的和) 或包含 BLOB 列的表存储在硬盘上。
+	# 如果某个内部 heap (堆积) 表大小超过 tmp_table_size，MySQL 可以根据需要自动将内存中的 heap 表改为基于硬盘的 MyISAM 表。还可以通过设置 tmp_table_size 选项来增加临时表的大小。也就是说，如果调高该值，MySQL 同时将增加 heap 表的大小，可达到提高联接查询速度的效果 
+	 
+	read_buffer_size = 2M 
+	# MySQL 读入缓冲区大小。对表进行顺序扫描的请求将分配一个读入缓冲区，MySQL 会为它分配一段内存缓冲区。read_buffer_size 变量控制这一缓冲区的大小。
+	# 如果对表的顺序扫描请求非常频繁，并且你认为频繁扫描进行得太慢，可以通过增加该变量值以及内存缓冲区大小提高其性能 
+	 
+	read_rnd_buffer_size = 8M 
+	# MySQL 的随机读缓冲区大小。当按任意顺序读取行时 (例如，按照排序顺序)，将分配一个随机读缓存区。进行排序查询时，
+	# MySQL 会首先扫描一遍该缓冲，以避免磁盘搜索，提高查询速度，如果需要排序大量数据，可适当调高该值。但 MySQL 会为每个客户连接发放该缓冲空间，所以应尽量适当设置该值，以避免内存开销过大 
+	 
+	sort_buffer_size = 8M 
+	# MySQL 执行排序使用的缓冲大小。如果想要增加 ORDER BY 的速度，首先看是否可以让 MySQL 使用索引而不是额外的排序阶段。
+	# 如果不能，可以尝试增加 sort_buffer_size 变量的大小 
+	 
+	join_buffer_size = 8M 
+	# 联合查询操作所能使用的缓冲区大小，和 sort_buffer_size 一样，该参数对应的分配内存也是每连接独享 
+	 
+	thread_cache_size = 8 
+	# 这个值 (默认 8) 表示可以重新利用保存在缓存中线程的数量，当断开连接时如果缓存中还有空间，那么客户端的线程将被放到缓存中，
+	# 如果线程重新被请求，那么请求将从缓存中读取，如果缓存中是空的或者是新的请求，那么这个线程将被重新创建，如果有很多新的线程，
+	# 增加这个值可以改善系统性能. 通过比较 Connections 和 Threads_created 状态的变量，可以看到这个变量的作用。(–>表示要调整的值) 
+	# 根据物理内存设置规则如下： 
+	# 1G —> 8 
+	# 2G —> 16 
+	# 3G —> 32 
+	# 大于 3G —> 64 
+	 
+	query_cache_size = 8M 
+	#MySQL 的查询缓冲大小 (从 4.0.1 开始，MySQL 提供了查询缓冲机制) 使用查询缓冲，MySQL 将 SELECT 语句和查询结果存放在缓冲区中，
+	# 今后对于同样的 SELECT 语句 (区分大小写) ，将直接从缓冲区中读取结果。根据 MySQL 用户手册，使用查询缓冲最多可以达到 238%的效率。
+	# 通过检查状态值'Qcache_%'，可以知道 query_cache_size 设置是否合理：如果 Qcache_lowmem_prunes 的值非常大，则表明经常出现缓冲不够的情况，
+	# 如果 Qcache_hits 的值也非常大，则表明查询缓冲使用非常频繁，此时需要增加缓冲大小；如果 Qcache_hits 的值不大，则表明你的查询重复率很低，
+	# 这种情况下使用查询缓冲反而会影响效率，那么可以考虑不用查询缓冲。此外，在 SELECT 语句中加入 SQL_NO_CACHE 可以明确表示不使用查询缓冲 
+	 
+	query_cache_limit = 2M 
+	# 指定单个查询能够使用的缓冲区大小，默认 1M 
+	 
+	key_buffer_size = 4M 
+	# 指定用于索引的缓冲区大小，增加它可得到更好处理的索引 (对所有读和多重写)，到你能负担得起那样多。如果你使它太大，
+	# 系统将开始换页并且真的变慢了。对于内存在 4GB 左右的服务器该参数可设置为 384M 或 512M。通过检查状态值 Key_read_requests 和 Key_reads，
+	# 可以知道 key_buffer_size 设置是否合理。比例 key_reads/key_read_requests 应该尽可能的低，
+	# 至少是 1:100，1:1000 更好 (上述状态值可以使用 SHOW STATUS LIKE 'key_read%'获得)。注意：该参数值设置的过大反而会是服务器整体效率降低 
+	 
+	ft_min_word_len = 4 
+	# 分词词汇最小长度，默认 4 
+	 
+	transaction_isolation = REPEATABLE-READ 
+	# MySQL 支持 4 种事务隔离级别，他们分别是： 
+	# READ-UNCOMMITTED，READ-COMMITTED，REPEATABLE-READ，SERIALIZABLE. 
+	# 如没有指定，MySQL 默认采用的是 REPEATABLE-READ，ORACLE 默认的是 READ-COMMITTED 
+	 
+	log_bin = mysql-bin 
+	binlog_format = mixed 
+	expire_logs_days = 30 # 超过 30 天的 binlog 删除 
+	 
+	log_error = /data/mysql/mysql-error.log # 错误日志路径 
+	slow_query_log = 1 
+	long_query_time = 1 # 慢查询时间 超过 1 秒则为慢查询 
+	slow_query_log_file = /data/mysql/mysql-slow.log 
+	 
+	performance_schema = 0 
+	explicit_defaults_for_timestamp 
+	 
+	#lower_case_table_names = 1 # 不区分大小写 
+	 
+	skip-external-locking #MySQL 选项以避免外部锁定。该选项默认开启 
+	 
+	default-storage-engine = InnoDB # 默认存储引擎 
+	 
+	innodb_file_per_table = 1 
+	# InnoDB 为独立表空间模式，每个数据库的每个表都会生成一个数据空间 
+	# 独立表空间优点： 
+	# 1．每个表都有自已独立的表空间。
+	# 2．每个表的数据和索引都会存在自已的表空间中。
+	# 3．可以实现单表在不同的数据库中移动。
+	# 4．空间可以回收 (除 drop table 操作处，表空不能自已回收) 
+	# 缺点： 
+	# 单表增加过大，如超过 100G 
+	# 结论： 
+	# 共享表空间在 Insert 操作上少有优势。其它都没独立表空间表现好。当启用独立表空间时，请合理调整：innodb_open_files 
+	 
+	innodb_open_files = 500 
+	# 限制 Innodb 能打开的表的数据，如果库里的表特别多的情况，请增加这个。这个值默认是 300 
+	 
+	innodb_buffer_pool_size = 64M 
+	# InnoDB 使用一个缓冲池来保存索引和原始数据，不像 MyISAM. 
+	# 这里你设置越大，你在存取表里面数据时所需要的磁盘 I/O 越少. 
+	# 在一个独立使用的数据库服务器上，你可以设置这个变量到服务器物理内存大小的 80% 
+	# 不要设置过大，否则，由于物理内存的竞争可能导致操作系统的换页颠簸. 
+	# 注意在 32 位系统上你每个进程可能被限制在 2-3.5G 用户层面内存限制，
+	# 所以不要设置的太高. 
+	 
+	innodb_write_io_threads = 4 
+	innodb_read_io_threads = 4 
+	# innodb 使用后台线程处理数据页上的读写 I/O(输入输出) 请求，根据你的 CPU 核数来更改，默认是 4 
+	# 注:这两个参数不支持动态改变，需要把该参数加入到 my.cnf 里，修改完后重启 MySQL 服务，允许值的范围从 1-64 
+	 
+	innodb_thread_concurrency = 0 
+	# 默认设置为 0，表示不限制并发数，这里推荐设置为 0，更好去发挥 CPU 多核处理能力，提高并发量 
+	 
+	innodb_purge_threads = 1 
+	# InnoDB 中的清除操作是一类定期回收无用数据的操作。在之前的几个版本中，清除操作是主线程的一部分，这意味着运行时它可能会堵塞其它的数据库操作。
+	# 从 MySQL5.5.X 版本开始，该操作运行于独立的线程中，并支持更多的并发数。用户可通过设置 innodb_purge_threads 配置参数来选择清除操作是否使用单 
+	# 独线程，默认情况下参数设置为 0(不使用单独线程)，设置为 1 时表示使用单独的清除线程。建议为 1 
+	 
+	innodb_flush_log_at_trx_commit = 2 
+	# 0：如果 innodb_flush_log_at_trx_commit 的值为 0，log buffer 每秒就会被刷写日志文件到磁盘，提交事务的时候不做任何操作 (执行是由 mysql 的 master thread 线程来执行的。
+	# 主线程中每秒会将重做日志缓冲写入磁盘的重做日志文件 (REDO LOG) 中。不论事务是否已经提交) 默认的日志文件是 ib_logfile0，ib_logfile1 
+	# 1：当设为默认值 1 的时候，每次提交事务的时候，都会将 log buffer 刷写到日志。
+	# 2：如果设为 2，每次提交事务都会写日志，但并不会执行刷的操作。每秒定时会刷到日志文件。要注意的是，并不能保证 100%每秒一定都会刷到磁盘，这要取决于进程的调度。
+	# 每次事务提交的时候将数据写入事务日志，而这里的写入仅是调用了文件系统的写入操作，而文件系统是有 缓存的，所以这个写入并不能保证数据已经写入到物理磁盘 
+	# 默认值 1 是为了保证完整的 ACID。当然，你可以将这个配置项设为 1 以外的值来换取更高的性能，但是在系统崩溃的时候，你将会丢失 1 秒的数据。
+	# 设为 0 的话，mysqld 进程崩溃的时候，就会丢失最后 1 秒的事务。设为 2，只有在操作系统崩溃或者断电的时候才会丢失最后 1 秒的数据。InnoDB 在做恢复的时候会忽略这个值。
+	# 总结 
+	# 设为 1 当然是最安全的，但性能页是最差的 (相对其他两个参数而言，但不是不能接受) 。如果对数据一致性和完整性要求不高，完全可以设为 2，如果只最求性能，例如高并发写的日志服务器，设为 0 来获得更高性能 
+	 
+	innodb_log_buffer_size = 2M 
+	# 此参数确定些日志文件所用的内存大小，以 M 为单位。缓冲区更大能提高性能，但意外的故障将会丢失数据。MySQL 开发人员建议设置为 1－8M 之间 
+	 
+	innodb_log_file_size = 32M 
+	# 此参数确定数据日志文件的大小，更大的设置可以提高性能，但也会增加恢复故障数据库所需的时间 
+	 
+	innodb_log_files_in_group = 3 
+	# 为提高性能，MySQL 可以以循环方式将日志文件写到多个文件。推荐设置为 3 
+	 
+	innodb_max_dirty_pages_pct = 90 
+	# innodb 主线程刷新缓存池中的数据，使脏数据比例小于 90% 
+	 
+	innodb_lock_wait_timeout = 120 
+	# InnoDB 事务在被回滚之前可以等待一个锁定的超时秒数。InnoDB 在它自己的锁定表中自动检测事务死锁并且回滚事务。InnoDB 用 LOCK TABLES 语句注意到锁定设置。默认值是 50 秒 
+	 
+	bulk_insert_buffer_size = 8M 
+	# 批量插入缓存大小，这个参数是针对 MyISAM 存储引擎来说的。适用于在一次性插入 100-1000+ 条记录时，提高效率。默认值是 8M。可以针对数据量的大小，翻倍增加。
+	 
+	myisam_sort_buffer_size = 8M 
+	# MyISAM 设置恢复表之时使用的缓冲区的尺寸，当在 REPAIR TABLE 或用 CREATE INDEX 创建索引或 ALTER TABLE 过程中排序 MyISAM 索引分配的缓冲区 
+	 
+	myisam_max_sort_file_size = 10G 
+	# 如果临时文件会变得超过索引，不要使用快速排序索引方法来创建一个索引。注释：这个参数以字节的形式给出 
+	 
+	myisam_repair_threads = 1 
+	# 如果该值大于 1，在 Repair by sorting 过程中并行创建 MyISAM 表索引 (每个索引在自己的线程内) 
+	 
+	interactive_timeout = 28800 
+	# 服务器关闭交互式连接前等待活动的秒数。交互式客户端定义为在 mysql_real_connect() 中使用 CLIENT_INTERACTIVE 选项的客户端。默认值：28800 秒 (8 小时) 
+	 
+	wait_timeout = 28800 
+	# 服务器关闭非交互连接之前等待活动的秒数。在线程启动时，根据全局 wait_timeout 值或全局 interactive_timeout 值初始化会话 wait_timeout 值，
+	# 取决于客户端类型 (由 mysql_real_connect() 的连接选项 CLIENT_INTERACTIVE 定义)。参数默认值：28800 秒 (8 小时) 
+	# MySQL 服务器所支持的最大连接数是有上限的，因为每个连接的建立都会消耗内存，因此我们希望客户端在连接到 MySQL Server 处理完相应的操作后，
+	# 应该断开连接并释放占用的内存。如果你的 MySQL Server 有大量的闲置连接，他们不仅会白白消耗内存，而且如果连接一直在累加而不断开，
+	# 最终肯定会达到 MySQL Server 的连接上限数，这会报'too many connections'的错误。对于 wait_timeout 的值设定，应该根据系统的运行情况来判断。
+	# 在系统运行一段时间后，可以通过 show processlist 命令查看当前系统的连接状态，如果发现有大量的 sleep 状态的连接进程，则说明该参数设置的过大，
+	# 可以进行适当的调整小些。要同时设置 interactive_timeout 和 wait_timeout 才会生效。
+	 
+	[mysqldump] 
+	quick 
+	max_allowed_packet = 16M # 服务器发送和接受的最大包长度 
+	 
+	[myisamchk] 
+	key_buffer_size = 8M 
+	sort_buffer_size = 8M 
+	read_buffer = 4M 
+	write_buffer = 4M 
 
 
-MYSQL性能优化的最佳20+条经验
+MYSQL 性能优化的最佳 20+ 条经验
 
-		今天，数据库的操作越来越成为整个应用的性能瓶颈了，这点对于Web应用尤其明显。
-		关于数据库的性能，这并不只是DBA才需要担心的事，而这更是我们程序员需要去关注的事情。
-		当我们去设计数据库表结构，对操作数据库时（尤其是查表时的SQL语句），我们都需要注意数据操作的性能。
-		这里，我们不会讲过多的SQL语句的优化，而只是针对MySQL这一Web应用最多的数据库。希望下面的这些优化技巧对你有用。
+		今天，数据库的操作越来越成为整个应用的性能瓶颈了，这点对于 Web 应用尤其明显。
+		关于数据库的性能，这并不只是 DBA 才需要担心的事，而这更是我们程序员需要去关注的事情。
+		当我们去设计数据库表结构，对操作数据库时 (尤其是查表时的 SQL 语句) ，我们都需要注意数据操作的性能。
+		这里，我们不会讲过多的 SQL 语句的优化，而只是针对 MySQL 这一 Web 应用最多的数据库。希望下面的这些优化技巧对你有用。
 
 	1. 为查询缓存优化你的查询
-		大多数的MySQL服务器都开启了查询缓存。这是提高性最有效的方法之一，而且这是被MySQL的数据库引擎处理的。当有很多相同的查询被执行了多次的时候，这些查询结果会被放到一个缓存中，这样，后续的相同的查询就不用操作表而直接访问缓存结果了。
+		大多数的 MySQL 服务器都开启了查询缓存。这是提高性最有效的方法之一，而且这是被 MySQL 的数据库引擎处理的。当有很多相同的查询被执行了多次的时候，这些查询结果会被放到一个缓存中，这样，后续的相同的查询就不用操作表而直接访问缓存结果了。
 
-		这里最主要的问题是，对于程序员来说，这个事情是很容易被忽略的。因为，我们某些查询语句会让MySQL不使用缓存。请看下面的示例：
+		这里最主要的问题是，对于程序员来说，这个事情是很容易被忽略的。因为，我们某些查询语句会让 MySQL 不使用缓存。请看下面的示例：
 		// 查询缓存不开启
 		$r = mysql_query("SELECT username FROM user WHERE signup_date >= CURDATE()");
 		// 开启查询缓存
 		$today = date("Y-m-d");
 		$r = mysql_query("SELECT username FROM user WHERE signup_date >= '$today'");
-		上面两条SQL语句的差别就是 CURDATE() ，MySQL的查询缓存对这个函数不起作用。所以，像 NOW() 和 RAND() 或是其它的诸如此类的SQL函数都不会开启查询缓存，因为这些函数的返回是会不定的易变的。所以，你所需要的就是用一个变量来代替MySQL的函数，从而开启缓存。
+		上面两条 SQL 语句的差别就是 CURDATE()，MySQL 的查询缓存对这个函数不起作用。所以，像 NOW() 和 RAND() 或是其它的诸如此类的 SQL 函数都不会开启查询缓存，因为这些函数的返回是会不定的易变的。所以，你所需要的就是用一个变量来代替 MySQL 的函数，从而开启缓存。
 
 	2. EXPLAIN 你的 SELECT 查询
 		
-		使用 EXPLAIN 关键字可以让你知道MySQL是如何处理你的SQL语句的。这可以帮你分析你的查询语句或是表结构的性能瓶颈。
+		使用 EXPLAIN 关键字可以让你知道 MySQL 是如何处理你的 SQL 语句的。这可以帮你分析你的查询语句或是表结构的性能瓶颈。
 		EXPLAIN 的查询结果还会告诉你你的索引主键被如何利用的，你的数据表是如何被搜索和排序的……等等，等等。
 
-		挑一个你的SELECT语句（推荐挑选那个最复杂的，有多表联接的），把关键字EXPLAIN加到前面。
-		你可以使用phpmyadmin来做这个事。然后，你会看到一张表格。下面的这个示例中，我们忘记加上了group_id索引，并且有表联接：
+		挑一个你的 SELECT 语句 (推荐挑选那个最复杂的，有多表联接的) ，把关键字 EXPLAIN 加到前面。
+		你可以使用 phpmyadmin 来做这个事。然后，你会看到一张表格。下面的这个示例中，我们忘记加上了 group_id 索引，并且有表联接：
 
 		当我们为 group_id 字段加上索引后：
 
-		我们可以看到，前一个结果显示搜索了 7883 行，而后一个只是搜索了两个表的 9 和 16 行。查看rows列可以让我们找到潜在的性能问题。
+		我们可以看到，前一个结果显示搜索了 7883 行，而后一个只是搜索了两个表的 9 和 16 行。查看 rows 列可以让我们找到潜在的性能问题。
 
 	3. 当只要一行数据时使用 LIMIT 1
 		
-		当你查询表的有些时候，你已经知道结果只会有一条结果，但因为你可能需要去fetch游标，或是你也许会去检查返回的记录数。
+		当你查询表的有些时候，你已经知道结果只会有一条结果，但因为你可能需要去 fetch 游标，或是你也许会去检查返回的记录数。
 
-		在这种情况下，加上 LIMIT 1 可以增加性能。这样一样，MySQL数据库引擎会在找到一条数据后停止搜索，而不是继续往后查少下一条符合记录的数据。
+		在这种情况下，加上 LIMIT 1 可以增加性能。这样一样，MySQL 数据库引擎会在找到一条数据后停止搜索，而不是继续往后查少下一条符合记录的数据。
 
-		下面的示例，只是为了找一下是否有“中国”的用户，很明显，后面的会比前面的更有效率。（请注意，第一条中是Select *，第二条是Select 1）
+		下面的示例，只是为了找一下是否有“中国”的用户，很明显，后面的会比前面的更有效率。 (请注意，第一条中是 Select *，第二条是 Select 1) 
 			// 没有效率的：
 			$r = mysql_query("SELECT * FROM user WHERE country = 'China'");
 			if (mysql_num_rows($r) > 0) {
@@ -1094,18 +1094,18 @@ MYSQL性能优化的最佳20+条经验
 	
 		索引并不一定就是给主键或是唯一的字段。如果在你的表中，有某个字段你总要会经常用来做搜索，那么，请为其建立索引吧。
 
-		从上图你可以看到那个搜索字串 “last_name LIKE ‘a%'”，一个是建了索引，一个是没有索引，性能差了4倍左右。
+		从上图你可以看到那个搜索字串“last_name LIKE ‘a%'”，一个是建了索引，一个是没有索引，性能差了 4 倍左右。
 
 		另外，你应该也需要知道什么样的搜索是不能使用正常的索引的。
-		例如，当你需要在一篇大的文章中搜索一个词时，如： “WHERE post_content LIKE ‘%apple%'”，索引可能是没有意义的。
-		你可能需要使用MySQL全文索引 或是自己做一个索引（比如说：搜索关键词或是Tag什么的）
+		例如，当你需要在一篇大的文章中搜索一个词时，如：“WHERE post_content LIKE ‘%apple%'”，索引可能是没有意义的。
+		你可能需要使用 MySQL 全文索引 或是自己做一个索引 (比如说：搜索关键词或是 Tag 什么的) 
 
-	5. 在Join表的时候使用相当类型的例，并将其索引
+	5. 在 Join 表的时候使用相当类型的例，并将其索引
 		
-		如果你的应用程序有很多 JOIN 查询，你应该确认两个表中Join的字段是被建过索引的。这样，MySQL内部会启动为你优化Join的SQL语句的机制。
+		如果你的应用程序有很多 JOIN 查询，你应该确认两个表中 Join 的字段是被建过索引的。这样，MySQL 内部会启动为你优化 Join 的 SQL 语句的机制。
 
-		而且，这些被用来Join的字段，应该是相同的类型的。例如：如果你要把 DECIMAL 字段和一个 INT 字段Join在一起，MySQL就无法使用它们的索引。对于那些STRING类型，还需要有相同的字符集才行。（两个表的字符集有可能不一样）
-			// 在state中查找company
+		而且，这些被用来 Join 的字段，应该是相同的类型的。例如：如果你要把 DECIMAL 字段和一个 INT 字段 Join 在一起，MySQL 就无法使用它们的索引。对于那些 STRING 类型，还需要有相同的字符集才行。 (两个表的字符集有可能不一样) 
+			// 在 state 中查找 company
 			$r = mysql_query("SELECT company_name FROM users
 				LEFT JOIN companies ON (users.state = companies.state)
 				WHERE users.id = $user_id");
@@ -1115,10 +1115,10 @@ MYSQL性能优化的最佳20+条经验
 	
 		想打乱返回的数据行？随机挑一个数据？真不知道谁发明了这种用法，但很多新手很喜欢这样用。但你确不了解这样做有多么可怕的性能问题。
 
-		如果你真的想把返回的数据行打乱了，你有N种方法可以达到这个目的。
+		如果你真的想把返回的数据行打乱了，你有 N 种方法可以达到这个目的。
 		这样使用只让你的数据库的性能呈指数级的下降。
-		这里的问题是：MySQL会不得不去执行RAND()函数（很耗CPU时间），而且这是为了每一行记录去记行，然后再对其排序。
-		就算是你用了Limit 1也无济于事（因为要排序）
+		这里的问题是：MySQL 会不得不去执行 RAND() 函数 (很耗 CPU 时间) ，而且这是为了每一行记录去记行，然后再对其排序。
+		就算是你用了 Limit 1 也无济于事 (因为要排序) 
 
 		下面的示例是随机挑一条记录
 			// 千万不要这样做：
@@ -1132,7 +1132,7 @@ MYSQL性能优化的最佳20+条经验
 	7. 避免 SELECT *
 	
 		从数据库里读出越多的数据，那么查询就会变得越慢。
-		并且，如果你的数据库服务器和WEB服务器是两台独立的服务器的话，这还会增加网络传输的负载。
+		并且，如果你的数据库服务器和 WEB 服务器是两台独立的服务器的话，这还会增加网络传输的负载。
 
 		所以，你应该养成一个需要什么就取什么的好的习惯。
 			// 不推荐
@@ -1144,19 +1144,19 @@ MYSQL性能优化的最佳20+条经验
 			$d = mysql_fetch_assoc($r);
 			echo "Welcome {$d['username']}";
 		
-	8. 永远为每张表设置一个ID
+	8. 永远为每张表设置一个 ID
 	
-		我们应该为数据库里的每张表都设置一个ID做为其主键，而且最好的是一个INT型的（推荐使用UNSIGNED），
-		并设置上自动增加的AUTO_INCREMENT标志。
+		我们应该为数据库里的每张表都设置一个 ID 做为其主键，而且最好的是一个 INT 型的 (推荐使用 UNSIGNED) ，
+		并设置上自动增加的 AUTO_INCREMENT 标志。
 
-		就算是你 users 表有一个主键叫 “email”的字段，你也别让它成为主键。使用 VARCHAR 类型来当主键会使用得性能下降。另外，在你的程序中，你应该使用表的ID来构造你的数据结构。
+		就算是你 users 表有一个主键叫“email”的字段，你也别让它成为主键。使用 VARCHAR 类型来当主键会使用得性能下降。另外，在你的程序中，你应该使用表的 ID 来构造你的数据结构。
 
-		而且，在MySQL数据引擎下，还有一些操作需要使用主键，在这些情况下，主键的性能和设置变得非常重要，比如，集群，分区……
+		而且，在 MySQL 数据引擎下，还有一些操作需要使用主键，在这些情况下，主键的性能和设置变得非常重要，比如，集群，分区……
 
 		在这里，只有一个情况是例外，那就是“关联表”的“外键”，也就是说，这个表的主键，通过若干个别的表的主键构成。
 		我们把这个情况叫做“外键”。
-		比如：有一个“学生表”有学生的ID，有一个“课程表”有课程ID，那么，“成绩表”就是“关联表”了，
-		其关联了学生表和课程表，在成绩表中，学生ID和课程ID叫“外键”其共同组成主键。
+		比如：有一个“学生表”有学生的 ID，有一个“课程表”有课程 ID，那么，“成绩表”就是“关联表”了，
+		其关联了学生表和课程表，在成绩表中，学生 ID 和课程 ID 叫“外键”其共同组成主键。
 
 	9. 使用 ENUM 而不是 VARCHAR
 	
@@ -1165,7 +1165,7 @@ MYSQL性能优化的最佳20+条经验
 		如果你有一个字段，比如“性别”，“国家”，“民族”，“状态”或“部门”，
 		你知道这些字段的取值是有限而且固定的，那么，你应该使用 ENUM 而不是 VARCHAR。
 
-		MySQL也有一个“建议”（见第十条）告诉你怎么去重新组织你的表结构。
+		MySQL 也有一个“建议” (见第十条) 告诉你怎么去重新组织你的表结构。
 		当你有一个 VARCHAR 字段时，这个建议会告诉你把其改成 ENUM 类型。
 		使用 PROCEDURE ANALYSE() 你可以得到相关的建议。
 
@@ -1175,11 +1175,11 @@ MYSQL性能优化的最佳20+条经验
 		只有表中有实际的数据，这些建议才会变得有用，因为要做一些大的决定是需要有数据作为基础的。
 
 		例如，如果你创建了一个 INT 字段作为你的主键，然而并没有太多的数据，
-		那么，PROCEDURE ANALYSE()会建议你把这个字段的类型改成 MEDIUMINT 。
+		那么，PROCEDURE ANALYSE() 会建议你把这个字段的类型改成 MEDIUMINT。
 		或是你使用了一个 VARCHAR 字段，因为数据不多，你可能会得到一个让你把它改成 ENUM 的建议。
 		这些建议，都是可能因为数据不够多，所以决策做得就不够准。
 
-		在phpmyadmin里，你可以在查看表时，点击 “Propose table structure” 来查看这些建议
+		在 phpmyadmin 里，你可以在查看表时，点击“Propose table structure”来查看这些建议
 
 		一定要注意，这些只是建议，只有当你的表里的数据越来越多时，这些建议才会变得准确。一定要记住，你才是最终做决定的人。
 
@@ -1187,27 +1187,27 @@ MYSQL性能优化的最佳20+条经验
 	
 		除非你有一个很特别的原因去使用 NULL 值，你应该总是让你的字段保持 NOT NULL。这看起来好像有点争议，请往下看。
 
-		首先，问问你自己“Empty”和“NULL”有多大的区别（如果是INT，那就是0和NULL）？
-		如果你觉得它们之间没有什么区别，那么你就不要使用NULL。（你知道吗？在 Oracle 里，NULL 和 Empty 的字符串是一样的！)
+		首先，问问你自己“Empty”和“NULL”有多大的区别 (如果是 INT，那就是 0 和 NULL) ？
+		如果你觉得它们之间没有什么区别，那么你就不要使用 NULL。 (你知道吗？在 Oracle 里，NULL 和 Empty 的字符串是一样的！)
 
-		不要以为 NULL 不需要空间，其需要额外的空间，并且，在你进行比较的时候，你的程序会更复杂。 当然，这里并不是说你就不能使用NULL了，现实情况是很复杂的，依然会有些情况下，你需要使用NULL值。
+		不要以为 NULL 不需要空间，其需要额外的空间，并且，在你进行比较的时候，你的程序会更复杂。当然，这里并不是说你就不能使用 NULL 了，现实情况是很复杂的，依然会有些情况下，你需要使用 NULL 值。
 
-		下面摘自MySQL自己的文档：
+		下面摘自 MySQL 自己的文档：
 			“NULL columns require additional space in the row to record whether their values are NULL. For MyISAM tables, each NULL column takes one bit extra, rounded up to the nearest byte.”
 
 	12. Prepared Statements
 		
-		Prepared Statements很像存储过程，是一种运行在后台的SQL语句集合，我们可以从使用 prepared statements 获得很多好处，无论是性能问题还是安全问题。
+		Prepared Statements 很像存储过程，是一种运行在后台的 SQL 语句集合，我们可以从使用 prepared statements 获得很多好处，无论是性能问题还是安全问题。
 
-		Prepared Statements 可以检查一些你绑定好的变量，这样可以保护你的程序不会受到“SQL注入式”攻击。当然，你也可以手动地检查你的这些变量，然而，手动的检查容易出问题，而且很经常会被程序员忘了。当我们使用一些framework或是ORM的时候，这样的问题会好一些。
+		Prepared Statements 可以检查一些你绑定好的变量，这样可以保护你的程序不会受到“SQL 注入式”攻击。当然，你也可以手动地检查你的这些变量，然而，手动的检查容易出问题，而且很经常会被程序员忘了。当我们使用一些 framework 或是 ORM 的时候，这样的问题会好一些。
 
-		在性能方面，当一个相同的查询被使用多次的时候，这会为你带来可观的性能优势。你可以给这些Prepared Statements定义一些参数，而MySQL只会解析一次。
+		在性能方面，当一个相同的查询被使用多次的时候，这会为你带来可观的性能优势。你可以给这些 Prepared Statements 定义一些参数，而 MySQL 只会解析一次。
 
-		虽然最新版本的MySQL在传输Prepared Statements是使用二进制形势，所以这会使得网络传输非常有效率。
+		虽然最新版本的 MySQL 在传输 Prepared Statements 是使用二进制形势，所以这会使得网络传输非常有效率。
 
-		当然，也有一些情况下，我们需要避免使用Prepared Statements，因为其不支持查询缓存。但据说版本5.1后支持了。
+		当然，也有一些情况下，我们需要避免使用 Prepared Statements，因为其不支持查询缓存。但据说版本 5.1 后支持了。
 
-		在PHP中要使用prepared statements，你可以查看其使用手册：mysqli 扩展 或是使用数据库抽象层，如： PDO.
+		在 PHP 中要使用 prepared statements，你可以查看其使用手册：mysqli 扩展 或是使用数据库抽象层，如： PDO.
 			// 创建 prepared statement
 			if ($stmt = $mysqli->prepare("SELECT username FROM user WHERE state=?")) {
 				// 绑定参数
@@ -1224,57 +1224,57 @@ MYSQL性能优化的最佳20+条经验
 		
 	13. 无缓冲的查询
 	
-		正常的情况下，当你在当你在你的脚本中执行一个SQL语句的时候，你的程序会停在那里直到没这个SQL语句返回，
+		正常的情况下，当你在当你在你的脚本中执行一个 SQL 语句的时候，你的程序会停在那里直到没这个 SQL 语句返回，
 		然后你的程序再往下继续执行。你可以使用无缓冲查询来改变这个行为。
 
-		关于这个事情，在PHP的文档中有一个非常不错的说明： mysql_unbuffered_query() 函数：
+		关于这个事情，在 PHP 的文档中有一个非常不错的说明： mysql_unbuffered_query() 函数：
 			“mysql_unbuffered_query() sends the SQL query query to MySQL without automatically fetching and buffering the result rows as mysql_query() does. This saves a considerable amount of memory with SQL queries that produce large result sets, and you can start working on the result set immediately after the first row has been retrieved as you don’t have to wait until the complete SQL query has been performed.”
 
-		上面那句话翻译过来是说，mysql_unbuffered_query() 发送一个SQL语句到MySQL而并不像mysql_query()一样去自动fethch和缓存结果。这会相当节约很多可观的内存，尤其是那些会产生大量结果的查询语句，并且，你不需要等到所有的结果都返回，只需要第一行数据返回的时候，你就可以开始马上开始工作于查询结果了。
+		上面那句话翻译过来是说，mysql_unbuffered_query() 发送一个 SQL 语句到 MySQL 而并不像 mysql_query() 一样去自动 fethch 和缓存结果。这会相当节约很多可观的内存，尤其是那些会产生大量结果的查询语句，并且，你不需要等到所有的结果都返回，只需要第一行数据返回的时候，你就可以开始马上开始工作于查询结果了。
 
-		然而，这会有一些限制。因为你要么把所有行都读走，或是你要在进行下一次的查询前调用 mysql_free_result() 清除结果。而且， mysql_num_rows() 或 mysql_data_seek() 将无法使用。所以，是否使用无缓冲的查询你需要仔细考虑。
+		然而，这会有一些限制。因为你要么把所有行都读走，或是你要在进行下一次的查询前调用 mysql_free_result() 清除结果。而且，mysql_num_rows() 或 mysql_data_seek() 将无法使用。所以，是否使用无缓冲的查询你需要仔细考虑。
 
-	14. 把IP地址存成 UNSIGNED INT
+	14. 把 IP 地址存成 UNSIGNED INT
 		
-		很多程序员都会创建一个 VARCHAR(15) 字段来存放字符串形式的IP而不是整形的IP。
-		如果你用整形来存放，只需要4个字节，并且你可以有定长的字段。
-		而且，这会为你带来查询上的优势，尤其是当你需要使用这样的WHERE条件：IP between ip1 and ip2。
+		很多程序员都会创建一个 VARCHAR(15) 字段来存放字符串形式的 IP 而不是整形的 IP。
+		如果你用整形来存放，只需要 4 个字节，并且你可以有定长的字段。
+		而且，这会为你带来查询上的优势，尤其是当你需要使用这样的 WHERE 条件：IP between ip1 and ip2。
 
-		我们必需要使用UNSIGNED INT，因为 IP地址会使用整个32位的无符号整形。
+		我们必需要使用 UNSIGNED INT，因为 IP 地址会使用整个 32 位的无符号整形。
 
-		而你的查询，你可以使用 INET_ATON() 来把一个字符串IP转成一个整形，并使用 INET_NTOA() 把一个整形转成一个字符串IP。
+		而你的查询，你可以使用 INET_ATON() 来把一个字符串 IP 转成一个整形，并使用 INET_NTOA() 把一个整形转成一个字符串 IP。
 		
 		$r = "UPDATE users SET ip = INET_ATON('{$_SERVER['REMOTE_ADDR']}') WHERE user_id = $user_id";
 		
 	15. 固定长度的表会更快
 	
-		如果表中的所有字段都是“固定长度”的，整个表会被认为是 “static” 或 “fixed-length”。 
+		如果表中的所有字段都是“固定长度”的，整个表会被认为是“static”或“fixed-length”。
 		例如，表中没有如下类型的字段： VARCHAR，TEXT，BLOB。
 		只要你包括了其中一个这些字段，那么这个表就不是“固定长度静态表”了，这样，MySQL 引擎会用另一种方法来处理。
 
-		固定长度的表会提高性能，因为MySQL搜寻得会更快一些，因为这些固定的长度是很容易计算下一个数据的偏移量的，
+		固定长度的表会提高性能，因为 MySQL 搜寻得会更快一些，因为这些固定的长度是很容易计算下一个数据的偏移量的，
 		所以读取的自然也会很快。而如果字段不是定长的，那么，每一次要找下一条的话，需要程序找到主键。
 
 		并且，固定长度的表也更容易被缓存和重建。
 		不过，唯一的副作用是，固定长度的字段会浪费一些空间，
 		因为定长的字段无论你用不用，他都是要分配那么多的空间。
 
-		使用“垂直分割”技术（见下一条），你可以分割你的表成为两个一个是定长的，一个则是不定长的。
+		使用“垂直分割”技术 (见下一条) ，你可以分割你的表成为两个一个是定长的，一个则是不定长的。
 
 	16. 垂直分割
 	
 		“垂直分割”是一种把数据库中的表按列变成几张表的方法，这样可以降低表的复杂度和字段的数目，从而达到优化的目的。
-		（以前，在银行做过项目，见过一张表有100多个字段，很恐怖）
+		 (以前，在银行做过项目，见过一张表有 100 多个字段，很恐怖) 
 
-		示例一：在Users表中有一个字段是家庭地址，这个字段是可选字段，相比起，
-		而且你在数据库操作的时候除了个人信息外，你并不需要经常读取或是改写这个字段。那么，为什么不把他放到另外一张表中呢？ 这样会让你的表有更好的性能，大家想想是不是，大量的时候，我对于用户表来说，只有用户ID，用户名，口令，用户角色等会被经常使用。小一点的表总是会有好的性能。
+		示例一：在 Users 表中有一个字段是家庭地址，这个字段是可选字段，相比起，
+		而且你在数据库操作的时候除了个人信息外，你并不需要经常读取或是改写这个字段。那么，为什么不把他放到另外一张表中呢？这样会让你的表有更好的性能，大家想想是不是，大量的时候，我对于用户表来说，只有用户 ID，用户名，口令，用户角色等会被经常使用。小一点的表总是会有好的性能。
 
-		示例二： 你有一个叫 “last_login” 的字段，它会在每次用户登录时被更新
+		示例二： 你有一个叫“last_login”的字段，它会在每次用户登录时被更新
 		。但是，每次更新时会导致该表的查询缓存被清空。
-		所以，你可以把这个字段放到另一个表中，这样就不会影响你对用户ID，用户名，用户角色的不停地读取了，
+		所以，你可以把这个字段放到另一个表中，这样就不会影响你对用户 ID，用户名，用户角色的不停地读取了，
 		因为查询缓存会帮你增加很多性能。
 
-		另外，你需要注意的是，这些被分出去的字段所形成的表，你不会经常性地去Join他们，
+		另外，你需要注意的是，这些被分出去的字段所形成的表，你不会经常性地去 Join 他们，
 		不然的话，这样的性能会比不分割时还要差，而且，会是极数级的下降。
 
 	17. 拆分大的 DELETE 或 INSERT 语句
@@ -1285,12 +1285,12 @@ MYSQL性能优化的最佳20+条经验
 		Apache 会有很多的子进程或线程。所以，其工作起来相当有效率，
 		而我们的服务器也不希望有太多的子进程，线程和数据库链接，这是极大的占服务器资源的事情，尤其是内存。
 
-		如果你把你的表锁上一段时间，比如30秒钟，那么对于一个有很高访问量的站点来说，
-		这30秒所积累的访问进程/线程，数据库链接，打开的文件数，可能不仅仅会让你泊WEB服务Crash，还可能会让你的整台服务器马上掛了。
+		如果你把你的表锁上一段时间，比如 30 秒钟，那么对于一个有很高访问量的站点来说，
+		这 30 秒所积累的访问进程/线程，数据库链接，打开的文件数，可能不仅仅会让你泊 WEB 服务 Crash，还可能会让你的整台服务器马上掛了。
 
 		所以，如果你有一个大的处理，你定你一定把其拆分，使用 LIMIT 条件是一个好的方法。下面是一个示例：
 			while (1) {
-				//每次只做1000条
+				//每次只做 1000 条
 				mysql_query("DELETE FROM logs WHERE log_date <= '2009-11-01' LIMIT 1000");
 				if (mysql_affected_rows() == 0) {
 				// 没得可删了，退出！
@@ -1307,40 +1307,40 @@ MYSQL性能优化的最佳20+条经验
 
 		参看 MySQL 的文档 Storage Requirements 查看所有的数据类型。
 
-		如果一个表只会有几列罢了（比如说字典表，配置表），那么，我们就没有理由使用 INT 来做主键，使用 MEDIUMINT, SMALLINT 或是更小的 TINYINT 会更经济一些。如果你不需要记录时间，使用 DATE 要比 DATETIME 好得多。
+		如果一个表只会有几列罢了 (比如说字典表，配置表) ，那么，我们就没有理由使用 INT 来做主键，使用 MEDIUMINT, SMALLINT 或是更小的 TINYINT 会更经济一些。如果你不需要记录时间，使用 DATE 要比 DATETIME 好得多。
 		当然，你也需要留够足够的扩展空间，不然，你日后来干这个事，你会死的很难看，
-		参看Slashdot的例子（2009年11月06日），一个简单的ALTER TABLE语句花了3个多小时，因为里面有一千六百万条数据。
+		参看 Slashdot 的例子 (2009 年 11 月 06 日) ，一个简单的 ALTER TABLE 语句花了 3 个多小时，因为里面有一千六百万条数据。
 
 	19. 选择正确的存储引擎
 		
 		在 MySQL 中有两个存储引擎 MyISAM 和 InnoDB，每个引擎都有利有弊。
 
 		MyISAM 适合于一些需要大量查询的应用，但其对于有大量写操作并不是很好。
-		甚至你只是需要update一个字段，整个表都会被锁起来，而别的进程，就算是读进程都无法操作直到读操作完成。
+		甚至你只是需要 update 一个字段，整个表都会被锁起来，而别的进程，就算是读进程都无法操作直到读操作完成。
 		另外，MyISAM 对于 SELECT COUNT(*) 这类的计算是超快无比的。
 
 		InnoDB 的趋势会是一个非常复杂的存储引擎，对于一些小的应用，它会比 MyISAM 还慢。
-		他是它支持“行锁” ，于是在写操作比较多的时候，会更优秀。并且，他还支持更多的高级应用，比如：事务。
+		他是它支持“行锁”，于是在写操作比较多的时候，会更优秀。并且，他还支持更多的高级应用，比如：事务。
 
-		下面是MySQL的手册
+		下面是 MySQL 的手册
 			target=”_blank”MyISAM Storage Engine
 			InnoDB Storage Engine
 		
-	20. 使用一个对象关系映射器（Object Relational Mapper）
+	20. 使用一个对象关系映射器 (Object Relational Mapper) 
 	
 		使用 ORM (Object Relational Mapper)，你能够获得可靠的性能增涨。
-		一个ORM可以做的所有事情，也能被手动的编写出来。但是，这需要一个高级专家。
+		一个 ORM 可以做的所有事情，也能被手动的编写出来。但是，这需要一个高级专家。
 
 		ORM 的最重要的是“Lazy Loading”，也就是说，只有在需要的去取值的时候才会去真正的去做。
 		但你也需要小心这种机制的副作用，因为这很有可能会因为要去创建很多很多小的查询反而会降低性能。
 
-		ORM 还可以把你的SQL语句打包成一个事务，这会比单独执行他们快得多得多。
+		ORM 还可以把你的 SQL 语句打包成一个事务，这会比单独执行他们快得多得多。
 
 	21. 小心“永久链接”
-		“永久链接”的目的是用来减少重新创建MySQL链接的次数。
+		“永久链接”的目的是用来减少重新创建 MySQL 链接的次数。
 		当一个链接被创建了，它会永远处在连接的状态，就算是数据库操作已经结束了。
-		而且，自从我们的Apache开始重用它的子进程后，
-		也就是说，下一次的HTTP请求会重用Apache的子进程，并重用相同的 MySQL 链接。
+		而且，自从我们的 Apache 开始重用它的子进程后，
+		也就是说，下一次的 HTTP 请求会重用 Apache 的子进程，并重用相同的 MySQL 链接。
 
 		这就是为什么这种“永久链接”的机制工作地不好的原因。在你决定要使用“永久链接”之前，你需要好好地考虑一下你的整个系统的架构。
 

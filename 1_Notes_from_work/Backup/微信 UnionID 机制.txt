@@ -3,11 +3,11 @@ UnionID 机制
 
 
 
-开发者可通过OpenID来获取用户基本信息。
-请使用https协议。
+开发者可通过 OpenID 来获取用户基本信息。
+请使用 https 协议。
 
 接口调用请求说明
-http请求方式: GET
+http 请求方式: GET
 https://api.weixin.qq.com/cgi-bin/user/info?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN
 
 
@@ -18,26 +18,26 @@ lang	否	返回国家地区语言版本，zh_CN 简体，zh_TW 繁体，en 英�
 
 
 
-正常情况下，微信会返回下述JSON数据包给公众号：
+正常情况下，微信会返回下述 JSON 数据包给公众号：
 
 {
-    "subscribe": 1, 
-    "openid": "o6_bmjrPTlm6_2sgVt7hMZOPfL2M", 
-    "nickname": "Band", 
-    "sex": 1, 
-    "language": "zh_CN", 
-    "city": "广州", 
-    "province": "广东", 
-    "country": "中国", 
-    "headimgurl":"http://thirdwx.qlogo.cn/mmopen/g3MonUZtNHkdmzicIlibx6iaFqAc56vxLSUfpb6n5WKSYVY0ChQKkiaJSgQ1dZuTOgvLLrhJbERQQ4eMsv84eavHiaiceqxibJxCfHe/0",
-    "subscribe_time": 1382694957,
-    "unionid": " o6_bmasdasdsad6_2sgVt7hMZOPfL"
-    "remark": "",
-    "groupid": 0,
-    "tagid_list":[128,2],
-    "subscribe_scene": "ADD_SCENE_QR_CODE",
-    "qr_scene": 98765,
-    "qr_scene_str": ""
+ "subscribe": 1, 
+ "openid": "o6_bmjrPTlm6_2sgVt7hMZOPfL2M", 
+ "nickname": "Band", 
+ "sex": 1, 
+ "language": "zh_CN", 
+ "city": "广州", 
+ "province": "广东", 
+ "country": "中国", 
+ "headimgurl":"http://thirdwx.qlogo.cn/mmopen/g3MonUZtNHkdmzicIlibx6iaFqAc56vxLSUfpb6n5WKSYVY0ChQKkiaJSgQ1dZuTOgvLLrhJbERQQ4eMsv84eavHiaiceqxibJxCfHe/0",
+ "subscribe_time": 1382694957,
+ "unionid": " o6_bmasdasdsad6_2sgVt7hMZOPfL"
+ "remark": "",
+ "groupid": 0,
+ "tagid_list":[128,2],
+ "subscribe_scene": "ADD_SCENE_QR_CODE",
+ "qr_scene": 98765,
+ "qr_scene_str": ""
 }
 
 
@@ -52,25 +52,25 @@ lang	否	返回国家地区语言版本，zh_CN 简体，zh_TW 繁体，en 英�
 
 批量获取用户基本信息：
 
-开发者可通过该接口来批量获取用户基本信息。最多支持一次拉取100条。
+开发者可通过该接口来批量获取用户基本信息。最多支持一次拉取 100 条。
 
 接口调用请求说明
 
-http请求方式: POST
+http 请求方式: POST
 https://api.weixin.qq.com/cgi-bin/user/info/batchget?access_token=ACCESS_TOKEN
-POST数据示例
+POST 数据示例
 
 {
-    "user_list": [
-        {
-            "openid": "otvxTs4dckWG7imySrJd6jSi0CWE", 
-            "lang": "zh_CN"
-        }, 
-        {
-            "openid": "otvxTs_JZ6SEiP0imdhpi50fuSZg", 
-            "lang": "zh_CN"
-        }
-    ]
+ "user_list": [
+ {
+ "openid": "otvxTs4dckWG7imySrJd6jSi0CWE", 
+ "lang": "zh_CN"
+ }, 
+ {
+ "openid": "otvxTs_JZ6SEiP0imdhpi50fuSZg", 
+ "lang": "zh_CN"
+ }
+ ]
 }
 
 

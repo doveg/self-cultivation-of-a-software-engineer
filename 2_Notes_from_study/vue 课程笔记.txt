@@ -11,7 +11,7 @@ webpack 属性配置：
 			filename： js 文件
 			path： 路径，最好是绝对路径
 		module: 
-			loaders： 和rules功能一样
+			loaders： 和 rules 功能一样
 				test： 文件路径
 				loader： 顺序是反的，先加载后面的
 						[name].[ext] 内置提供
@@ -35,7 +35,7 @@ ES6 中的模块：
 		导入 import [,..xxx] [,..from] './xxx.ext'
 		导出 export default obj;
 	声明式：
-		导入 import {obj,obj2,stu} from './xxx.js'; 直接使用obj
+		导入 import {obj,obj2,stu} from './xxx.js'; 直接使用 obj
 		导出 export var obj = xxx;
 		导出 export var obj2 = {};
 		单独导出 export {stu};
@@ -83,7 +83,7 @@ VUE 单文件：
 			}
 	项目结构：
 		src： 源码；
-		dist： 上线的代码（减少请求，混淆代码）；
+		dist： 上线的代码 (减少请求，混淆代码) ；
 		webpack.config.js： 打包生成 dist 下的代码；
 		package.json： 包信息描述；
 		node_modules： 项目安装文件；
@@ -104,12 +104,12 @@ VUE 单文件：
 		
 vue 介绍：
 	前端框架比较：
-		09年：angular；
+		09 年：angular；
 			核心：
 				模块化；
-				双向数据绑定（脏检测：一个数组 $watch）；
-		13年：react；
-		14年：vue。
+				双向数据绑定 (脏检测：一个数组 $watch) ；
+		13 年：react；
+		14 年：vue。
 			核心：
 				组件化：
 					登陆模块需要头部，底部，中部。
@@ -118,7 +118,7 @@ vue 介绍：
 		js 内存属性的改变，影响页面的变化；
 		页面的改变，影响 js 内存属性的改变。
 	
-常用的 v指令：
+常用的 v 指令：
 	v-text： 元素的 innerText，只能在双标签中使用 < ></>。
 	v-html： 元素的 innerHtml，不能包含 {{xx}}，也就是要排除 {{xx}}。
 	v-if： 元素是否移除。
@@ -134,7 +134,7 @@ vue 介绍：
 	v-on： 
 		绑定事件的方法：
 			`v-on:事件名="表达式||函数名"`
-			简写：`@事件名="表达式||函数名"`
+			简写：`@ 事件名="表达式||函数名"`
 			函数名如果没有参数，括号可以省略，只留函数名。
 		export default 对象的根属性加上 methods 属性，可以看作对象：
 			key 是函数名，value 是函数体。
@@ -145,10 +145,10 @@ vue 介绍：
 	v-for： 
 		操作数组：(item, index)
 		操作对象：(value, key, index)
-			key：类似trank by 的一个属性；
-				告诉vue，js中的元素与页面之间的关联；
+			key：类似 trank by 的一个属性；
+				告诉 vue，js 中的元素与页面之间的关联；
 				当视图删除元素的时候，只删除单个元素，而不是整版替换，
-				所以需要关联其关系，设置(必须,性能)
+				所以需要关联其关系，设置 (必须, 性能)
 				2.2.0+ 版本在组件中使用 v-for 时，key 是必须的。
 	
 父子组件的使用：
@@ -194,59 +194,59 @@ vue 介绍：
 	
 总结：
 	0: 已经存在 node_modules 包，已经存在 package.json 和 webpack.config.js 文件；
-	1: 创建 index.html,看看其所在文件和 webpack.config.js 文件中描述的关系；
+	1: 创建 index.html, 看看其所在文件和 webpack.config.js 文件中描述的关系；
 	2: 在 index.html div -> id -> app；
-	3: 创建 main.js,看看其所在文件和 webpack.config.js 文件中描述的关系；
-	4: 在 main.js 中引入 vue,和相关组件对象
-	5: new Vue(选项options) , 目的地el   渲染内容 render:c=>c(App) 渲染App的内容
-	6: 编写app.vue 
-		template 在2.x以后只能有一个根节点
-		script 格式是export default {选项options}
-		style 加上scoped（范围的）之后，样式只对当前模板有效
+	3: 创建 main.js, 看看其所在文件和 webpack.config.js 文件中描述的关系；
+	4: 在 main.js 中引入 vue, 和相关组件对象
+	5: new Vue(选项 options) , 目的地 el 渲染内容 render:c=>c(App) 渲染 App 的内容
+	6: 编写 app.vue 
+		template 在 2.x 以后只能有一个根节点
+		script 格式是 export default {选项 options}
+		style 加上 scoped (范围的) 之后，样式只对当前模板有效
 	7: 可能使用组件或者使用函数或者接受参数
 		options(根属性):
 			data 是一个函数,return 一个对象
 			methods 是一个对象,key 是函数名,value 是函数体
 			components 是一个对象,key 是组件名,value 是组件对象
-			props 是一个数组,元素是多个接受的参数
+			props 是一个数组, 元素是多个接受的参数
 	8: 套路总结
 		凡是在上边可以使用的东西，在下边都可以使用，通过 this.
 	9:启动
 		进入到 webpack.config.js 和 package.json 文件同在的目录中启动命令行
 		输入: 正在编码: npm run dev 
-		报错: 检查命令所执行的../ 上级,是否存在 node_modules 目录及相关文件是否存在
+		报错: 检查命令所执行的../ 上级, 是否存在 node_modules 目录及相关文件是否存在
 		输入: 代码编写完毕，提交到公司：npm run build
 	
 复习：
-	vue单文件方式 xxx.vue
-	1:准备好配置文件 package.json (包描述文件&& 封装命令npm run dev) 
-	+ webpack.config.js 文件（打包的配置文件）
-	2:创建 index.html（单页应用的页）
+	vue 单文件方式 xxx.vue
+	1:准备好配置文件 package.json (包描述文件&& 封装命令 npm run dev) 
+	+ webpack.config.js 文件 (打包的配置文件) 
+	2:创建 index.html (单页应用的页) 
 	3:创建 main.js(入口文件) 
 	4:引入 vue 和相关的文件 xxx.vue
 	5:new Vue(options)
-	6:options（选项）: 
+	6:options (选项) : 
 		data；
 		methods；
 		components (组件内声明子组件)；
 		props。
 	7:实例:
-		在组件内（xxx.vue）中的this；
+		在组件内 (xxx.vue) 中的 this；
 		new Vue()；
 		事件：
-			this.$on(事件名,回调函数(参数))
-			this.$emit(事件名,数据)
-			this.$once(事件名,回调函数(参数)) 就触发一次
+			this.$on(事件名, 回调函数 (参数))
+			this.$emit(事件名, 数据)
+			this.$once(事件名, 回调函数 (参数)) 就触发一次
 			this.$off(事件名); 取消事件
 	8:全局
-		Vue.component('组件名',组件对象)：在哪里都可以使用
+		Vue.component('组件名', 组件对象)：在哪里都可以使用
 	9: 组件传值
 		父传子: 属性作为参数；
-			常量 title="xxx"   子组件声明接收参数 props:['xxx']
-			变量 :title="num"  子组件声明接收参数 props:['xxx']
-		子传父: vuebus（只能是同一辆车）
-			先停车到父组件，On一下
-			再开车到子组件，如果需要的话，emit一下，触发上述时间的回调函数
+			常量 title="xxx" 子组件声明接收参数 props:['xxx']
+			变量 :title="num" 子组件声明接收参数 props:['xxx']
+		子传父: vuebus (只能是同一辆车) 
+			先停车到父组件，On 一下
+			再开车到子组件，如果需要的话，emit 一下，触发上述时间的回调函数
 	
 过滤器：
 	组件内过滤器：
@@ -271,24 +271,24 @@ vue 介绍：
 		});
 	
 获取 DOM：
-	在指定的元素上添加：ref="名称A"
-	在获取的地方加入：this.$refs.名称A  
-		如果ref放在了原生DOM元素上，获取的数据就是原生DOM对象；
+	在指定的元素上添加：ref="名称 A"
+	在获取的地方加入：this.$refs. 名称 A 
+		如果 ref 放在了原生 DOM 元素上，获取的数据就是原生 DOM 对象；
 			可以直接操作；
-		如果ref放在了组件对象上，获取的就是组件对象；
-			获取到DOM对象,通过this.$refs.sub.$el,进行操作。
+		如果 ref 放在了组件对象上，获取的就是组件对象；
+			获取到 DOM 对象, 通过 this.$refs.sub.$el, 进行操作。
 		对应的事件：
-			created：完成了数据的初始化，此时还未生成DOM，无法操作DOM；
-			mounted：将数据已经装载到了DOM之上,可以操作DOM。
+			created：完成了数据的初始化，此时还未生成 DOM，无法操作 DOM；
+			mounted：将数据已经装载到了 DOM 之上, 可以操作 DOM。
 	
 mint-ui：
 	组件库，饿了么出品；
-	element-ui：在PC端使用：
+	element-ui：在 PC 端使用：
 	mint-ui：移动端版本。https://mint-ui.github.io/#!/zh-cn
 	注意:
 		如果是全部安装的方式：
 			1:在 template 中可以直接使用组件标签
-			2:在 script 中必须要声明，也就是引入组件对象（按需加载）
+			2:在 script 中必须要声明，也就是引入组件对象 (按需加载) 
 	
 wappalyzer：
 	获取到当前网站的使用的技术
@@ -308,7 +308,7 @@ vue-router：
 		创建路由对象，并配置路由规则；
 			let router = new VueRouter({ 
 				routes:[ 
-					{path:'/home',component:Home}  
+					{path:'/home',component:Home} 
 				]
 			});
 		将路由对象传递给 Vue 的实例：
@@ -316,48 +316,48 @@ vue-router：
 		<router-view></router-view>
 		
 命名路由：
-	需求，通过a标签点击，做页面数据的跳转
-	使用router-link标签：
+	需求，通过 a 标签点击，做页面数据的跳转
+	使用 router-link 标签：
 		1:去哪里 <router-link to="/beijing">去北京</router-link>
 		2:去哪里 <router-link :to="{name:'bj'}">去北京</router-link>
-			更利于维护，如果修改了path，只修改路由配置中的path，该a标签会根据修改后的值生成href属性
+			更利于维护，如果修改了 path，只修改路由配置中的 path，该 a 标签会根据修改后的值生成 href 属性
 	
 参数 router-link：
 	在 vue-router 中，有两大对象被挂载到了实例 this；
 	$route：(只读、具备信息的对象)；
 	$router：(具备功能函数)；
 	查询字符串：
-		1.去哪里：<router-link :to="{name:'detail', query:{id:1}}">xxx</router-link>；
-		2.导航(查询字符串path不用改)：{name:'detail', path:'/detail',组件}；
-		3.去了干嘛,获取路由参数(要注意是 query 还是 params 和对应 id 名)：this.$route.query.id。
-	path方式：
-		1.去哪里：<router-link :to="{name:'detail', params:{name:1}}">xxx</router-link>；
-		2.导航：(path方式需要在路由规则上加上/:xxx)：{name:'detail', path:'/detail/:name',组件}；
-		3.去了干嘛,获取路由参数(要注意是 query 还是 params 和对应 name 名)：this.$route.params.name。
+		1. 去哪里：<router-link :to="{name:'detail', query:{id:1}}">xxx</router-link>；
+		2. 导航 (查询字符串 path 不用改)：{name:'detail', path:'/detail', 组件}；
+		3. 去了干嘛, 获取路由参数 (要注意是 query 还是 params 和对应 id 名)：this.$route.query.id。
+	path 方式：
+		1. 去哪里：<router-link :to="{name:'detail', params:{name:1}}">xxx</router-link>；
+		2. 导航：(path 方式需要在路由规则上加上/:xxx)：{name:'detail', path:'/detail/:name', 组件}；
+		3. 去了干嘛, 获取路由参数 (要注意是 query 还是 params 和对应 name 名)：this.$route.params.name。
 	
 编程导航：
 	不能保证用户一定会点击某些按钮；
 	并且当前操作，除了路由跳转以外，还有一些别的附加操作；
-		this.$router.go：根据浏览器记录 前进1 后退-1；
+		this.$router.go：根据浏览器记录 前进 1 后退-1；
 		this.$router.push(直接跳转到某个页面显示)；
-			push参数: 字符串 /xxx；
+			push 参数: 字符串 /xxx；
 			对象: {name:'xxx',query:{id:1},params:{name:2}}。
 	
 复习：
 	过滤器：全局，组件内；
-	获取DOM元素，在元素上：ref="xxx"；
+	获取 DOM 元素，在元素上：ref="xxx"；
 	代码中通过 this.$refs.xxx 获取其元素：
 		原生 DOM 标签获取就是原生 DOM 对象；
 		如果是组件标签，获取的就是组件对象 $el 继续再获取 DOM 元素。
-	声明周期事件(钩子)回调函数：
+	声明周期事件 (钩子) 回调函数：
 		created: 数据的初始化、DOM 没有生成；
 		mounted: 将数据装载到 DOM 元素上，此时有 DOM。
 	路由：
 		window.addEventListener('hashchange',fn);
-		根据你放 <router-view></router-view><div id="xxx"></div> 作为一个DOM上的标识
+		根据你放 <router-view></router-view><div id="xxx"></div> 作为一个 DOM 上的标识
 		最终当锚点值改变触发 hashchange 的回调函数，我们将指定的模板数据插入到 DOM 标识上。
 	
-重定向和404：
+重定向和 404：
 	进入后，默认是/；
 	重定向：{path:'/' ,redirect:'/home'}；
 	重定向：{path:'/' ,redirect:{name:'home'}}；
@@ -380,19 +380,19 @@ vue-router：
 	开发中一般会需要使用；
 	视图包含视图；
 	路由父子级关系路由。
-		组件内包含着第一层router-view
+		组件内包含着第一层 router-view
 			{ name:'music' ,path:'/music', component:Music,
-				children:[   
-					子路由的path：/就是绝对路径，不/就是相对父级路径。
+				children:[ 
+					子路由的 path：/就是绝对路径，不/就是相对父级路径。
 					{name:'music.oumei' ,path:'oumei', component:Oumei },
 					{name:'music.guochan' ,path:'guochan', component:Guochan }
 				]
 			}
 	
 vue-resource(了解)：
-	可以安装插件，早期vue团队开发的插件；
+	可以安装插件，早期 vue 团队开发的插件；
 	停止维护了，作者推荐使用 axios；
-	options 预检请求，当浏览器发现跨域 + application/json的请求，会自动发起；
+	options 预检请求，当浏览器发现跨域 + application/json 的请求，会自动发起；
 		并且发起的时候携带了一个 content-type 的头。
 	
 axios：
@@ -409,26 +409,26 @@ axios：
 练习：
 	1:路由核心
 		路由基本使用；
-		任选一种路由参数的方式(查询字符串)；
+		任选一种路由参数的方式 (查询字符串)；
 		404(路由匹配规则)；
 		嵌套路由；
 		编程导航；
-	2:http请求
-		axios 发起 get、post 请求（300）；
+	2:http 请求
+		axios 发起 get、post 请求 (300) ；
 		获取 http://182.254.146.100:8899/api/getcomments/300?pageindex=1
 		发起 http://182.254.146.100:8899/api/postcomment/300
-		axios挂载属性方式。
+		axios 挂载属性方式。
 	
 复习：
 	路由操作的基本步骤：
 		引入对象：
 		import VueRouter from 'vue-router';
 		安装插件：
-		Vue.use(VueRouter);   挂载属性的行为
+		Vue.use(VueRouter); 挂载属性的行为
 		创建路由对象：
 		let router = new VueRouter({
 			routes:[
-				{ name:'xxx',path:'/xxx',组件  }
+				{ name:'xxx',path:'/xxx', 组件 }
 			]
 		});
 		将路由对象放入到 options 中 new Vue()：
@@ -437,52 +437,52 @@ axios：
 		})
 	套路：
 		1: 去哪里：<router-link :to="{name:'bj'}"></router-link>
-		2: 导航(配置路由规则)：{name:'bj',path:'/beijing',组件A}
-		3: 去了干嘛(在组件A内干什么)：
-			在created事件函数中，获取路由参数；
+		2: 导航 (配置路由规则)：{name:'bj',path:'/beijing', 组件 A}
+		3: 去了干嘛 (在组件 A 内干什么)：
+			在 created 事件函数中，获取路由参数；
 			发起请求，把数据挂载上去。
 	参数：
-		查询字符串（#/beijing?id=1&age=2）：
+		查询字符串 (#/beijing?id=1&age=2) ：
 			1: 去哪里：<router-link :to="{name:'bj',query:{id:1,age:2}}"></router-link>
-			2: 导航(配置路由规则)：{name:'bj',path:'/beijing',组件A}
-			3: 去了干嘛(在组件A内干什么)
+			2: 导航 (配置路由规则)：{name:'bj',path:'/beijing', 组件 A}
+			3: 去了干嘛 (在组件 A 内干什么)
 				this.$route.query.id||age
 		path(#/beijing/1/2)：
 			1: 去哪里：<router-link :to="{name:'bj',params:{id:1,age:2}}"></router-link>
-			2: 导航(配置路由规则)：{name:'bj',path:'/beijing/:id/:age',组件A}
-			3: 去了干嘛(在组件A内干什么)
+			2: 导航 (配置路由规则)：{name:'bj',path:'/beijing/:id/:age', 组件 A}
+			3: 去了干嘛 (在组件 A 内干什么)
 				this.$route.params.id||age
 	编程导航：
-		一个获取信息的只读对象($route)；
-		一个具备功能函数的对象($router)；
+		一个获取信息的只读对象 ($route)；
+		一个具备功能函数的对象 ($router)；
 		根据浏览器历史记录前进和后台 this.$router.go(1|-1);
-		跳转到指定路由  this.$router.push({name:'bj'});
+		跳转到指定路由 this.$router.push({name:'bj'});
 	嵌套路由：
-		让变化的视图(router-view)产生包含关系(router-view)；
-		让路由与router-view关联，并且也产生父子关系。
+		让变化的视图 (router-view) 产生包含关系 (router-view)；
+		让路由与 router-view 关联，并且也产生父子关系。
 	多视图：
 		让视图更为灵活，以前一个一放，现在可以放多个，通过配置可以去修改。
 	axios:
 		开始:
-			跨域 + 默认的头是因为你的数据是对象，所以content-type:application/json；
-			有OPTIONS预检请求（浏览器自动发起）。
+			跨域 + 默认的头是因为你的数据是对象，所以 content-type:application/json；
+			有 OPTIONS 预检请求 (浏览器自动发起) 。
 		最终:
-			当我们调整为字符串数据，引起content-type变为了www键值对；
-			没有那个OPTIONS预检请求。
+			当我们调整为字符串数据，引起 content-type 变为了 www 键值对；
+			没有那个 OPTIONS 预检请求。
 		总结：
-			跨域 + application/json 会引起OPTIONS预检请求，
-			并且自定义一个头(提示服务器，这次的content-type较为特殊)，content-type的值。
-		服务器认为这个是一次请求，而没有允许content-type的头；
+			跨域 + application/json 会引起 OPTIONS 预检请求，
+			并且自定义一个头 (提示服务器，这次的 content-type 较为特殊)，content-type 的值。
+		服务器认为这个是一次请求，而没有允许 content-type 的头；
 		浏览器就认为服务器不一定能处理掉这个特殊的头的数据；
 		抛出异常；
-		在node服务器：
-			response.setHeader("Access-Control-Allow-Headers","content-type,多个");
-		formdata的样子：key=value&key=value
-	axios属性关系：
+		在 node 服务器：
+			response.setHeader("Access-Control-Allow-Headers","content-type, 多个");
+		formdata 的样子：key=value&key=value
+	axios 属性关系：
 		options: headers、baseURL、params
-		默认全局设置(大家都是这么用)
-			Axios.defaults-> options对象
-		针对个别请求来附加options
+		默认全局设置 (大家都是这么用)
+			Axios.defaults-> options 对象
+		针对个别请求来附加 options
 		axios.get(url,options)
 		axios.post(url,data,options)
 	
@@ -493,16 +493,16 @@ axios：
 	项目。
 
 axios：
-	合并请求：axios.all([请求1,请求2])；
+	合并请求：axios.all([请求 1, 请求 2])；
 	分发响应：axios.spread(fn)；
-	fn：对应参数(res)和请求的顺序一致；
+	fn：对应参数 (res) 和请求的顺序一致；
 	应用场景：必须保证两次请求都成功，比如，分头获取省、市的数据。
 	执行特点: 只要有一次失败就算失败，否则成功。
 	
 拦截器：
 	过滤，在每一次请求与响应中、添油加醋；
 	axios.interceptors.request.use(fn)：在请求之前；
-	function(config){config.headers = {xxx}}：config 相当于options对象；
+	function(config){config.headers = {xxx}}：config 相当于 options 对象；
 	默认设置 defaults：范围广、权利小；
 	单个请求的设置 options get(url, options)：范围小、权利中；
 	拦截器：范围广、权利大。
@@ -514,14 +514,14 @@ token(扩展)：
 	对于三端来讲，token 可以作为类似 cookie 的使用，并且可以通用；
 	拦截器可以用在添加 token 上。
 
-拦截器操作loadding：
-	在请求发起前open，在响应回来后 close。
+拦截器操作 loadding：
+	在请求发起前 open，在响应回来后 close。
 
 监视：
-	watch：可以对（单个）变量进行监视，也可以深度监视
+	watch：可以对 (单个) 变量进行监视，也可以深度监视
 	对多个变量进行监视：
 		计算属性 computed 可以监视多个值，并且指定返回数据，并且可以显示在页面。
-	都是options中的根属性：
+	都是 options 中的根属性：
 		watch：监视单个；
 		computed：可以监视多个 this 相关属性值的改变，如果和原值一样；
 		不会触发函数的调用，并且可以返回对象。
@@ -536,19 +536,19 @@ $route
 	$route 用于监测当前路由，$router 用于进行路由操作，事实上，$route 与 $router.currentRoute 相同。
 
 $Store
-	Vuex就是提供一个仓库，Store仓库里面放了很多对象。
-	其中state就是数据源存放地，对应于与一般Vue对象里面的data（后面讲到的actions和mutations对应于methods）。
+	Vuex 就是提供一个仓库，Store 仓库里面放了很多对象。
+	其中 state 就是数据源存放地，对应于与一般 Vue 对象里面的 data (后面讲到的 actions 和 mutations 对应于 methods) 。
 
-	在使用Vuex的时候通常会创建Store实例new Vuex.store({state,getters,mutations,actions})有很多子模块的时候还会使用到modules。
+	在使用 Vuex 的时候通常会创建 Store 实例 new Vuex.store({state,getters,mutations,actions}) 有很多子模块的时候还会使用到 modules。
 
-	Store类就是存储数据和管理数据方法的仓库，实现方式是将数据和方法已对象形式传入其实例中。要注意一个应用或是项目中只能存在一个Store实例
+	Store 类就是存储数据和管理数据方法的仓库，实现方式是将数据和方法已对象形式传入其实例中。要注意一个应用或是项目中只能存在一个 Store 实例
 
 $refs
-	一般来讲，获取DOM元素，需document.querySelector（".input1"）获取这个dom节点，然后在获取input1的值。
+	一般来讲，获取 DOM 元素，需 document.querySelector (".input1") 获取这个 dom 节点，然后在获取 input1 的值。
 
-	但是用ref绑定之后，我们就不需要在获取dom节点了，直接在上面的input上绑定input1，然后$refs里面调用就行。
+	但是用 ref 绑定之后，我们就不需要在获取 dom 节点了，直接在上面的 input 上绑定 input1，然后$refs 里面调用就行。
 
-	然后在javascript里面这样调用：this.$refs.input1  这样就可以减少获取dom节点的消耗了
+	然后在 javascript 里面这样调用：this.$refs.input1 这样就可以减少获取 dom 节点的消耗了
 
 
 	

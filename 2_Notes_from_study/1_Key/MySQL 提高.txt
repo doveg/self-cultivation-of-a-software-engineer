@@ -21,16 +21,16 @@ MySQL 提高核心
 
 
 
-1.存储过程和函数的区别
-	存储过程是用户定义的一系列sql语句的集合，涉及特定表或其它对象的任务，用户可以调用存储过程，而函数通常是数据库已定义的方法，它接收参数并返回某种类型的值并且不涉及特定用户表。
-2.事务是什么？
-	事务是作为一个逻辑单元执行的一系列操作，一个逻辑工作单元必须有四个属性，称为 ACID（原子性、一致性、隔离性和持久性）属性，只有这样才能成为一个事务：
+1. 存储过程和函数的区别
+	存储过程是用户定义的一系列 sql 语句的集合，涉及特定表或其它对象的任务，用户可以调用存储过程，而函数通常是数据库已定义的方法，它接收参数并返回某种类型的值并且不涉及特定用户表。
+2. 事务是什么？
+	事务是作为一个逻辑单元执行的一系列操作，一个逻辑工作单元必须有四个属性，称为 ACID (原子性、一致性、隔离性和持久性) 属性，只有这样才能成为一个事务：
 	原子性事务必须是原子工作单元；对于其数据修改，要么全都执行，要么全都不执行。
-	一致性事务在完成时，必须使所有的数据都保持一致状态。在相关数据库中，所有规则都必须应用于事务的修改，以保持所有数据的完整性。事务结束时，所有的内部数据结构（如 B 树索引或双向链表）都必须是正确的。
+	一致性事务在完成时，必须使所有的数据都保持一致状态。在相关数据库中，所有规则都必须应用于事务的修改，以保持所有数据的完整性。事务结束时，所有的内部数据结构 (如 B 树索引或双向链表) 都必须是正确的。
 	隔离性由并发事务所作的修改必须与任何其它并发事务所作的修改隔离。事务查看数据时数据所处的状态，要么是另一并发事务修改它之前的状态，要么是另一事务修改它之后的状态，事务不会查看中间状态的数据。这称为可串行性，因为它能够重新装载起始数据，并且重播一系列事务，以使数据结束时的状态与原始事务执行的状态相同。
 	持久性事务完成之后，它对于系统的影响是永久性的。该修改即使出现系统故障也将一直保持。
 3. 游标的作用？如何知道游标已经到了最后？
-	游标用于定位结果集的行，通过判断全局变量@@FETCH_STATUS可以判断是否到了最后，通常此变量不等于0表示出错或到了最后。
+	游标用于定位结果集的行，通过判断全局变量 @@FETCH_STATUS 可以判断是否到了最后，通常此变量不等于 0 表示出错或到了最后。
 4. 触发器分为事前触发和事后触发，这两种触发有和区别。语句级触发和行级触发有何区别。
 	事前触发器运行于触发事件发生之前，而事后触发器运行于触发事件发生之后。通常事前触发器可以获取事件之前和新的字段值。
 	语句级触发器可以在语句执行前或后执行，而行级触发在触发器所影响的每一行触发一次。
@@ -40,23 +40,23 @@ MySQL 提高核心
 MySQL 数据库管理
 		
 	权限
-		GRANT 权限 ON 数据库.表 TO '账户名'@'账户类型' IDENTIFIED BY '密码';
+		GRANT 权限 ON 数据库. 表 TO '账户名'@'账户类型' IDENTIFIED BY '密码';
 		举例：
-			select insert delete update drop create/  或,all
+			select insert delete update drop create/ 或,all
 			flush privileges 
 		如何删除用户？
 
 	面试题
-		  int(3)和int的区别？     create table t (t int(3) zerofill);
-		  如何快速构建相同表结构？  create table stu like users;
+		 int(3) 和 int 的区别？create table t (t int(3) zerofill);
+		 如何快速构建相同表结构？create table stu like users;
 
-	  mysql有六处使用了字符集，分别为：client 、connection、database、results、server 、system。
-		client是客户端使用的字符集。 
-		connection是连接数据库的字符集设置类型，如果程序没有指明连接数据库使用的字符集类型就按照服务器端默认的字符集设置。       
-		database是数据库服务器中某个库使用的字符集设定，如果建库时没有指明，将使用服务器安装时指定的字符集设置。    
-		results是数据库给客户端返回时使用的字符集设定，如果没有指明，使用服务器默认的字符集。       
-		server是服务器安装时指定的默认字符集设定。       
-		system是数据库系统使用的字符集设定。
+	 mysql 有六处使用了字符集，分别为：client 、connection、database、results、server 、system。
+		client 是客户端使用的字符集。
+		connection 是连接数据库的字符集设置类型，如果程序没有指明连接数据库使用的字符集类型就按照服务器端默认的字符集设置。
+		database 是数据库服务器中某个库使用的字符集设定，如果建库时没有指明，将使用服务器安装时指定的字符集设置。
+		results 是数据库给客户端返回时使用的字符集设定，如果没有指明，使用服务器默认的字符集。
+		server 是服务器安装时指定的默认字符集设定。
+		system 是数据库系统使用的字符集设定。
 	
 	查看和修改数据库字符集
 		show variables like 'character%';
@@ -79,18 +79,18 @@ MySQL 数据库管理
 		第一范式：每个字段的值都只能是单一值；
 		
 			第一范式是为了要排除 重复组 的出现，所采用的方法是要求数据库的每个列的值域都是由原子值组成；
-			（第一范式是通过把重复的组放到每个独立的表中，把这些表通过一对多关联联系起来这种方式来消除重复组的。）
+			 (第一范式是通过把重复的组放到每个独立的表中，把这些表通过一对多关联联系起来这种方式来消除重复组的。) 
 
-		第二范式：数据表里的所有数据都要和该数据表的键（主键与候选键）有完全依赖关系；
+		第二范式：数据表里的所有数据都要和该数据表的键 (主键与候选键) 有完全依赖关系；
 		
 			表中的属性必须完全依赖于全部主键，而不是部分主键；
 			目的是进一步减少插入异常和更新异常。
-			（第二范式处理冗余数据的删除问题。当某张表中的信息依赖于该表中其它的不是主键部分的列的时候，通常会违反第二范式。）
+			 (第二范式处理冗余数据的删除问题。当某张表中的信息依赖于该表中其它的不是主键部分的列的时候，通常会违反第二范式。) 
 
 		第三范式：所有非键属性都只和候选键有相关性；
 		
 			非键属性之间应该是独立无关的。
-			（第三范式规则查找以消除没有直接依赖于第一范式和第二范式形成的表的主键的属性。我们为没有与表的主键关联的所有信息建立了一张新表。每张新表保存了来自源表的信息和它们所依赖的主键。）
+			 (第三范式规则查找以消除没有直接依赖于第一范式和第二范式形成的表的主键的属性。我们为没有与表的主键关联的所有信息建立了一张新表。每张新表保存了来自源表的信息和它们所依赖的主键。) 
 
 		第四范式：消除表中的多值依赖，也就是说可以减少维护数据一致性的工作；禁止主键列和非主键列一对多关系不受约束。
 		第五范式：每个连接依赖可由候选键推出；将表分割成尽可能小的块，为了排除在表中所有的冗余。
@@ -98,54 +98,54 @@ MySQL 数据库管理
 
 触发器与存储过程
 
-		触发程序不能调用将数据返回客户端的存储程序，也不能使用采用CALL语句的动态SQL（允许存储程序通过参数将数据返回触发程序）。 
+		触发程序不能调用将数据返回客户端的存储程序，也不能使用采用 CALL 语句的动态 SQL (允许存储程序通过参数将数据返回触发程序) 。
 		而存储过程 可以接受参数，将结果范围给应用程序
 
 	触发器
 
 		触发器作用：当操作了某张表时，希望同时触发一些动作/行为，可以使用触发器完成。
-		需求： 当向员工表插入一条记录时，希望mysql自动同时往日志表插入数据
+		需求： 当向员工表插入一条记录时，希望 mysql 自动同时往日志表插入数据
 
-			CREATE TRIGGER tri_empAdd AFTER INSERT ON employee FOR EACH ROW    -- 当往员工表插入一条记录时
+			CREATE TRIGGER tri_empAdd AFTER INSERT ON employee FOR EACH ROW -- 当往员工表插入一条记录时
 				 INSERT INTO test_log(content) VALUES('员工表插入了一条记录');
-			以上触发器是基于insert的，以下两个是基于update和delete的。
+			以上触发器是基于 insert 的，以下两个是基于 update 和 delete 的。
 
-			-- 创建触发器(修改)
-			CREATE TRIGGER tri_empUpd AFTER UPDATE ON employee FOR EACH ROW    -- 当往员工表修改一条记录时
+			-- 创建触发器 (修改)
+			CREATE TRIGGER tri_empUpd AFTER UPDATE ON employee FOR EACH ROW -- 当往员工表修改一条记录时
 				 INSERT INTO test_log(content) VALUES('员工表修改了一条记录');
-			-- 创建触发器(删除)
-			CREATE TRIGGER tri_empDel AFTER DELETE ON employee FOR EACH ROW    -- 当往员工表删除一条记录时
+			-- 创建触发器 (删除)
+			CREATE TRIGGER tri_empDel AFTER DELETE ON employee FOR EACH ROW -- 当往员工表删除一条记录时
 				 INSERT INTO test_log(content) VALUES('员工表删除了一条记录');
 			说明：
-				MySQL默认将分号，即“;”作为语句的分隔符。
-				如果是这样的话，则一个存储过程将很难正常创建，因为它的BEGIN和END之间可以是任意数量的SQL语句，而每条SQL语句都以分号结束。
+				MySQL 默认将分号，即“;”作为语句的分隔符。
+				如果是这样的话，则一个存储过程将很难正常创建，因为它的 BEGIN 和 END 之间可以是任意数量的 SQL 语句，而每条 SQL 语句都以分号结束。
 				所以，在创建存储过程时，必须重新定义分隔符。
 				在上述用例中，均将“$”作为新的分隔符，注意，在创建完存储过程后，必须重新设置回原来的分隔符“;”。
 
 
-	MySQL存储过程
+	MySQL 存储过程
 
-		MySQL存储过程创建
+		MySQL 存储过程创建
 			格式：
-				CREATE PROCEDURE 过程名 ([过程参数[,...]])
+				CREATE PROCEDURE 过程名 ([过程参数 [,...]])
 				[特性 ...] 过程体
 			 实例：
-				mysql> DELIMITER //  
-				mysql> CREATE PROCEDURE proc1(OUT s int)  
+				mysql> DELIMITER // 
+				mysql> CREATE PROCEDURE proc1(OUT s int) 
 				-> BEGIN 
-				-> SELECT COUNT(*) INTO s FROM user;  
+				-> SELECT COUNT(*) INTO s FROM user; 
 				-> END 
-				-> //  
+				-> // 
 				mysql> DELIMITER ; 
 
 			声明分割符
-				DELIMITER //和DELIMITER ;两句，
-					DELIMITER是分割符的意思，因为MySQL默认以";"为分隔符，如果我们没有声明分割符，那么编译器会把存储过程当成SQL语句进行处理，则存储过程的编译过程会报错，
-					所以要事先用DELIMITER关键字申明当前段分隔符，这样MySQL才会将";"当做存储过程中的代码，不会执行这些代码，用完了之后要把分隔符还原。
+				DELIMITER //和 DELIMITER ;两句，
+					DELIMITER 是分割符的意思，因为 MySQL 默认以";"为分隔符，如果我们没有声明分割符，那么编译器会把存储过程当成 SQL 语句进行处理，则存储过程的编译过程会报错，
+					所以要事先用 DELIMITER 关键字申明当前段分隔符，这样 MySQL 才会将";"当做存储过程中的代码，不会执行这些代码，用完了之后要把分隔符还原。
 
 			参数
 
-				MySQL存储过程的参数用在存储过程的定义，共有三种参数类型,IN,OUT,INOUT,形式如：
+				MySQL 存储过程的参数用在存储过程的定义，共有三种参数类型,IN,OUT,INOUT, 形式如：
 				CREATE PROCEDURE([[IN |OUT |INOUT ] 参数名 数据类形...])
 				IN 输入参数:表示该参数的值必须在调用存储过程时指定，在存储过程中修改该参数的值不能被返回，为默认值
 				OUT 输出参数:该值可在存储过程内部被改变，并可返回
@@ -155,33 +155,33 @@ MySQL 数据库管理
 
 				Ⅰ. 变量定义
 					DECLARE variable_name [,variable_name...] datatype [DEFAULT value];
-					其中，datatype为MySQL的数据类型，如:int, float, date, varchar(length)
+					其中，datatype 为 MySQL 的数据类型，如:int, float, date, varchar(length)
 					例如:
-						DECLARE l_int int unsigned default 4000000;  
-						DECLARE l_numeric number(8,2) DEFAULT 9.95;  
-						DECLARE l_date date DEFAULT '1999-12-31';  
-						DECLARE l_datetime datetime DEFAULT '1999-12-31 23:59:59';  
-						DECLARE l_varchar varchar(255) DEFAULT 'This will not be padded';   
+						DECLARE l_int int unsigned default 4000000; 
+						DECLARE l_numeric number(8,2) DEFAULT 9.95; 
+						DECLARE l_date date DEFAULT '1999-12-31'; 
+						DECLARE l_datetime datetime DEFAULT '1999-12-31 23:59:59'; 
+						DECLARE l_varchar varchar(255) DEFAULT 'This will not be padded'; 
 
 				Ⅱ. 变量赋值
 					SET 变量名 = 表达式值 [,variable_name = expression ...]
 
 				Ⅲ. 用户变量
-					ⅰ. 在MySQL客户端使用用户变量
+					ⅰ. 在 MySQL 客户端使用用户变量
 					ⅱ. 在存储过程中使用用户变量
 					ⅲ. 在存储过程间传递全局范围的用户变量
 
 					注释
-						MySQL存储过程可使用两种风格的注释
+						MySQL 存储过程可使用两种风格的注释
 						双模杠：--
 							该风格一般用于单行注释
-						c风格： 一般用于多行注释
+						c 风格： 一般用于多行注释
 
-			MySQL存储过程的调用
+			MySQL 存储过程的调用
 
-				用call和你过程名以及一个括号，括号里面根据需要，加入参数，参数包括输入参数、输出参数、输入输出参数。具体的调用方法可以参看上面的例子。
+				用 call 和你过程名以及一个括号，括号里面根据需要，加入参数，参数包括输入参数、输出参数、输入输出参数。具体的调用方法可以参看上面的例子。
 
-			MySQL存储过程的查询
+			MySQL 存储过程的查询
 
 				select name from mysql.proc where db=’数据库名’;
 				或者
@@ -190,188 +190,188 @@ MySQL 数据库管理
 				show procedure status where db='数据库名';
 				进行查询。
 				查看当前存储过程的详细：
-				SHOW CREATE PROCEDURE 数据库.存储过程名;
+				SHOW CREATE PROCEDURE 数据库. 存储过程名;
 
-			MySQL存储过程的修改
+			MySQL 存储过程的修改
 
 				ALTER PROCEDURE
-				更改用CREATE PROCEDURE 建立的预先指定的存储过程，其不会影响相关存储过程或存储功能。
+				更改用 CREATE PROCEDURE 建立的预先指定的存储过程，其不会影响相关存储过程或存储功能。
 
-			MySQL存储过程的删除
+			MySQL 存储过程的删除
 
 				删除一个存储过程比较简单，和删除表一样：
 				DROP PROCEDURE
-				从MySQL的表格中删除一个或多个存储过程。
+				从 MySQL 的表格中删除一个或多个存储过程。
 
 
-		MySQL存储过程的控制语句
+		MySQL 存储过程的控制语句
 
 			(1). 变量作用域
 
-				内部的变量在其作用域范围内享有更高的优先权，当执行到end。变量时，内部变量消失，此时已经在其作用域外，变量不再可见了，应为在存储
-				过程外再也不能找到这个申明的变量，但是你可以通过out参数或者将其值指派
+				内部的变量在其作用域范围内享有更高的优先权，当执行到 end。变量时，内部变量消失，此时已经在其作用域外，变量不再可见了，应为在存储
+				过程外再也不能找到这个申明的变量，但是你可以通过 out 参数或者将其值指派
 				给会话变量来保存其值。
-					mysql > DELIMITER //  
-					mysql > CREATE PROCEDURE proc3()  
+					mysql > DELIMITER // 
+					mysql > CREATE PROCEDURE proc3() 
 						 -> begin 
-						 -> declare x1 varchar(5) default 'outer';  
+						 -> declare x1 varchar(5) default 'outer'; 
 						 -> begin 
-						 -> declare x1 varchar(5) default 'inner';  
-						 -> select x1;  
-						 -> end;  
-						 -> select x1;  
-						 -> end;  
-						 -> //  
-					mysql > DELIMITER ;  
+						 -> declare x1 varchar(5) default 'inner'; 
+						 -> select x1; 
+						 -> end; 
+						 -> select x1; 
+						 -> end; 
+						 -> // 
+					mysql > DELIMITER ; 
 
 			 (2). 条件语句
-				Ⅰ. if-then -else语句
-					mysql > DELIMITER //  
-					mysql > CREATE PROCEDURE proc2(IN parameter int)  
+				Ⅰ. if-then -else 语句
+					mysql > DELIMITER // 
+					mysql > CREATE PROCEDURE proc2(IN parameter int) 
 						 -> begin 
-						 -> declare var int;  
-						 -> set var=parameter+1;  
+						 -> declare var int; 
+						 -> set var=parameter+1; 
 						 -> if var=0 then 
-						 -> insert into t values(17);  
-						 -> end if;  
+						 -> insert into t values(17); 
+						 -> end if; 
 						 -> if parameter=0 then 
-						 -> update t set s1=s1+1;  
+						 -> update t set s1=s1+1; 
 						 -> else 
-						 -> update t set s1=s1+2;  
-						 -> end if;  
-						 -> end;  
-						 -> //  
-					mysql > DELIMITER ;  
-				Ⅱ. case语句： 
-					mysql > DELIMITER //  
-					mysql > CREATE PROCEDURE proc3 (in parameter int)  
+						 -> update t set s1=s1+2; 
+						 -> end if; 
+						 -> end; 
+						 -> // 
+					mysql > DELIMITER ; 
+				Ⅱ. case 语句： 
+					mysql > DELIMITER // 
+					mysql > CREATE PROCEDURE proc3 (in parameter int) 
 						 -> begin 
-						 -> declare var int;  
-						 -> set var=parameter+1;  
-						 -> case var  
-						 -> when 0 then   
-						 -> insert into t values(17);  
-						 -> when 1 then   
-						 -> insert into t values(18);  
-						 -> else   
-						 -> insert into t values(19);  
-						 -> end case;  
-						 -> end;  
-						 -> //  
+						 -> declare var int; 
+						 -> set var=parameter+1; 
+						 -> case var 
+						 -> when 0 then 
+						 -> insert into t values(17); 
+						 -> when 1 then 
+						 -> insert into t values(18); 
+						 -> else 
+						 -> insert into t values(19); 
+						 -> end case; 
+						 -> end; 
+						 -> // 
 					mysql > DELIMITER ; 
 				
 			(3). 循环语句
 				Ⅰ. while ···· end while：
-					mysql > DELIMITER //  
-					mysql > CREATE PROCEDURE proc4()  
+					mysql > DELIMITER // 
+					mysql > CREATE PROCEDURE proc4() 
 						 -> begin 
-						 -> declare var int;  
-						 -> set var=0;  
-						 -> while var<6 do  
-						 -> insert into t values(var);  
-						 -> set var=var+1;  
-						 -> end while;  
-						 -> end;  
-						 -> //  
+						 -> declare var int; 
+						 -> set var=0; 
+						 -> while var<6 do 
+						 -> insert into t values(var); 
+						 -> set var=var+1; 
+						 -> end while; 
+						 -> end; 
+						 -> // 
 					mysql > DELIMITER ; 
 				Ⅱ. repeat···· end repeat：
-					它在执行操作后检查结果，而while则是执行前进行检查。
-						mysql > DELIMITER //  
-						mysql > CREATE PROCEDURE proc5 ()  
-							 -> begin   
-							 -> declare v int;  
-							 -> set v=0;  
-							 -> repeat  
-							 -> insert into t values(v);  
-							 -> set v=v+1;  
-							 -> until v>=5  
-							 -> end repeat;  
-							 -> end;  
-							 -> //  
-						mysql > DELIMITER ;  
+					它在执行操作后检查结果，而 while 则是执行前进行检查。
+						mysql > DELIMITER // 
+						mysql > CREATE PROCEDURE proc5 () 
+							 -> begin 
+							 -> declare v int; 
+							 -> set v=0; 
+							 -> repeat 
+							 -> insert into t values(v); 
+							 -> set v=v+1; 
+							 -> until v>=5 
+							 -> end repeat; 
+							 -> end; 
+							 -> // 
+						mysql > DELIMITER ; 
 				Ⅲ. loop ·····end loop:
-					loop循环不需要初始条件，这点和while 循环相似，同时和repeat循环一样不需要结束条件, leave语句的意义是离开循环。
-						mysql > DELIMITER //  
-						mysql > CREATE PROCEDURE proc6 ()  
+					loop 循环不需要初始条件，这点和 while 循环相似，同时和 repeat 循环一样不需要结束条件, leave 语句的意义是离开循环。
+						mysql > DELIMITER // 
+						mysql > CREATE PROCEDURE proc6 () 
 							 -> begin 
-							 -> declare v int;  
-							 -> set v=0;  
-							 -> LOOP_LABLE:loop  
-							 -> insert into t values(v);  
-							 -> set v=v+1;  
+							 -> declare v int; 
+							 -> set v=0; 
+							 -> LOOP_LABLE:loop 
+							 -> insert into t values(v); 
+							 -> set v=v+1; 
 							 -> if v >=5 then 
-							 -> leave LOOP_LABLE;  
-							 -> end if;  
-							 -> end loop;  
-							 -> end;  
-							 -> //  
-						mysql > DELIMITER ;  
+							 -> leave LOOP_LABLE; 
+							 -> end if; 
+							 -> end loop; 
+							 -> end; 
+							 -> // 
+						mysql > DELIMITER ; 
 				Ⅳ. LABLES 标号：
-					标号可以用在begin repeat while 或者loop 语句前，语句标号只能在合法的语句前面使用。可以跳出循环，使运行指令达到复合语句的最后一步。	 
+					标号可以用在 begin repeat while 或者 loop 语句前，语句标号只能在合法的语句前面使用。可以跳出循环，使运行指令达到复合语句的最后一步。	 
 
-			(4). ITERATE迭代
+			(4). ITERATE 迭代
 				Ⅰ. ITERATE:
-					通过引用复合语句的标号,来从新开始复合语句
-						mysql > DELIMITER //  
-						mysql > CREATE PROCEDURE proc10 ()  
+					通过引用复合语句的标号, 来从新开始复合语句
+						mysql > DELIMITER // 
+						mysql > CREATE PROCEDURE proc10 () 
 							 -> begin 
-							 -> declare v int;  
-							 -> set v=0;  
-							 -> LOOP_LABLE:loop  
-							 -> if v=3 then   
-							 -> set v=v+1;  
-							 -> ITERATE LOOP_LABLE;  
-							 -> end if;  
-							 -> insert into t values(v);  
-							 -> set v=v+1;  
+							 -> declare v int; 
+							 -> set v=0; 
+							 -> LOOP_LABLE:loop 
+							 -> if v=3 then 
+							 -> set v=v+1; 
+							 -> ITERATE LOOP_LABLE; 
+							 -> end if; 
+							 -> insert into t values(v); 
+							 -> set v=v+1; 
 							 -> if v>=5 then 
-							 -> leave LOOP_LABLE;  
-							 -> end if;  
-							 -> end loop;  
-							 -> end;  
-							 -> //  
+							 -> leave LOOP_LABLE; 
+							 -> end if; 
+							 -> end loop; 
+							 -> end; 
+							 -> // 
 						mysql > DELIMITER ; 
 			 
-		MySQL存储过程的基本函数
-			(1).字符串类
+		MySQL 存储过程的基本函数
+			(1). 字符串类
 				CHARSET(str) //返回字串字符集
 				CONCAT (string2 [,... ]) //连接字串
-				INSTR (string ,substring ) //返回substring首次在string中出现的位置,不存在返回0
+				INSTR (string ,substring ) //返回 substring 首次在 string 中出现的位置, 不存在返回 0
 				LCASE (string2 ) //转换成小写
-				LEFT (string2 ,length ) //从string2中的左边起取length个字符
-				LENGTH (string ) //string长度
+				LEFT (string2 ,length ) //从 string2 中的左边起取 length 个字符
+				LENGTH (string ) //string 长度
 				LOAD_FILE (file_name ) //从文件读取内容
-				LOCATE (substring , string [,start_position ] ) 同INSTR,但可指定开始位置
-				LPAD (string2 ,length ,pad ) //重复用pad加在string开头,直到字串长度为length
+				LOCATE (substring , string [,start_position ] ) 同 INSTR, 但可指定开始位置
+				LPAD (string2 ,length ,pad ) //重复用 pad 加在 string 开头, 直到字串长度为 length
 				LTRIM (string2 ) //去除前端空格
-				REPEAT (string2 ,count ) //重复count次
-				REPLACE (str ,search_str ,replace_str ) //在str中用replace_str替换search_str
-				RPAD (string2 ,length ,pad) //在str后用pad补充,直到长度为length
+				REPEAT (string2 ,count ) //重复 count 次
+				REPLACE (str ,search_str ,replace_str ) //在 str 中用 replace_str 替换 search_str
+				RPAD (string2 ,length ,pad) //在 str 后用 pad 补充, 直到长度为 length
 				RTRIM (string2 ) //去除后端空格
 				STRCMP (string1 ,string2 ) //逐字符比较两字串大小,
-				SUBSTRING (str , position [,length ]) //从str的position开始,取length个字符,
-				注：mysql中处理字符串时，默认第一个字符下标为1，即参数position必须大于等于1 
+				SUBSTRING (str , position [,length ]) //从 str 的 position 开始, 取 length 个字符,
+				注：mysql 中处理字符串时，默认第一个字符下标为 1，即参数 position 必须大于等于 1 
 				
-					mysql> select substring('abcd',0,2);  
-					+-----------------------+  
-					| substring('abcd',0,2) |  
-					+-----------------------+  
-					|                       |  
-					+-----------------------+  
-					1 row in set (0.00 sec)  
-					mysql> select substring('abcd',1,2);  
-					+-----------------------+  
-					| substring('abcd',1,2) |  
-					+-----------------------+  
-					|     ab                |  
-					+-----------------------+  
-					1 row in set (0.02 sec)  
+					mysql> select substring('abcd',0,2); 
+					+-----------------------+ 
+					| substring('abcd',0,2) | 
+					+-----------------------+ 
+					| | 
+					+-----------------------+ 
+					1 row in set (0.00 sec) 
+					mysql> select substring('abcd',1,2); 
+					+-----------------------+ 
+					| substring('abcd',1,2) | 
+					+-----------------------+ 
+					| ab | 
+					+-----------------------+ 
+					1 row in set (0.02 sec) 
 					TRIM([[BOTH|LEADING|TRAILING] [padding] FROM]string2) //去除指定位置的指定字符
 					UCASE (string2 ) //转换成大写
-					RIGHT(string2,length) //取string2最后length个字符
-					SPACE(count) //生成count个空格
+					RIGHT(string2,length) //取 string2 最后 length 个字符
+					SPACE(count) //生成 count 个空格
 
-			(2).数学类
+			(2). 数学类
 				ABS (number2 ) //绝对值
 				BIN (decimal_number ) //十进制转二进制
 				CEILING (number2 ) //向上取整
@@ -379,82 +379,82 @@ MySQL 数据库管理
 				FLOOR (number2 ) //向下取整
 				FORMAT (number,decimal_places ) //保留小数位数
 				HEX (DecimalNumber ) //转十六进制
-				注：HEX()中可传入字符串，则返回其ASC-11码，如HEX('DEF')返回4142143
-				也可以传入十进制整数，返回其十六进制编码，如HEX(25)返回19
+				注：HEX() 中可传入字符串，则返回其 ASC-11 码，如 HEX('DEF') 返回 4142143
+				也可以传入十进制整数，返回其十六进制编码，如 HEX(25) 返回 19
 				LEAST (number , number2 [,..]) //求最小值
 				MOD (numerator ,denominator ) //求余
 				POWER (number ,power ) //求指数
 				RAND([seed]) //随机数
-				ROUND (number [,decimals ]) //四舍五入,decimals为小数位数]
+				ROUND (number [,decimals ]) //四舍五入,decimals 为小数位数]
 					注：返回类型并非均为整数，如：
-						(1)默认变为整形值
-							mysql> select round(1.23);  
-							+-------------+  
-							| round(1.23) |  
-							+-------------+  
-							|           1 |  
-							+-------------+  
-							1 row in set (0.00 sec)  
-							mysql> select round(1.56);  
-							+-------------+  
-							| round(1.56) |  
-							+-------------+  
-							|           2 |  
-							+-------------+  
+						(1) 默认变为整形值
+							mysql> select round(1.23); 
+							+-------------+ 
+							| round(1.23) | 
+							+-------------+ 
+							| 1 | 
+							+-------------+ 
 							1 row in set (0.00 sec) 
-						(2)可以设定小数位数，返回浮点型数据
-							mysql> select round(1.567,2);  
-							+----------------+  
-							| round(1.567,2) |  
-							+----------------+  
-							|           1.57 |  
-							+----------------+  
+							mysql> select round(1.56); 
+							+-------------+ 
+							| round(1.56) | 
+							+-------------+ 
+							| 2 | 
+							+-------------+ 
+							1 row in set (0.00 sec) 
+						(2) 可以设定小数位数，返回浮点型数据
+							mysql> select round(1.567,2); 
+							+----------------+ 
+							| round(1.567,2) | 
+							+----------------+ 
+							| 1.57 | 
+							+----------------+ 
 							1 row in set (0.00 sec) 
 							SIGN (number2 ) //
 
-			(3).日期时间类
-				ADDTIME (date2 ,time_interval ) //将time_interval加到date2
+			(3). 日期时间类
+				ADDTIME (date2 ,time_interval ) //将 time_interval 加到 date2
 				CONVERT_TZ (datetime2 ,fromTZ ,toTZ ) //转换时区
 				CURRENT_DATE ( ) //当前日期
 				CURRENT_TIME ( ) //当前时间
 				CURRENT_TIMESTAMP ( ) //当前时间戳
-				DATE (datetime ) //返回datetime的日期部分
-				DATE_ADD (date2 , INTERVAL d_value d_type ) //在date2中加上日期或时间
-				DATE_FORMAT (datetime ,FormatCodes ) //使用formatcodes格式显示datetime
-				DATE_SUB (date2 , INTERVAL d_value d_type ) //在date2上减去一个时间
+				DATE (datetime ) //返回 datetime 的日期部分
+				DATE_ADD (date2 , INTERVAL d_value d_type ) //在 date2 中加上日期或时间
+				DATE_FORMAT (datetime ,FormatCodes ) //使用 formatcodes 格式显示 datetime
+				DATE_SUB (date2 , INTERVAL d_value d_type ) //在 date2 上减去一个时间
 				DATEDIFF (date1 ,date2 ) //两个日期差
 				DAY (date ) //返回日期的天
 				DAYNAME (date ) //英文星期
-				DAYOFWEEK (date ) //星期(1-7) ,1为星期天
+				DAYOFWEEK (date ) //星期 (1-7) ,1 为星期天
 				DAYOFYEAR (date ) //一年中的第几天
-				EXTRACT (interval_name FROM date ) //从date中提取日期的指定部分
-				MAKEDATE (year ,day ) //给出年及年中的第几天,生成日期串
+				EXTRACT (interval_name FROM date ) //从 date 中提取日期的指定部分
+				MAKEDATE (year ,day ) //给出年及年中的第几天, 生成日期串
 				MAKETIME (hour ,minute ,second ) //生成时间串
 				MONTHNAME (date ) //英文月份名
 				NOW ( ) //当前时间
 				SEC_TO_TIME (seconds ) //秒数转成时间
-				STR_TO_DATE (string ,format ) //字串转成时间,以format格式显示
+				STR_TO_DATE (string ,format ) //字串转成时间, 以 format 格式显示
 				TIMEDIFF (datetime1 ,datetime2 ) //两个时间差
 				TIME_TO_SEC (time ) //时间转秒数]
 				WEEK (date_time [,start_of_week ]) //第几周
 				YEAR (datetime ) //年份
 				DAYOFMONTH(datetime) //月的第几天
 				HOUR(datetime) //小时
-				LAST_DAY(date) //date的月的最后日期
+				LAST_DAY(date) //date 的月的最后日期
 				MICROSECOND(datetime) //微秒
 				MONTH(datetime) //月
-				MINUTE(datetime) //分返回符号,正负或0
+				MINUTE(datetime) //分返回符号, 正负或 0
 				SQRT(number2) //开平方
 
 
-在mysql中创建索引
+在 mysql 中创建索引
 
-		主要说明如何在mysql中创建索引，和索引的定义、区分以及创建索引的意义。索引的分类分为单列索引和组合索引。
+		主要说明如何在 mysql 中创建索引，和索引的定义、区分以及创建索引的意义。索引的分类分为单列索引和组合索引。
 		单列索引：顾名思义就是单个列，组合索引就是由多个列组成的索引。
 
 	方法/步骤
 
-		创建索引之前需要先建一个简单的小表（我这里利用的是navicate进行创建mytable），然后往表里面插入几条数据
+		创建索引之前需要先建一个简单的小表 (我这里利用的是 navicate 进行创建 mytable) ，然后往表里面插入几条数据
 			INSERT INTO mytable VALUES(1,'王一','上海',1);
 			INSERT INTO mytable VALUES(2,'王二','北京',11);
 			INSERT INTO mytable VALUES(3,'王三','天津',12);
@@ -490,7 +490,7 @@ MySQL 数据库管理
 	注意事项
 
 		有多个列组成的索引和多个索引列是不一样的。
-		一般情况下where和join关联涉及到数量大的情况下用，但是不是确定的，这点需要注意，索引视情况而定，并不是越多 越好。
+		一般情况下 where 和 join 关联涉及到数量大的情况下用，但是不是确定的，这点需要注意，索引视情况而定，并不是越多 越好。
 
 
 

@@ -18,20 +18,20 @@ Dubbo 核心
 		
 	
 	Dubbo 服务中间件；解决服务层和表现层两个工程之间的通信。在 Spring 中的配置。
-		dubbo-admin：Dubbo监控中心。
+		dubbo-admin：Dubbo 监控中心。
 
 
 	远程通信方案：
-		1、Webservice：效率不高基于soap协议。项目中不推荐使用。
-		2、Restful形式的服务：http+json 。如果服务太多，服务之间调用关系混乱，需要治疗服务。
-		3、Dubbo。使用rpc协议进行远程调用，直接使用socket通信。
+		1、Webservice：效率不高基于 soap 协议。项目中不推荐使用。
+		2、Restful 形式的服务：http+json。如果服务太多，服务之间调用关系混乱，需要治疗服务。
+		3、Dubbo。使用 rpc 协议进行远程调用，直接使用 socket 通信。
 
 
 	使用 Dubbo 进行通信
-		1）服务提供者；Provider
-		2）服务消费者；Consumer
-		3）注册中心；Registry
-		4）监控中心；Monitor
+		1) 服务提供者；Provider
+		2) 服务消费者；Consumer
+		3) 注册中心；Registry
+		4) 监控中心；Monitor
 
 
 	节点角色说明：
@@ -52,10 +52,10 @@ Dubbo 核心
 
 		
 	使用方法：
-		Dubbo采用全Spring配置方式，透明化接入应用，对应用没有任何API侵入，只需用Spring加载Dubbo的配置即可，
-		Dubbo基于Spring的Schema扩展进行加载。
+		Dubbo 采用全 Spring 配置方式，透明化接入应用，对应用没有任何 API 侵入，只需用 Spring 加载 Dubbo 的配置即可，
+		Dubbo 基于 Spring 的 Schema 扩展进行加载。
 
-		单一工程中spring的配置
+		单一工程中 spring 的配置
 			<bean id="xxxService" class="com.xxx.XxxServiceImpl" />
 			<bean id="xxxAction" class="com.xxx.XxxAction">
 				<property name="xxxService" ref="xxxService" />
@@ -63,8 +63,8 @@ Dubbo 核心
 
 		远程服务：
 			在本地服务的基础上，只需做简单配置，即可完成远程化：
-			将上面的local.xml配置拆分成两份，将服务定义部分放在服务提供方remote-provider.xml，
-			将服务引用部分放在服务消费方remote-consumer.xml。
+			将上面的 local.xml 配置拆分成两份，将服务定义部分放在服务提供方 remote-provider.xml，
+			将服务引用部分放在服务消费方 remote-consumer.xml。
 			并在提供方增加暴露服务配置<dubbo:service>，在消费方增加引用服务配置<dubbo:reference>。
 		
 		发布服务：
@@ -84,24 +84,24 @@ Dubbo 核心
 	注册中心
 		注册中心负责服务地址的注册与查找，相当于目录服务，
 		服务提供者和消费者只在启动时与注册中心交互，注册中心不转发请求，压力较小。
-		使用dubbo-2.3.3以上版本，建议使用zookeeper注册中心。
-		Zookeeper是Apacahe Hadoop的子项目，是一个树型的目录服务，
-		支持变更推送，适合作为Dubbo服务的注册中心，工业强度较高，可用于生产环境，并推荐使用
+		使用 dubbo-2.3.3 以上版本，建议使用 zookeeper 注册中心。
+		Zookeeper 是 Apacahe Hadoop 的子项目，是一个树型的目录服务，
+		支持变更推送，适合作为 Dubbo 服务的注册中心，工业强度较高，可用于生产环境，并推荐使用
 
 		
 		
 	发布服务示例：
-		在 Service工程中添加 dubbo 依赖的 jar 包；
-		在 Spring 的配置文件中添加dubbo的约束，然后使用dubbo:service发布服务：
+		在 Service 工程中添加 dubbo 依赖的 jar 包；
+		在 Spring 的配置文件中添加 dubbo 的约束，然后使用 dubbo:service 发布服务：
 			配置扫描路径：
 				<context:component-scan base-package="com.taotao.service"></context:component-scan>
 			配置 dubbo 服务：
-				<!-- 使用dubbo发布服务 -->
+				<!-- 使用 dubbo 发布服务 -->
 				<!-- 提供方应用信息，用于计算依赖关系 -->
 				<dubbo:application name="taotao-manager" />
 				<dubbo:registry protocol="zookeeper"
 					address="192.168.25.154:2181,192.168.25.154:2182,192.168.25.154:2183" />
-				<!-- 用dubbo协议在20880端口暴露服务 -->
+				<!-- 用 dubbo 协议在 20880 端口暴露服务 -->
 				<dubbo:protocol name="dubbo" port="20880" />
 				<!-- 声明需要暴露的服务接口 -->
 				<dubbo:service interface="com.taotao.service.ItemService" ref="itemServiceImpl" />
@@ -120,7 +120,7 @@ Dubbo 核心
 					<property name="suffix" value=".jsp" />
 				</bean>
 			配置 dubbo 服务：
-				<!-- 引用dubbo服务 -->
+				<!-- 引用 dubbo 服务 -->
 				<dubbo:application name="taotao-manager-web"/>
 				<dubbo:registry protocol="zookeeper" address="192.168.25.154:2181,192.168.25.154:2182,192.168.25.154:2183"/>	
 				<dubbo:reference interface="com.taotao.service.ItemService" id="itemService" />

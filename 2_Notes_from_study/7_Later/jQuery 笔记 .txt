@@ -2,7 +2,7 @@
 jQuery 
 
 
-jQuery  核心
+jQuery 核心
 	是什么：
 		轻量的开源 js 库；简化 HTML 和 JavaScript 之间的操作；
 	为什么使用：

@@ -42,38 +42,38 @@ Stream 核心
 	基本原理：
 		
 	怎么使用：
-		创建一个Stream；
-		对Stream进行操作和变换（延迟操作）；
-		通过Stream得到一个结果（迫切操作和执行延迟操作）；
+		创建一个 Stream；
+		对 Stream 进行操作和变换 (延迟操作) ；
+		通过 Stream 得到一个结果 (迫切操作和执行延迟操作) ；
 			stream.filter(x -> x>5).filter(x -> x<8).collect(toList());
 
 
 Java 新特性
 
 	Java 5 新特性：
-		for-each操作；
+		for-each 操作；
 		自动装箱和拆箱、缓存设计；
 		泛型
 		枚举
 		方法的可变参数；
-		静态引入(static import)；
+		静态引入 (static import)；
 		String 的工具类 StringUtil
 
-	Java 7 新特性（过渡性版本）：
-		泛型的菱形语法：List<String> list = new ArrayList< >（）；
+	Java 7 新特性 (过渡性版本) ：
+		泛型的菱形语法：List<String> list = new ArrayList< > () ；
 		同时捕获多个异常处理；
-		Object类，ThreadLocalRandom类；
-		switch语句支持String变量
-			就是hashCode方法，
-			Switch支持byte，short，char，int以及对象的包装类。
-			枚举（ordinal方法）
-			String（hashCode方法，返回的是int类型）
+		Object 类，ThreadLocalRandom 类；
+		switch 语句支持 String 变量
+			就是 hashCode 方法，
+			Switch 支持 byte，short，char，int 以及对象的包装类。
+			枚举 (ordinal 方法) 
+			String (hashCode 方法，返回的是 int 类型) 
 		二进制数字表达式；
-		使用下划线对数值进行分割表达（编译级别的特性）；
-		堆污染和@SafeVarargs，抑制堆污染警告的标签；
-		增强throw语句；
-		try-with-resources语句；
-		NIO2介绍（Files，Path，Paths）。
+		使用下划线对数值进行分割表达 (编译级别的特性) ；
+		堆污染和 @SafeVarargs，抑制堆污染警告的标签；
+		增强 throw 语句；
+		try-with-resources 语句；
+		NIO2 介绍 (Files，Path，Paths) 。
 
 	Java 8 新特性：
 		lambda 表达式；

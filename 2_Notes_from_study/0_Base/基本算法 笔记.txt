@@ -9,7 +9,7 @@
 			从尾开始，相邻元素依次比较，小的移到前面，
 			或者，
 			从头开始，相邻元素依次比较，大的移在后面。
-			时间复杂度：O（n^2）。
+			时间复杂度：O (n^2) 。
 				// 数组的冒泡排序
 				public void bubbleSort() {
 					long tmp = 0;
@@ -29,7 +29,7 @@
 			注意退出条件；
 			减少了交换位置的次数。
 			需要中间变量来暂存元素。
-			时间复杂度：O（n^2）。
+			时间复杂度：O (n^2) 。
 				// 数组的选择排序
 				public void selectionSort() {
 					int k = 0;
@@ -47,10 +47,10 @@
 					}
 				}
 		插入排序：		
-			从索引为1一个位置开始，对比左侧的元素，
+			从索引为 1 一个位置开始，对比左侧的元素，
 			小于左侧的元素则从目标数据开始位移，然后交换位置。
 			需要中间变量来暂存元素。
-			时间复杂度：O（n^2）。
+			时间复杂度：O (n^2) 。
 				// 数组的插入排序
 				public void insertSort() {
 					long tmp = 0;
@@ -120,7 +120,7 @@
 				int leftPtr = left - 1;
 				int rightPtr = right;
 				while (true) {
-				// 循环,将比关键字小的留在左端
+				// 循环, 将比关键字小的留在左端
 				while (leftPtr < rightPtr && arr[++leftPtr] < point) ;
 				// 循环，将比关键字大的留在右端
 				while (rightPtr > leftPtr && arr[--rightPtr] > point) ;
@@ -139,7 +139,7 @@
 				return leftPtr;
 			}
 			public static void quickSort(long[] arr, int left, int right) {
-				if (left - right  >= 0) {
+				if (left - right >= 0) {
 				return;
 				} else {
 				// 设置关键字
@@ -280,7 +280,7 @@
 			广度优先；
 		
 		
-0      1      2     3   
+0 1 2 3 
 34，32，09，78
 
 

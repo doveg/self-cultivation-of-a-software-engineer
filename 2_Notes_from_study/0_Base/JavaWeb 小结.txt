@@ -11,76 +11,76 @@ JavaWeb 小结
 
 	转发：
 		1)	地址栏不会改变；
-		2)	只能转发到当前web应用内的资源；
-		3)	可以在转发过程中，把数据保存到request域对象中；
+		2)	只能转发到当前 web 应用内的资源；
+		3)	可以在转发过程中，把数据保存到 request 域对象中；
 	重定向：
 		1)	地址栏会改变，变成重定向到地址；
-		2)	重定向可以跳转到当前web应用，或其他web应用，甚至是外部域名网站；
-		3)	不能在重定向的过程，把数据保存到request中。
+		2)	重定向可以跳转到当前 web 应用，或其他 web 应用，甚至是外部域名网站；
+		3)	不能在重定向的过程，把数据保存到 request 中。
 	注意：如果要使用 request 域对象进行数据共享，只能用转发。
 	
 	
 会话跟踪：
-	会话跟踪是一种灵活、轻便的机制，它使Web上的状态编程变为可能。
-		HTTP是一种无状态协议，每当用户发出请求时，服务器就会做出响应，
+	会话跟踪是一种灵活、轻便的机制，它使 Web 上的状态编程变为可能。
+		HTTP 是一种无状态协议，每当用户发出请求时，服务器就会做出响应，
 		客户端与服务器之间的联系是离散的、非连续的。
 		当用户在同一网站的多个页面之间转换时，根本无法确定是否是同一个客户，
 		会话跟踪技术就可以解决这个问题，
 		当一个客户在多个页面间切换时，服务器会保存该用户的信息。
 
 	有四种方法可以实现会话跟踪技术：
-		1）隐藏表单域：<input type="hidden">，非常适合步需要大量数据存储的会话应用。
-		2）URL 重写：URL 可以在后面附加参数，和服务器的请求一起发送，这些参数为名字/值对。
-		3）Cookie：一个 Cookie 是一个小的，已命名数据元素。
-			服务器使用 SET-Cookie 头标将它作为 HTTP响应的一部分传送到客户端，
+		1) 隐藏表单域：<input type="hidden">，非常适合步需要大量数据存储的会话应用。
+		2) URL 重写：URL 可以在后面附加参数，和服务器的请求一起发送，这些参数为名字/值对。
+		3) Cookie：一个 Cookie 是一个小的，已命名数据元素。
+			服务器使用 SET-Cookie 头标将它作为 HTTP 响应的一部分传送到客户端，
 			客户端被请求保存 Cookie 值，
 			在对同一服务器的后续请求使用一个 Cookie 头标将之返回到服务器。
 			与其它技术比较，Cookie 的一个优点是在浏览器会话结束后，
 			甚至在客户端计算机重启后它仍可以保留其值。
-		4）Session：使用 setAttribute(String str，Object obj)方法将对象捆绑到一个会话。
+		4) Session：使用 setAttribute(String str，Object obj) 方法将对象捆绑到一个会话。
 
 
 socket 编程：
 	服务器端，
-	首先是服务器初始化Socket，
-	然后是与端口进行绑定(blind())，
-	端口创建ServerSocket进行监听(listen())，
-	然后调用阻塞(accept())，等待客户端连接。
-	与客户端发生连接后，会进行相关的读写操作(read()，write())，
-	最后调用close()关闭连接。
+	首先是服务器初始化 Socket，
+	然后是与端口进行绑定 (blind())，
+	端口创建 ServerSocket 进行监听 (listen())，
+	然后调用阻塞 (accept())，等待客户端连接。
+	与客户端发生连接后，会进行相关的读写操作 (read()，write())，
+	最后调用 close() 关闭连接。
 
 
 
 JDBC 中的 Statement 相关接口：
-	1. Statement、PreparedStatement 和 CallableStatement 都是接口(interface)。  
-	2. Statement继承自Wrapper、PreparedStatement继承自Statement、CallableStatement继承自PreparedStatement。  
-	3. Statement接口提供了执行语句和获取结果的基本方法；  
-		PreparedStatement接口添加了处理 IN 参数的方法；  
-		CallableStatement接口添加了处理 OUT 参数的方法。  
+	1. Statement、PreparedStatement 和 CallableStatement 都是接口 (interface)。
+	2. Statement 继承自 Wrapper、PreparedStatement 继承自 Statement、CallableStatement 继承自 PreparedStatement。
+	3. Statement 接口提供了执行语句和获取结果的基本方法； 
+		PreparedStatement 接口添加了处理 IN 参数的方法； 
+		CallableStatement 接口添加了处理 OUT 参数的方法。
 	4. Statement、PreparedStatement 和 CallableStatement 差异：
 		Statement: 
-			普通的不带参的查询SQL；支持批量更新，批量删除。
-		PreparedStatement:  
-			可变参数的SQL，编译一次，执行多次，效率高； 
-			安全性好，有效防止Sql注入等问题； 
+			普通的不带参的查询 SQL；支持批量更新，批量删除。
+		PreparedStatement: 
+			可变参数的 SQL，编译一次，执行多次，效率高； 
+			安全性好，有效防止 Sql 注入等问题； 
 			支持批量更新，批量删除。
-		CallableStatement:  
-			继承自 PreparedStatement，支持带参数的SQL操作； 
-			支持调用存储过程，提供了对输出和输入/输出参数(INOUT)的支持。
+		CallableStatement: 
+			继承自 PreparedStatement，支持带参数的 SQL 操作； 
+			支持调用存储过程，提供了对输出和输入/输出参数 (INOUT) 的支持。
 	5. Statement 和 PreparedStatement 差异：
 		Statement：
-			每次执行 sql 语句，数据库都要执行 sql 语句的编译 ，  
+			每次执行 sql 语句，数据库都要执行 sql 语句的编译，
 			最好用于仅执行一次查询并返回结果的情形，效率高于 PreparedStatement。
 		PreparedStatement：
 			是预编译的，使用 PreparedStatement 有几个好处： 
-				a. 在执行可变参数的一条SQL时，PreparedStatement比Statement的效率高，
-					因为DBMS预编译一条SQL当然会比多次编译一条SQL的效率要高；
-				b. 安全性好，有效防止Sql注入等问题； 
-				c. 对于多次重复执行的语句，使用PreparedStament效率会更高一点，并且在这种情况下也比较适合使用batch；
+				a. 在执行可变参数的一条 SQL 时，PreparedStatement 比 Statement 的效率高，
+					因为 DBMS 预编译一条 SQL 当然会比多次编译一条 SQL 的效率要高；
+				b. 安全性好，有效防止 Sql 注入等问题； 
+				c. 对于多次重复执行的语句，使用 PreparedStament 效率会更高一点，并且在这种情况下也比较适合使用 batch；
 				d. 代码的可读性和可维护性。
 			因为 PreparedStatement 有预编译的过程，所以第一次扫描的集合 
 			PreparedStatement 会大于等于 Statement；
-			ResultSet跟普通的数组不同，索引从1开始而不是从0开始。
+			ResultSet 跟普通的数组不同，索引从 1 开始而不是从 0 开始。
 
 
 JDBC 中加载驱动方法：
@@ -95,24 +95,24 @@ DriverManager.getConnection 方法返回一个 Connection 对象，这是加载�
 
 JSP 表达式：
 
-	(1) <%  ... %>： 可以插入一些语句。
-	(2) <%! ...  %>：只能放置全局变量、全局常量、类、函数。
+	(1) <% ... %>： 可以插入一些语句。
+	(2) <%! ... %>：只能放置全局变量、全局常量、类、函数。
 	(3) <%= ... %>：只能放置一个变量、常量。
 
-EL表达式：
-	全名为Expression Language，就是为了替代<%= %>脚本表达式。
-	在j2ee1.4以前默认是不支持el，如果需要需要指定page指令[isELIgnored="true | false" ]为false，j2ee4.0后默认支持el。
+EL 表达式：
+	全名为 Expression Language，就是为了替代<%= %>脚本表达式。
+	在 j2ee1.4 以前默认是不支持 el，如果需要需要指定 page 指令 [isELIgnored="true | false" ] 为 false，j2ee4.0 后默认支持 el。
 
-	EL主要作用：
+	EL 主要作用：
 		1、获取数据：
-			EL表达式主要用于替换JSP页面中的脚本表达式，以从各种类型的web域中检索java对象、获取数据。
-			(某个web域 中的对象，访问javabean的属性、访问list集合、访问map集合、访问数组)
+			EL 表达式主要用于替换 JSP 页面中的脚本表达式，以从各种类型的 web 域中检索 java 对象、获取数据。
+			(某个 web 域 中的对象，访问 javabean 的属性、访问 list 集合、访问 map 集合、访问数组)
 		2、执行运算：
-			利用EL表达式可以在JSP页面中执行一些基本的关系运算、逻辑运算和算术运算，以在JSP页面中完成一些简单的逻辑运算。${user==null}
-		3、获取web开发常用对象
-			EL 表达式定义了一些隐式对象，利用这些隐式对象，web开发人员可以很轻松获得对web常用对象的引用，从而获得这些对象中的数据。
-		4、调用Java方法
-			EL表达式允许用户开发自定义EL函数，以在JSP页面中通过EL表达式调用Java类的方法。
+			利用 EL 表达式可以在 JSP 页面中执行一些基本的关系运算、逻辑运算和算术运算，以在 JSP 页面中完成一些简单的逻辑运算。${user==null}
+		3、获取 web 开发常用对象
+			EL 表达式定义了一些隐式对象，利用这些隐式对象，web 开发人员可以很轻松获得对 web 常用对象的引用，从而获得这些对象中的数据。
+		4、调用 Java 方法
+			EL 表达式允许用户开发自定义 EL 函数，以在 JSP 页面中通过 EL 表达式调用 Java 类的方法。
 
 
 
@@ -128,74 +128,74 @@ EL表达式：
 		 */
 
 	JSP：
-		<%!-- JSP注释 --%>
+		<%!-- JSP 注释 --%>
 	XML：
-		<!-- XML注释 -->
+		<!-- XML 注释 -->
 	HTML：
-		<!-- 	HTML注释 -->
+		<!-- 	HTML 注释 -->
 	CSS：
-		/* CSS注释 */
+		/* CSS 注释 */
 	
 	Javascript：
-		// Javascript单行注释 
-		/* Javascript多行注释 */
+		// Javascript 单行注释 
+		/* Javascript 多行注释 */
 	
 	SQL：
-		-- SQL注释 
+		-- SQL 注释 
 
 	MySQL：
-		# MySQL注释
+		# MySQL 注释
 
 	PLSQL：
-		-- PLSQL注释
-		/* PLSQL注释 */
+		-- PLSQL 注释
+		/* PLSQL 注释 */
 
 语言表达式的符号
-	JSP表达式：
-		<% =JSP变量或表达式 %>；
+	JSP 表达式：
+		<% =JSP 变量或表达式 %>；
 
-	EL表达式：
+	EL 表达式：
 		$ { 变量或表达式 } 
-		$：EL表达式，配置文件中取值用；
+		$：EL 表达式，配置文件中取值用；
 
-	OGNL表达式（struts2内置表达式）：
-		s：OGNL表达式标识；
-		%：提供ognl表达式运行环境；
+	OGNL 表达式 (struts2 内置表达式) ：
+		s：OGNL 表达式标识；
+		%：提供 ognl 表达式运行环境；
 		#：获取非根元素值。
 
-	jQuery选择器：
-		$：区别于传统js对象。
-		#：选择属性为id的对象；
+	jQuery 选择器：
+		$：区别于传统 js 对象。
+		#：选择属性为 id 的对象；
 
 	
-	js选择器：
+	js 选择器：
 	
 
 	切入点表达式：
-		<aop：pointcut expression="execution（* cn. g_pointcut. UserDao.*（..））" id="pt"/>
+		<aop：pointcut expression="execution (* cn. g_pointcut. UserDao.* (..) ) " id="pt"/>
 
-	xPath表达式：
-		/			绝对路径：		表示从xml的根位置开始或子元素（一个层次结构）；
+	xPath 表达式：
+		/			绝对路径：		表示从 xml 的根位置开始或子元素 (一个层次结构) ；
 		//			相对路径：		表示不分任何层次结构的选择元素；
 		*			通配符：		表示匹配所有元素；
 		[]			条件：			表示选择什么条件下的元素；
 		@			属性：			表示选择属性节点；
-		and			关系：			表示条件的与关系（等价于&&）；
-		text（）		文本：			表示选择文本内容。
+		and			关系：			表示条件的与关系 (等价于&&) ；
+		text () 		文本：			表示选择文本内容。
 
-DTD约束
+DTD 约束
 	内部导入：
 		<!DOCTYPE note [
-		<!ELEMENT note （to，from，heading，body）>
-		<!ELEMENT to （#PCDATA）>
-		<!ELEMENT from（#PCDATA）>
-		<!ELEMENT heading （#PCDATA）>
-		<!ELEMENT body（#PCDATA）>
+		<!ELEMENT note (to，from，heading，body) >
+		<!ELEMENT to (#PCDATA) >
+		<!ELEMENT from (#PCDATA) >
+		<!ELEMENT heading (#PCDATA) >
+		<!ELEMENT body (#PCDATA) >
 		]>
 	本地文件系统：
-		<!DOCTYPE note（根元素） SYSTEM "note.dtd"（文件名）>
+		<!DOCTYPE note (根元素) SYSTEM "note.dtd" (文件名) >
 		公共的外部导入：
-		<!DOCTYPE根元素PUBLIC"http：//gz.itcast.cn/itcast.dtd">
+		<!DOCTYPE 根元素 PUBLIC"http：//gz.itcast.cn/itcast.dtd">
 
 数据库查询语言
 	SQL：
@@ -205,19 +205,19 @@ DTD约束
 			inner join、left join、right join、fetch、
 
 	HQL：
-		Hibernate框架自带的查询语言。
+		Hibernate 框架自带的查询语言。
 		语法：
-			可以省略select关键字；
+			可以省略 select 关键字；
 			可以直接写入对象；
 			查询可以返回数组对象，也可以把查询结果封装成指定对象；
-			不支持select *；
+			不支持 select *；
 
-	QBC（Query By Criteria）：
+	QBC (Query By Criteria) ：
 		标准查询，完全面向对象的查询。
-		session.createCriteria（）.add（Restrictions.eq（””，））
+		session.createCriteria () .add (Restrictions.eq (””，) ) 
 
 	PLSQL:
-		Oracle数据库对SQL的拓展。
+		Oracle 数据库对 SQL 的拓展。
 		关键字：
 			create、replace、
 			declare、as、begin、end、
@@ -225,7 +225,7 @@ DTD约束
 			varchar2、
 
 	MySQL：
-		MySQL数据库对SQL的拓展。
+		MySQL 数据库对 SQL 的拓展。
 		关键字：
 			DML：
 				insert into、update set、delete from、truncate table、
@@ -256,9 +256,9 @@ DTD约束
 		数据类型：
 			int、varchar、column、character、
 		条件判断：
-			if  elseif  else  end if；
+			if elseif else end if；
 		循环：
-			while  end while；
+			while end while；
 		赋值：
 			into；
 		触发器：
@@ -267,11 +267,11 @@ DTD约束
 			>、-u、-p 、utf8、gbk、
 
 标签
-	JSTL（Java standard tag libarary）：Java标准标签库
+	JSTL (Java standard tag libarary) ：Java 标准标签库
 	JSTL core：核心标签库
 	c：核心标签库。
 
-	s：struts标签库
+	s：struts 标签库
 
 
 代理模式
@@ -282,9 +282,9 @@ DTD约束
 		动态的在内存中构建代理对象。
 		代理对象不需要实现接口，但是目标对象一定要实现接口；
 		需要指定创建代理对象、目标对象实现的接口类型。
-	Cglib代理（CodeGenerationLibrary子类代理）：
+	Cglib 代理 (CodeGenerationLibrary 子类代理) ：
 		在内存中构建一个子类对象，从而实现对目标对象功能的扩展。
-		如果目标对象没有实现接口，用Cglib代理。
+		如果目标对象没有实现接口，用 Cglib 代理。
 
 
 编码规范
@@ -296,7 +296,7 @@ DTD约束
 		大驼峰表示法；名词或名词短语，英语单词。
 	接口名：
 		规则：
-		习惯以大写的i开头，后面接大驼峰；名词或副词。
+		习惯以大写的 i 开头，后面接大驼峰；名词或副词。
 	方法名：
 		规则：
 		小驼峰表示法；动词。
@@ -304,8 +304,8 @@ DTD约束
 		规则：
 		小驼峰表示法；名词。
 	常量名：
-		使用final修饰的字段（成员变量）；
-		注意：让final修饰变量，是为了让局部内部类访问变量。
+		使用 final 修饰的字段 (成员变量) ；
+		注意：让 final 修饰变量，是为了让局部内部类访问变量。
 		成员变量：相对于局部变量而言的。
 		规则：
 		全大写	_	分割。
@@ -327,7 +327,7 @@ DTD约束
 
 编程思想
 
-	AOP（aspect oriented programming）：面向切面编程。
+	AOP (aspect oriented programming) ：面向切面编程。
 	对很多功能都有的重复的代码抽取，在运行的时候往业务方法上动态植入“切面类代码”。
 	让关注点代码与业务代码分离。
 
@@ -355,11 +355,11 @@ DTD约束
 
 
 符号的典型含义
-	/ （斜杠）：
+	/ (斜杠) ：
 		Linux 命令行中，指上一指令。
 		Oracle 数据库中，指过程或函数的结束。
 	@：
-		Oracle数据库中，指定义变量。
+		Oracle 数据库中，指定义变量。
 	
 	
 大小写敏感
@@ -416,7 +416,7 @@ DTD约束
 	ISO-8859-1
 	utf-8
 
-StringBuilder 中Append换行方法
+StringBuilder 中 Append 换行方法
 	换行："\r\n"
 	缩进：“\r\n\t”
 	

@@ -22,13 +22,13 @@ jQuery 实用：
 	
 	Ajax 请求中的 async：
 		
-		async: false,（默认是true）;
-		false为同步，这个 testAsync()方法中的Ajax请求将整个浏览器锁死，
+		async: false, (默认是 true) ;
+		false 为同步，这个 testAsync() 方法中的 Ajax 请求将整个浏览器锁死，
 		只有 Ajax 函数执行结束后，才可以执行其它操作。
 
-		当async: true 时，ajax请求是异步的。
-		但是其中有个问题：testAsync()中的ajax请求和其后面的操作是异步执行的，
-		那么当 Ajax 还未执行完，就可能已经执行了 ajax请求后面的操作，
+		当 async: true 时，ajax 请求是异步的。
+		但是其中有个问题：testAsync() 中的 ajax 请求和其后面的操作是异步执行的，
+		那么当 Ajax 还未执行完，就可能已经执行了 ajax 请求后面的操作，
 	
 	
 	
@@ -85,19 +85,19 @@ jQuery 基础：
 
 		获取选中的值：
 			
-			获取一组radio被选中项的值
+			获取一组 radio 被选中项的值
 
 				var item = $('input[@name=items][@checked]').val();
 
-			获取select被选中项的文本
+			获取 select 被选中项的文本
 
 				var item = $("select[@name=items] option[@selected]").text();
 
-			select下拉框的第二个元素为当前选中值
+			select 下拉框的第二个元素为当前选中值
 
 				$('#select_id')[0].selectedIndex = 1;
 
-			radio单选组的第二个元素为当前选中值
+			radio 单选组的第二个元素为当前选中值
 
 				$('input[@name=items]').get(1).checked = true;
 
@@ -110,15 +110,15 @@ jQuery 基础：
 				$("#txt").val();
 
 
-			多选框checkbox：
+			多选框 checkbox：
 
 				$("#checkbox_id").attr("value")；
 
-			单选组radio：
+			单选组 radio：
 
 				$("input[@type=radio][@checked]").val();
 
-			下拉框select：
+			下拉框 select：
 				
 				$('#sel').val();
 
@@ -128,20 +128,20 @@ jQuery 基础：
 				$("#txt").attr("value",'');//清空内容
 				$("#txt").attr("value",'11');//填充内容
 
-			多选框checkbox： 
+			多选框 checkbox： 
 
 				$("#chk1").attr("checked",'');//不打勾
 				$("#chk2").attr("checked",true);//打勾
 				if($("#chk1").attr('checked')==undefined) //判断是否已经打勾
 
-			单选组radio：、
+			单选组 radio：、
 
-				$("input[@type=radio]").attr("checked",'2');//设置value=2的项目为当前选中项
+				$("input[@type=radio]").attr("checked",'2');//设置 value=2 的项目为当前选中项
 
-			下拉框select：
+			下拉框 select：
 
-				$("#sel").attr("value",'-sel3');//设置value=-sel3的项目为当前选中项
-				$("<optionvalue='1'>1111</option><optionvalue='2'> 2222</option>").appendTo("#sel")//添加下拉框的option
+				$("#sel").attr("value",'-sel3');//设置 value=-sel3 的项目为当前选中项
+				$("<optionvalue='1'>1111</option><optionvalue='2'> 2222</option>").appendTo("#sel")//添加下拉框的 option
 				$("#sel").empty()；//清空下拉框
 			
 
@@ -149,46 +149,46 @@ jQuery 基础：
 
 
 
-	jquery获取input表单值的代码：
+	jquery 获取 input 表单值的代码：
 
-		jquery取radio单选按钮的值
+		jquery 取 radio 单选按钮的值
 		$("input[name='items']:checked").val();
-		jquery radio取值，checkbox取值，select取值，radio选中，checkbox选中，select选中，及其相关 
+		jquery radio 取值，checkbox 取值，select 取值，radio 选中，checkbox 选中，select 选中，及其相关 
 
-		获取一组radio被选中项的值 
+		获取一组 radio 被选中项的值 
 		var item = $('input[name=items][checked]').val(); 
 
-		获取select被选中项的文本 
+		获取 select 被选中项的文本 
 		var item = $("select[name=items] option[selected]").text(); 
 
-		select下拉框的第二个元素为当前选中值 
+		select 下拉框的第二个元素为当前选中值 
 		$('#select_id')[0].selectedIndex = 1; 
 
-		radio单选组的第二个元素为当前选中值 
+		radio 单选组的第二个元素为当前选中值 
 		$('input[name=items]').get(1).checked = true; 
 
 		获取值： 
 
 			文本框，文本区域：$("#txt").attr("value")； 
-			多选框checkbox：$("#checkbox_id").attr("value")； 
-			单选组radio： $("input[type=radio][checked]").val(); 
-			下拉框select： $('#sel').val(); 
+			多选框 checkbox：$("#checkbox_id").attr("value")； 
+			单选组 radio： $("input[type=radio][checked]").val(); 
+			下拉框 select： $('#sel').val(); 
 
 		控制表单元素： 
 			文本框，文本区域：$("#txt").attr("value",'');//清空内容 
 			$("#txt").attr("value",'11');//填充内容 
 
-		多选框checkbox： 
+		多选框 checkbox： 
 			$("#chk1").attr("checked",'');//不打勾 
 			$("#chk2").attr("checked",true);//打勾 
 			if($("#chk1").attr('checked')==undefined) //判断是否已经打勾 
 
-		单选组radio： 
-			$("input[type=radio]").attr("checked",'2');//设置value=2的项目为当前选中项 、
+		单选组 radio： 
+			$("input[type=radio]").attr("checked",'2');//设置 value=2 的项目为当前选中项 、
 		
-		下拉框select： 
-			$("#sel").attr("value",'-sel3');//设置value=-sel3的项目为当前选中项 
-			$("<option value='1'>1111</option><option value='2'>2222</option>").appendTo("#sel")//添加下拉框的option 
+		下拉框 select： 
+			$("#sel").attr("value",'-sel3');//设置 value=-sel3 的项目为当前选中项 
+			$("<option value='1'>1111</option><option value='2'>2222</option>").appendTo("#sel")//添加下拉框的 option 
 			$("#sel").empty()；//清空下拉框 
 
 
@@ -197,9 +197,9 @@ jQuery 基础：
 				$("#id") 相当于 document.getElementById("element")；
 				但是，$("") 获取的是一个 jQuery 对象, 而不是一个 dom element 对象；
 				value 是 dom element 对象的属性；
-					val():获得第一个匹配元素的当前值。 
-					val(val):设置每一个匹配元素的值。 
-				所以,使用 $("#id").value 不能取到值。
+					val():获得第一个匹配元素的当前值。
+					val(val):设置每一个匹配元素的值。
+				所以, 使用 $("#id").value 不能取到值。
 		取值的方法如下: 
 			取值：
 				val = $("#id")[0].value; 
@@ -278,7 +278,7 @@ $("#button").click(function(){
 //alert( $('#dd').val());//type=text
 // alert($('input[name=rr][checked]').val());//type=radio
 // alert($('input[name=ff][checked]').val());//type=checkbox
-// alert($("select[name=ss] option[selected]").val());//select 相等于alert($("#ss option[selected]").val());
+// alert($("select[name=ss] option[selected]").val());//select 相等于 alert($("#ss option[selected]").val());
 
 //获取文本
 //alert($("select[name=ss] option[selected]").text());//select
@@ -291,18 +291,18 @@ $("#dd").attr("disabled","disabled");
 $("#jj").removeAttr("disabled");*/
 
 
-// $('input[name=rr]').get(0).checked = true;//第一个radio被选中
-//alert($("input[type=radio][value=34]").attr("checked",'checked'));//value=34的radio被选中
+// $('input[name=rr]').get(0).checked = true;//第一个 radio 被选中
+//alert($("input[type=radio][value=34]").attr("checked",'checked'));//value=34 的 radio 被选中
 
-//alert($("input[type=checkbox][value=gd]").attr("checked",'checked'));//value=gd的checkbox被选中
-//$('input[name=ff]').get(1).checked = true;//第一个check被选中
+//alert($("input[type=checkbox][value=gd]").attr("checked",'checked'));//value=gd 的 checkbox 被选中
+//$('input[name=ff]').get(1).checked = true;//第一个 check 被选中
 
  
 
-/*//根据option的text选中option
+/*//根据 option 的 text 选中 option
 count=$("#ss").find("option").length;
 for(var i=0;i<count;i++) 
-{           
+{ 
 if($("#ss").get(0).options[i].text == 'd') 
 { 
 $("#ss").get(0).options[i].selected = true;
@@ -311,20 +311,20 @@ break;
 } 
 } */
 
-//$("<option value='1'>1111</option><option value='25'>22s22</option>").appendTo("#ss");//增加option
+//$("<option value='1'>1111</option><option value='25'>22s22</option>").appendTo("#ss");//增加 option
 //$("#ss option[value=8]").remove("");//除去 <option value='8'>d</option>
 
-//$("#ss").attr("value",'2');//选中option                            
-//$('#ss')[0].selectedIndex = 1;//选中option
+//$("#ss").attr("value",'2');//选中 option 
+//$('#ss')[0].selectedIndex = 1;//选中 option
 
-//$("#ss").empty();//清空全部option
+//$("#ss").empty();//清空全部 option
 
 /*//替换文本
 var $thirdLink = $("#ssd");
 var linkText = $thirdLink.text().replace('foo','bar');
 $thirdLink.text(linkText); */
 
-});       
+}); 
 });
 -->
 </script>

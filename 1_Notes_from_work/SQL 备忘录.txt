@@ -34,14 +34,14 @@ Mybatis 迭代数组：
 	
 limit：
 	如果只给定一个参数，它表示返回最大的记录行数目： 
-	SELECT * FROM table LIMIT 5;     //检索前 5 个记录行
+	SELECT * FROM table LIMIT 5; //检索前 5 个记录行
 	也就是说：LIMIT n 等价于 LIMIT 0,n
 
 	为了检索从某一个偏移量到记录集的结束所有的记录行，可以指定第二个参数为 -1： 
 	SELECT * FROM table LIMIT 95,-1; // 检索记录行 96-last.
 	
 	常用的用法：
-	SELECT * FROM table LIMIT 5,10;  // 检索记录行 第6行至第15行的数据
+	SELECT * FROM table LIMIT 5,10; // 检索记录行 第 6 行至第 15 行的数据
 	
 TIMESTAMP 默认值：
 	1，TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -51,13 +51,13 @@ TIMESTAMP 默认值：
 		在创建新记录的时候把这个字段设置为当前时间，但以后修改时，不再刷新它
 
 	3，TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-		在创建新记录的时候把这个字段设置为0，以后修改时刷新它
+		在创建新记录的时候把这个字段设置为 0，以后修改时刷新它
 
 	4，TIMESTAMP DEFAULT ‘yyyy-mm-dd hh:mm:ss’ ON UPDATE CURRENT_TIMESTAMP 
 		在创建新记录的时候把这个字段设置为给定值，以后修改时刷新它
 		
 TRUNCATE() 函数：
-	truncate(number, 2);	截取到小数点后2位
+	truncate(number, 2);	截取到小数点后 2 位
 	TRUNCATE(X,D)
 		X 表示需要处理的数字，D 表示需要截取的位数。如果 D 为零，则返回的数字不含小数。D 也可以是负数，这样会把整数的部分置零。
 		示例如下：
@@ -97,7 +97,7 @@ TRUNCATE() 函数：
 	
 	<!-- 统计用户消费数据 -->
 	<select id="getUserConsumptionData" resultType="java.util.HashMap">
-	    select 
+	 select 
 		u.REAL_NAME, 
 		u.WX_BIND_PHONE, 
 		sum(case when d.STATUS=7 then d.GOODS_PAYMENT else 0 end ) as PAYMENTS, 
@@ -119,7 +119,7 @@ TRUNCATE() 函数：
 		GROUP BY WX_BIND_PHONE 
 		order by PAYMENTS desc 
 		limit #{index}, #{rows} 
-    </select>
+ </select>
 
 	<select id="getRecommendGoodsAll" resultMap="NewGoodsMap">
 		select n.GOODS_ID, n.GOODS_IMAGE, n.GOODS_NAME, n.MARKET_PRICE, n.GROUNDING_TIME, 
@@ -138,7 +138,7 @@ TRUNCATE() 函数：
 not in 子查询：
 in 后面的结果里只能包含一个字段。
 
-	WHERE  IN 
+	WHERE IN 
 	<foreach collection="userIds" index="index" item="item" open="(" separator="," close=")">
 		#{item}
 	</foreach>
@@ -192,7 +192,7 @@ in 后面的结果里只能包含一个字段。
 
 查询标签表和中间表
 
-	根据商品id 查询标签名：
+	根据商品 id 查询标签名：
 	select a.LABEL_NAME 
 	from t_label a, t_goods_label g
 	where g.GOODS_ID = #{goodsId,jdbcType=BIGINT}
@@ -206,7 +206,7 @@ in 后面的结果里只能包含一个字段。
 	and a.LABEL_ID = g.LABEL_ID 
 	order by a.CREATE_TIME desc
 
-	根据标签id 查询商品：
+	根据标签 id 查询商品：
 	select * 
 	from t_goods_label a, t_new_goods g
 	where a.LABEL_ID = #{labelId,jdbcType=BIGINT}
@@ -244,7 +244,7 @@ in 后面的结果里只能包含一个字段。
 	AND d.DISTRIBUTE_NUM="2018081046327" 
 	AND o.app_store_id=10 
 	AND d.goods_id=83672 
-	AND d.GOODS_CONTENT="B款约12只"
+	AND d.GOODS_CONTENT="B 款约 12 只"
 
 	String distributeNum
 	int appStoreId
@@ -265,7 +265,7 @@ in 后面的结果里只能包含一个字段。
 	AND d.DISTRIBUTE_NUM="2018081046327" 
 	AND o.app_store_id=10 
 	AND d.goods_id=83672 
-	AND d.GOODS_CONTENT="B款约12只"
+	AND d.GOODS_CONTENT="B 款约 12 只"
 
 
 查询半个小时之内的订单信息：
@@ -287,24 +287,24 @@ in 后面的结果里只能包含一个字段。
 
 
 
-TRUNCATE、Drop、Delete区别：
+TRUNCATE、Drop、Delete 区别：
  
-	1.drop和delete只是删除表的数据(定义),drop语句将删除表的结构、被依赖的约束(constrain)、触发器 (trigger)、索引(index);依赖于该表的存储过程/函数将保留,但是变为invalid状态。
-	2.delete语句是DML语言,这个操作会放在rollback segement中,事物提交后才生效;如果有相应的触发器(trigger),执行的时候将被触发。truncate、drop是DDL语言,操作后即 生效,原数据不会放到rollback中,不能回滚,操作不会触发trigger。
+	1.drop 和 delete 只是删除表的数据 (定义),drop 语句将删除表的结构、被依赖的约束 (constrain)、触发器 (trigger)、索引 (index);依赖于该表的存储过程/函数将保留, 但是变为 invalid 状态。
+	2.delete 语句是 DML 语言, 这个操作会放在 rollback segement 中, 事物提交后才生效;如果有相应的触发器 (trigger), 执行的时候将被触发。truncate、drop 是 DDL 语言, 操作后即 生效, 原数据不会放到 rollback 中, 不能回滚, 操作不会触发 trigger。
 
-	3.delete语句不影响表所占用的extent、高水线(high watermark)保持原位置不动。drop语句将表所占用的空间全部释放。truncate语句缺省情况下将空间释放到minextents的 extent,除非使用reuse storage。truncate会将高水线复位(回到最初)。
+	3.delete 语句不影响表所占用的 extent、高水线 (high watermark) 保持原位置不动。drop 语句将表所占用的空间全部释放。truncate 语句缺省情况下将空间释放到 minextents 的 extent, 除非使用 reuse storage。truncate 会将高水线复位 (回到最初)。
 
-	4.效率方面:drop > truncate > delete
+	4. 效率方面:drop > truncate > delete
 
-	5.安全性:小心使用drop与truncate,尤其是在 没有备份的时候,想删除部分数据可使用delete需要带上where子句,回滚段要足够大,想删除表可以用drop,想保留表只是想删除表的所有数据、 如果跟事物无关可以使用truncate,如果和事物有关、又或者想触发 trigger,还是用delete,如果是整理表内部的碎片，可以用truncate跟上reuse stroage，再重新导入、插入数据。
+	5. 安全性:小心使用 drop 与 truncate, 尤其是在 没有备份的时候, 想删除部分数据可使用 delete 需要带上 where 子句, 回滚段要足够大, 想删除表可以用 drop, 想保留表只是想删除表的所有数据、 如果跟事物无关可以使用 truncate, 如果和事物有关、又或者想触发 trigger, 还是用 delete, 如果是整理表内部的碎片，可以用 truncate 跟上 reuse stroage，再重新导入、插入数据。
 
-	6.delete是DML语句,不会自动提交。drop/truncate都是DDL语句,执行后会自动提交。
+	6.delete 是 DML 语句, 不会自动提交。drop/truncate 都是 DDL 语句, 执行后会自动提交。
 
-	7、drop一般用于删除整体性数据 如表，模式，索引，视图，完整性限制等；delete用于删除局部性数据 如表中的某一元组
+	7、drop 一般用于删除整体性数据 如表，模式，索引，视图，完整性限制等；delete 用于删除局部性数据 如表中的某一元组
 
-	8、DROP把表结构都删了；DELETE只是把数据清掉
+	8、DROP 把表结构都删了；DELETE 只是把数据清掉
 
-	9、当你不再需要该表时， 用 drop；当你仍要保留该表，但要删除所有记录时， 用 truncate；当你要删除部分记录时（always with a WHERE clause), 用 delete.
+	9、当你不再需要该表时，用 drop；当你仍要保留该表，但要删除所有记录时，用 truncate；当你要删除部分记录时 (always with a WHERE clause), 用 delete.
 
 
 jdbc.url=jdbc\:mysql\://47.97.211.254:3306/dmz_test?useUnicode\=true&characterEncoding\=UTF-8&allowMultiQueries\=true&autoReconnect\=true&verifyServerCertificate=false&useSSL=true

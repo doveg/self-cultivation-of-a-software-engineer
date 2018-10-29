@@ -19,7 +19,7 @@ IO 核心
 	
 	
 	
-	File类
+	File 类
 		路径
 		文件
 		目录
@@ -33,11 +33,11 @@ IO 核心
 		四大基流：
 			字节输入流，字节输出流，字符输入流，字符输出流。
 		字节流
-			文件字节输出流(FileOutputStream)
-			文件字节输入流(FileInputStream)
+			文件字节输出流 (FileOutputStream)
+			文件字节输入流 (FileInputStream)
 		字符流
-			文件字符输入流(FileReader)
-			文件字符输出流(FileWriter)
+			文件字符输入流 (FileReader)
+			文件字符输出流 (FileWriter)
 
 		缓冲流：是一个包装流，目的是起缓存的作用。
 			BufferedInputStream：字节缓冲输入流；
@@ -48,33 +48,33 @@ IO 核心
 			InputStreamReader：把字节输入流转换成字符输入流。
 			OutputStreamWriter：把字节输出流转换成字符输出流。
 
-	NIO（New IO）：
-		可以把一块磁盘映射到内存中，我们再去读取内存读取中的数据。存放于java.nio包中。
-		Java NIO 是Java4开始引入的新 IO API，可以替代标准 IO API，主要运用于服务器中，我们用传统的IO就够。
+	NIO (New IO) ：
+		可以把一块磁盘映射到内存中，我们再去读取内存读取中的数据。存放于 java.nio 包中。
+		Java NIO 是 Java4 开始引入的新 IO API，可以替代标准 IO API，主要运用于服务器中，我们用传统的 IO 就够。
 
 	序列化：
-		1)	在分布式系统中，需要共享的数据的JavaBean对象，都得做序列化，此时需要把对象在网络上传输，此时就得把数据转换成二进制形式。
-			存储在httpsession中的对象，都应该实现序列化接口（只有实现序列化接口的类，才能做序列化）。
-		2)	服务钝化：如果服务器发现某些对象好久没有活动，服务器就会把这些内存中的对象持久化在本地磁盘文件中（Java文件 ——> 二进制文件）。
-			如果某些对象需要活动，就去内存中寻找，找到了就去使用，找不到再去磁盘文件中找，然后反序列化对象数据，恢复成Java对象。
-			需要序列化对象的类，必须实现序列化接口：java.io.Serializable接口（标志接口）（没有抽象方法）。
-		如果某些数据不需要做序列化，比如密码。私有化起来，并且用瞬态translent修饰。
+		1)	在分布式系统中，需要共享的数据的 JavaBean 对象，都得做序列化，此时需要把对象在网络上传输，此时就得把数据转换成二进制形式。
+			存储在 httpsession 中的对象，都应该实现序列化接口 (只有实现序列化接口的类，才能做序列化) 。
+		2)	服务钝化：如果服务器发现某些对象好久没有活动，服务器就会把这些内存中的对象持久化在本地磁盘文件中 (Java 文件 ——> 二进制文件) 。
+			如果某些对象需要活动，就去内存中寻找，找到了就去使用，找不到再去磁盘文件中找，然后反序列化对象数据，恢复成 Java 对象。
+			需要序列化对象的类，必须实现序列化接口：java.io.Serializable 接口 (标志接口) (没有抽象方法) 。
+		如果某些数据不需要做序列化，比如密码。私有化起来，并且用瞬态 translent 修饰。
 			理论上说，静态的字段和瞬态的字段，都是不能做序列化操作的。
 			translent private String password；
 		序列化的版本问题：
-			反序列化Java对象时，必须提供该对象的class文件；但是随着项目的升级，系统的class文件也会升级（增加和删减字段）；
-				如何保证两个class文件的兼容性：Java通过serialVersionUID（序列化版本号）来判断字节码是否发生改变。
+			反序列化 Java 对象时，必须提供该对象的 class 文件；但是随着项目的升级，系统的 class 文件也会升级 (增加和删减字段) ；
+				如何保证两个 class 文件的兼容性：Java 通过 serialVersionUID (序列化版本号) 来判断字节码是否发生改变。
 		解决方案：在类中提供一个固定的 serialVersionUID。
 
 	动态编译：
-		//使用StringBuilder拼接一个完整的HelloWorld程序
-		//保存到名叫Hello.java中的文件中
-		//调用javac进程来编译Hello.java
-		//读取javac进程中的错误流信息
+		//使用 StringBuilder 拼接一个完整的 HelloWorld 程序
+		//保存到名叫 Hello.java 中的文件中
+		//调用 javac 进程来编译 Hello.java
+		//读取 javac 进程中的错误流信息
 		//读取流中的数据
-		//调用java进程来运行Hello.java
-		//读取Java进程中的流信息
-		//删除java和class文件
+		//调用 java 进程来运行 Hello.java
+		//读取 Java 进程中的流信息
+		//删除 java 和 class 文件
 		
 		
 		

@@ -16,14 +16,14 @@
 	TCP / IP 四层参考模型：
 		应用层：
 			负责处理特定的应用程序细节。
-			（FTP，Telnet，Emai，DNS，SMTP，HTTP等）
-		传输层（运输层）：
+			 (FTP，Telnet，Emai，DNS，SMTP，HTTP 等) 
+		传输层 (运输层) ：
 			主要为两台主机上的应用提供端到端的通信；
-			（TCP和UDP）
-		网络层（网际互联层 / 互联网层）：
+			 (TCP 和 UDP) 
+		网络层 (网际互联层 / 互联网层) ：
 			处理分组在网络中的活动，比如分组的选路；
-			（IP，ICMP，IGMP）
-		链路层（数据链路层 / 网络接口层）：
+			 (IP，ICMP，IGMP) 
+		链路层 (数据链路层 / 网络接口层) ：
 			包括操作系统中的设备驱动程序、计算机中对应的网络接口卡；
 			
 	SpringMVC 核心
@@ -60,7 +60,7 @@
 				服务：service ( ) ；
 				输出响应；
 				响应完成；
-				销毁：destroy ( ) 。
+				销毁：destroy ( )。
 		怎么使用：
 			继承 HttpServlet：
 				HttpServletRequest；
@@ -84,7 +84,7 @@
 			from student,score,city 
 			where city.city_code=student.city_code and score.student_id=student.student_id;
 			
-			// 把城市名为 “大蕉” 的，分数乘于2展示出来
+			// 把城市名为“大蕉”的，分数乘于 2 展示出来
 			select city_name,student_name,
 			CASE WHEN city.city_name='大蕉' 
 			THEN 2*score.score 
@@ -93,7 +93,7 @@
 			from student,score,city 
 			where city.city_code=student.city_code and score.student_id=student.student_id
 		
-			// 把城市名为 “大蕉” ，并且城市Code小于10086的，分数乘于2展示出来
+			// 把城市名为“大蕉”，并且城市 Code 小于 10086 的，分数乘于 2 展示出来
 			
 			// SearchItemMapper.xml
 			SELECT
@@ -110,7 +110,7 @@
 			LEFT JOIN tb_item_desc c ON a.id = c.item_id
 			WHERE
 				a.`status` = 1
-			  AND
+			 AND
 				a.id=#{itemId}
 				
 			// 查询所有学生及他们的选择课程的信息
@@ -141,7 +141,7 @@
 				this.userDao = userDao;
 			}
 		constructor：
-			private  UserService userService;
+			private UserService userService;
 			@Resource
 			public LoginAction( UserService userService;) {
 				this.userService = userService;
@@ -151,14 +151,14 @@
 			private FreeMarkerConfigurer freeMarkerConfigurer;
 			
 		1、自动装配
-			通过配置applicationContext.xml中的<beans>标签的default-autowire属性，
-			或者<bean>标签的autowire属性，可以配置IOC容器的自动装配机制为byName，byType等。
+			通过配置 applicationContext.xml 中的<beans>标签的 default-autowire 属性，
+			或者<bean>标签的 autowire 属性，可以配置 IOC 容器的自动装配机制为 byName，byType 等。
 
-		2、配置文件ref配置
-			通过配置applicationContext.xml中<bean>标签下的<property>的属性ref来注入实例。
+		2、配置文件 ref 配置
+			通过配置 applicationContext.xml 中<bean>标签下的<property>的属性 ref 来注入实例。
 
-		3、@Resource注解注入
-			使用@Resource注解注释需要注入的依赖声明。
+		3、@Resource 注解注入
+			使用 @Resource 注解注释需要注入的依赖声明。
 	
 	
 	Spring 常用注解
@@ -182,16 +182,16 @@
 	
 	
 	Lamda 表达式
-		（）-> 
+		 () -> 
 		
 	Hibernate 和 Mybatis；
-		Hibernate更加笨重一点，写的hql，如果数据库移植的话比较简单；
-		MyBatis写的是原生的sql语句，体量大的公司能更好的满足自己的业务需求；
+		Hibernate 更加笨重一点，写的 hql，如果数据库移植的话比较简单；
+		MyBatis 写的是原生的 sql 语句，体量大的公司能更好的满足自己的业务需求；
 		sql 还是比 hql 更加灵活的。
 		
 	Git 和 SVN
 		Git 处理冲突更好；文件版本管理；分支管理；
-		可以新建分支做备份，以及Feture，需要的时候合并到master里面
+		可以新建分支做备份，以及 Feture，需要的时候合并到 master 里面
 
 	快排算法
 		将一个数组划分成两个子数组，
@@ -211,7 +211,7 @@
 			int leftPtr = left - 1;
 			int rightPtr = right;
 			while (true) {
-				// 循环,将比关键字小的留在左端
+				// 循环, 将比关键字小的留在左端
 				while (leftPtr < rightPtr && arr[++leftPtr] < point) ;
 				// 循环，将比关键字大的留在右端
 				while (rightPtr > leftPtr && arr[--rightPtr] > point) ;
@@ -230,7 +230,7 @@
 			return leftPtr;
 		}
 		public static void quickSort(long[] arr, int left, int right) {
-			if (left - right  >= 0) {
+			if (left - right >= 0) {
 				return;
 			} else {
 				// 设置关键字
@@ -250,9 +250,9 @@
 			确保一个类最多只有一个实例；
 			并提供一个全局访问点。
 		实现方式
-			私有构造器，保证外部类的new不奏效；
-			然后在类里面new一个实例；
-			然后静态get方法返回该实例，供全局调用。
+			私有构造器，保证外部类的 new 不奏效；
+			然后在类里面 new 一个实例；
+			然后静态 get 方法返回该实例，供全局调用。
 		案例：
 			巧克力工厂。
 		单例类
@@ -270,7 +270,7 @@
 			可以使用静态变量、全局变量实现替代。
 		经典单例模式的优化
 			同步锁解决多线程问题
-			使用getInstance频率少，性能要求低的情况。
+			使用 getInstance 频率少，性能要求低的情况。
 			private static Single uniqueInstance = null;
 			private Single(){};
 			public static synchronized Single getInstance(){
@@ -302,7 +302,7 @@
 	
 		
 	JVM
-		内存模型，垃圾回收算法，以及垃圾回收器， G1和CMS
+		内存模型，垃圾回收算法，以及垃圾回收器，G1 和 CMS
 
 
 	锁和 JUC 包
@@ -316,73 +316,73 @@
 
 	Complain.hbm.xml
 		<hibernate-mapping>
-		    <class name="cn.itcast.nsfw.complain.entity.Complain" table="complain">
+		 <class name="cn.itcast.nsfw.complain.entity.Complain" table="complain">
 			<id name="compId" type="java.lang.String">
-			    <column name="comp_id" length="32" />
-			    <generator class="uuid.hex" />
+			 <column name="comp_id" length="32" />
+			 <generator class="uuid.hex" />
 			</id>
 			<property name="compCompany" type="java.lang.String">
-			    <column name="comp_company" length="100" />
+			 <column name="comp_company" length="100" />
 			</property>
 			<property name="compName" type="java.lang.String">
-			    <column name="comp_name" length="20" />
+			 <column name="comp_name" length="20" />
 			</property>
 			<property name="compMobile" type="java.lang.String">
-			    <column name="comp_mobile" length="20" />
+			 <column name="comp_mobile" length="20" />
 			</property>
 			<property name="isNm" type="java.lang.Boolean">
-			    <column name="is_NM" />
+			 <column name="is_NM" />
 			</property>
 			<property name="compTime" type="java.sql.Timestamp">
-			    <column name="comp_time" length="19" />
+			 <column name="comp_time" length="19" />
 			</property>
 			<property name="compTitle" type="java.lang.String">
-			    <column name="comp_title" length="200" not-null="true" />
+			 <column name="comp_title" length="200" not-null="true" />
 			</property>
 			<property name="toCompName" type="java.lang.String">
-			    <column name="to_comp_name" length="20" />
+			 <column name="to_comp_name" length="20" />
 			</property>
 			<property name="toCompDept" type="java.lang.String">
-			    <column name="to_comp_dept" length="100" />
+			 <column name="to_comp_dept" length="100" />
 			</property>
 			<property name="compContent" type="text">
-			    <column name="comp_content"/>
+			 <column name="comp_content"/>
 			</property>
 			<property name="state" type="java.lang.String">
-			    <column name="state" length="1" />
+			 <column name="state" length="1" />
 			</property>
 			<set name="complainReplies" inverse="true" cascade="save-update,delete" lazy="false" order-by="reply_time">
-			    <key>
+			 <key>
 				<column name="comp_id" length="32" not-null="true" />
-			    </key>
-			    <one-to-many class="cn.itcast.nsfw.complain.entity.ComplainReply" />
+			 </key>
+			 <one-to-many class="cn.itcast.nsfw.complain.entity.ComplainReply" />
 			</set>
-		    </class>
+		 </class>
 		</hibernate-mapping>
 		
 	ComplainReply.hbm.xml
 		<hibernate-mapping>
-		    <class name="cn.itcast.nsfw.complain.entity.ComplainReply" table="complain_reply">
+		 <class name="cn.itcast.nsfw.complain.entity.ComplainReply" table="complain_reply">
 			<id name="replyId" type="java.lang.String">
-			    <column name="reply_id" length="32" />
-			    <generator class="uuid.hex" />
+			 <column name="reply_id" length="32" />
+			 <generator class="uuid.hex" />
 			</id>
 			<many-to-one name="complain" class="cn.itcast.nsfw.complain.entity.Complain" fetch="select">
-			    <column name="comp_id" length="32" not-null="true" />
+			 <column name="comp_id" length="32" not-null="true" />
 			</many-to-one>
 			<property name="replyer" type="java.lang.String">
-			    <column name="replyer" length="20" />
+			 <column name="replyer" length="20" />
 			</property>
 			<property name="replyDept" type="java.lang.String">
-			    <column name="reply_dept" length="100" />
+			 <column name="reply_dept" length="100" />
 			</property>
 			<property name="replyTime" type="java.sql.Timestamp">
-			    <column name="reply_time" length="19" />
+			 <column name="reply_time" length="19" />
 			</property>
 			<property name="replyContent" type="java.lang.String">
-			    <column name="reply_content" length="300" />
+			 <column name="reply_content" length="300" />
 			</property>
-		    </class>
+		 </class>
 		</hibernate-mapping>
 		
 	complain-struts.xml
@@ -408,43 +408,43 @@
 		
 	第三张表
 		public class StudentCourseLink {
-		    private Student student;
-		    private Course course;
-		    private Date date;
+		 private Student student;
+		 private Course course;
+		 private Date date;
 
-		    public StudentCourseLink() {
+		 public StudentCourseLink() {
 
-		    }
+		 }
 
-		    public StudentCourseLink(Student student, Course course, Date date) {
+		 public StudentCourseLink(Student student, Course course, Date date) {
 			this.student = student;
 			this.course = course;
 			this.date = date;
-		    }
+		 }
 
-		    public Student getStudent() {
+		 public Student getStudent() {
 			return student;
-		    }
+		 }
 
-		    public void setStudent(Student student) {
+		 public void setStudent(Student student) {
 			this.student = student;
-		    }
+		 }
 
-		    public Course getCourse() {
+		 public Course getCourse() {
 			return course;
-		    }
+		 }
 
-		    public void setCourse(Course course) {
+		 public void setCourse(Course course) {
 			this.course = course;
-		    }
+		 }
 
-		    public Date getDate() {
+		 public Date getDate() {
 			return date;
-		    }
+		 }
 
-		    public void setDate(Date date) {
+		 public void setDate(Date date) {
 			this.date = date;
-		    }
+		 }
 
 		}
 		
@@ -452,33 +452,33 @@
 		<?xml version="1.0" encoding="UTF-8"?>
 		<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 		<mapper namespace="gler.mybatis.manytomany.mapper.StudentMapper">
-		    <!-- 查询所有学生及他们的选择课程的信息 -->
-		    <select id="selectStudentCourse" resultMap="studentCourseMap">
+		 <!-- 查询所有学生及他们的选择课程的信息 -->
+		 <select id="selectStudentCourse" resultMap="studentCourseMap">
 			select
 			s.*,c.* from
 			tb_student s,tb_course c,tb_select_course sc
 			where s.s_id=sc.sc_s_id
 			and c.c_id=sc.sc_c_id
-		    </select>
+		 </select>
 
-		    <!-- 根据学生id和课程id删除该学生该门课的选课情况 -->
-		    <delete id="deleteStudentCourseById" parameterType="StudentCourseLink">  
+		 <!-- 根据学生 id 和课程 id 删除该学生该门课的选课情况 -->
+		 <delete id="deleteStudentCourseById" parameterType="StudentCourseLink"> 
 			delete from tb_select_course where sc_s_id=#{student.id} and sc_c_id=#{course.id}
-		    </delete> 
+		 </delete> 
 
-		    <!-- resultMap:映射实体类和字段之间的一一对应的关系 -->
-		    <resultMap id="studentCourseMap" type="Student">
+		 <!-- resultMap:映射实体类和字段之间的一一对应的关系 -->
+		 <resultMap id="studentCourseMap" type="Student">
 			<id property="id" column="s_id" />
 			<result property="name" column="s_name" />
 			<result property="sex" column="s_sex" />
 			<result property="age" column="s_age" />
 			<!-- 多对多关联映射：collection -->
 			<collection property="courses" ofType="Course">
-			    <id property="id" column="c_id" />
-			    <result property="name" column="c_name" />
-			    <result property="credit" column="c_credit" />
+			 <id property="id" column="c_id" />
+			 <result property="name" column="c_name" />
+			 <result property="credit" column="c_credit" />
 			</collection>
-		    </resultMap>
+		 </resultMap>
 		</mapper>
 		
 		

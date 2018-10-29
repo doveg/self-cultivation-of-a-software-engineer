@@ -32,9 +32,9 @@ Jenkins 笔记
 			webapps/manager/META-INF/context.xml：
 			webapps/host-manager/META-INF/context.xml：
 				<!--
-				  <Valve className="org.apache.catalina.valves.RemoteAddrValve"
+				 <Valve className="org.apache.catalina.valves.RemoteAddrValve"
 						 allow="127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1" />
-				  -->
+				 -->
 		Tomcat URL：http://192.168.3.110:8080/
 		
 	Publish Over SSH：

@@ -12,9 +12,9 @@
 
 
 
- 一个简单的java回调函数的实现
+ 一个简单的 java 回调函数的实现
 
-	回调函数涉及的3个函数：
+	回调函数涉及的 3 个函数：
 	
 		登记回调函数；
 
@@ -27,7 +27,7 @@
 
 	代码的实现
 	
-		首先有一个接口 interface CallBack,当然没有也是能够的，主要是用来预定义业务逻辑：
+		首先有一个接口 interface CallBack, 当然没有也是能够的，主要是用来预定义业务逻辑：
 		
 			public interface CallBack {
 				// 响应回调函数
@@ -61,7 +61,7 @@
 				}
 
 				// test
-				 public static void main(String[] args)  {
+				 public static void main(String[] args) {
 					A a = new A();
 					a.askQuestion();
 				}
@@ -79,7 +79,7 @@
 				}
 			}
 
-	线程run()也是一个回调方法，当执行Thread的start（）方法就会回调这个run()方法，还有处理消息都比较经典等等
+	线程 run() 也是一个回调方法，当执行 Thread 的 start () 方法就会回调这个 run() 方法，还有处理消息都比较经典等等
 
 
 

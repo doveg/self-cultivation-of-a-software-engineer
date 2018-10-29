@@ -25,14 +25,14 @@
 		链路层、网络层、传输层、应用层。
 		应用层：
 			负责处理特定的应用程序细节。
-			（FTP，Telnet，Emai，DNS，SMTP，HTTP等）
-		传输层（运输层）：
+			 (FTP，Telnet，Emai，DNS，SMTP，HTTP 等) 
+		传输层 (运输层) ：
 			主要为两台主机上的应用提供端到端的通信；
-			（TCP和UDP）
-		网络层（网际互联层 / 互联网层）：
+			 (TCP 和 UDP) 
+		网络层 (网际互联层 / 互联网层) ：
 			处理分组在网络中的活动，比如分组的选路；
-			（IP，ICMP，IGMP）
-		链路层（数据链路层 / 网络接口层）：
+			 (IP，ICMP，IGMP) 
+		链路层 (数据链路层 / 网络接口层) ：
 			包括操作系统中的设备驱动程序、计算机中对应的网络接口卡；
 
 	OSI 七层参考模型：
@@ -40,38 +40,38 @@
 			会话层：上层数据
 			传输层：TCP 头；段
 			网络层：IP 头；帧
-				数据链路层：MAC 头 + FCS	/  LLC 头 + FCS；比特流
+				数据链路层：MAC 头 + FCS	/ LLC 头 + FCS；比特流
 				
-	端口：一个IP地址可以有65536个端口；定义端口号，建议使用10000以上的。
+	端口：一个 IP 地址可以有 65536 个端口；定义端口号，建议使用 10000 以上的。
 
 	TCP 和 UDP 的区别：
-		TCP（Transmission Control Protocol，传输控制协议）：
-			面向连接（必须经历三次握手建立连接，四次握手释放连接）、
-			数据安全（保证数据正确性和数据顺序）、
-			用于传输大量数据（流模式）、
+		TCP (Transmission Control Protocol，传输控制协议) ：
+			面向连接 (必须经历三次握手建立连接，四次握手释放连接) 、
+			数据安全 (保证数据正确性和数据顺序) 、
+			用于传输大量数据 (流模式) 、
 			速度慢，
-			建立连接需要的开销多（时间、系统资源）。
+			建立连接需要的开销多 (时间、系统资源) 。
 			强调服务端和客户端。
-		UDP（User Datagram Protocol，用户数据报协议）：
+		UDP (User Datagram Protocol，用户数据报协议) ：
 			面向非连接、
-			传输不可靠（丢包或数据丢失）、
-			用于传输少量数据（数据报包模式）、
+			传输不可靠 (丢包或数据丢失) 、
+			用于传输少量数据 (数据报包模式) 、
 			速度快。
 			强调发送端和接收端。
 
 
 HTTP
 
-	超文本传输协议（HTTP）的统一资源定位符将从因特网获取信息的五个基本元素包括在一个简单的地址中：
+	超文本传输协议 (HTTP) 的统一资源定位符将从因特网获取信息的五个基本元素包括在一个简单的地址中：
 
 	传送协议。
 	服务器。
-	端口号。（以数字方式表示，若为HTTP的默认值“:80”可省略）
-	路径。（以“/”字符区别路径中的每一个目录名称）
-	查询。（GET模式的窗体参数，以“?”字符为起点，每个参数以“&”隔开，再以“=”分开参数名称与数据，通常以UTF8的URL编码，避开字符冲突的问题）
+	端口号。 (以数字方式表示，若为 HTTP 的默认值“:80”可省略) 
+	路径。 (以“/”字符区别路径中的每一个目录名称) 
+	查询。 (GET 模式的窗体参数，以“?”字符为起点，每个参数以“&”隔开，再以“=”分开参数名称与数据，通常以 UTF8 的 URL 编码，避开字符冲突的问题) 
 	典型的统一资源定位符看上去是这样的：
 
-	(带方括号[]的为可选项)：
+	(带方括号 [] 的为可选项)：
 
 	protocol :// hostname[:port] / path / [;parameters][?query]#fragment
 
@@ -80,7 +80,7 @@ request body
 
 	User-Agent: Fiddler
 	Host: localhost:1455 
-	Content-Type: application/x-www-form-urlencoded;<span style="font-family: Arial, Helvetica, sans-serif;">charset=utf-8  </span>
+	Content-Type: application/x-www-form-urlencoded;<span style="font-family: Arial, Helvetica, sans-serif;">charset=utf-8 </span>
 	Content-Length: 38
 
 	name1=valule1&name2=value2
@@ -100,24 +100,24 @@ Socket
 
 	Java socket 编程
 		服务器端，
-			首先是服务器初始化Socket，
-			然后是与端口进行绑定(blind()),
-			端口创建ServerSocket进行监听(listen()),
-			然后调用阻塞(accept()),等待客户端连接。
-			与客户端发生连接后，会进行相关的读写操作(read(),write())，
-			最后调用close()关闭连接。
+			首先是服务器初始化 Socket，
+			然后是与端口进行绑定 (blind()),
+			端口创建 ServerSocket 进行监听 (listen()),
+			然后调用阻塞 (accept()), 等待客户端连接。
+			与客户端发生连接后，会进行相关的读写操作 (read(),write())，
+			最后调用 close() 关闭连接。
 
 
 
 SOAP
 	Simple Object Access Protocol：简单对象访问协议。
-	一种标准化的通讯规范，主要用于Web服务（web service）中。
+	一种标准化的通讯规范，主要用于 Web 服务 (web service) 中。
 	这里之所以说是简单，是因为它是基于已经广泛使用的两个协议：HTTP 和 XML，
 	所以业界把这种技术称为“它是第一个没有发明任何新技术的技术"。
 
 
 RESTful
-	HTTP接口开发，也就是我们常说的RESTful风格的服务接口
+	HTTP 接口开发，也就是我们常说的 RESTful 风格的服务接口
 
 
 

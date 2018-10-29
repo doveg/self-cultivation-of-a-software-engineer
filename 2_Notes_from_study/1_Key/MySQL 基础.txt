@@ -23,62 +23,62 @@ MySQL 语句
 	Data Definition Statements 数据定义语句：
 
 		连接数据库：
-			mysql –u用户名 –p密码
+			mysql –u 用户名 –p 密码
 			mysql -uroot -p 
 
 		导入 sql 文件：、
 			mysql -uroot -p day03 < c:\day03.sql
 
 		创建数据库：
-				CREATE  DATABASE  [IF NOT EXISTS] db_name    
+				CREATE DATABASE [IF NOT EXISTS] db_name    
 					[create_specification [, create_specification] ...] 
 				create_specification:    
 					[DEFAULT] CHARACTER SET charset_name  
 					[DEFAULT] COLLATE collation_name 
 			CHARACTER SET：指定数据库采用的字符集
-			COLLATE：指定数据库字符集的比较方式(校对规则)
-				创建一个使用utf-8字符集，并带校对规则的mydb3数据库。、
+			COLLATE：指定数据库字符集的比较方式 (校对规则)
+				创建一个使用 utf-8 字符集，并带校对规则的 mydb3 数据库。、
 					create database day01
-					   -> character set utf8
-					   -> collate utf8_general_ci;
+					 -> character set utf8
+					 -> collate utf8_general_ci;
 			查看 MySQL 支持的编码和校对规则
 				show character set;
 			插入中文：
-				mysql> set character_set_client=gbk;    插入
-				mysql> set character_set_results=gbk;   查询
+				mysql> set character_set_client=gbk; 插入
+				mysql> set character_set_results=gbk; 查询
 
 		查看数据库：
 			查看当前数据库服务器中的所有数据库：
-				SHOW DATABASES    只是显示数据库的名字
+				SHOW DATABASES 只是显示数据库的名字
 
 		查看数据库：
 			SHOW CREATE DATABASE db_name
-			查看前面创建的mydb2数据库的定义信息
+			查看前面创建的 mydb2 数据库的定义信息
 
 
 		删除数据库：
-			DROP DATABASE  [IF EXISTS]  db_name 
-			删除前面创建的mydb3数据库
+			DROP DATABASE [IF EXISTS] db_name 
+			删除前面创建的 mydb3 数据库
 
 		修改数据库：
-			ALTER  DATABASE  [IF NOT EXISTS] db_name    
+			ALTER DATABASE [IF NOT EXISTS] db_name    
 				[alter_specification [, alter_specification] ...] 
 
 			alter_specification:    
 
 				[DEFAULT] CHARACTER SET charset_name  
-				|   [DEFAULT] COLLATE collation_name
-			查看服务器中的数据库，并把其中某一个库的字符集修改为gb2312;
+				| [DEFAULT] COLLATE collation_name
+			查看服务器中的数据库，并把其中某一个库的字符集修改为 gb2312;
 
 			
-		注意：创建表前，要先使用use db语句使用库。
+		注意：创建表前，要先使用 use db 语句使用库。
 
 		创建表：
 			CREATE TABLE table_name
 			(
-				field1  datatype,
-				field2  datatype,
-				field3  datatype
+				field1 datatype,
+				field2 datatype,
+				field3 datatype
 			)character set charsetname collate collatename；
 		创建一个员工表
 			> create table employee
@@ -94,50 +94,50 @@ MySQL 语句
 				-> );
 
 
-			MySQL常用数据类型
+			MySQL 常用数据类型
 				数值类型
 					INT [UNSIGNED] [ZEROFILL] int
 					SMALLINT [UNSIGNED] [ZEROFILL] short
 					BIGINT [UNSIGNED] [ZEROFILL] long
-					FLOAT[(M,D)] [UNSIGNED] [ZEROFILL]  float
+					FLOAT[(M,D)] [UNSIGNED] [ZEROFILL] float
 					DOUBLE[(M,D)] [UNSIGNED] [ZEROFILL] double
-						M指定显示长度，d指定小数位数
+						M 指定显示长度，d 指定小数位数
 				文本、二进制类型
-					CHAR(size) char(20)  max—255   abc            
-					VARCHAR(size)  varchar(20) 65535   abcde String
-					BLOB   LONGBLOB  大的二进制数据
-					TEXT(clob)          LONGTEXT(longclob)  大文本数据
+					CHAR(size) char(20) max—255 abc 
+					VARCHAR(size) varchar(20) 65535 abcde String
+					BLOB LONGBLOB 大的二进制数据
+					TEXT(clob) LONGTEXT(longclob) 大文本数据
 				时间日期
 					DATE/DATETIME/TimeStamp
-						(YYYY-MM-DD)  (YYYY-MM-DD HH:MM:SS)，
-						TimeStamp表示时间戳，它可用于自动记录insert、update操作的时间
+						(YYYY-MM-DD) (YYYY-MM-DD HH:MM:SS)，
+						TimeStamp 表示时间戳，它可用于自动记录 insert、update 操作的时间
 
 		查看表：
 			查看表结构
-				show create table 表名    显示表的创建结构
-				desc 表名;                         以表格方式显示字段
+				show create table 表名 显示表的创建结构
+				desc 表名;  以表格方式显示字段
 				show columns from 表名;
 				describe 表名;
 
 		修改表：
 			使用 ALTER TABLE 语句追加, 修改, 或删除列
 				ALTER TABLE table
-				ADD		   (column datatype [DEFAULT expr]
-						   [, column datatype]...);
+				ADD		 (column datatype [DEFAULT expr]
+						 [, column datatype]...);
 				ALTER TABLE table
-				MODIFY	   (column datatype [DEFAULT expr]
-						   [, column datatype]...);
+				MODIFY	 (column datatype [DEFAULT expr]
+						 [, column datatype]...);
 				ALTER TABLE table
-				DROP	      (column);
+				DROP	 (column);
 			修改表的名称：Rename table 表名 to 新表名
 			修改表的字符集：alter table student character set utf8;
-		   
-			在上面员工表的基础上增加一个image列。
-			修改job列，使其长度为60。
-			删除sex列。
-			表名改为users。
-			修改表的字符集为GBK
-			列名name修改为username
+		 
+			在上面员工表的基础上增加一个 image 列。
+			修改 job 列，使其长度为 60。
+			删除 sex 列。
+			表名改为 users。
+			修改表的字符集为 GBK
+			列名 name 修改为 username
 				添加列：
 					mysql> alter table employee add column image blob;
 				修改列名：
@@ -153,33 +153,33 @@ MySQL 语句
 
 	Data Manipulation Statements 数据操作语句
 			
-			Insert语句：
+			Insert 语句：
 					INSERT INTO
 					INSERT INTO table [(column [, column...])] VALUES (value [, value...]);			
-				使用insert语句向表中插入三个员工的信息。
+				使用 insert 语句向表中插入三个员工的信息。
 		
-			Update语句：
+			Update 语句：
 					UPDATE SET
 					UPDATE 	tbl_name    
 						SET col_name1=expr1 [, col_name2=expr2 ...]    
 						[WHERE where_definition] 
-				将所有员工薪水修改为5000元。
-				将姓名为’zhangsan’的员工薪水修改为3000元。
-				将姓名为’lisi’的员工薪水修改为4000元,sex改为female。
-				将xiaohong的薪水在原有基础上增加1000元。	
+				将所有员工薪水修改为 5000 元。
+				将姓名为’zhangsan’的员工薪水修改为 3000 元。
+				将姓名为’lisi’的员工薪水修改为 4000 元,sex 改为 female。
+				将 xiaohong 的薪水在原有基础上增加 1000 元。	
 
-			Delete语句
+			Delete 语句
 					Delete From
 					delete from tbl_name       
 						[WHERE where_definition]  
-					如果不使用where子句，将删除表中所有数据。
-					Delete语句不能删除某一列的值（可使用update）
-					使用delete语句仅删除记录，不删除表本身。如要删除表，使用drop table语句。
-					删除表中数据也可使用TRUNCATE TABLE 语句，它和delete有所不同，原理是先删除表再创建新表。
+					如果不使用 where 子句，将删除表中所有数据。
+					Delete 语句不能删除某一列的值 (可使用 update) 
+					使用 delete 语句仅删除记录，不删除表本身。如要删除表，使用 drop table 语句。
+					删除表中数据也可使用 TRUNCATE TABLE 语句，它和 delete 有所不同，原理是先删除表再创建新表。
 
-				删除表中name为’zhangsan’的记录。
+				删除表中 name 为’zhangsan’的记录。
 				删除表中所有记录。
-				使用truncate删除表中记录。
+				使用 truncate 删除表中记录。
 				
 				
 			备份数据库表中的数据
@@ -191,16 +191,16 @@ MySQL 语句
 			恢复数据库表数据
 				恢复：mysql -uroot -p day17 < d:/back.sql
 				
-			查看服务器中的数据库，并把其中某一个库的字符集修改为gb2312;
-			备份mydb2库中的数据，并恢复
+			查看服务器中的数据库，并把其中某一个库的字符集修改为 gb2312;
+			备份 mydb2 库中的数据，并恢复
 			
 			注意：不需要登陆
 
 			
-			Select语句
+			Select 语句
 					SELECT [DISTINCT] *|{column1, column2. column3..} FROM	table;
 					SELECT * DISTINCT column|expression alias FROM table 
-					SELECT  department_id, department_name, manager_id, location_id FROM departments;
+					SELECT department_id, department_name, manager_id, location_id FROM departments;
 
 				查询表中所有学生的信息。
 				查询表中所有学生的姓名和对应的英语成绩。
@@ -210,60 +210,60 @@ MySQL 语句
 					mysql> select distinct english from student;
 
 
-			在select语句中使用表达式对查询的列进行运算
+			在 select 语句中使用表达式对查询的列进行运算
 				SELECT *|{column1｜expression, column2｜expression，..}
 				FROM	table;
 
-			在select语句中可使用as语句
+			在 select 语句中可使用 as 语句
 				SELECT column as 别名 from 表名;
 
 				统计每个学生的总分。
-				在所有学生总分数上加10分特长分。
+				在所有学生总分数上加 10 分特长分。
 				使用别名表示学生分数。
 					mysql> select (chinese+english+math) as 总分 from student;
 					mysql> select (chinese+english+math)+10 as 总分 from student; 
 
-			使用where子句，进行过滤查询。
+			使用 where 子句，进行过滤查询。
 				查询姓名为李一的学生成绩
-				查询英语成绩大于等于90分的同学
-				查询总分大于200分的所有同学
+				查询英语成绩大于等于 90 分的同学
+				查询总分大于 200 分的所有同学
 					mysql> select name,english from student where english>90; 
 					mysql> select (chinese+english+math) from student where (chinese+english+math)>200;
 					mysql> select name,english from student where english between 70 and 80; 		
 				
-			在where子句中经常使用的运算符：
+			在 where 子句中经常使用的运算符：
 				比较运算符
-					>   <   <=   >=   =    <>：大于、小于、大于(小于)等于、不等于
-					BETWEEN  ...AND... ：显示在某一区间的值
-					IN(set)：显示在in列表中的值，例：in(100,200)
-					LIKE ‘张pattern’：模糊查询   _   %
+					> < <= >= = <>：大于、小于、大于 (小于) 等于、不等于
+					BETWEEN ...AND... ：显示在某一区间的值
+					IN(set)：显示在 in 列表中的值，例：in(100,200)
+					LIKE ‘张 pattern’：模糊查询 _ %
 					IS NULL：判断是否为空
-						Like语句中，% 代表零个或多个任意字符，_ 代表一个任意字符，例first_name like ‘_a%’;
+						Like 语句中，% 代表零个或多个任意字符，_ 代表一个任意字符，例 first_name like ‘_a%’;
 				逻辑运算符
-					and   &&：多个条件同时成立
-					or    ||：多个条件任一成立
-					not   !：不成立，例：where not(salary>100);
+					and &&：多个条件同时成立
+					or ||：多个条件任一成立
+					not !：不成立，例：where not(salary>100);
 
 
 
-				查询英语分数在 80－90之间的同学。
-				查询数学分数为89,90,91的同学。  In
+				查询英语分数在 80－90 之间的同学。
+				查询数学分数为 89,90,91 的同学。In
 				查询所有姓李的学生英语成绩。
-				查询数学分>80，语文分>80的同学。
-				查询英语>80或者总分>200的同学
+				查询数学分>80，语文分>80 的同学。
+				查询英语>80 或者总分>200 的同学
 					mysql> select name,english from student where english>=70 && english<=80;
 					mysql> select name,english from student where name like '李%';
 					mysql> select name,english from student where name like '李_';
 					mysql> select name,english from student where not(english>100);
 					mysql> select name,english from student where english in (78,98);
 				
-			使用order by 子句排序查询结果。
+			使用 order by 子句排序查询结果。
 					SELECT column1, column2. column3..
 						FROM	table;
 						order by column asc|desc
-					Order by 指定排序的列，排序的列即可是表中的列名，也可以是select 语句后指定的列名。
-					Asc 升序、Desc 降序  （默认是升序）
-					ORDER BY 子句应位于SELECT语句的结尾。
+					Order by 指定排序的列，排序的列即可是表中的列名，也可以是 select 语句后指定的列名。
+					Asc 升序、Desc 降序 (默认是升序) 
+					ORDER BY 子句应位于 SELECT 语句的结尾。
 
 				对数学成绩排序后输出。
 				对总分排序后输出，然后再按从高到低的顺序输出
@@ -273,25 +273,25 @@ MySQL 语句
 					mysql> select name,(chinese+english+math) as 总分 from student order by (chinese+english+math) desc;
 					mysql> select name,(chinese+english+math) as 总分 from student where name like '李%' order by (chinese+english+math) desc;
 				
-			使用group by 子句对列进行分组
+			使用 group by 子句对列进行分组
 					SELECT column1, column2. column3.. FROM	table;
 						group by column
 
-				查询购买了几类商品，并且每类总价大于100的商品
+				查询购买了几类商品，并且每类总价大于 100 的商品
 				
-			使用having 子句过滤
+			使用 having 子句过滤
 				SELECT column1, column2. column3..
 					FROM	table;
 					group by column having ...
-			注意：Having和where均可实现过滤，但在having可以使用合计函数,having通常跟在group by后，它作用于组。
+			注意：Having 和 where 均可实现过滤，但在 having 可以使用合计函数,having 通常跟在 group by 后，它作用于组。
 
 			
 			合计函数－count
 					Select count(*)|count(列名) from tablename
 						[WHERE where_definition]
 				统计一个班级共有多少学生？
-				统计数学成绩大于90的学生有多少个？
-				统计总分大于250的人数有多少？
+				统计数学成绩大于 90 的学生有多少个？
+				统计总分大于 250 的人数有多少？
 					 mysql> select count(*) as 总数 from student;
 					 mysql> select count(math) from student where math>=90;
 
@@ -306,7 +306,7 @@ MySQL 语句
 					mysql> select sum(chinese)/count(chinese) as 语文平均分 from student;
 					mysql> select sum(chinese)+sum(english)+sum(math) as 总分 from student;
 
-			注意：sum仅对数值起作用，否则会报错。
+			注意：sum 仅对数值起作用，否则会报错。
 			注意：对多列求和，“，”号不能少。
 
 			合计函数－AVG
@@ -315,7 +315,7 @@ MySQL 语句
 
 				求一个班级数学平均分？
 				求一个班级总分平均分
-				(语文总分+英语总分+数学总分)/人数=每一科的平均分累加和
+				(语文总分+ 英语总分+ 数学总分)/人数=每一科的平均分累加和
 					mysql> select avg(math) as 数学平均分 from student;
 					mysql> select avg(chinese)+avg(english)+avg(math) as 平均分 from student;
 
@@ -323,7 +323,7 @@ MySQL 语句
 				Select max(列名)　from tablename
 					[WHERE where_definition]   
 
-				求班级最高分和最低分（数值范围在统计中特别有用）
+				求班级最高分和最低分 (数值范围在统计中特别有用) 
 					mysql> select max(math) from student; 
 
 			时间日期相关函数
@@ -331,7 +331,7 @@ MySQL 语句
 					CURRENT_TIME()
 					CURRENT_TIMESTAMP ()
 					DATE (datetime )			
-				select addtime('16:58:30','01:01:01');              注意：字符串、时间日期的引号问题
+				select addtime('16:58:30','01:01:01'); 注意：字符串、时间日期的引号问题
 				select date_add(entry_date,INTERVAL 2 year) from student;／／增加两年
 				select addtime(time,‘1 1-1 10:09:09’) from student;　／／时间戳上增加，注意年后没有-
 			
@@ -344,14 +344,14 @@ MySQL 语句
 				默认值
 
 			约束
-				检查约束(MySQL目前不支持)
-				非空约束not null
-				唯一约束unique
+				检查约束 (MySQL 目前不支持)
+				非空约束 not null
+				唯一约束 unique
 				主键约束
 				外键约束
 
-				定义唯一约束unique     unique(列1,列2)
-				定义非空约束not null
+				定义唯一约束 unique unique(列 1, 列 2)
+				定义非空约束 not null
 				定义主键约束
 				primary key:不允许为空，不允许重复
 				删除主键：alter table tablename drop primary key ;
@@ -368,12 +368,12 @@ MySQL 语句
 				创建索引
 					在一个或多个列上创建索引：CREATE INDEX index ON table (column[, column]...);
 
-					在表 EMPLOYEES的列 LAST_NAME 上创建索引：CREATE INDEX emp_last_name_idx ON employees(last_name); Index created.
+					在表 EMPLOYEES 的列 LAST_NAME 上创建索引：CREATE INDEX emp_last_name_idx ON employees(last_name); Index created.
 
 				删除索引
-					使用DROP INDEX 命令删除索引：DROP INDEX index;
+					使用 DROP INDEX 命令删除索引：DROP INDEX index;
 
-					删除索引UPPER_LAST_NAME_IDX：DROP INDEX upper_last_name_idx; Index dropped.
+					删除索引 UPPER_LAST_NAME_IDX：DROP INDEX upper_last_name_idx; Index dropped.
 			
 			表连接
 				交叉连接
@@ -383,111 +383,111 @@ MySQL 语句
 				全连接
 				自连接
 					table_reference [INNER | CROSS] JOIN table_factor [join_condition]
-					  | table_reference STRAIGHT_JOIN table_factor
-					  | table_reference STRAIGHT_JOIN table_factor ON condition
-					  | table_reference LEFT [OUTER] JOIN table_reference join_condition
-					  | table_reference NATURAL [LEFT [OUTER]] JOIN table_factor
-					  | table_reference RIGHT [OUTER] JOIN table_reference join_condition
-					  | table_reference NATURAL [RIGHT [OUTER]] JOIN table_factor 
+					 | table_reference STRAIGHT_JOIN table_factor
+					 | table_reference STRAIGHT_JOIN table_factor ON condition
+					 | table_reference LEFT [OUTER] JOIN table_reference join_condition
+					 | table_reference NATURAL [LEFT [OUTER]] JOIN table_factor
+					 | table_reference RIGHT [OUTER] JOIN table_reference join_condition
+					 | table_reference NATURAL [RIGHT [OUTER]] JOIN table_factor 
 
-				 笛卡尔积(交叉连接) 
-						SELECT * FROM table1 CROSS JOIN table2  
-						SELECT * FROM table1 JOIN table2  
+				 笛卡尔积 (交叉连接) 
+						SELECT * FROM table1 CROSS JOIN table2 
+						SELECT * FROM table1 JOIN table2 
 						SELECT * FROM table1,table2 
 						
 					select a.id aid,a.age,b.id bid,b.name 
-					from tablea a  
+					from tablea a 
 					cross join tableb b
 
-					select a.id aid,a.age,b.id bid,b.name from tablea a  
-					cross join tableb b  
+					select a.id aid,a.age,b.id bid,b.name from tablea a 
+					cross join tableb b 
 					where a.id = b.id 
 					
 					
-									  
+									 
 				内连接
 
-					select a.*, b.* from tablea a  
-					inner join tableb b  
+					select a.*, b.* from tablea a 
+					inner join tableb b 
 					on a.id = b.id 
-						内连接都需要加上on限定条件，不加会被解释为交叉连接；
+						内连接都需要加上 on 限定条件，不加会被解释为交叉连接；
 						如果连接表格使用的是逗号，会被解释为交叉连接；
 					隐式的内连接：
 						Select A.Name, B.Hobby from A, B where A.id = B.id
 
 				外连接
 					左外连接
-						select a.*, b.* from tablea a  
-						left join tableb b  
+						select a.*, b.* from tablea a 
+						left join tableb b 
 						on a.id = b.id 
 
-						select a.id aid,a.age,b.id bid,b.name from tablea a  
-						left join tableb b  
-						on a.id = b.id  
-						Where b.id is null  
+						select a.id aid,a.age,b.id bid,b.name from tablea a 
+						left join tableb b 
+						on a.id = b.id 
+						Where b.id is null 
 
 					右外连接
-						select a.id aid,a.age,b.id bid,b.name from tablea a  
-						right join tableb b  
-						on a.id = b.id  
+						select a.id aid,a.age,b.id bid,b.name from tablea a 
+						right join tableb b 
+						on a.id = b.id 
 
-				全连接  
+				全连接 
 					select a.id aid,a.age,b.id bid,b.name 
-					from tablea a  
-					left join tableb b  
-					on a.id = b.id  
-					union  
+					from tablea a 
+					left join tableb b 
+					on a.id = b.id 
+					union 
 					select a.id aid,a.age,b.id bid,b.name 
-					from tablea a  
-					right join tableb b  
-					on a.id = b.id  
+					from tablea a 
+					right join tableb b 
+					on a.id = b.id 
 
 					select a.id aid,a.age,b.id bid,b.name 
-					from tablea a  
-					left join tableb b  
-					on a.id = b.id  
-					where b.id is null  
-					union  
+					from tablea a 
+					left join tableb b 
+					on a.id = b.id 
+					where b.id is null 
+					union 
 					select a.id aid,a.age,b.id bid,b.name 
-					from tablea a  
-					right join tableb b  
-					on a.id = b.id  
-					where a.id is null  
+					from tablea a 
+					right join tableb b 
+					on a.id = b.id 
+					where a.id is null 
 
 				子查询
-					1.带in关键字的子查询（一个查询语句的条件可能落在另一个select语句的查询结果中）
+					1. 带 in 关键字的子查询 (一个查询语句的条件可能落在另一个 select 语句的查询结果中) 
 					select * from t_book where bookType in(select id from t_bookType);
 					select * from t_book where bookType not in(select id from t_bookType);
 
-					2.带比较运算符的子查询（子查询可以使用比较运算符）
+					2. 带比较运算符的子查询 (子查询可以使用比较运算符) 
 					select * from t_book where price>=(select price from t_priceLevel where priceLevel=1);
 
-					3.带exists关键字的子查询（加入子查询查询到记录，则进行外层查询，否则，不执行外层查询）
+					3. 带 exists 关键字的子查询 (加入子查询查询到记录，则进行外层查询，否则，不执行外层查询) 
 					select * from t_book where exists(select * from t_booktype);
 					select * from t_book where not exists(select * from t_booktype);
 
-					4.带any关键字的子查询（any关键字表示满足其中任一条件）
+					4. 带 any 关键字的子查询 (any 关键字表示满足其中任一条件) 
 					select * from t_book where price>= any(select price from t_priceLevel);
 
-					5.带all关键字的子查询（all关键字表示满足所有条件）
+					5. 带 all 关键字的子查询 (all 关键字表示满足所有条件) 
 					select * from t_book where price>= all(select price from t_priceLevel);
 
 				分页查询：
-					select 字段1，字段2，…from 表名 limit 初始位置，记录数；
+					select 字段 1，字段 2，…from 表名 limit 初始位置，记录数；
 					select * from t_student limit 0,5；
 
 				合并查询
 
 					union
-						使用union关键字是，数据库系统会将所有的查询结果合并到一起，然后去掉相同的记录；
+						使用 union 关键字是，数据库系统会将所有的查询结果合并到一起，然后去掉相同的记录；
 						select id from t_book union select id from t_bookType;
 
 					union all
-						使用union all，不会去除掉重复的记录；
+						使用 union all，不会去除掉重复的记录；
 						select id from t_book union all select id from t_bookType;
-					  
-					  
-				多表联合查询+子查询 SQL 语句
+					 
+					 
+				多表联合查询+ 子查询 SQL 语句
 
 						SELECT * FROM (
 						SELECT u.username , ig.title , igp.content 
@@ -503,21 +503,21 @@ MySQL 语句
 						jaypark
 						旅游频道
 						寻驴友去西藏。。
-					本例以 ph_interestgroupitem （帖子表）为基表，左连接了 ph_user （用户表）、ph_interestgroup（兴趣组表），
-	  
+					本例以 ph_interestgroupitem (帖子表) 为基表，左连接了 ph_user (用户表) 、ph_interestgroup (兴趣组表) ，
+	 
 				
-sql中的等于和不等于：
+sql 中的等于和不等于：
 
 	'=','<>','is null','is not null'
 
 		不等于：
-			<> ,!=,~= ,^= 这四个符号据说都可以在oracle中表示不等于，但是试了之后发现<> ,!= ,^=是可以的，~=不行；
-			只有<>是标准的sql语法，可以移植，其他的都是oracle平台的特性，移植性较差，所以开发中，尽量使用<>表示不等于。
+			<> ,!=,~= ,^= 这四个符号据说都可以在 oracle 中表示不等于，但是试了之后发现<> ,!= ,^=是可以的，~=不行；
+			只有<>是标准的 sql 语法，可以移植，其他的都是 oracle 平台的特性，移植性较差，所以开发中，尽量使用<>表示不等于。
 
 		等于：
 			=不用多说，
-			但是要进行null的等于判断时，须使用is null 或is not null，
-			null只能通过is null或者is not null来判断，其它操作符与null操作都是false。 
+			但是要进行 null 的等于判断时，须使用 is null 或 is not null，
+			null 只能通过 is null 或者 is not null 来判断，其它操作符与 null 操作都是 false。
 
 			
 			

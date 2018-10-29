@@ -24,7 +24,7 @@ JUC 并发包 笔记
 		
 		
 		
-	Java JUC包的主体结构：
+	Java JUC 包的主体结构：
 		Atomic : AtomicInteger
 		Locks : Lock, Condition, ReadWriteLock
 		Collections : Queue, ConcurrentMap
@@ -36,20 +36,20 @@ JUC 并发包 笔记
 		
 		
 	AQS (AbstractQueuedSynchronizer)：抽象队列同步；
-		AQS 类是锁机制实现的核心所在；是独占锁(如：ReentrantLock)和共享锁(如：Semaphore)的公共父类。
+		AQS 类是锁机制实现的核心所在；是独占锁 (如：ReentrantLock) 和共享锁 (如：Semaphore) 的公共父类。
 		
 		AQS 锁的分类：
 			独占锁：锁在一个时间点只能被一个线程锁占有。根据锁的获取机制，它又划分为“公平锁”和“非公平锁”。
-				公平锁，是按照通过CLH等待线程按照先来先得的规则，公平的获取锁；
-				而非公平锁，则当线程要获取锁时，它会无视CLH等待队列而直接获取锁。
-				独占锁的典型实例子是ReentrantLock，此外，ReentrantReadWriteLock.WriteLock也是独占锁。
+				公平锁，是按照通过 CLH 等待线程按照先来先得的规则，公平的获取锁；
+				而非公平锁，则当线程要获取锁时，它会无视 CLH 等待队列而直接获取锁。
+				独占锁的典型实例子是 ReentrantLock，此外，ReentrantReadWriteLock.WriteLock 也是独占锁。
 			共享锁：能被多个线程同时拥有，能被共享的锁。
-				JUC包中的 ReentrantReadWriteLock.ReadLock，CyclicBarrier， CountDownLatch 和 Semaphore 都是共享锁。
+				JUC 包中的 ReentrantReadWriteLock.ReadLock，CyclicBarrier，CountDownLatch 和 Semaphore 都是共享锁。
 		
 		
 		
 	CLH 队列 (Craig, Landin, and Hagersten lock queue)：
-		CLH 队列是A QS 中等待锁的线程队列。
+		CLH 队列是 A QS 中等待锁的线程队列。
 		在多线程中，为了保护竞争资源不被多个线程同时操作而起来错误，我们常常需要通过锁来保护这些资源。
 		在独占锁中，竞争资源在一个时间点只能被一个线程锁访问；而其它线程则需要等待。
 		CLH 就是管理这些等待锁的线程的队列。
@@ -72,21 +72,21 @@ JUC 并发包 笔记
 	
 	
 	volatile：
-		volatile 实现了类似synchronized的语义，却又没有锁机制。
+		volatile 实现了类似 synchronized 的语义，却又没有锁机制。
 		它确保对 volatile 修饰的字段更新以可预见的方式告知其他的线程。
 		
-		Java 存储模型不会对volatile指令的操作进行重排序：这个保证对volatile变量的操作时按照指令的出现顺序执行的。
-		volatile变量不会被缓存在寄存器中（只有拥有线程可见），每次总是从主存中读取volatile变量的结果。
-			ps：volatile并不能保证线程安全的，也就是说volatile字段的操作不是原子性的，volatile变量只能保证可见性。
+		Java 存储模型不会对 volatile 指令的操作进行重排序：这个保证对 volatile 变量的操作时按照指令的出现顺序执行的。
+		volatile 变量不会被缓存在寄存器中 (只有拥有线程可见) ，每次总是从主存中读取 volatile 变量的结果。
+			ps：volatile 并不能保证线程安全的，也就是说 volatile 字段的操作不是原子性的，volatile 变量只能保证可见性。
 	
 	Lock 锁：
-		Synchronized 属于独占锁，高并发时性能不高，JDK5 以后开始用JNI实现更高效的锁操作。
+		Synchronized 属于独占锁，高并发时性能不高，JDK5 以后开始用 JNI 实现更高效的锁操作。
 	
 	
 	
 		ReentrantLock 是一个可重入的互斥锁，又被称为“独占锁”。
 	
-		ReentrantLock分为“公平锁”和“非公平锁”：
+		ReentrantLock 分为“公平锁”和“非公平锁”：
 			
 	
 	

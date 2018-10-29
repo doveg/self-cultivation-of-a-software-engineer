@@ -22,30 +22,30 @@ Struts 核心
 		
 Struts
 	Struts2 核心过滤器：
-		StrutsPrepareAndExecuteFilter：Struts准备和执行过滤器。
+		StrutsPrepareAndExecuteFilter：Struts 准备和执行过滤器。
 
-	struts-default包：
-		定义了所有的32个拦截器；
+	struts-default 包：
+		定义了所有的 32 个拦截器；
 	defaultStack：
-		默认的栈，定义默认要执行的18个拦截器。
+		默认的栈，定义默认要执行的 18 个拦截器。
 
 	过滤器与拦截器：
-		过滤器：可以拦截servlet的所有资源（/index.jsp/servlet/img/css/js）；
-			过滤器是servlet的概念，可以在struts项目、servlet项目用。
-		拦截器：只拦截action请求；
-			拦截器是struts的概念，只能在struts中用。
+		过滤器：可以拦截 servlet 的所有资源 (/index.jsp/servlet/img/css/js) ；
+			过滤器是 servlet 的概念，可以在 struts 项目、servlet 项目用。
+		拦截器：只拦截 action 请求；
+			拦截器是 struts 的概念，只能在 struts 中用。
 
-	Action开发的几种方式：
-		方式一：继承ActionSupport：
+	Action 开发的几种方式：
+		方式一：继承 ActionSupport：
 			public class UserAction extends ActionSupport { }；
-			如果用Struts2的数据校验功能，必须继承此类。
-			因为ActionSuport类实现了Action接口，开发中一般用第一种方式。
-		方式二：实现Action接口：
+			如果用 Struts2 的数据校验功能，必须继承此类。
+			因为 ActionSuport 类实现了 Action 接口，开发中一般用第一种方式。
+		方式二：实现 Action 接口：
 		方式三：不继承任何类，不实现任何接口：
 
-	Ognl表达式语言：
-		用于页面取值；是struts标签默认支持的表达式语言；
-		必须配置struts标签用，不能离开struts标签直接用。
+	Ognl 表达式语言：
+		用于页面取值；是 struts 标签默认支持的表达式语言；
+		必须配置 struts 标签用，不能离开 struts 标签直接用。
 
 	
 		
@@ -65,119 +65,119 @@ Struts
 		
 Struts 工作流程
 		
-在web应用启动时就会加载初始化ActionServlet,ActionServlet从
-  struts-config.xml文件中读取配置信息,把它们存放到各种配置对象
-  ,例如:Action的映射信息存放在ActionMapping对象中.
+在 web 应用启动时就会加载初始化 ActionServlet,ActionServlet 从
+ struts-config.xml 文件中读取配置信息, 把它们存放到各种配置对象
+ , 例如:Action 的映射信息存放在 ActionMapping 对象中.
 
-  
-  当ActionServlet接收到一个客户请求时,将执行如下流程.
-    -(1)检索和用户请求匹配的ActionMapping实例,如果不存在,就返回请求
-     路径无效信息;
+ 
+ 当 ActionServlet 接收到一个客户请求时, 将执行如下流程.
+ -(1) 检索和用户请求匹配的 ActionMapping 实例, 如果不存在, 就返回请求
+ 路径无效信息;
 
-    -(2)如果ActionForm实例不存在,就创建一个ActionForm对象,把客户提交的
-     表单数据保存到ActionForm对象中;
+ -(2) 如果 ActionForm 实例不存在, 就创建一个 ActionForm 对象, 把客户提交的
+ 表单数据保存到 ActionForm 对象中;
 
-    -(3)根据配置信息决定是否需要表单验证.如果需要验证,就调用ActionForm 的validate()方法;
+ -(3) 根据配置信息决定是否需要表单验证. 如果需要验证, 就调用 ActionForm 的 validate() 方法;
 
-    -(4)如果ActionForm的validate()方法返回null或返回一个不包含               ActionMessage的ActuibErrors对象,就表示表单验证成功;
-   
-    -(5)ActionServlet根据ActionMapping所包含的映射信息决定将请求转发给
-     哪个Action,如果相应的Action实例不存在,就先创建这个实例,然后调用
-     Action的execute()方法;
+ -(4) 如果 ActionForm 的 validate() 方法返回 null 或返回一个不包含 ActionMessage 的 ActuibErrors 对象, 就表示表单验证成功;
+ 
+ -(5)ActionServlet 根据 ActionMapping 所包含的映射信息决定将请求转发给
+ 哪个 Action, 如果相应的 Action 实例不存在, 就先创建这个实例, 然后调用
+ Action 的 execute() 方法;
 
-    -(6)Action的execute()方法返回一个ActionForward对象,ActionServlet再     把客户请求转发给ActionForward对象指向的JSP组件;
+ -(6)Action 的 execute() 方法返回一个 ActionForward 对象,ActionServlet 再 把客户请求转发给 ActionForward 对象指向的 JSP 组件;
 
-    -(7)ActionForward对象指向JSP组件生成动态网页,返回给客户;
+ -(7)ActionForward 对象指向 JSP 组件生成动态网页, 返回给客户;
 
 
-在web服务器启动的时候就会自动加载ActionServlet，ActionServlet从struts-config.xml文件中读取配置信息，把他们存放到各种配置对象
+在 web 服务器启动的时候就会自动加载 ActionServlet，ActionServlet 从 struts-config.xml 文件中读取配置信息，把他们存放到各种配置对象
 
-当ActionServlet接收到一个客户请求的时候，将执行如下流程：
+当 ActionServlet 接收到一个客户请求的时候，将执行如下流程：
 
-（1）检索和用户请求匹配的ActionMapping实例，如果不存在，就返回请求路径无效
-（2）如果ActionForm实例不存在，就创建一个ActionForm对象，把客户提交的表单数据保存到ActionForm中
-（3）根据配置信息决定是否需要表单验证，如果需要验证，就调用ActionForm的validate()方法；
-（4）在ActionForm（）的方法返回一个null或者一个不包含ActionMeassage的ActionError对象，就表示表单验证通过
-（5）ActionServlet根据ActionMapping所包含的映射信息决定将请求转发个哪个Action，如果相应的Action不存在，就创建这个实例，再调用其execute（）方法
-（6）Action的execute()方法返回一个ActionForward对象，ActionServlet再把客户请求转发给ActionForward对象所指的jsp组建
-（7）ActionForward对象指向jsp组件生成的动态网页，返回给客户
+ (1) 检索和用户请求匹配的 ActionMapping 实例，如果不存在，就返回请求路径无效
+ (2) 如果 ActionForm 实例不存在，就创建一个 ActionForm 对象，把客户提交的表单数据保存到 ActionForm 中
+ (3) 根据配置信息决定是否需要表单验证，如果需要验证，就调用 ActionForm 的 validate() 方法；
+ (4) 在 ActionForm () 的方法返回一个 null 或者一个不包含 ActionMeassage 的 ActionError 对象，就表示表单验证通过
+ (5) ActionServlet 根据 ActionMapping 所包含的映射信息决定将请求转发个哪个 Action，如果相应的 Action 不存在，就创建这个实例，再调用其 execute () 方法
+ (6) Action 的 execute() 方法返回一个 ActionForward 对象，ActionServlet 再把客户请求转发给 ActionForward 对象所指的 jsp 组建
+ (7) ActionForward 对象指向 jsp 组件生成的动态网页，返回给客户
 		
 		
 		
 		
 		
-Model： MVC系统中的Model部分从概念上可以分为两类――系统的内部状态，和改变系统状态的动作。
-Struts为Model部分提供了Action和ActionForm对象：所有的Action处理器对象都是开发者从Struts的Action类派生的子类。
+Model： MVC 系统中的 Model 部分从概念上可以分为两类――系统的内部状态，和改变系统状态的动作。
+Struts 为 Model 部分提供了 Action 和 ActionForm 对象：所有的 Action 处理器对象都是开发者从 Struts 的 Action 类派生的子类。
 
-Action处理器对象封装了具体的处理逻辑，调用业务逻辑模块，并且把响应提交到合适的View组件以产生响应。
-Struts提供的ActionForm组件对象，它可以通过定义属性描述客户端表单数据。
-开发者可以从它派生子类对象，利用它和Struts提供的自定义标记库结合可以实现对客户端的表单数据的良好封装和支持，Action处理器对象可以直接对它进行读写，而不再需要和request、response对象进行数据交互。
-通过ActionForm组件对象实现了对View和Model之间交互的支持。
+Action 处理器对象封装了具体的处理逻辑，调用业务逻辑模块，并且把响应提交到合适的 View 组件以产生响应。
+Struts 提供的 ActionForm 组件对象，它可以通过定义属性描述客户端表单数据。
+开发者可以从它派生子类对象，利用它和 Struts 提供的自定义标记库结合可以实现对客户端的表单数据的良好封装和支持，Action 处理器对象可以直接对它进行读写，而不再需要和 request、response 对象进行数据交互。
+通过 ActionForm 组件对象实现了对 View 和 Model 之间交互的支持。
 
-Struts通常建议使用一组JavaBean表示系统的内部状态，根据系统的复杂度也可以使用像Entity EJB 和 Session EJB等组件来实现系统状态。Struts建议在实现时把"做什么"（Action）和"如何做"（业务逻辑）分离。这样可以实现业务逻辑的重用。
+Struts 通常建议使用一组 JavaBean 表示系统的内部状态，根据系统的复杂度也可以使用像 Entity EJB 和 Session EJB 等组件来实现系统状态。Struts 建议在实现时把"做什么" (Action) 和"如何做" (业务逻辑) 分离。这样可以实现业务逻辑的重用。
 
-MVC即Model-View-Controller的缩写，是一种常用的设计模式。
-MVC   减弱了业务逻辑接口和数据接口之间的耦合，以及让视图层更富于变化。 
-Struts   是MVC的一种实现，它将   Servlet和   JSP   标记（属于   J2EE   规范）用作实现的一部分。
-Struts继承了MVC的各项特性，并根据J2EE的特点，做了相应的变化与扩展。 
+MVC 即 Model-View-Controller 的缩写，是一种常用的设计模式。
+MVC 减弱了业务逻辑接口和数据接口之间的耦合，以及让视图层更富于变化。
+Struts 是 MVC 的一种实现，它将 Servlet 和 JSP 标记 (属于 J2EE 规范) 用作实现的一部分。
+Struts 继承了 MVC 的各项特性，并根据 J2EE 的特点，做了相应的变化与扩展。
 
-控 制：有一个XML文件Struts-config.xml，与之相关联的是Controller，
-在Struts中，承担MVC中Controller角 色的是一个Servlet，叫ActionServlet。
-ActionServlet是一个通用的控制组件。这个控制组件提供了处理所有发送到 Struts的HTTP请求的入口点。
-它截取和分发这些请求到相应的动作类（这些动作类都是Action类的子类）。
-另外控制组件也负责用相应的请求参数 填充   Action   From（通常称之为FromBean）,并传给动作类（通常称之为ActionBean）。
-动作类实现核心商业逻辑，它可以访问java   bean   或调用EJB。
-最后动作类把控制权传给后续的JSP   文件，后者生成视图。
-所有这些控制逻辑利用Struts-config.xml文件来配置。 
+控 制：有一个 XML 文件 Struts-config.xml，与之相关联的是 Controller，
+在 Struts 中，承担 MVC 中 Controller 角 色的是一个 Servlet，叫 ActionServlet。
+ActionServlet 是一个通用的控制组件。这个控制组件提供了处理所有发送到 Struts 的 HTTP 请求的入口点。
+它截取和分发这些请求到相应的动作类 (这些动作类都是 Action 类的子类) 。
+另外控制组件也负责用相应的请求参数 填充 Action From (通常称之为 FromBean) , 并传给动作类 (通常称之为 ActionBean) 。
+动作类实现核心商业逻辑，它可以访问 java bean 或调用 EJB。
+最后动作类把控制权传给后续的 JSP 文件，后者生成视图。
+所有这些控制逻辑利用 Struts-config.xml 文件来配置。
 
-视图：主要由JSP生成页面完成视图，
-Struts提供丰富的JSP   标签库：   Html，Bean，Logic，Template等，这有利于分开表现逻辑和程序逻辑。 
+视图：主要由 JSP 生成页面完成视图，
+Struts 提供丰富的 JSP 标签库： Html，Bean，Logic，Template 等，这有利于分开表现逻辑和程序逻辑。
 
-模 型：模型以一个或多个java   bean的形式存在。
-这些bean分为三类：Action   Form、Action、JavaBean   or   EJB。
-Action   Form通常称之为FormBean，封装了来自于Client的用户请求信息，如表单信息。
-Action通常称之为ActionBean，获取从 ActionSevlet传来的FormBean，取出FormBean中的相关信息，并做出相关的处理，一般是调用Java   Bean或EJB等。 
+模 型：模型以一个或多个 java bean 的形式存在。
+这些 bean 分为三类：Action Form、Action、JavaBean or EJB。
+Action Form 通常称之为 FormBean，封装了来自于 Client 的用户请求信息，如表单信息。
+Action 通常称之为 ActionBean，获取从 ActionSevlet 传来的 FormBean，取出 FormBean 中的相关信息，并做出相关的处理，一般是调用 Java Bean 或 EJB 等。
 
-流程：在Struts中，用户的请求一般以*.do作为请求服务名，所有的*.do请求均被指向 ActionSevlet，ActionSevlet根据Struts-config.xml中的配置信息，将用户请求封装成一个指定名称的 FormBean，并将此FormBean传至指定名称的ActionBean，由ActionBean完成相应的业务操作，如文件操作，数据库操作等。 每一个*.do均有对应的FormBean名称和ActionBean名称，这些在Struts-config.xml中配置。 
+流程：在 Struts 中，用户的请求一般以*.do 作为请求服务名，所有的*.do 请求均被指向 ActionSevlet，ActionSevlet 根据 Struts-config.xml 中的配置信息，将用户请求封装成一个指定名称的 FormBean，并将此 FormBean 传至指定名称的 ActionBean，由 ActionBean 完成相应的业务操作，如文件操作，数据库操作等。每一个*.do 均有对应的 FormBean 名称和 ActionBean 名称，这些在 Struts-config.xml 中配置。
 
-核心：Struts的核心是ActionSevlet，ActionSevlet的核心是Struts-config.xml。
+核心：Struts 的核心是 ActionSevlet，ActionSevlet 的核心是 Struts-config.xml。
 		
 		
 
 
-Struts1和Struts2的区别:
-Action 类:  
-• Struts1要求Action类继承一个抽象基类。Struts1的一个普遍问题是使用抽象类编程而不是接口，而struts2的Action是接口。  
-• Struts 2 Action类可以实现一个Action接口，也可实现其他接口，使可选和定制的服务成为可能。
-    Struts2提供一个ActionSupport基类去 实现 常用的接口。
-    Action接口不是必须的，任何有execute标识的POJO对象都可以用作Struts2的Action对象。 
-线程模式:  
-• Struts1 Action是单例模式并且必须是线程安全的，因为仅有Action的一个实例来处理所有的请求。
-    单例策略限制了Struts1 Action能作的事，并且要在开发时特别小心。Action资源必须是线程安全的或同步的。 
-• Struts2 Action对象为每一个请求产生一个实例，因此没有线程安全问题。
-    （实际上，servlet容器给每个请求产生许多可丢弃的对象，并且不会导致性能和垃圾回收问题） 
-Servlet 依赖:  
-• Struts1 Action 依赖于Servlet API ,因为当一个Action被调用时HttpServletRequest 和 HttpServletResponse 被传递给execute方法。 
-• Struts 2 Action不依赖于容器，允许Action脱离容器单独被测试。
-    如果需要，Struts2 Action仍然可以访问初始的request和response。
-    但是，其他的元素减少或者消除了直接访问HttpServetRequest 和 HttpServletResponse的必要性。 
-可测性:  
-• 测试Struts1 Action的一个主要问题是execute方法暴露了servlet API（这使得测试要依赖于容器）。
-    一个第三方扩展－－Struts TestCase－－提供了一套Struts1的模拟对象（来进行测试）。 
-• Struts 2 Action可以通过初始化、设置属性、调用方法来测试，“依赖注入”支持也使测试更容易。  
-捕获输入:  
-• Struts1 使用ActionForm对象捕获输入。所有的ActionForm必须继承一个基类。
-    因为其他JavaBean不能用作ActionForm，开发者经常创建多余的类捕获输入。
-    动态Bean（DynaBeans）可以作为创建传统ActionForm的选择，
-    但是开发者可能是在重新描述(创建)已经存 在的JavaBean（仍然会导致有冗余的javabean）。 
-• Struts 2直接使用Action属性作为输入属性，消除了对第二个输入对象的需求。输入属性可能是有自己(子)属性的rich对象类型。
-    Action属性能够通过 web页面上的taglibs访问。
-    Struts2也支持ActionForm模式。
-    rich对象类型，包括业务对象，能够用作输入/输出对象。
-    这种 ModelDriven 特性简化了taglib对POJO输入对象的引用。 
-表达式语言：  
-• Struts1 整合了JSTL，因此使用JSTL EL。这种EL有基本对象图遍历，但是对集合和索引属性的支持很弱。  
-• Struts2可以使用JSTL，但是也支持一个更强大和灵活的表达式语言－－"Object Graph Notation Language" (OGNL). 
+Struts1 和 Struts2 的区别:
+Action 类: 
+• Struts1 要求 Action 类继承一个抽象基类。Struts1 的一个普遍问题是使用抽象类编程而不是接口，而 struts2 的 Action 是接口。
+• Struts 2 Action 类可以实现一个 Action 接口，也可实现其他接口，使可选和定制的服务成为可能。
+ Struts2 提供一个 ActionSupport 基类去 实现 常用的接口。
+ Action 接口不是必须的，任何有 execute 标识的 POJO 对象都可以用作 Struts2 的 Action 对象。
+线程模式: 
+• Struts1 Action 是单例模式并且必须是线程安全的，因为仅有 Action 的一个实例来处理所有的请求。
+ 单例策略限制了 Struts1 Action 能作的事，并且要在开发时特别小心。Action 资源必须是线程安全的或同步的。
+• Struts2 Action 对象为每一个请求产生一个实例，因此没有线程安全问题。
+ (实际上，servlet 容器给每个请求产生许多可丢弃的对象，并且不会导致性能和垃圾回收问题) 
+Servlet 依赖: 
+• Struts1 Action 依赖于 Servlet API , 因为当一个 Action 被调用时 HttpServletRequest 和 HttpServletResponse 被传递给 execute 方法。
+• Struts 2 Action 不依赖于容器，允许 Action 脱离容器单独被测试。
+ 如果需要，Struts2 Action 仍然可以访问初始的 request 和 response。
+ 但是，其他的元素减少或者消除了直接访问 HttpServetRequest 和 HttpServletResponse 的必要性。
+可测性: 
+• 测试 Struts1 Action 的一个主要问题是 execute 方法暴露了 servlet API (这使得测试要依赖于容器) 。
+ 一个第三方扩展－－Struts TestCase－－提供了一套 Struts1 的模拟对象 (来进行测试) 。
+• Struts 2 Action 可以通过初始化、设置属性、调用方法来测试，“依赖注入”支持也使测试更容易。
+捕获输入: 
+• Struts1 使用 ActionForm 对象捕获输入。所有的 ActionForm 必须继承一个基类。
+ 因为其他 JavaBean 不能用作 ActionForm，开发者经常创建多余的类捕获输入。
+ 动态 Bean (DynaBeans) 可以作为创建传统 ActionForm 的选择，
+ 但是开发者可能是在重新描述 (创建) 已经存 在的 JavaBean (仍然会导致有冗余的 javabean) 。
+• Struts 2 直接使用 Action 属性作为输入属性，消除了对第二个输入对象的需求。输入属性可能是有自己 (子) 属性的 rich 对象类型。
+ Action 属性能够通过 web 页面上的 taglibs 访问。
+ Struts2 也支持 ActionForm 模式。
+ rich 对象类型，包括业务对象，能够用作输入/输出对象。
+ 这种 ModelDriven 特性简化了 taglib 对 POJO 输入对象的引用。
+表达式语言： 
+• Struts1 整合了 JSTL，因此使用 JSTL EL。这种 EL 有基本对象图遍历，但是对集合和索引属性的支持很弱。
+• Struts2 可以使用 JSTL，但是也支持一个更强大和灵活的表达式语言－－"Object Graph Notation Language" (OGNL). 
 
 
 
@@ -195,36 +195,36 @@ Servlet 依赖:
 
 
 
-Struts的工作流程:
-在web应用启动时就会加载初始化ActionServlet,ActionServlet从
-struts-config.xml文件中读取配置信息,把它们存放到各种配置对象
-当ActionServlet接收到一个客户请求时,将执行如下流程.
--(1)检索和用户请求匹配的ActionMapping实例,如果不存在,就返回请求路径无效信息;
--(2)如果ActionForm实例不存在,就创建一个ActionForm对象,把客户提交的表单数据保存到ActionForm对象中;
--(3)根据配置信息决定是否需要表单验证.如果需要验证,就调用ActionForm的validate()方法;
--(4)如果ActionForm的validate()方法返回或返回一个不包含ActionMessage的ActuibErrors对象, 就表示表单验证成功;
--(5)ActionServlet根据ActionMapping所包含的映射信息决定将请求转发给哪个Action,如果相应的 Action实例不存在,就先创建这个实例,然后调用Action的execute()方法;
--(6)Action的execute()方法返回一个ActionForward对象,ActionServlet在把客户请求转发给 ActionForward对象指向的JSP组件;
--(7)ActionForward对象指向JSP组件生成动态网页,返回给客户;
-为什么要用Struts：
-JSP、Servlet、JavaBean技术的出现给我们构建强大的企业应用系统提供了可能。但用这些技术构建的系统非常的繁乱，所以在此之上，我们需要一个规则、一个把这些技术组织起来的规则，这就是框架，Struts便应运而生。
-基于Struts开发的应用由3类组件构成：控制器组件、模型组件、视图组件。
+Struts 的工作流程:
+在 web 应用启动时就会加载初始化 ActionServlet,ActionServlet 从
+struts-config.xml 文件中读取配置信息, 把它们存放到各种配置对象
+当 ActionServlet 接收到一个客户请求时, 将执行如下流程.
+-(1) 检索和用户请求匹配的 ActionMapping 实例, 如果不存在, 就返回请求路径无效信息;
+-(2) 如果 ActionForm 实例不存在, 就创建一个 ActionForm 对象, 把客户提交的表单数据保存到 ActionForm 对象中;
+-(3) 根据配置信息决定是否需要表单验证. 如果需要验证, 就调用 ActionForm 的 validate() 方法;
+-(4) 如果 ActionForm 的 validate() 方法返回或返回一个不包含 ActionMessage 的 ActuibErrors 对象, 就表示表单验证成功;
+-(5)ActionServlet 根据 ActionMapping 所包含的映射信息决定将请求转发给哪个 Action, 如果相应的 Action 实例不存在, 就先创建这个实例, 然后调用 Action 的 execute() 方法;
+-(6)Action 的 execute() 方法返回一个 ActionForward 对象,ActionServlet 在把客户请求转发给 ActionForward 对象指向的 JSP 组件;
+-(7)ActionForward 对象指向 JSP 组件生成动态网页, 返回给客户;
+为什么要用 Struts：
+JSP、Servlet、JavaBean 技术的出现给我们构建强大的企业应用系统提供了可能。但用这些技术构建的系统非常的繁乱，所以在此之上，我们需要一个规则、一个把这些技术组织起来的规则，这就是框架，Struts 便应运而生。
+基于 Struts 开发的应用由 3 类组件构成：控制器组件、模型组件、视图组件。
 		
 
 		
 Struts 基本工作原理
 		
-1. ActionServlet：Struts 的ActionServlet控制导航流。当ActionServlet从容器接到一个请求，它使用URI（或者“path”）也决定哪个Action来处理请求。< Control Layout >
+1. ActionServlet：Struts 的 ActionServlet 控制导航流。当 ActionServlet 从容器接到一个请求，它使用 URI (或者“path”) 也决定哪个 Action 来处理请求。< Control Layout >
 
-2. Action：用来访问业务逻辑类。一个 Action 可以校验输入，并且访问业务层以从数据库检索信息。为校验输入或者使用输入来更新数据库，Action 需要知道什么值被提交上来。它并不是强制每个Action都要从请求中抓取这些值，而是由 ActionServlet 将输入绑定到 JavaBean 中。< Model Layout >
+2. Action：用来访问业务逻辑类。一个 Action 可以校验输入，并且访问业务层以从数据库检索信息。为校验输入或者使用输入来更新数据库，Action 需要知道什么值被提交上来。它并不是强制每个 Action 都要从请求中抓取这些值，而是由 ActionServlet 将输入绑定到 JavaBean 中。< Model Layout >
 
-3.ActionForm：输入 bean 是Struts ActionServlet 类的子类。ActionServlet 通过查找请求的路径可以决定使用哪个 ActionForm（输入 Javabean ） ，Action 也是通过同样的方法选取的。ActionForm扩展了org.apache.struts.action.ActionForm类。< Data >
+3.ActionForm：输入 bean 是 Struts ActionServlet 类的子类。ActionServlet 通过查找请求的路径可以决定使用哪个 ActionForm (输入 Javabean) ，Action 也是通过同样的方法选取的。ActionForm 扩展了 org.apache.struts.action.ActionForm 类。< Data >
 
-4.ActionMapping：Struts将这些细节绑定在一个ActionMapping对象中。每个ActionMapping相对于一个特定的路径。当某个路径被请求时，Servlet 就查询 ActionMapping 对象。ActionMapping对象告诉servlet，哪些个Action，ActionForm，和 ActionForward 将被本次请求使用。
+4.ActionMapping：Struts 将这些细节绑定在一个 ActionMapping 对象中。每个 ActionMapping 相对于一个特定的路径。当某个路径被请求时，Servlet 就查询 ActionMapping 对象。ActionMapping 对象告诉 servlet，哪些个 Action，ActionForm，和 ActionForward 将被本次请求使用。
 
-每个请求都必须以HTTP响应进行应答。通常，Struts Action 并不自行渲染响应信息，而是将请求转发到其他资源，比如JSP页面。Struts提供一个ActionForward类，用于将一个页面的路径保存为逻辑名称。当完成业务逻辑后，Action 选择并向 Servlet 返回一个 ActionForward 。Servlet 然后使用保存在 ActionForward 对象中的路径来调用页面完成响应。
+每个请求都必须以 HTTP 响应进行应答。通常，Struts Action 并不自行渲染响应信息，而是将请求转发到其他资源，比如 JSP 页面。Struts 提供一个 ActionForward 类，用于将一个页面的路径保存为逻辑名称。当完成业务逻辑后，Action 选择并向 Servlet 返回一个 ActionForward。Servlet 然后使用保存在 ActionForward 对象中的路径来调用页面完成响应。
 
-所有这些细节，关于Action，ActionForm，ActionForward，ActionMapping，以及其它一些东西，都在struts-config.xml 文件中定义。ActionServlet 在启动时读取这个配置文件，并创建一个配置对象数据库。在运行时，Struts 应用根据文件创建的配置对象，而不是文件本身。
+所有这些细节，关于 Action，ActionForm，ActionForward，ActionMapping，以及其它一些东西，都在 struts-config.xml 文件中定义。ActionServlet 在启动时读取这个配置文件，并创建一个配置对象数据库。在运行时，Struts 应用根据文件创建的配置对象，而不是文件本身。
 
 		
 		
@@ -234,13 +234,13 @@ Struts 基本工作原理
 		
 Struts 工作原理和组件
 		
-对于Struts 如何控制、处理客户请求，让我们通过对struts的四个核心组件介绍来具体说明。这几个组件就是：ActionServlet。Action Classes，Action Mapping（此处包括ActionForward），ActionFrom Bean。
+对于 Struts 如何控制、处理客户请求，让我们通过对 struts 的四个核心组件介绍来具体说明。这几个组件就是：ActionServlet。Action Classes，Action Mapping (此处包括 ActionForward) ，ActionFrom Bean。
 
-Struts ActionServlet控制器对象
+Struts ActionServlet 控制器对象
 
-       ActionServlet继承自javax.servlet.http.HttpServlet类，其在Struts framework中扮演的角色是中心控制器。它提供一个中心位置来处理全部的终端请求。控制器ActionServlet主要负责将HTTP的客户请求信息组装后，根据配置文件的指定描述，转发到适当的处理器。
+ ActionServlet 继承自 javax.servlet.http.HttpServlet 类，其在 Struts framework 中扮演的角色是中心控制器。它提供一个中心位置来处理全部的终端请求。控制器 ActionServlet 主要负责将 HTTP 的客户请求信息组装后，根据配置文件的指定描述，转发到适当的处理器。
 
-       按照Servelt的标准，所有得Servlet必须在web配置文件（web.xml）声明。同样，ActoinServlet必须在Web Application配置文件（web.xml）中描述，有关配置信息如下。
+ 按照 Servelt 的标准，所有得 Servlet 必须在 web 配置文件 (web.xml) 声明。同样，ActoinServlet 必须在 Web Application 配置文件 (web.xml) 中描述，有关配置信息如下。
 
 <servlet>
 
@@ -250,7 +250,7 @@ Struts ActionServlet控制器对象
 
 </servlet>
 
-全部的请求URI以*.do的模式存在并映射到这个servlet，其配置如下：
+全部的请求 URI 以*.do 的模式存在并映射到这个 servlet，其配置如下：
 
 <servlet-mapping>
 
@@ -260,9 +260,9 @@ Struts ActionServlet控制器对象
 
 </servlet-mapping>
 
-一个该模式的请求URI符合如下格式：
+一个该模式的请求 URI 符合如下格式：
 
-              http://www.my_site_name.com/mycontext/actionName.do
+ http://www.my_site_name.com/mycontext/actionName.do
 
 
 
@@ -270,55 +270,55 @@ Struts ActionServlet控制器对象
 
 
 
-当用户向服务器端提交请求的时候，实际上信息是首先发送到控制器ActionServlet，一旦控制器获得了请求，其就会将请求信息传交给一些辅助类（help classes）处理。这些辅助类知道如何去处理与请求信息所对应的业务操作。在Struts中，这个辅助类就是org.apache.struts.action.Action。通常开发者需要自己继承Aciton类，从而实现自己的Action实例。
+当用户向服务器端提交请求的时候，实际上信息是首先发送到控制器 ActionServlet，一旦控制器获得了请求，其就会将请求信息传交给一些辅助类 (help classes) 处理。这些辅助类知道如何去处理与请求信息所对应的业务操作。在 Struts 中，这个辅助类就是 org.apache.struts.action.Action。通常开发者需要自己继承 Aciton 类，从而实现自己的 Action 实例。
 
 Struts Action Classes
 
-       ActionServlet把全部提交的请求都被控制器委托到RequestProcessor对象。RequestProcessor使用struts-config.xml文件检查请求URI找到动作Action标示符。
+ ActionServlet 把全部提交的请求都被控制器委托到 RequestProcessor 对象。RequestProcessor 使用 struts-config.xml 文件检查请求 URI 找到动作 Action 标示符。
 
-一个Action 类的角色，就像客户请求动作和业务逻辑处理之间的一个适配器（Adaptor），其功能就是将请求与业务逻辑分开。这样的分离，使得客户请求和Action类之间可以有多个点对点的映射。而且Action类通常还提供了其它的辅助功能，比如：认证（authorization）、日志（logging）和数据验证（validation）。
+一个 Action 类的角色，就像客户请求动作和业务逻辑处理之间的一个适配器 (Adaptor) ，其功能就是将请求与业务逻辑分开。这样的分离，使得客户请求和 Action 类之间可以有多个点对点的映射。而且 Action 类通常还提供了其它的辅助功能，比如：认证 (authorization) 、日志 (logging) 和数据验证 (validation) 。
 
 public ActionForward execute(ActionMapping mapping,
 
-                             ActionForm form,
+ ActionForm form,
 
-                             javax.servlet.ServletRequest request,
+ javax.servlet.ServletRequest request,
 
-                             javax.servlet.ServletResponse response)
+ javax.servlet.ServletResponse response)
 
-                      throws java.io.IOException,javax.servlet.ServletException
-
-
-
-       Action最为常用的是execute（）方法。（注意，以前的perform方法在struts1.1中已经不再支持），还有一个execute（）方法，请参考apidoc，在此不在说明。
-
-       当Controller收到客户的请求的时候，在将请求转移到一个Action实例时，如果这个实例不存在，控制器会首先创建，然后会调用这个Action实例的execute（）方法。Struts Framework为应用系统中的每一个Action类只创建一个实例。因为所有的用户都使用这一个实例，所以你必须确定你的Action 类运行在一个多线程的环境中。下图显示了一个execute（）方法如何被访问：
+ throws java.io.IOException,javax.servlet.ServletException
 
 
 
-Action实例的execute()方法
+ Action 最为常用的是 execute () 方法。 (注意，以前的 perform 方法在 struts1.1 中已经不再支持) ，还有一个 execute () 方法，请参考 apidoc，在此不在说明。
 
-      
+ 当 Controller 收到客户的请求的时候，在将请求转移到一个 Action 实例时，如果这个实例不存在，控制器会首先创建，然后会调用这个 Action 实例的 execute () 方法。Struts Framework 为应用系统中的每一个 Action 类只创建一个实例。因为所有的用户都使用这一个实例，所以你必须确定你的 Action 类运行在一个多线程的环境中。下图显示了一个 execute () 方法如何被访问：
 
-注意，客户自己继承的Action子类，必须重写execute（）方法，因为Action类在默认情况下是返回null的。
+
+
+Action 实例的 execute() 方法
+
+ 
+
+注意，客户自己继承的 Action 子类，必须重写 execute () 方法，因为 Action 类在默认情况下是返回 null 的。
 
 Struts Action Mapping
 
-上面讲到了一个客户请求是如何被控制器转发和处理的，但是，控制器如何知道什么样的信息转发到什么样的Action类呢？这就需要一些与动作和请求信息相对应的映射配置说明。在struts 中，这些配置映射信息是存储在特定的XML文件（比如struts-config.xml）。 
+上面讲到了一个客户请求是如何被控制器转发和处理的，但是，控制器如何知道什么样的信息转发到什么样的 Action 类呢？这就需要一些与动作和请求信息相对应的映射配置说明。在 struts 中，这些配置映射信息是存储在特定的 XML 文件 (比如 struts-config.xml) 。
 
-这些配置信息在系统启动的时候被读入内存，供struts framework在运行期间使用。在内存中，每一个<action>元素都与org.apache.struts.action.ActionMapping类的一个实例对应。下表就显示了一个登陆的配置映射。
+这些配置信息在系统启动的时候被读入内存，供 struts framework 在运行期间使用。在内存中，每一个<action>元素都与 org.apache.struts.action.ActionMapping 类的一个实例对应。下表就显示了一个登陆的配置映射。
 
 <action-mappings>
 
 <action path="/logonAction"
 
-           type="com.test.LogonAction"
+ type="com.test.LogonAction"
 
-           name="LogonForm"
+ name="LogonForm"
 
-           scope="request"
+ scope="request"
 
-           input="logoncheck.jsp"
+ input="logoncheck.jsp"
 
 validate="false">
 
@@ -342,17 +342,17 @@ type="com.test.LoginForm"/>
 
 </form-beans>
 
-上面的配置表示：当可以通过/logonAction.do（此处假设配置的控制器映射为*.do）提交请求信息的时候，控制器将信息委托com.test.LogonAction处理。调用LogonAction实例的execute()方法。同时将Mapping实例和所对应的LogonForm Bean信息传入。其中name=LogonForm，使用的form-bean元素所声明的ActionForm Bean。有关form-bean的申明如下显示。
+上面的配置表示：当可以通过/logonAction.do (此处假设配置的控制器映射为*.do) 提交请求信息的时候，控制器将信息委托 com.test.LogonAction 处理。调用 LogonAction 实例的 execute() 方法。同时将 Mapping 实例和所对应的 LogonForm Bean 信息传入。其中 name=LogonForm，使用的 form-bean 元素所声明的 ActionForm Bean。有关 form-bean 的申明如下显示。
 
-使用ActionForward导航
+使用 ActionForward 导航
 
-元素<forward>则表示了当Action实例的execute()方法运行完毕或，控制器根据Mapping可将响应信息转到适当的地方。如上面现实，如果客户登陆成功，则调用welcome forward，将成功信息返回到/welcome.jsp页面。在你的execute()方法的结尾可以使用下面的实例代码而返回welcome forward。当然你的welcome forward必须在action元素属性中定义，正如上面所声明的那样。
+元素<forward>则表示了当 Action 实例的 execute() 方法运行完毕或，控制器根据 Mapping 可将响应信息转到适当的地方。如上面现实，如果客户登陆成功，则调用 welcome forward，将成功信息返回到/welcome.jsp 页面。在你的 execute() 方法的结尾可以使用下面的实例代码而返回 welcome forward。当然你的 welcome forward 必须在 action 元素属性中定义，正如上面所声明的那样。
 
 return (mapping.findForward("welcome"));
 
 
 
-       ActionForward对象是配置对象。这些配置对象拥有独一无二的标识以允许它们按照有意义的名称如“success”，“failure”等来检索。ActionForward对象封装了向前进的URL路径且被请求处理器用于识别目标视图。ActionForward对象建立自<forward>元素位于struts-config.xml。下面是一个Struts中<forward>元素例子，属于<action>元素范围。
+ ActionForward 对象是配置对象。这些配置对象拥有独一无二的标识以允许它们按照有意义的名称如“success”，“failure”等来检索。ActionForward 对象封装了向前进的 URL 路径且被请求处理器用于识别目标视图。ActionForward 对象建立自<forward>元素位于 struts-config.xml。下面是一个 Struts 中<forward>元素例子，属于<action>元素范围。
 
 <action path="/editCustomerProfile"
 
@@ -366,21 +366,21 @@ name="customerProfileForm" scope="request">
 
 </action>
 
-       基于执行请求处理器的execute(…)方法的结果，当传递一个值匹配指定于<forward>元素中name属性的值的时候，下一个视图可以在execute(…)方法中被开发者用方便的方法org.apache.struts.action.ActionMapping.findForward(…)选择。ActionMapping.findForward(…)方法既从它的本地范围又从全局范围提供一个ActionForward对象，该对象返回至RequestProcessor以RequestDispatcher.forward(…)或response.sendRedirect(…)调用下一个视图。当<forward>元素有redirect=“false”属性或redirect属性不存在的时候，RequestDispatcher.forward(…)被执行；当redirect=“true”是，将调用sendRedirect(…)方法。下例举例说明了redirect属性的用法：
+ 基于执行请求处理器的 execute(…) 方法的结果，当传递一个值匹配指定于<forward>元素中 name 属性的值的时候，下一个视图可以在 execute(…) 方法中被开发者用方便的方法 org.apache.struts.action.ActionMapping.findForward(…) 选择。ActionMapping.findForward(…) 方法既从它的本地范围又从全局范围提供一个 ActionForward 对象，该对象返回至 RequestProcessor 以 RequestDispatcher.forward(…) 或 response.sendRedirect(…) 调用下一个视图。当<forward>元素有 redirect=“false”属性或 redirect 属性不存在的时候，RequestDispatcher.forward(…) 被执行；当 redirect=“true”是，将调用 sendRedirect(…) 方法。下例举例说明了 redirect 属性的用法：
 
-         <forward name="success" path="/Catalog.jsp" redirect="true"/>
+ <forward name="success" path="/Catalog.jsp" redirect="true"/>
 
-如果redirect=true, URL建立如/contextPath/path因为HttpServletResponse.sendRedirect(…)中解释URL采用”/”开头相对于servlet容器根目录。
+如果 redirect=true, URL 建立如/contextPath/path 因为 HttpServletResponse.sendRedirect(…) 中解释 URL 采用”/”开头相对于 servlet 容器根目录。
 
-如果redirect=false, URI建立如/path因为ServletContext.getRequestDisptacher(…)采用虚拟目录相关URL。
+如果 redirect=false, URI 建立如/path 因为 ServletContext.getRequestDisptacher(…) 采用虚拟目录相关 URL。
 
 
 
-在此稍稍说一下有关global-forwards的概念。其在配置文件中描述了整个应用系统可以使用的ActionForward，而不是仅仅是一个特定的Action。
+在此稍稍说一下有关 global-forwards 的概念。其在配置文件中描述了整个应用系统可以使用的 ActionForward，而不是仅仅是一个特定的 Action。
 
 <global-forwards>
 
-    <forward name="logout" path="/logout.do"/>
+ <forward name="logout" path="/logout.do"/>
 
 <forward name="error" path="/error.jsp"/>
 
@@ -388,75 +388,75 @@ name="customerProfileForm" scope="request">
 
 
 
-Struts ActionForm Bean捕获表单数据
+Struts ActionForm Bean 捕获表单数据
 
-在上面讲解ActionServlet，Action Classes和Action Mapping的时候，我们都提到了ActionForm Bean的概念。一个应用系统的消息转移（或者说状态转移）的非持久性数据存储，是由ActionForm Bean的负责保持的。
+在上面讲解 ActionServlet，Action Classes 和 Action Mapping 的时候，我们都提到了 ActionForm Bean 的概念。一个应用系统的消息转移 (或者说状态转移) 的非持久性数据存储，是由 ActionForm Bean 的负责保持的。
 
-       ActionForm派生的对象用于保存请求对象的参数，因此它们和用户紧密联系。
+ ActionForm 派生的对象用于保存请求对象的参数，因此它们和用户紧密联系。
 
-       一个ActionForm类被RequestProcessor建立。这是发生在已完成向前进到一个URL，该URL为映射到控制器servlet而不是JSP和相应的动作映射指定的表单属性的。在这个情况下，如果没有在指定的活动范围内找到，RequestProcessor将尝试寻找可能导致创建一个新ActionForm对象的表单bean。该ActionForm对象在指定的活动范围内被用<action>元素的name属性找到；
+ 一个 ActionForm 类被 RequestProcessor 建立。这是发生在已完成向前进到一个 URL，该 URL 为映射到控制器 servlet 而不是 JSP 和相应的动作映射指定的表单属性的。在这个情况下，如果没有在指定的活动范围内找到，RequestProcessor 将尝试寻找可能导致创建一个新 ActionForm 对象的表单 bean。该 ActionForm 对象在指定的活动范围内被用<action>元素的 name 属性找到；
 
-RequestProcessor将随后重新安排表单属性，用请求时参数填充表单，随即调用表单对象的validate(…)方法以履行服务器端用户输入验证。仅当ActionMapping对象中validate属性被设为true时，validate(…)方法被调用；这就是默认的行为。request.getParameterValues(parameterName)被用于得到一个String[]对象，它用来表单填充；验证的结果应该是一个ActionErrors对象，用org.apache.struts.taglib.html.ErrorsTag来显示验证错误给用户。ActionForm也可以被用于为当前用户保存即将被一个视图引用的中间模型状态。
+RequestProcessor 将随后重新安排表单属性，用请求时参数填充表单，随即调用表单对象的 validate(…) 方法以履行服务器端用户输入验证。仅当 ActionMapping 对象中 validate 属性被设为 true 时，validate(…) 方法被调用；这就是默认的行为。request.getParameterValues(parameterName) 被用于得到一个 String[] 对象，它用来表单填充；验证的结果应该是一个 ActionErrors 对象，用 org.apache.struts.taglib.html.ErrorsTag 来显示验证错误给用户。ActionForm 也可以被用于为当前用户保存即将被一个视图引用的中间模型状态。
 
-当一个表单对象被RequestProcessor找到，它被传递到请求处理器的execute(…)方法。一个ActionForm对象也可以被请求处理器建立。表单对象建立目的是提供中间模型状态给使用请求范围JSP；这将确保对象不会在有效性过期后仍然存在。默认的，所有的表单都被保存为会话范围。会话中表单对象脱离有效性的存在可能导致浪费内存，同样的，请求处理器必须跟踪保存在会话中的表单对象的生命周期。一个好的捕获表单数据的实践是为横跨多用户交互的相关表单用一个单独的表单bean。表单bean也可以在反馈的时候用来储存能够被自定义标签改变的中间模型状态。在视图中标签用法避免结合Java代码，因此要成一个好的任务划分，web生产组主要处理标志，而应用开发组主要处理Java代码。标签因素退出访问中间模型状态的逻辑；当访问嵌套的对象或当通过聚集列举时这个逻辑可能很复杂。
+当一个表单对象被 RequestProcessor 找到，它被传递到请求处理器的 execute(…) 方法。一个 ActionForm 对象也可以被请求处理器建立。表单对象建立目的是提供中间模型状态给使用请求范围 JSP；这将确保对象不会在有效性过期后仍然存在。默认的，所有的表单都被保存为会话范围。会话中表单对象脱离有效性的存在可能导致浪费内存，同样的，请求处理器必须跟踪保存在会话中的表单对象的生命周期。一个好的捕获表单数据的实践是为横跨多用户交互的相关表单用一个单独的表单 bean。表单 bean 也可以在反馈的时候用来储存能够被自定义标签改变的中间模型状态。在视图中标签用法避免结合 Java 代码，因此要成一个好的任务划分，web 生产组主要处理标志，而应用开发组主要处理 Java 代码。标签因素退出访问中间模型状态的逻辑；当访问嵌套的对象或当通过聚集列举时这个逻辑可能很复杂。
 
-注意：在struts1.1中，ActionForm的校验功能，逐渐被剥离出来（当然依然可以使用）。使用了validator framework对整个应用系统的表单数据验证进行统一管理。详细信息请参考：http://home.earthlink.net/~dwinterfeldt
+注意：在 struts1.1 中，ActionForm 的校验功能，逐渐被剥离出来 (当然依然可以使用) 。使用了 validator framework 对整个应用系统的表单数据验证进行统一管理。详细信息请参考：http://home.earthlink.net/~dwinterfeldt
 
-在ActionForm的使用中，Struts提倡使用到值对象（Value Object）。这样将客户或开发人员，对数据状态与对象状态能够更加清晰的理解和使用。
+在 ActionForm 的使用中，Struts 提倡使用到值对象 (Value Object) 。这样将客户或开发人员，对数据状态与对象状态能够更加清晰的理解和使用。
 
-对于每一个客户请求，Struts framework在处理ActionForm的时候，一般需要经历如下几个步骤：
+对于每一个客户请求，Struts framework 在处理 ActionForm 的时候，一般需要经历如下几个步骤：
 
-（１）检查Action的映射，确定Action中已经配置了对ActionForm的映射
+ (１) 检查 Action 的映射，确定 Action 中已经配置了对 ActionForm 的映射
 
-       （２）根据name属性，查找form bean的配置信息
+ (２) 根据 name 属性，查找 form bean 的配置信息
 
-       （３）检查Action的formbean的使用范围，确定在此范围下，是否已经有此form bean的实例。
+ (３) 检查 Action 的 formbean 的使用范围，确定在此范围下，是否已经有此 form bean 的实例。
 
-       （４）假如当前范围下，已经存在了此form bean的实例，而是对当前请求来说，是同一种类型的话，那么就重用。
+ (４) 假如当前范围下，已经存在了此 form bean 的实例，而是对当前请求来说，是同一种类型的话，那么就重用。
 
-       （５）否则，就重新构建一个form bean的实例
+ (５) 否则，就重新构建一个 form bean 的实例
 
-       （６）form bean的reset()方法备调用
+ (６) form bean 的 reset() 方法备调用
 
-       （７）调用对应的setter方法，对状态属性赋值
+ (７) 调用对应的 setter 方法，对状态属性赋值
 
-       （８）如果validatede的属性北设置为true，那么就调用form bean的validate()方法。
+ (８) 如果 validatede 的属性北设置为 true，那么就调用 form bean 的 validate() 方法。
 
-（9）如果validate（）方法没有返回任何错误，控制器将ActionForm作为参数，传给Action实例的execute（）方法并执行。
+ (9) 如果 validate () 方法没有返回任何错误，控制器将 ActionForm 作为参数，传给 Action 实例的 execute () 方法并执行。
 
 
 
-注意：直接从ActionFrom类继承的reset()和validate()方法，并不能实现什么处理功能，所以有必要自己重新覆盖。
+注意：直接从 ActionFrom 类继承的 reset() 和 validate() 方法，并不能实现什么处理功能，所以有必要自己重新覆盖。
 
-Struts的其他组件
+Struts 的其他组件
 
-       Struts framework本身提供了很多可扩展的组件或sub framework，方便的开发人员在其构架上构建web层的应用系统。比如upload,collections ,logging等等。让我们来看看两个比较重要的组件：validationg framework和struts taglib。有关其他组件请参考Struts用户手册（http://jakarta.apache.org/struts/userGuide）。
+ Struts framework 本身提供了很多可扩展的组件或 sub framework，方便的开发人员在其构架上构建 web 层的应用系统。比如 upload,collections ,logging 等等。让我们来看看两个比较重要的组件：validationg framework 和 struts taglib。有关其他组件请参考 Struts 用户手册 (http://jakarta.apache.org/struts/userGuide) 。
 
-      
+ 
 
 Validation Framework for Struts
 
-在struts1.1中，新增了validation framework。增加了对form数据提交的验证。将原本需要在ActionFrom Bean的validate（）进行的验证通过配置文件的描述进行验证。
+在 struts1.1 中，新增了 validation framework。增加了对 form 数据提交的验证。将原本需要在 ActionFrom Bean 的 validate () 进行的验证通过配置文件的描述进行验证。
 
-有关其详细信息，请参考http://home.earthlink.net/~dwinterfeldt 。个人建议对于小型应用系统可以采用这种配置方式，但是对于应用系统中有大量web层表单应用的系统，并且业务需求变动比较大的，使用validation framework 可能会加重开发难度、系统维护难度。可以借鉴validation framework的Javascript Validator Tag。
+有关其详细信息，请参考 http://home.earthlink.net/~dwinterfeldt。个人建议对于小型应用系统可以采用这种配置方式，但是对于应用系统中有大量 web 层表单应用的系统，并且业务需求变动比较大的，使用 validation framework 可能会加重开发难度、系统维护难度。可以借鉴 validation framework 的 Javascript Validator Tag。
 
 
 
 Struts TagLib
 
-       struts提供了一组可扩展的自定义标签库（TagLib），可以简化创建用户界面的过程。目前包括：Bean Tags，HTML Tags，Logic Tags，Nested Tags，Template Tags　这几个Taglib。有关Struts Taglib的结构和使用，可以参考前面有关Cutomer Tag Lib的介绍，有关起详细资料，请参考
+ struts 提供了一组可扩展的自定义标签库 (TagLib) ，可以简化创建用户界面的过程。目前包括：Bean Tags，HTML Tags，Logic Tags，Nested Tags，Template Tags　这几个 Taglib。有关 Struts Taglib 的结构和使用，可以参考前面有关 Cutomer Tag Lib 的介绍，有关起详细资料，请参考
 
 BeanUtils
 
-       这个组件的全称是Bean Introspection Utilites。是属于Jakarta Commons项目组的。主要是帮助构建javabean的属性操作的（getter,setter），已经提供一种动态定义和访问bean的属性。有关详细信息，请参考。
+ 这个组件的全称是 Bean Introspection Utilites。是属于 Jakarta Commons 项目组的。主要是帮助构建 javabean 的属性操作的 (getter,setter) ，已经提供一种动态定义和访问 bean 的属性。有关详细信息，请参考。
 
 http://jakarta.apache.org/commons/beanutils.html
 
-       如果各位对这方面有很兴趣，可以参考一些有关java反射（Reflectio）方面的资料。
+ 如果各位对这方面有很兴趣，可以参考一些有关 java 反射 (Reflectio) 方面的资料。
 
 Collections
 
-       这个组件主要是提供了一些集合或列表对象，在原有的java collections framework的基础上进行了扩展。详细资料请参考：
+ 这个组件主要是提供了一些集合或列表对象，在原有的 java collections framework 的基础上进行了扩展。详细资料请参考：
 
 http://jakarta.apache.org/commons/collections.html 以及
 
@@ -464,6 +464,6 @@ http://cvs.apache.org/viewcvs/~checkout~/jakarta-commons/collections/STATUS.html
 
 Digester
 
-       这个组件翻译成中文的意思是“汇编”。其主要功能是根据xml配置文件，初始化系统的一些java类对象。Digester帮助你指定XML与java对象之间映射模型，而且允许客户话定制映射规则（rules）。详细资料请参考
+ 这个组件翻译成中文的意思是“汇编”。其主要功能是根据 xml 配置文件，初始化系统的一些 java 类对象。Digester 帮助你指定 XML 与 java 对象之间映射模型，而且允许客户话定制映射规则 (rules) 。详细资料请参考
 http://jakarta.apache.org/commons/digester.html
 		

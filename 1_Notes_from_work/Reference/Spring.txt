@@ -24,7 +24,7 @@ Spring
 
 @order
 
-	@order，使用注解方式使bean的加载顺序得到控制
+	@order，使用注解方式使 bean 的加载顺序得到控制
 	@order(value=1)
 	@order(value=2)
 	值越小，越先被加载。
@@ -45,46 +45,46 @@ Spring 缓存注解 @Cacheable、@CacheEvict、@CachePut
 
 	@Cacheable
 
-			@Cacheable可以标记在一个方法上，也可以标记在一个类上。
+			@Cacheable 可以标记在一个方法上，也可以标记在一个类上。
 			当标记在一个方法上时表示该方法是支持缓存的，当标记在一个类上时则表示该类所有的方法都是支持缓存的。
-			对于一个支持缓存的方法，Spring会在其被调用后将其返回值缓存起来，以保证下次利用同样的参数来执行该方法时可以直接从缓存中获取结果，而不需要再次执行该方法。
-			Spring在缓存方法的返回值时是以键值对进行缓存的，值就是方法的返回结果，至于键的话，Spring又支持两种策略，默认策略和自定义策略。
+			对于一个支持缓存的方法，Spring 会在其被调用后将其返回值缓存起来，以保证下次利用同样的参数来执行该方法时可以直接从缓存中获取结果，而不需要再次执行该方法。
+			Spring 在缓存方法的返回值时是以键值对进行缓存的，值就是方法的返回结果，至于键的话，Spring 又支持两种策略，默认策略和自定义策略。
 
 			需要注意的是当一个支持缓存的方法在对象内部被调用时是不会触发缓存功能的。
-			@Cacheable可以指定三个属性，value、key 和 condition。
-				value属性指定Cache名称；
-				使用key属性自定义key；
-				condition属性指定发生的条件。
+			@Cacheable 可以指定三个属性，value、key 和 condition。
+				value 属性指定 Cache 名称；
+				使用 key 属性自定义 key；
+				condition 属性指定发生的条件。
 
 
 	@CachePut
 
-		Spring在每次执行前都会检查Cache中是否存在相同key的缓存元素，
+		Spring 在每次执行前都会检查 Cache 中是否存在相同 key 的缓存元素，
 		如果存在就不再执行该方法，而是直接从缓存中获取结果进行返回，
 		否则才会执行并将返回结果存入指定的缓存中。
-		@CachePut也可以声明一个方法支持缓存功能。
-		与@Cacheable不同的是使用@CachePut标注的方法在执行前不会去检查缓存中是否存在之前执行过的结果，而是每次都会执行该方法，并将执行结果以键值对的形式存入指定的缓存中。
+		@CachePut 也可以声明一个方法支持缓存功能。
+		与 @Cacheable 不同的是使用 @CachePut 标注的方法在执行前不会去检查缓存中是否存在之前执行过的结果，而是每次都会执行该方法，并将执行结果以键值对的形式存入指定的缓存中。
 
 
 	@CacheEvict
 
-		@CacheEvict是用来标注在需要清除缓存元素的方法或类上的。
+		@CacheEvict 是用来标注在需要清除缓存元素的方法或类上的。
 		当标记在一个类上时表示其中所有的方法的执行都会触发缓存的清除操作。
-		@CacheEvict可以指定的属性有value、key、condition、allEntries和beforeInvocation。
-		其中value、key和condition的语义与@Cacheable对应的属性类似。
+		@CacheEvict 可以指定的属性有 value、key、condition、allEntries 和 beforeInvocation。
+		其中 value、key 和 condition 的语义与 @Cacheable 对应的属性类似。
 		
-		value 表示清除操作是发生在哪些Cache上的（对应Cache的名称）；
-		key 表示需要清除的是哪个key，如未指定则会使用默认策略生成的key；
+		value 表示清除操作是发生在哪些 Cache 上的 (对应 Cache 的名称) ；
+		key 表示需要清除的是哪个 key，如未指定则会使用默认策略生成的 key；
 		condition 表示清除操作发生的条件。
 
-		allEntries属性
-			allEntries是boolean类型，表示是否需要清除缓存中的所有元素。默认为false，表示不需要。当指定了allEntries为true时，Spring Cache将忽略指定的key。有的时候我们需要Cache一下清除所有的元素，这比一个一个清除元素更有效率。
+		allEntries 属性
+			allEntries 是 boolean 类型，表示是否需要清除缓存中的所有元素。默认为 false，表示不需要。当指定了 allEntries 为 true 时，Spring Cache 将忽略指定的 key。有的时候我们需要 Cache 一下清除所有的元素，这比一个一个清除元素更有效率。
 
-		beforeInvocation属性
-			清除操作默认是在对应方法成功执行之后触发的，即方法如果因为抛出异常而未能成功返回时也不会触发清除操作。使用beforeInvocation可以改变触发清除操作的时间，当我们指定该属性值为true时，Spring会在调用该方法之前清除缓存中的指定元素。
+		beforeInvocation 属性
+			清除操作默认是在对应方法成功执行之后触发的，即方法如果因为抛出异常而未能成功返回时也不会触发清除操作。使用 beforeInvocation 可以改变触发清除操作的时间，当我们指定该属性值为 true 时，Spring 会在调用该方法之前清除缓存中的指定元素。
 
 	@Caching
 
-		@Caching注解可以让我们在一个方法或者类上同时指定多个Spring Cache相关的注解。其拥有三个属性：cacheable、put和evict，分别用于指定@Cacheable、@CachePut和@CacheEvict。
+		@Caching 注解可以让我们在一个方法或者类上同时指定多个 Spring Cache 相关的注解。其拥有三个属性：cacheable、put 和 evict，分别用于指定 @Cacheable、@CachePut 和 @CacheEvict。
 
 

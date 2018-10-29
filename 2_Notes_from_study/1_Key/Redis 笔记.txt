@@ -13,16 +13,16 @@ Redis 核心
 	怎么使用：
 		Redis 中所有的数据都是字符串。命令不区分大小写，key 是区分大小写的。
 		五种数据类型：
-			String：key-value（做缓存）
+			String：key-value (做缓存) 
 				get：
 				set：
-				incr：加一（生成id）
+				incr：加一 (生成 id) 
 				Decr：减一
 
-			Hash：key-fields-values（做缓存）
-				相当于一个key对于一个map，map 中还有key-value；使用hash对key进行归类。
-				Hset：向hash中添加内容；
-				Hget：从hash中取内容。
+			Hash：key-fields-values (做缓存) 
+				相当于一个 key 对于一个 map，map 中还有 key-value；使用 hash 对 key 进行归类。
+				Hset：向 hash 中添加内容；
+				Hget：从 hash 中取内容。
 
 			List：有顺序可重复；
 				lrange：有序查询；
@@ -37,7 +37,7 @@ Redis 核心
 				srem：弹出；
 				集合运算命令
 
-			SortedSet（zset）：有顺序，不能重复
+			SortedSet (zset) ：有顺序，不能重复
 				zrange：查询 (不包含数字)；
 				zrevrange：逆序查询；
 				withscores：查询所有数据 (包含数字)；
@@ -47,31 +47,31 @@ Redis 核心
 Redis
 	Redis 的安装
 		Redis 是 C 语言开发的缓存数据库，安装 Redis 需要 C 语言的编译环境。
-		如果没有gcc需要在线安装。yum install gcc-c++
+		如果没有 gcc 需要在线安装。yum install gcc-c++
 		安装步骤：
-			第一步：redis的源码包上传到linux系统。
+			第一步：redis 的源码包上传到 linux 系统。
 			第二步：解压缩 Redis。
-			第三步：编译。进入redis源码目录；make。
+			第三步：编译。进入 redis 源码目录；make。
 			第四步：安装。make install PREFIX=/usr/local/redis
-		PREFIX参数指定redis的安装目录。一般软件安装到/usr目录下
+		PREFIX 参数指定 redis 的安装目录。一般软件安装到/usr 目录下
 		
 	连接 Redis
 		Redis 的启动：
 			前端启动：
-				在redis的安装目录下直接启动redis-server
+				在 redis 的安装目录下直接启动 redis-server
 				[root@localhost bin]# ./redis-server 
 			后台启动：
-				把/root/redis-3.0.0/redis.conf复制到/usr/local/redis/bin目录下
+				把/root/redis-3.0.0/redis.conf 复制到/usr/local/redis/bin 目录下
 				[root@localhost redis-3.0.0]# cp redis.conf /usr/local/redis/bin/
 			修改配置文件：
 				[root@localhost bin]# ./redis-server redis.conf
-			查看redis进程：
+			查看 redis 进程：
 				[root@localhost bin]# ps aux|grep redis
-				root      5190  0.1  0.3  33936  1712 ?        Ssl  18:23   0:00 ./redis-server *:6379    
-				root      5196  0.0  0.1   4356   728 pts/0    S+   18:24   0:00 grep redis
+				root 5190 0.1 0.3 33936 1712 ? Ssl 18:23 0:00 ./redis-server *:6379 
+				root 5196 0.0 0.1 4356 728 pts/0 S+ 18:24 0:00 grep redis
 		Redis-cli
 			[root@localhost bin]# ./redis-cli 
-			默认连接localhost运行在6379端口的redis服务。
+			默认连接 localhost 运行在 6379 端口的 redis 服务。
 			[root@localhost bin]# ./redis-cli -h 192.168.25.153 -p 6379
 			-h：连接的服务器的地址
 			-p：服务的端口号
@@ -87,19 +87,19 @@ Redis 基础
 		
 	Redis 五种数据类型：
 
-		String：key-value（做缓存）
+		String：key-value (做缓存) 
 			Redis 中所有的数据都是字符串。命令不区分大小写，key 是区分大小写的。
-			Redis 是单线程的。Redis中不适合保存内容大的数据。
+			Redis 是单线程的。Redis 中不适合保存内容大的数据。
 			set：
 			get：
-			incr：加一（生成id）
+			incr：加一 (生成 id) 
 			Decr：减一
 
-		Hash：key-fields-values（做缓存）
-			相当于一个key对于一个map，map 中还有key-value；
-			使用hash对key进行归类。
-			Hset：向hash中添加内容；
-			Hget：从hash中取内容。
+		Hash：key-fields-values (做缓存) 
+			相当于一个 key 对于一个 map，map 中还有 key-value；
+			使用 hash 对 key 进行归类。
+			Hset：向 hash 中添加内容；
+			Hget：从 hash 中取内容。
 
 		List：有顺序可重复；
 			lpush：无序存入；
@@ -114,7 +114,7 @@ Redis 基础
 			smembers：查询；
 			集合运算命令
 
-		SortedSet（zset）：有顺序，不能重复
+		SortedSet (zset) ：有顺序，不能重复
 			zadd：存入；
 			zrem：弹出；
 			zrange：查询 (不包含数字)；
@@ -123,17 +123,17 @@ Redis 基础
 				
 	Key 命令：
 		Expire key second：
-			设置key的过期时间；
+			设置 key 的过期时间；
 		Ttl key：
-			查看key的有效期；
+			查看 key 的有效期；
 		Persist key：
-			清除key的过期时间；Key持久化。
+			清除 key 的过期时间；Key 持久化。
 			
 	Redis 的持久化方案：
 		RDB 形式：快照形式 (snapshotting)；
-			定期把内存中，当前时刻的数据保存到磁盘。Redis默认支持的持久化方案。
+			定期把内存中，当前时刻的数据保存到磁盘。Redis 默认支持的持久化方案。
 		AOF 形式：append only file；
-			把所有对redis数据库操作的命令，增删改操作的命令，保存到文件中。
+			把所有对 redis 数据库操作的命令，增删改操作的命令，保存到文件中。
 			数据库恢复时把所有的命令执行一遍即可。
 		在 redis.conf 配置文件中配置。
 		两种持久化方案同时开启使用 aof 文件来恢复数据库。
@@ -156,11 +156,11 @@ Redis 基础
 	
 Redis 集群
 	Redis Cluster 架构细节:
-		(1) 所有的 redis 节点彼此互联 (PING-PONG机制)，内部使用二进制协议优化传输速度和带宽；
+		(1) 所有的 redis 节点彼此互联 (PING-PONG 机制)，内部使用二进制协议优化传输速度和带宽；
 		(2) 节点的 fail 是通过集群中超过半数的节点检测失效时才生效；
 		(3) 客户端与 redis 节点直连，不需要中间 proxy 层；
 			客户端不需要连接集群所有节点，连接集群中任何一个可用节点即可；
-		(4) Redis Cluster 把所有的物理节点映射到 [0-16383]slot 上，cluster 负责维护node<->slot<->value
+		(4) Redis Cluster 把所有的物理节点映射到 [0-16383]slot 上，cluster 负责维护 node<->slot<->value
 			Redis 集群中内置了 16384 个哈希槽，
 			当需要在 Redis 集群中放置一个 key-value 时，redis 先对 key 使用 crc16 算法算出一个结果，
 			然后把结果对 16384 求余数，这样每个 key 都会对应一个编号在 0-16383 之间的哈希槽，
@@ -170,15 +170,15 @@ Redis 集群
 	Redis 集群的搭建
 
 		Redis 集群中至少应该有三个节点。要保证集群的高可用，需要每个节点有一个备份机。
-		Redis 集群至少需要6台服务器。
-		搭建伪分布式。可以使用一台虚拟机运行6个 redis 实例。需要修改 redis 的端口号7001-7006
+		Redis 集群至少需要 6 台服务器。
+		搭建伪分布式。可以使用一台虚拟机运行 6 个 redis 实例。需要修改 redis 的端口号 7001-7006
 		
 		集群搭建环境
-			1、使用ruby脚本搭建集群。需要ruby的运行环境。
-				安装ruby
+			1、使用 ruby 脚本搭建集群。需要 ruby 的运行环境。
+				安装 ruby
 				yum install ruby
 				yum install rubygems
-			2、安装ruby脚本运行使用的包。
+			2、安装 ruby 脚本运行使用的包。
 				[root@localhost ~]# gem install redis-3.0.0.gem 
 				Successfully installed redis-3.0.0
 				1 gem installed
@@ -187,16 +187,16 @@ Redis 集群
 
 				[root@localhost ~]# cd redis-3.0.0/src
 				[root@localhost src]# ll *.rb
-				-rwxrwxr-x. 1 root root 48141 Apr  1  2015 redis-trib.rb
+				-rwxrwxr-x. 1 root root 48141 Apr 1 2015 redis-trib.rb
 
 		搭建步骤
-				需要6台redis服务器。搭建伪分布式。
-				需要6个redis实例。
-				需要运行在不同的端口7001-7006
-			第一步：创建6个redis实例，每个实例运行在不同的端口。
-				需要修改redis.conf配置文件。配置文件中还需要把cluster-enabled yes前的注释去掉。
-			第二步：启动每个redis实例。
-			第三步：使用ruby脚本搭建集群。
+				需要 6 台 redis 服务器。搭建伪分布式。
+				需要 6 个 redis 实例。
+				需要运行在不同的端口 7001-7006
+			第一步：创建 6 个 redis 实例，每个实例运行在不同的端口。
+				需要修改 redis.conf 配置文件。配置文件中还需要把 cluster-enabled yes 前的注释去掉。
+			第二步：启动每个 redis 实例。
+			第三步：使用 ruby 脚本搭建集群。
 				./redis-trib.rb create --replicas 1 192.168.25.153:7001 192.168.25.153:7002 192.168.25.153:7003 192.168.25.153:7004 192.168.25.153:7005 192.168.25.153:7006
 				创建关闭集群的脚本：
 				[root@localhost redis-cluster]# vim shutdow-all.sh
@@ -209,9 +209,9 @@ Redis 集群
 				[root@localhost redis-cluster]# chmod u+x shutdow-all.sh 
 				
 		集群的使用方法
-			Redis-cli连接集群。
+			Redis-cli 连接集群。
 			[root@localhost redis-cluster]# redis01/redis-cli -p 7002 -c
-				-c：代表连接的是redis集群	
+				-c：代表连接的是 redis 集群	
 	
 	
 Jedis 对象
@@ -221,13 +221,13 @@ Jedis 对象
 		推荐添加到服务层 Service 工程中。
 
 	连接单机版
-		第一步：创建一个 Jedis 对象。需要指定服务端的ip及端口。
+		第一步：创建一个 Jedis 对象。需要指定服务端的 ip 及端口。
 		第二步：使用 Jedis 对象操作数据库，每个 redis 命令对应一个方法。
 		第三步：打印结果。
 		第四步：关闭 Jedis。
 
 	使用连接池连接单机版
-		第一步：创建一个 JedisPool 对象。需要指定服务端的ip及端口。
+		第一步：创建一个 JedisPool 对象。需要指定服务端的 ip 及端口。
 		第二步：从 JedisPool 中获得 Jedis 对象。
 		第三步：使用 Jedis 操作 redis 服务器。
 		第四步：操作完毕后关闭 jedis 对象，连接池回收资源。
@@ -243,8 +243,8 @@ Jedis 对象
 	Jedis：连接 redis 的对象；
 
 	JedisCluster：连接 redis 集群的对象；
-		1）至少有三个节点。
-		2）JedisCluster 对象操作集群
+		1) 至少有三个节点。
+		2) JedisCluster 对象操作集群
 
 	JedisPool：连接池；
 
@@ -304,10 +304,10 @@ Jedis 对象
 			3、查询不到，缓存中没有需要查询数据库。
 			4、把查询结果添加到缓存中。
 			5、返回结果。
-		向redis中添加缓存：
+		向 redis 中添加缓存：
 			Key：cid
-			Value：内容列表。需要把java对象转换成json。
-		使用hash对key进行归类。
+			Value：内容列表。需要把 java 对象转换成 json。
+		使用 hash 对 key 进行归类。
 			HASH_KEY:HASH
 				|--KEY:VALUE
 				|--KEY:VALUE
@@ -319,29 +319,29 @@ Jedis 对象
 实例
 	向业务逻辑中添加缓存
 		缓存添加分析
-			使用redis做缓存。
+			使用 redis 做缓存。
 			业务逻辑：
-				1、根据商品id到缓存中命中
+				1、根据商品 id 到缓存中命中
 				2、查到缓存，直接返回。
 				3、查不到，查询数据库
 				4、把数据放到缓存中
 				5、返回数据
 				缓存中缓存热点数据，提供缓存的使用率。需要设置缓存的有效期。一般是一天的时间，可以根据实际情况跳转。
-			需要使用String类型来保存商品数据。
-			可以加前缀方法对象redis中的key进行归类。
+			需要使用 String 类型来保存商品数据。
+			可以加前缀方法对象 redis 中的 key 进行归类。
 				ITEM_INFO:123456:BASE
 				ITEM_INFO:123456:DESC
-			如何把二维表保存到redis中:
+			如何把二维表保存到 redis 中:
 				1、表名就是第一层
 				2、主键是第二层
 				3、字段名第三次
-				三层使用“:”分隔作为key，value就是字段中的内容。
-		把redis相关的jar包添加到工程
+				三层使用“:”分隔作为 key，value 就是字段中的内容。
+		把 redis 相关的 jar 包添加到工程
 		添加缓存
 			//查询缓存
 				String json = jedisClient.get(ITEM_INFO_PRE + ":" + itemId + ":BASE");
 				if (StringUtils.isNotBlank(json)) {
-					//把json转换为java对象
+					//把 json 转换为 java 对象
 					TbItem item = JsonUtils.jsonToPojo(json, TbItem.class);
 					return item;
 				}
@@ -353,7 +353,7 @@ Jedis 对象
 				String json = jedisClient.get(ITEM_INFO_PRE + ":" + itemId + ":DESC");
 			//判断缓存是否命中
 				if (StringUtils.isNotBlank(json) ) {
-					//转换为java对象
+					//转换为 java 对象
 					TbItemDesc itemDesc = JsonUtils.jsonToPojo(json, TbItemDesc.class);
 					return itemDesc;
 				}
@@ -363,14 +363,14 @@ Jedis 对象
 
 				
 	商品详情模块实现
-		通过solr全文搜索找到商品;通过商品id去redis中找当前id的缓存,找不到去数据库中查找并添加到缓存中;
-		(为了提高redis的高可用,把不常访问的商品从redis缓存中清除:使用定时)
-		每次点击都会把key的时间重置,当key在他的生命中没有被点击就会从redis中清除,再次访问时再次添加。
+		通过 solr 全文搜索找到商品;通过商品 id 去 redis 中找当前 id 的缓存, 找不到去数据库中查找并添加到缓存中;
+		(为了提高 redis 的高可用, 把不常访问的商品从 redis 缓存中清除:使用定时)
+		每次点击都会把 key 的时间重置, 当 key 在他的生命中没有被点击就会从 redis 中清除, 再次访问时再次添加。
 	两方面影响用户访问速度:
 		数据库查询
 			使用缓存
-		服务器生成html页面
-			使用freemaker生成静态页面
+		服务器生成 html 页面
+			使用 freemaker 生成静态页面
 
 
 

@@ -1,0 +1,14 @@
+
+Windows 脚本命令
+
+
+网络配置信息：
+	ipconfig/all
+
+
+
+
+
+
+
+

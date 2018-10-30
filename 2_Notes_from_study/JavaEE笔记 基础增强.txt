@@ -1,0 +1,653 @@
+
+JavaEE 笔记 基础增强
+
+泛型、反射、注解、日志
+
+
+07_小结
+泛型
+泛型可以在编译时期进行类型检查，可以避免频繁类型转化 泛型是 JDK1.5 才有的) 。
+基本用法：
+声明泛型集合的时候可以指定元素的类型。
+泛型擦除：
+泛型只在编译时期有效；
+编译后的字节码文件中，不存在泛型信息。
+泛型的写法：
+声明泛型集合时，两端集合中泛型类型必须要一致；
+泛型类型必须是引用类型，不能是基本类型。
+泛型方法：
+使用泛型方法时确定泛型的类型。
+泛型类：
+创建泛型类对象时确定类型。
+泛型接口：
+如果实现泛型接口的类也是抽象，那么类型在具体的实现中确定，或创建泛型类时确定；
+业务实现类中会直接确定接口的类型。
+泛型关键字：
+关键字：?
+可以接收任何泛型集合，但是不能编辑集合值；
+一般在方法参数中用。如：save List<?> list) 
+关键字：extends
+限定元素类型范围的上限 子类) 。
+关键字：super
+限定元素类型范围的下限 父类) 。
+泛型反射：
+获取当前运行类的父类 参数化类型) ：
+Type type = this.getClass) .getGenericSuperclass) ；
+强制转换为参数化类型：
+ParameterizedType pt = ParameterizedType) type；
+获取参数化类型中，实际类型的定义： 
+Type types[] = pt.getActualTypeArguments) ；
+获取数据的第一个元素：
+clazz = Class) types[0]；
+表名 与类名一样，只要获取类名就可以) ：
+tableName = clazz.getSimpleName) ；
+反射
+在运行时期动态创建对象，获取对象的属性、方法。
+反射创建对象：
+类全名：
+String className = "cn.itcast.c_reflect.Admin"；
+得到类字节码：
+Class<?> clazz = Class.forName className) ；
+创建对象 1: 默认构造函数简写：
+Admin admin = Admin) clazz.newInstance) ；
+创建对象 2：通过带参数构造器创建对象：
+Constructor<?> constructor = clazz.getDeclaredConstructor String.class) ；
+Admin admin = Admin) constructor.newInstance "Jack") ；
+反射获取属性名称、值：
+类全名：
+String className = "cn.itcast.c_reflect.Admin"；
+得到类字节码：
+Class<?> clazz = Class.forName className) ；
+对象：
+Admin admin = Admin) clazz.newInstance) ；
+获取所有的属性名称：
+Field[] fs = clazz.getDeclaredFields) ；
+遍历：输出每一个属性名称、值
+for Field f : fs) {
+设置强制访问：
+f.setAccessible true) ；
+名称：
+String name = f.getName) ；
+值：
+Object value = f.get admin) ；
+}
+反射获取方法：
+类全名：
+String className = "cn.itcast.c_reflect.Admin"；
+得到类字节码：
+Class<?> clazz = Class.forName className) ；
+对象实例：
+Admin admin = Admin) clazz.newInstance) ；
+获取方法对象：
+Method m = clazz.getDeclaredMethod "getId") ；
+调用方法：
+Object r_value = m.invoke admin) ；
+注解：
+告诉编译器如何运行程序。
+常用的注解：
+	@Override：重写父类的方法；
+@Deprecated：标记方法已经过时；
+@SuppressWarnings：抑制编译器警告。
+@Test：单元测试注解；
+元注解：
+注解的注解。
+注解反射：
+先获取方法的类型：
+Class clazz = App_2.class；
+Method m = clazz.getMethod "save") ；
+再获取方法里的注解类型：
+Author author = m.getAnnotation Author.class) ；
+注解和 XML 方式：
+注解：简化 XML 配置，程序处理非常方便；
+XML：便于维护；需要些读取代码。
+Log4J 日志组件
+为了项目后期部署上线后的维护、错误排查。
+
+
+01_课程回顾
+XML 技术；
+Servlet、JSP；
+数据库；
+Jdbc 技术；
+JavaWeb 增强：
+过滤器、监听器、文件上传与下载、国际化。
+学过的组件：
+Dom4J、Xpath、DBUtils、C3p0、BeanUtils、log4J；
+Struts、Spring、Hibernate。
+学习目标：
+a) 泛型；
+b) 注解；
+c) log4J 日志：项目中使用；
+d) 枚举。
+
+02_泛型
+概述：
+泛型可以在编译时期进行类型检查，可以避免频繁类型转化 泛型是 JDK1.5 才有的) 。
+包括：基本用法、泛型擦除、泛型类、泛型方法、泛型接口、泛型关键字、反射泛型 案例) 。
+基本用法：
+声明泛型集合的时候可以指定元素的类型。
+如：List<String> list = new ArrayList<String>) ；
+// 运行时期异常 
+	@Test
+	public void testGeneric) throws Exception {
+		// 集合的声明
+		List list = new ArrayList) ；
+		list.add "China") ；
+		list.add 1) ；
+		// 集合的使用
+		String str = String) list.get 1) ；
+	}
+	// 使用泛型
+	@Test
+	public void testGeneric2) throws Exception {
+		// 声明泛型集合的时候指定元素的类型
+		List<String> list = new ArrayList<String>) ；
+		list.add "China") ；
+//list.add 1) ；// 编译时期报错
+		String str = list.get 1) ；
+	}
+泛型擦除：
+泛型只在编译时期有效；
+编译后的字节码文件中，不存在泛型信息。
+	// 泛型擦除实例 
+	public void save List<Person> p) {
+	}
+	public void save List<Dept> d) { // 报错： 与上面方法编译后一样
+	}
+泛型的写法：
+声明泛型集合时，两端集合中泛型类型必须要一致；
+泛型类型必须是引用类型，不能是基本类型。
+// 泛型写法
+	@Test
+	public void testGeneric3) throws Exception {
+		// 声明泛型集合，集合两端类型必须一致
+		List<Object> list = new ArrayList<Object>) ；
+		List<String> list1 = new ArrayList<String>) ；
+		List list2 = new ArrayList<String>) ；
+		List<Integer> list3 = new ArrayList) ；
+		// 错误
+		//List<Object> list4 = new ArrayList<String>) ；
+		// 错误： 泛型类型必须是引用类型，不能为基本类型
+		List<int> list5 = new ArrayList<int>) ；
+	}
+泛型方法、泛型类、泛型接口的作用：
+设计公用的类、方法，对公用的业务实现进行抽取；
+使程序更灵活。
+【java 中任何对象，先定义再使用。】
+【CSR：查看当前项目中的类。】
+【CST：查看源码中的类。】
+【ASL：快速获取方法返回值。】
+泛型方法：
+使用泛型方法时确定泛型的类型。
+public class GenericDemo {
+	// 定义泛型方法
+	public <K，T> T save T t，K k) {
+		return null；
+	}
+	// 测试方法
+	@Test
+	public void testMethod) throws Exception {
+		// 使用泛型方法: 在使用泛型方法的时候，确定泛型类型
+		save 1.0f，1) ；
+	}
+}
+泛型类：
+创建泛型类对象时确定类型。
+public class GenericDemo<T> {
+	// 定义泛型方法
+	public <K> T save T t，K k) {
+		return null；
+	}
+	public void update T t) {
+	}
+	// 测试方法
+	@Test
+	public void testMethod) throws Exception {
+		// 泛型类： 在创建泛型类对象的时候，确定类型
+		GenericDemo<String> demo = new GenericDemo<String>) ；
+		demo.save "test"，1) ；
+	}
+}
+泛型接口：
+类型确定：
+如果实现泛型接口的类也是抽象，那么类型在具体的实现中确定，或创建泛型类时确定；
+业务实现类中会直接确定接口的类型。
+/**
+ * 泛型接口
+ * @param <T>
+ */
+public interface IBaseDao<T> {
+	void save T t) ；
+	void update T t) ；
+}
+public class BaseDao<T> implements IBaseDao<T> {	}
+public class PersonDao implements IBaseDao<Person>{	}
+泛型关键字：
+? ：			只接收值。
+extends：	元素的类型必须继承自指定的类。
+super：		元素的类型必须是指定的类的父类。
+关键字：?
+可以接收任何泛型集合，但是不能编辑集合值；
+一般在方法参数中用。如：save List<?> list) 
+// 泛型，涉及到一些关键字
+public class App_extends_super {
+	//只带泛型特征的方法
+	public void save List<?> list) {
+		// 只能获取、迭代 list； 不能编辑 list
+	}
+	@Test
+	public void testGeneric) throws Exception {
+		// ? 可以接收任何泛型集合，但是不能编辑集合值；所以一般在方法参数中用
+		List<?> list = new ArrayList<String>) ；
+		//list.add "") ；// 报错
+	}
+}
+关键字：extends
+限定元素类型范围的上限 子类) 。
+如：List<? extends Number>
+public class App_extends_super {
+	/**
+	 * list 集合只能处理 Double/Float/Integer 等类型
+	 * 限定元素范围：元素的类型要继承自 Number 类 上限) 
+	 * @param list
+	 */
+	public void save List<? extends Number> list) {
+	}
+	@Test
+	public void testGeneric) throws Exception {
+		List<Double> list_1 = new ArrayList<Double>) ；
+		List<Float> list_2 = new ArrayList<Float>) ；
+		List<Integer> list_3 = new ArrayList<Integer>) ；
+		List<String> list_4 = new ArrayList<String>) ；
+		// 调用
+		save list_1) ；
+		save list_2) ；
+		save list_3) ；
+		//save list_4) ；
+	}
+}
+关键字：super
+限定元素类型范围的下限 父类) 。
+如：List<? super String>
+// 泛型，涉及到一些关键字
+public class App_super {
+	/**
+	 * super 限定元素范围：必须是 String 父类 下限) 
+	 * @param list
+	 */
+	public void save List<? super String> list) {
+	}
+	@Test
+	public void testGeneric) throws Exception {
+		// 调用上面方法，必须传入 String 的父类
+		List<Object> list1 = new ArrayList<Object>) ；
+		List<String> list2 = new ArrayList<String>) ；
+		List<Integer> list3 = new ArrayList<Integer>) ；
+		//save list3) ；
+	}
+}
+泛型的反射：
+反射泛型涉及 API：
+Type 接口：		任何类型默认的接口；
+			包括：引用类型、原始类型、参数化类型。
+List<String> list = new ArrayList<String>) ；
+list：				泛型集合；
+String：				集合元素；
+ArrayList<String>：	参数化类型 ParameterizedType) 。
+泛型反射：
+获取当前运行类的父类，其实就是参数化类型：
+Type type = this.getClass) .getGenericSuperclass) ；
+强制转换为参数化类型：
+ParameterizedType pt = ParameterizedType) type；
+获取参数化类型中，实际类型的定义： 
+Type types[] = pt.getActualTypeArguments) ；
+获取数据的第一个元素：
+clazz = Class) types[0]；
+表名 与类名一样，只要获取类名就可以) ：
+tableName = clazz.getSimpleName) ；
+案例：设置通用方法，会用到反射泛型。
+步骤：
+a) 案例分析、实现；
+b) 涉及知识点 JDK API) ；
+c) 优化、反射泛型。
+反射泛型案例：
+public class AdminDao extends BaseDao<Admin> {}
+public class AccountDao extends BaseDao<Account> {}
+// 所有 dao 的公用的方法，都在这里实现
+public class BaseDao<T>{
+	// 保存当前运行类的参数化类型中的实际的类型
+	private Class clazz；
+	// 表名
+	private String tableName；
+	// 构造函数： 1. 获取当前运行类的参数化类型；2. 获取参数化类型中实际类型的定义 class) 
+	public BaseDao) {
+		// this 表示当前运行类 AccountDao/AdminDao) 
+		// this.getClass) 当前运行类的字节码 AccountDao.class/AdminDao.class) 
+		// this.getClass) .getGenericSuperclass) ； 当前运行类的父类，即为 BaseDao<Account>
+		// 其实就是“参数化类型”，ParameterizedType 
+		Type type = this.getClass) .getGenericSuperclass) ；
+		// 强制转换为“参数化类型”【BaseDao<Account>】
+		ParameterizedType pt = ParameterizedType) type；
+		// 获取参数化类型中，实际类型的定义 【new Type[]{Account.class}】
+		Type types[] = pt.getActualTypeArguments) ；
+		// 获取数据的第一个元素：Accout.class
+		clazz = Class) types[0]；
+		// 表名 与类名一样，只要获取类名就可以) 
+		tableName = clazz.getSimpleName) ；
+	}
+	/**
+	 * 主键查询
+	 * @param id	主键值
+	 * @return 返回封装后的对象
+	 */
+	public T findById int id) {
+		/*
+		 * 1. 知道封装的对象的类型
+		 * 2. 表名【表名与对象名称一样，且主键都为 id】
+		 * 即，
+		 * 得到当前运行类继承的父类 BaseDao<Account>
+		 * 得到 Account.class
+		 */
+		String sql = "select * from " + tableName + " where id=? "；
+		try {
+			return JdbcUtils.getQuerrRunner) .query sql，new BeanHandler<T> clazz) ，id) ；
+		} catch SQLException e) {
+			throw new RuntimeException e) ；
+		}
+	}
+	/**
+	 * 查询全部
+	 * @return
+	 */
+	public List<T> getAll) {
+		String sql = "select * from " + tableName ；
+		try {
+			return JdbcUtils.getQuerrRunner) .query sql，new BeanListHandler<T> clazz) ) ；
+		} catch SQLException e) {
+			throw new RuntimeException e) ；
+		}
+	}
+}
+
+03_反射
+在运行时期动态创建对象，获取对象的属性、方法。
+反射创建对象：
+类全名：
+String className = "cn.itcast.c_reflect.Admin"；
+得到类字节码：
+Class<?> clazz = Class.forName className) ；
+创建对象 1: 默认构造函数简写：
+Admin admin = Admin) clazz.newInstance) ；
+创建对象 2：通过带参数构造器创建对象：
+Constructor<?> constructor = clazz.getDeclaredConstructor String.class) ；
+Admin admin = Admin) constructor.newInstance "Jack") ；
+反射获取属性名称、值：
+类全名：
+String className = "cn.itcast.c_reflect.Admin"；
+得到类字节码：
+Class<?> clazz = Class.forName className) ；
+对象：
+Admin admin = Admin) clazz.newInstance) ；
+获取所有的属性名称：
+Field[] fs = clazz.getDeclaredFields) ；
+遍历：输出每一个属性名称、值
+for Field f : fs) {
+设置强制访问：
+f.setAccessible true) ；
+名称：
+String name = f.getName) ；
+值：
+Object value = f.get admin) ；
+}
+反射获取方法：
+类全名：
+String className = "cn.itcast.c_reflect.Admin"；
+得到类字节码：
+Class<?> clazz = Class.forName className) ；
+对象实例：
+Admin admin = Admin) clazz.newInstance) ；
+获取方法对象：
+Method m = clazz.getDeclaredMethod "getId") ；
+调用方法：
+Object r_value = m.invoke admin) ；
+示例：
+public class Admin {
+	// Field
+	private int id = 1000；
+	private String name = "匿名"；
+	// Constructor
+	public Admin) {
+		System.out.println "Admin.Admin) ") ；
+	}
+	public Admin String name) {
+		System.out.println "Admin.Admin) " + name) ；
+	}
+	// Method
+	public int getId) {
+		return id；
+	}
+	public void setId int id) {
+		this.id = id；
+	}
+	public String getName) {
+		return name；
+	}
+	public void setName String name) {
+		this.name = name；
+	}
+}
+// 反射技术
+public class App {
+	// 1. 创建对象
+	@Test
+	public void testInfo) throws Exception {
+		// 类全名
+		String className = "cn.itcast.c_reflect.Admin"；
+		// 得到类字节码
+		Class<?> clazz = Class.forName className) ；
+		// 创建对象 1: 默认构造函数简写
+		//Admin admin = Admin) clazz.newInstance) ；
+		// 创建对象 2：通过带参数构造器创建对象
+		Constructor<?> constructor = clazz.getDeclaredConstructor String.class) ；
+		Admin admin = Admin) constructor.newInstance "Jack") ；
+	}
+	@Test
+	//2. 获取属性名称、值
+	public void testField) throws Exception {
+		// 类全名
+		String className = "cn.itcast.c_reflect.Admin"；
+		// 得到类字节码
+		Class<?> clazz = Class.forName className) ；
+		// 对象
+		Admin admin = Admin) clazz.newInstance) ；
+		// 获取所有的属性名称
+		Field[] fs = clazz.getDeclaredFields) ；
+		// 遍历：输出每一个属性名称、值
+		for Field f : fs) {
+			// 设置强制访问
+			f.setAccessible true) ；
+			// 名称
+			String name = f.getName) ；
+			// 值
+			Object value = f.get admin) ；
+			System.out.println name + value) ；
+		}
+	}
+	@Test
+	//3. 反射获取方法
+	public void testMethod) throws Exception {
+		// 类全名
+		String className = "cn.itcast.c_reflect.Admin"；
+		// 得到类字节码
+		Class<?> clazz = Class.forName className) ；
+		// 对象
+		Admin admin = Admin) clazz.newInstance) ；
+		// 获取方法对象 public int getId) {
+		Method m = clazz.getDeclaredMethod "getId") ；
+		// 调用方法
+		Object r_value = m.invoke admin) ；
+		System.out.println r_value) ；
+	}
+}
+
+04_注解
+概述：
+注解与注释：
+注解：告诉编译器如何运行程序。
+注释：给程序员阅读，对编译、运行没有影响。
+注解作用：
+告诉编译器如何运行程序；
+简化 取代) 配置文件。
+【表名和类名要一样，字段名和属性名要一样。】
+【和类是平级的对象：interface，enum，class，servlet】
+常用的注解：
+	@Override：重写父类的方法；
+@Deprecated：标记方法已经过时；
+@SuppressWarnings：抑制编译器警告。
+@Test：单元测试注解；
+示例：
+// 重写父类的方法
+	@Override
+	public String toString) {
+		return super.toString) ；
+	}
+	// 抑制编译器警告
+	@SuppressWarnings {"unused"，"unchecked"}) 
+	private void save) {
+		List list = null；
+	}
+	// 标记方法以及过时
+	@Deprecated
+	private void save1) {
+	}
+自定义注解：
+可以给类、字段、方法上添加描述信息。
+注解基本写法：
+// 自定义注解 描述一个作者) 
+public @interface Author {
+	/**
+	 * 注解属性
+	 * 1. 修饰为默认或 public
+	 * 2. 不能有主体
+	 */
+	String name) ；
+	int age) ；
+}
+使用
+@Author name = "Jet"，age = 30) 
+	public void save) {
+	}
+带默认值的注解：
+public @interface Author {
+	/**
+	 * 注解属性
+	 * 1. 修饰为默认或 public
+	 * 2. 不能有主体
+	 */
+	String name) ；
+	int age) default 30； // 带默认值的注解； 使用的时候就可以不写此属性值
+}
+默认名称的注解：
+注解属性名称为 value，这就是默认名称
+public @interface Author {
+	// 如果注解名称为 value，使用时候可以省略名称，直接给值
+	// 注解只有一个属性时候才可以省略名称
+	String value) ；
+}
+使用
+@Author "Jet") 
+@Author value = "Jet") 
+注解属性类型为数组：
+public @interface Author {
+	String[] value) default {"test1"，"test2"}；
+}
+使用
+@Author {“”，“”}) 
+	public void save) {
+	}
+元注解：
+注解的注解。
+指定注解的可用范围：
+@Target {
+type，			类
+field，			字段
+method，		方法
+parameter，		参数
+constructor，		构造器
+local_variable 	局部变量
+}) 
+指定注解的声明周期：
+@Retention RetentionPolicy.SOURCE) 		注解只在源码级别有效；
+@Retention RetentionPolicy.CLASS) 		注解在字节码即别有效 默认值) ；
+@Retention RetentionPolicy.RUNTIME) 	注解在运行时期有效；
+注解反射：
+先获取方法的类型：
+Class clazz = App_2.class；
+Method m = clazz.getMethod "save") ；
+再获取方法里的注解类型：
+Author author = m.getAnnotation Author.class) ；
+@Id
+	@Author remark = "保存信息。。。"，age = 19) 
+	public void save) throws Exception {
+		// 获取注解信息： name/age/remark
+		// 1. 先获取代表方法的 Method 类型；
+		Class clazz = App_2.class；
+		Method m = clazz.getMethod "save") ；
+		// 2. 再获取方法上的注解
+		Author author = m.getAnnotation Author.class) ；
+		// 获取输出注解信息
+		System.out.println author.authorName) ) ；
+		System.out.println author.age) ) ；
+		System.out.println author.remark) ) ；
+	}
+
+05_注解优化 BaseDao 代码
+当表名与数据库名称不一致、字段与属性不一样、主键不叫 id，上面的 BaseDao 不能用。
+这时可以通过配置文件 XML) 解决。
+注解和 XML 方式：
+注解：
+简化 XML 配置，程序处理非常方便。
+同时不便于维护。例如：修改字段名，要重新编译。
+XML：
+便于维护；需要些读取代码。
+
+06_ Log4J 日志组件
+为什么用日志组件：
+为了项目后期部署上线后的维护、错误排查。
+Log4j log for java) ：开源的日志组件。
+日志级别：
+debug；
+info；
+warn；
+error；
+fatal。
+使用步骤：
+下载组件，引入 jar 文件：log4j-1.2.11.jar
+配置：src / log4j.properties
+使用：
+# 通过根元素指定日志输出的级别、目的地： 
+# 日志输出优先级： debug < info < warn < error 
+log4j.rootLogger=info，console，file
+############# 日志输出到控制台 #############
+# 日志输出到控制台使用的 api 类
+log4j.appender.console=org.apache.log4j.ConsoleAppender
+# 指定日志输出的格式： 灵活的格式
+log4j.appender.console.layout=org.apache.log4j.PatternLayout
+# 具体格式内容
+log4j.appender.console.layout.ConversionPattern=%d %p %c.%M) -%m%n
+############# 日志输出到文件 #############
+log4j.appender.file=org.apache.log4j.RollingFileAppender
+# 文件参数： 指定日志文件路径
+log4j.appender.file.File=../logs/MyLog.log
+# 文件参数： 指定日志文件最大大小
+log4j.appender.file.MaxFileSize=5kb
+# 文件参数： 指定产生日志文件的最大数目
+log4j.appender.file.MaxBackupIndex=100
+# 日志格式
+log4j.appender.file.layout=org.apache.log4j.PatternLayout
+log4j.appender.file.layout.ConversionPattern=%d %c.%M) -%m%n
+
+
+
+
+

@@ -1,0 +1,67 @@
+
+
+
+MySQL8 安装
+
+
+
+初始化：
+
+	my.ini
+
+	环境变量
+
+	管理员身份运行cmd：
+
+	cd D:\2-software\01-back-end\mysql-8.0.11-winx64\bin
+
+	mysqld --initialize --console
+
+
+	root:
+	RdI#6Dq;iiwU
+	XOrOZrgN2N)f
+	w%k4MT+=bh!t
+
+
+安装：
+
+
+	管理员权限开 shell，进到 bin 目录下：
+
+	mysqld --install mysql8
+
+	net start mysql8
+
+
+
+改密码：
+
+
+	mysql -u root -p
+
+	ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '3306';
+
+
+
+卸载：
+
+	net stop mysql
+
+	sc delete mysql
+	mysqld remove mysql
+
+	重装：
+	mysqld --install mysql8
+
+
+
+
+
+
+
+
+
+
+
+

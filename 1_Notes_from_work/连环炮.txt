@@ -1,0 +1,75 @@
+
+
+面试思路
+	
+	
+	连环炮：
+	
+		反射使用
+			反射的基本原理
+				反射获取类型的方式
+					getclass () 和 .class 的区别
+					
+		
+		泛型使用
+			泛型方法
+				public static <T> list<T> asList (T...a)
+					参数化类型
+		
+		常用的集合
+			线程安全的
+				List 和 Set 区别
+					HashMap 的 key 可以为空吗
+		
+		
+	语言基础：
+	
+		方法覆盖 (Overiding) 和 方法重载 (Overloading)
+		
+		foreach 和 iterator
+		
+		throw 和 throws
+		
+		
+		
+	网络基础：
+	
+		TCP 与 UDP
+		
+		拦截器与过滤器
+		
+		
+		
+		
+	框架：
+		
+		SpringMVC 工作原理
+		
+		Servlet 工作原理
+		
+		
+		
+		
+		
+		
+	技术扎实
+		
+		浏览器
+		搜索引擎
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		

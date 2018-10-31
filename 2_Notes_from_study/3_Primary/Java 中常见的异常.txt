@@ -20,51 +20,51 @@ Java 中常见的异常
 	
 	
 Java 语言中的异常处理包括声明异常、抛出异常、捕获异常和处理异常四个环节。
-throw 用于抛出异常。
-throws 关键字可以在方法上声明该方法要抛出的异常，然后在方法内部通过 throw 抛出异常对象。
-try 是用于检测被包住的语句块是否出现异常，如果有异常，则抛出异常，并执行 catch 语句。
-cacth 用于捕获从 try 中抛出的异常并作出处理。
-finally 语句块是不管有没有出现异常都要执行的内容。
+	throw 用于抛出异常。
+	throws 关键字可以在方法上声明该方法要抛出的异常，然后在方法内部通过 throw 抛出异常对象。
+	try 是用于检测被包住的语句块是否出现异常，如果有异常，则抛出异常，并执行 catch 语句。
+	cacth 用于捕获从 try 中抛出的异常并作出处理。
+	finally 语句块是不管有没有出现异常都要执行的内容。
 
-1. 受检查的异常 (checked exceptions), 其必须被 try{}catch 语句块所捕获, 或者在方法签名里通过 throws 子句声明.
-受检查的异常必须在编译时被捕捉处理,
-命名为 Checked Exception 是因为 Java 编译器要进行检查,Java 虚拟机也要进行检查, 以确保这个规则得到遵守.
-2. 运行时异常 (runtime exceptions), 需要程序员自己分析代码决定是否捕获和处理, 比如 空指针, 被 0 除...
-3. Error，则属于严重错误，如系统崩溃、虚拟机错误、动态链接失败等，
-这些错误无法恢复或者不可能捕捉，将导致应用程序中断，Error 不需要捕捉。
-
-
-
-1、不管有木有出现异常，finally 块中代码都会执行；
-2、当 try 和 catch 中有 return 时，finally 仍然会执行；
-3、finally 是在 return 后面的表达式运算后执行的
- (此时并没有返回运算后的值，而是先把要返回的值保存起来，管 finally 中的代码怎么样，返回的值都不会改变，任然是之前保存的值) ，
- 所以函数返回值是在 finally 执行前确定的； 
-4、finally 中最好不要包含 return，否则程序会提前退出，返回值不是 try 或 catch 中保存的返回值。
-
-任何执行 try 或者 catch 中的 return 语句之前，都会先执行 finally 语句，如果 finally 存在的话。
-如果 finally 中有 return 语句，那么程序就 return 了，所以 finally 中的 return 是一定会被 return 的，
-编译器把 finally 中的 return 实现为一个 warning。
+	1. 受检查的异常 (checked exceptions), 其必须被 try{}catch 语句块所捕获, 或者在方法签名里通过 throws 子句声明.
+	受检查的异常必须在编译时被捕捉处理,
+	命名为 Checked Exception 是因为 Java 编译器要进行检查,Java 虚拟机也要进行检查, 以确保这个规则得到遵守.
+	2. 运行时异常 (runtime exceptions), 需要程序员自己分析代码决定是否捕获和处理, 比如 空指针, 被 0 除...
+	3. Error，则属于严重错误，如系统崩溃、虚拟机错误、动态链接失败等，
+	这些错误无法恢复或者不可能捕捉，将导致应用程序中断，Error 不需要捕捉。
 
 
 
-假如 try 中有异常抛出，则会去执行 catch 块，再去执行 finally 块；
-假如没有 catch 块，可以直接执行 finally 块，方法就以抛出异常的方式结束，而 finally 后的内容也不会被执行，
-所以 catch 和 finally 不能同时省略。
+	1、不管有木有出现异常，finally 块中代码都会执行；
+	2、当 try 和 catch 中有 return 时，finally 仍然会执行；
+	3、finally 是在 return 后面的表达式运算后执行的
+	 (此时并没有返回运算后的值，而是先把要返回的值保存起来，管 finally 中的代码怎么样，返回的值都不会改变，任然是之前保存的值) ，
+	 所以函数返回值是在 finally 执行前确定的； 
+	4、finally 中最好不要包含 return，否则程序会提前退出，返回值不是 try 或 catch 中保存的返回值。
+
+	任何执行 try 或者 catch 中的 return 语句之前，都会先执行 finally 语句，如果 finally 存在的话。
+	如果 finally 中有 return 语句，那么程序就 return 了，所以 finally 中的 return 是一定会被 return 的，
+	编译器把 finally 中的 return 实现为一个 warning。
 
 
-如果 try 语句里有 return，返回的是 try 语句块中变量值。
-详细执行过程如下：
 
-如果有返回值，就把返回值保存到局部变量中；
-执行 jsr 指令跳到 finally 语句里执行；
-执行完 finally 语句后，返回之前保存在局部变量表里的值。
-如果 try，finally 语句里均有 return，忽略 try 的 return，而使用 finally 的 return.
+	假如 try 中有异常抛出，则会去执行 catch 块，再去执行 finally 块；
+	假如没有 catch 块，可以直接执行 finally 块，方法就以抛出异常的方式结束，而 finally 后的内容也不会被执行，
+	所以 catch 和 finally 不能同时省略。
 
 
-error 是系统出错，catch 是无法处理的，难以修复的，
-RuntimeException 不需要程序员进行捕获处理，
-error 和 exception 都是 throwable 的子类，我们只需要对 exception 的实例进行捕获即可。
+	如果 try 语句里有 return，返回的是 try 语句块中变量值。
+	详细执行过程如下：
+
+	如果有返回值，就把返回值保存到局部变量中；
+	执行 jsr 指令跳到 finally 语句里执行；
+	执行完 finally 语句后，返回之前保存在局部变量表里的值。
+	如果 try，finally 语句里均有 return，忽略 try 的 return，而使用 finally 的 return.
+
+
+	error 是系统出错，catch 是无法处理的，难以修复的，
+	RuntimeException 不需要程序员进行捕获处理，
+	error 和 exception 都是 throwable 的子类，我们只需要对 exception 的实例进行捕获即可。
 
 
 

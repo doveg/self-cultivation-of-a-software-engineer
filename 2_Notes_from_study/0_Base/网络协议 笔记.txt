@@ -64,34 +64,31 @@ HTTP
 
 	超文本传输协议 (HTTP) 的统一资源定位符将从因特网获取信息的五个基本元素包括在一个简单的地址中：
 
-	传送协议。
-	服务器。
-	端口号。 (以数字方式表示，若为 HTTP 的默认值“:80”可省略) 
-	路径。 (以“/”字符区别路径中的每一个目录名称) 
-	查询。 (GET 模式的窗体参数，以“?”字符为起点，每个参数以“&”隔开，再以“=”分开参数名称与数据，通常以 UTF8 的 URL 编码，避开字符冲突的问题) 
-	典型的统一资源定位符看上去是这样的：
+		传送协议。
+		服务器。
+		端口号。 (以数字方式表示，若为 HTTP 的默认值“:80”可省略) 
+		路径。 (以“/”字符区别路径中的每一个目录名称) 
+		查询。 (GET 模式的窗体参数，以“?”字符为起点，每个参数以“&”隔开，再以“=”分开参数名称与数据，通常以 UTF8 的 URL 编码，避开字符冲突的问题) 
+			典型的统一资源定位符看上去是这样的：
+				(带方括号 [] 的为可选项)：
+					protocol :// hostname[:port] / path / [;parameters][?query]#fragment
 
-	(带方括号 [] 的为可选项)：
+	request body
 
-	protocol :// hostname[:port] / path / [;parameters][?query]#fragment
+		User-Agent: Fiddler
+		Host: localhost:1455 
+		Content-Type: application/x-www-form-urlencoded;<span style="font-family: Arial, Helvetica, sans-serif;">charset=utf-8 </span>
+		Content-Length: 38
 
+		name1=valule1&name2=value2
 
-request body
-
-	User-Agent: Fiddler
-	Host: localhost:1455 
-	Content-Type: application/x-www-form-urlencoded;<span style="font-family: Arial, Helvetica, sans-serif;">charset=utf-8 </span>
-	Content-Length: 38
-
-	name1=valule1&name2=value2
-
-	HTTP/1.1 200 OK
-	Connection: keep-alive
-	X-XSS-Protection: 1; mode=block
-	X-Content-Type-Options: nosniff
-	Content-Type: application/json;charset=UTF-8
-	Content-Length: 492
-	Date: Tue, 10 Jul 2018 09:18:40 GMT
+		HTTP/1.1 200 OK
+		Connection: keep-alive
+		X-XSS-Protection: 1; mode=block
+		X-Content-Type-Options: nosniff
+		Content-Type: application/json;charset=UTF-8
+		Content-Length: 492
+		Date: Tue, 10 Jul 2018 09:18:40 GMT
 
 
 

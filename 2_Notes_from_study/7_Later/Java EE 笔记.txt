@@ -47,33 +47,33 @@ JMS
 	
 	模型
 
-		(1) ConnectionFactory
+		1) ConnectionFactory
 
 		创建 Connection 对象的工厂，针对两种不同的 jms 消息模型，分别有 QueueConnectionFactory 和 TopicConnectionFactory 两种。可以通过 JNDI 来查找 ConnectionFactory 对象。
 
-		(2) Destination
+		2) Destination
 
 		Destination 的意思是消息生产者的消息发送目标或者说消息消费者的消息来源。对于消息生产者来说，它的 Destination 是某个队列 (Queue) 或某个主题 (Topic) ;对于消息消费者来说，它的 Destination 也是某个队列或主题 (即消息来源) 。
 
 		所以，Destination 实际上就是两种类型的对象：Queue、Topic 可以通过 JNDI 来查找 Destination。
 
-		(3) Connection
+		3) Connection
 
 		Connection 表示在客户端和 JMS 系统之间建立的链接 (对 TCP/IP socket 的包装) 。Connection 可以产生一个或多个 Session。跟 ConnectionFactory 一样，Connection 也有两种类型：QueueConnection 和 TopicConnection。
 
-		(4) Session
+		4) Session
 
 		Session 是我们操作消息的接口。可以通过 session 创建生产者、消费者、消息等。Session 提供了事务的功能。当我们需要使用 session 发送/接收多个消息时，可以将这些发送/接收动作放到一个事务中。同样，也分 QueueSession 和 TopicSession。
 
-		(5) 消息的生产者
+		5) 消息的生产者
 
 		消息生产者由 Session 创建，并用于将消息发送到 Destination。同样，消息生产者分两种类型：QueueSender 和 TopicPublisher。可以调用消息生产者的方法 (send 或 publish 方法) 发送消息。
 
-		(6) 消息消费者
+		6) 消息消费者
 
 		消息消费者由 Session 创建，用于接收被发送到 Destination 的消息。两种类型：QueueReceiver 和 TopicSubscriber。可分别通过 session 的 createReceiver(Queue) 或 createSubscriber(Topic) 来创建。当然，也可以 session 的 creatDurableSubscriber 方法来创建持久化的订阅者。
 
-		(7) MessageListener
+		7) MessageListener
 
 		消息监听器。如果注册了消息监听器，一旦消息到达，将自动调用监听器的 onMessage 方法。EJB 中的 MDB (Message-Driven Bean) 就是一种 MessageListener。
 	

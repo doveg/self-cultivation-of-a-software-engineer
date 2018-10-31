@@ -32,9 +32,11 @@ IO 核心
 
 		四大基流：
 			字节输入流，字节输出流，字符输入流，字符输出流。
+		
 		字节流
 			文件字节输出流 (FileOutputStream)
 			文件字节输入流 (FileInputStream)
+		
 		字符流
 			文件字符输入流 (FileReader)
 			文件字符输出流 (FileWriter)
@@ -44,6 +46,7 @@ IO 核心
 			BufferedOutputStream：字节缓冲输出流；
 			BufferedReader：字符缓冲输入流；
 			BufferedWriter：字符缓冲输出流。
+		
 		转换流：把字节流转换成字符流。
 			InputStreamReader：把字节输入流转换成字符输入流。
 			OutputStreamWriter：把字节输出流转换成字符输出流。

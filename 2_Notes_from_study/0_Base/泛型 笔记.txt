@@ -50,6 +50,7 @@
 		public interface Comparable<T> {
 			public int compareTo(T o);
 		}
+		
 	细节一：明好泛型类型之后，集合中只能存放特定类型元素；
 		public class Demo6 {
 			public static void main(String[] args) {

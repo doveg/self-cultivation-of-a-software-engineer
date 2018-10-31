@@ -1,0 +1,65 @@
+
+Singleton
+	
+	
+	单例模式
+		确保一个类最多只有一个实例；
+		并提供一个全局访问点。
+	实现方式
+		私有构造器，保证外部类的 new 不奏效；
+		然后在类里面 new 一个实例；
+		然后静态 get 方法返回该实例，供全局调用。
+	案例：
+		巧克力工厂。
+	
+	单例类：
+		private static Single uniqueInstance=null;
+		
+		private Single(){};
+		
+		public static Single getInstance(){
+			if(uniqueInstance==null){
+				uniqueInstance=new Single();
+			}
+			return uniqueInstance;
+		}
+	
+	经典单例模式
+		需求：线程池、缓存、打印机；
+		多个实例有可能造成冲突，结果不一致。
+		可以使用静态变量、全局变量实现替代。
+	
+	经典单例模式的优化
+		同步锁解决多线程问题
+		使用 getInstance 频率少，性能要求低的情况。
+		
+		private static Single uniqueInstance = null;
+		
+		private Single(){};
+		
+		public static synchronized Single getInstance(){
+			if(uniqueInstance == null){
+				uniqueInstance=new Single();
+			}
+			return uniqueInstance;
+		}
+		
+		急切创建线程
+		不需要再进入同步锁；
+		
+		private static Single uniqueInstance = new Single;
+		双重检查加锁
+		同步锁只需要进入一次。
+		private volatile static Single uniqueInstance = null;
+		
+		private Single(){};
+		public static synchronized Single getInstance(){
+			if(uniqueInstance == null){
+			synchronized (Single.class){
+				if(uniqueInstance == null){
+					uniqueInstance=new Single();
+				}
+			}
+			)
+			return uniqueInstance;
+		}

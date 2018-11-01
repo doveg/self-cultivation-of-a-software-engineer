@@ -77,9 +77,17 @@ CSS 基础核心：
 		如：position: fixed;
 		
 		
-	font-size: 字号；
-		如：font-size: 14px;			
-			
+	font-size：字号；
+		如：font-size: 14px;
+		
+	font-weight：字体粗细；
+		如：font-weight: bold;
+		
+	font-style：字体样式；
+		如：font-style: italic;
+		
+		
+		
 	appearance：设置元素外形
 		如：appearance:button;	// 使元素看上去像一个按钮
 		
@@ -136,6 +144,85 @@ CSS 基础核心：
 	
 	
 CSS 实用：
+	
+	
+	字号：
+		字号：
+			是中文字库中特有的一种单位，以中文代号表示特定的磅值pt，便于记忆、表述。
+		
+		px (pixel，像素)：
+			是一个虚拟长度单位，是计算机系统的数字化图像长度单位，
+			是相对长度单位，像素px是相对于显示器屏幕分辨率而言的；不支持IE的缩放。
+			如果px要换算成物理长度，需要指定精度DPI(Dots Per Inch，每英寸像素数)，在扫描打印时一般都有DPI可选。
+			Windows系统默认是96dpi，Apple系统默认是72dpi。
+			换算：
+				16px=1em
+				12px=0.75em
+				10px=0.625em
+		
+		em：
+			相对长度单位，相对于当前对象内文本的字体尺寸，最初是指字母M的宽度，故名em。
+			现指的是字符宽度的倍数，用法类似百分比，如：0.8em, 1.2em,2em等；
+			如当前对行内文本的字体尺寸未被人为设置，则相对于浏览器的默认字体尺寸。
+				相对单位，网页中的文字能放大和缩小。
+				将行距(line-height)，和纵向高度的单位都用em，
+				保证缩放时候的整体性。
+		
+		pt (point，磅)：
+			是一个物理长度单位，指的是72分之一英寸。
+			在印刷排版中，point是一个绝对值，它等于1/72英寸，可以用尺子丈量的，物理的英寸。
+			但是在css中pt含义却并非如此。
+			因为我们的显示器被分割为了一个个的像素，单个像素只能有一种颜色 (为了简化，这里暂不讨论次像素反锯齿技术)，
+			要在屏幕上显示，必须先把以 pt 为单位的长度转换为以像素为单位的长度，这个转换的媒介，就是 DPI 
+			(事实上，这里的所谓的 DPI，是操作系统和浏览器中使用的术语，即为 PPI，pixels per inch，
+			和扫描仪、打印机、数码相机中的 DPI 是不同的概念)。
+				pt=1/72(英寸)
+				px=1/dpi(英寸)
+				pt=px*72/dpi
+					以Windows下的96dpi来计算：
+						pt=px*72/96=px*3/4
+						12px=9pt
+						10px=7.5pt
+		
+		为了简化font-size的换算，需要在css中的body选择器中声明：Font-size=62.5%，
+			这就使em值变为 16px*62.5%=10px，这样12px=1.2em，10px=1em，
+			只需要将你的原来的px数值除以10，然后换上em作为单位就行了。
+		
+		字号换算表：
+			字号	pt		px		em
+			初号	42pt	56px	3.5em
+			小初	36pt	48px	3em
+					34pt	45px	2.75em
+					32pt	42px	2.55em
+					30pt	40px	2.45em
+					29pt	38px	2.35em
+					28pt	37px	2.3em
+					27pt	36px	2.25em
+			一号	26pt	35px	2.2em
+					25pt	34px	2.125em
+			小一	24pt	32px	2em
+			二号	22pt	29px	1.8em
+					20pt	26px	1.6em
+			小二	18pt	24px	1.5em
+					17pt	23px	1.45em
+			三号	16pt	22px	1.4em
+			小三	15pt	21px	1.3em
+					14.5pt	20px	1.25em
+			四号	14pt	19px	1.2em
+					13.5pt	18px	1.125em
+					13pt	17px	1.05em
+			小四	12pt	16px	1em
+					11pt	15px	0.95em
+			五号	10.5pt	14px	0.875em
+					10pt	13px	0.8em
+			小五	9pt		12px	0.75em
+					8pt		11px	0.7em
+			六号	7.5pt	10px	0.625em
+					7pt		9px		0.55em
+			小六	6.5pt	8px		0.5em
+			七号	5.5pt	7px		0.4375em
+			八号	5pt		6px		0.375em
+	
 	
 	置于顶层：
 		<div style="z-index:999"></div>

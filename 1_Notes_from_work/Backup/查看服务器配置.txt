@@ -1,0 +1,87 @@
+	
+	
+查看服务器配置
+		
+	服务器配置信息怎么查看？很多时候在服务器上安装软件什么的都要知道服务器的配置信息的。
+
+		打开登录服务器的软件，选择要登录的服务器。
+		
+		点击要查看的服务器后， 需要授权登录。
+		
+		成功登录服务器后，直接输入命令：
+			cat /proc/cpuinfo | grep physical  | sort -n | uniq | wc -l，然后回车。
+			回车后，就可以查看到服务器的CPU个数了。
+		
+		在输入命令：
+			dmidecode | grep "Product Name" 
+			
+			或者：
+			
+			dmidecode -s system-product-name
+			
+			可以查看服务器的型号。
+		
+			输入命令回车后，就会看到服务器型号了，这台服务器是阿里云的。
+		
+		输入命令：
+			cat /proc/cpuinfo | grep name | cut -f2 -d:  | uniq
+			
+			然后回车可以查看服务器的CPU型号。
+		
+		输入命令：
+			uname -a
+			
+			然后回车，就可以查看到服务器的内核信息。
+	
+		输入命令：
+			cat /proc/version
+			
+			正在运行的内核版本。
+		
+		输入命令：
+			cat /etc/issue
+			
+			显示的是发行版本信息
+
+		输入命令：
+			lsb_release -a
+			
+			(适用于所有的linux，包括Redhat、SuSE、Debian等发行版，但是在debian下要安装lsb)
+	
+	
+	
+	
+	
+	
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

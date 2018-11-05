@@ -17,16 +17,16 @@ IntelliJ IDEA ：
 		全部放行：F9 ；
 	
 	
-	重构一切：Ctrl+Shift+Alt+T
-	自我修复：Alt+Enter
-	智能补全：Ctrl+Shift+Space
-	创造万物：Alt+Insert
-	自动完成：Ctrl+Shift+Enter
-	无处藏身：Shift+Shift
-	发号施令：Ctrl+Shift+A
-	代码生成：Template/Postfix +Tab
-	选你所想：Ctrl+W
-	切来切去：Ctrl+Tab
+	重构一切：Ctrl+Shift+Alt+T ；
+	自我修复：Alt+Enter ；
+	智能补全：Ctrl+Shift+Space ；
+	创造万物：Alt+Insert ；
+	自动完成：Ctrl+Shift+Enter ；
+	无处藏身：Shift+Shift ；
+	发号施令：Ctrl+Shift+A ；
+	代码生成：Template/Postfix +Tab ；
+	选你所想：Ctrl+W ；
+	切来切去：Ctrl+Tab ；
 	
 	
 	基本的代码提示：Ctrl+Space
@@ -135,8 +135,7 @@ Notepad++ ：
 	首写字母大写：Alt + U ；
 	
 	删除行：Ctrl + L ；
-	
-	
+	多光标模式：Alt + Shift + 左键；
 	
 	
 	
@@ -185,20 +184,15 @@ Word ：
 	
 	
 
-Chrome ：
-	
-	恢复关闭的网页：Ctrl + Shift + T ；
 	
 	
 	
 	
 	
+DataGrip ：
 	
-	
-	
-	
-	
-	
+	多光标模式：Alt + Shift + 左键；
+	多列编辑：Alt + 左键拖动；
 	
 	
 		
@@ -206,6 +200,12 @@ WebStorm ：
 	
 	
 	
+	
+	
+	
+Chrome ：
+	
+	恢复关闭的网页：Ctrl + Shift + T ；
 	
 	
 	

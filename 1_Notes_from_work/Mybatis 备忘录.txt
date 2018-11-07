@@ -1,38 +1,56 @@
 
 Mybatis 工作笔记
-
-
-
-
-
-
-
-
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 Mybatis 迭代数组：
 	<foreach collection="userIds" index="index" item="item" open="(" separator="," close=")">
 		#{item}
 	</foreach>
 
 Mybatis 条件判断：
-	<if test="condition.order == 1">
-		order by ${condition.order}
-	</if>
-
-
-
-
-
-
-
+	<if test="goodsTypeId != 0">and n.GOODS_TYPE_ID=#{goodsTypeId}</if>
+    <if test="recommendRank == 1">order by base_num desc</if>
+	
+	
+	
+	
+	
+模糊查询：
+	GOODS_NAME like CONCAT(CONCAT('%', #{goodsNameLike,jdbcType=VARCHAR}),'%')
+	
+有效时间：
+	BETWEEN m.START_TIME and m.END_TIME
+	
+参数类型：
+	#{openId,jdbcType=BIGINT}
+	
+日期格式：
+	DATE_FORMAT(NOW(),'%Y%m%d %H%i%s')
+	
+	
+	
+	
+	
 resultType 和 resultMap 区别：
-
 	resultType：
 		不需要和实体类进行映射转换；
 		比如：
-			resultType="java.lang.Integer"
 			resultType="map"
 			resultType="hashmap"
 			resultType="string"
+			resultType="java.lang.Integer"
 	
 	resultMap：
 		需要和实体类进行映射转换；
@@ -46,6 +64,12 @@ resultType 和 resultMap 区别：
 				<result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
 				<result column="INSTANCE_ID" jdbcType="BIGINT" property="instanceId"/>
 			</resultMap>
+			<select id="getRecommendGoodsToday" resultMap="NewGoodsMap">
+			</select>
+		类型：
+			jdbcType="VARCHAR"
+			jdbcType="BIGINT"
+			jdbcType="TIMESTAMP"
 		比如：
 			resultMap="PrizeDrawRulesMap"
 	
@@ -56,8 +80,6 @@ resultType 和 resultMap 区别：
 parameterType 和 resultMap 区别：
 	比如：
 		parameterType="com.livedoing.app.marketing.mobile.wxPublicAcountPrize.domain.PrizeRecord"
-	
-	
 	
 	
 	

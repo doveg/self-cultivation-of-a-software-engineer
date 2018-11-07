@@ -1,87 +1,86 @@
 
 常用快捷键 笔记
 
-
 IntelliJ IDEA ：
 	
 	格式化：Alt + Shift + L ；
+	格式化 import：Ctrl+Alt+O ；
 	自动生成：Alt + Insert ；
 	获取方法返回值：Alt + Enter ；
 	
 	修改多行：Alt + 鼠标左键 ；
 	大小写转换：Ctrl + Shift + U ；
 	
+	基本的代码提示：Ctrl+Space ；
+	智能地按类型信息提示：Ctrl+Shift+Space ；
+	移动到有错误的代码：F2 / Shift+F2 ；
+	自动补全末尾的字符：Ctrl+Shift+Enter ；
+	提取变量：Ctrl+Alt+V ；
+	
+	切换标签页：Ctrl+Tab ；
+	创建单元测试用例：Ctrl+Alt+T ；
+	运行：Alt+Shift+F10 ；
+	调试：Shift+F9 ；
+	停止：Ctrl+F2 ；
+	
 	debug 模式：
+		跳入：F7
 		跳出：F8 ；
 		跳入：Shift + F8 ；
 		全部放行：F9 ；
 	
+	模板：
+		循环：fori+Tab ；
+		System.out 方法：sout+Tab ；
+		main 方法：psvm+Tab ；
+		方法返回值：方法.var+Tab ；
+		查看所有模板：Ctrl+J ；
+		
 	
-	重构一切：Ctrl+Shift+Alt+T ；
+	删除行：Ctrl+Y ；
+	复制行：Ctrl+D ；
+	折叠代码：Ctrl+</> ；
+	改名：Shift+F6 ；
+	
+	
+	重构：Ctrl+Shift+Alt+T ；
 	自我修复：Alt+Enter ；
-	智能补全：Ctrl+Shift+Space ；
-	创造万物：Alt+Insert ；
+	补全：Ctrl+Shift+Space ；
+	生成：Alt+Insert ；
 	自动完成：Ctrl+Shift+Enter ；
-	无处藏身：Shift+Shift ；
-	发号施令：Ctrl+Shift+A ；
-	代码生成：Template/Postfix +Tab ；
-	选你所想：Ctrl+W ；
-	切来切去：Ctrl+Tab ；
+	全局搜索：Shift+Shift ；
+	所有命令：Ctrl+Shift+A ；
+	代码生成：Template/Postfix + Tab ；
+	按语法选中代码：Ctrl+W ；
+	切换标签：Ctrl+Tab ；
 	
 	
-	基本的代码提示：Ctrl+Space
-	智能地按类型信息提示：Ctrl+Shift+Space
-	移动到有错误的代码：F2 / Shift+F2
-	自动补全末尾的字符：Ctrl+Shift+Enter
+	按语法选中代码：Ctrl+W ；
+		Ctrl+Shift+W
+	移动光标到前/后单词：Ctrl+Left/Right
+	移动到前/后代码块：Ctrl+[/]
+	选中跳跃范围内的代码：Ctrl+Shift+Left/Right/[]
+	移动到前/后方法：Alt+Forward/Backward
+
+	定义1-10书签：Ctrl+Shift+Num
+	跳转到标签：Ctrl+Num
 	
-	重构：Ctrl+Shift+Alt+T
-	改名：Shift+F6
-	提取变量：Ctrl+Alt+V
+	打开类或资源：Ctrl+N/Ctrl+Shift+N
+	打开类层次窗口：Ctrl+H
+	继承层次上跳转：Ctrl+B/Ctrl+Alt+B
+	查看当前类的所有方法：Ctrl+F12
+	找类或方法的使用：Alt+F7
+	当前窗口或全工程中查找：Ctrl+F/Ctrl+Shift+F
+	前后移动到下一匹配处：F3/Shift+F3
+
+	查找所有Intellij的命令：Ctrl+Shift+A
+	切换窗口：Alt+Num
+		用的有1-项目结构，3-搜索结果，4/5-运行调试
+	水平分屏：Ctrl+|
+	粘贴很早以前拷贝过的：Ctrl+Shift+V
+	打开最近打开过的或编辑过的文件：Ctrl+E/Ctrl+Shift+E
+	进入到列模式进行按列选中：Alt+Shift+Insert
 	
-	样板：
-		fori+Tab：循环
-		sout+Tab：System.out 方法
-		psvm+Tab：main方法
-		循环、System.out、main方法
-		
-		
-		Alt+Insert
-		
-	
-	3 代码生成
-	这一点类似Eclipse，虽不是独到之处，但因为日常使用频率极高，所以还是罗列在榜单前面。常用的有fori/sout/psvm+Tab即可生成循环、System.out、main方法等boilerplate样板代码，用Ctrl+J可以查看所有模板。后面“辅助”一节中将会讲到Alt+Insert，在编辑窗口中点击可以生成构造函数、toString、getter/setter、重写父类方法等。这两个技巧实在太常用了，几乎每天都要生成一堆main、System.out和getter/setter。
-	另外，Intellij IDEA 13中加入了后缀自动补全功能(Postfix Completion)，比模板生成更加灵活和强大。例如要输入for(User user : users)只需输入user.for+Tab。再比如，要输入Date birthday = user.getBirthday();只需输入user.getBirthday().var+Tab即可。
-	4 编辑
-	编辑中不得不说的一大神键就是能够自动按语法选中代码的Ctrl+W以及反向的Ctrl+Shift+W了。此外，Ctrl+Left/Right移动光标到前/后单词，Ctrl+[/]移动到前/后代码块，这些类Vim风格的光标移动也是一大亮点。以上Ctrl+Left/Right/[]加上Shift的话就能选中跳跃范围内的代码。Alt+Forward/Backward移动到前/后方法。还有些非常普通的像Ctrl+Y删除行、Ctrl+D复制行、Ctrl+</>折叠代码就不多说了。
-	关于光标移动再多扩展一点，除了Intellij本身已提供的功能外，我们还可以安装ideaVim或者emacsIDEAs享受到Vim的快速移动和Emacs的AceJump功能(超爽！)。另外，Intellij的书签功能也是不错的，用Ctrl+Shift+Num定义1-10书签(再次按这组快捷键则是删除书签)，然后通过Ctrl+Num跳转。这避免了多次使用前/下一编辑位置Ctrl+Left/Right来回跳转的麻烦，而且此快捷键默认与Windows热键冲突(默认多了Alt，与Windows改变显示器显示方向冲突，一不小心显示器就变成倒着显式的了，冏啊)。
-	5 查找打开
-	类似Eclipse，Intellij的Ctrl+N/Ctrl+Shift+N可以打开类或资源，但Intellij更加智能一些，我们输入的任何字符都将看作模糊匹配，省却了Eclipse中还有输入*的麻烦。最新版本的IDEA还加入了Search Everywhere功能，只需按Shift+Shift即可在一个弹出框中搜索任何东西，包括类、资源、配置项、方法等等。
-	类的继承关系则可用Ctrl+H打开类层次窗口，在继承层次上跳转则用Ctrl+B/Ctrl+Alt+B分别对应父类或父方法定义和子类或子方法实现，查看当前类的所有方法用Ctrl+F12。
-	要找类或方法的使用也很简单，Alt+F7。要查找文本的出现位置就用Ctrl+F/Ctrl+Shift+F在当前窗口或全工程中查找，再配合F3/Shift+F3前后移动到下一匹配处。
-	Intellij更加智能的又一佐证是在任意菜单或显示窗口，都可以直接输入你要找的单词，Intellij就会自动为你过滤。
-	6 其他辅助
-	以上这些神键配上一些辅助快捷键，即可让你的双手90%以上的时间摆脱鼠标，专注于键盘仿佛在进行钢琴表演。这些不起眼却是至关重要的最后一块拼图有：
-	命令：Ctrl+Shift+A可以查找所有Intellij的命令，并且每个命令后面还有其快捷键。所以它不仅是一大神键，也是查找学习快捷键的工具。
-	新建：Alt+Insert可以新建类、方法等任何东西。
-	格式化代码：格式化import列表Ctrl+Alt+O，格式化代码Ctrl+Alt+L。
-	切换窗口：Alt+Num，常用的有1-项目结构，3-搜索结果，4/5-运行调试。Ctrl+Tab切换标签页，Ctrl+E/Ctrl+Shift+E打开最近打开过的或编辑过的文件。
-	单元测试：Ctrl+Alt+T创建单元测试用例。
-	运行：Alt+Shift+F10运行程序，Shift+F9启动调试，Ctrl+F2停止。
-	调试：F7/F8/F9分别对应Step into，Step over，Continue。
-	此外还有些我自定义的，例如水平分屏Ctrl+|等，和一些神奇的小功能Ctrl+Shift+V粘贴很早以前拷贝过的，Alt+Shift+Insert进入到列模式进行按列选中。
-	7 最终榜单
-	这榜单阵容太豪华了，后几名都是如此有用，毫不示弱。
-	Top #10切来切去：Ctrl+Tab
-	Top #9选你所想：Ctrl+W
-	Top #8代码生成：Template/Postfix +Tab
-	Top #7发号施令：Ctrl+Shift+A
-	Top #6无处藏身：Shift+Shift
-	Top #5自动完成：Ctrl+Shift+Enter
-	Top #4创造万物：Alt+Insert
-	太难割舍，前三名并列吧！
-	Top #1智能补全：Ctrl+Shift+Space
-	Top #1自我修复：Alt+Enter
-	Top #1重构一切：Ctrl+Shift+Alt+T
 	
 
 Eclipse ：
@@ -193,6 +192,8 @@ DataGrip ：
 	
 	多光标模式：Alt + Shift + 左键；
 	多列编辑：Alt + 左键拖动；
+	
+	修改表：Shift+F6
 	
 	
 		

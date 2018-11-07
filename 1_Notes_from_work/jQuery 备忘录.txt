@@ -67,15 +67,14 @@ jQuery 实用：
 jQuery 基础：
 	
 	
-	
+	去掉字符串前后空格：
+		$.trim(str);
 		
 	获取输入框的值：
-		
 		var value = $("#").val();
 		var value = $("#").attr("value")；
 
 	设置输入框的值：
-		
 		$("#").attr("value",value);
 		
 		

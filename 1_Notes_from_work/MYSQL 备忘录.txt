@@ -12,11 +12,6 @@ in 和 not in 查询：
 	in 后面的结果里只能包含一个字段，字段里面可以有多个值；
 	in 前面只能包含一个字段；
 		如 where userIds in(0,7,8)。
-
-Mybatis 迭代数组：
-	<foreach collection="userIds" index="index" item="item" open="(" separator="," close=")">
-		#{item}
-	</foreach>
 	
 日期计算：
 	NOW()；

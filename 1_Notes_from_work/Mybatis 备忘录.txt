@@ -8,10 +8,15 @@ Mybatis 工作笔记
 
 
 
+Mybatis 迭代数组：
+	<foreach collection="userIds" index="index" item="item" open="(" separator="," close=")">
+		#{item}
+	</foreach>
 
-
-
-
+Mybatis 条件判断：
+	<if test="condition.order == 1">
+		order by ${condition.order}
+	</if>
 
 
 

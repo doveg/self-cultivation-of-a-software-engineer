@@ -157,6 +157,25 @@ Ajax 异步请求的数据，传给外部函数：
 	window.location.reload();
 	
 	
+判空：
+	groupList !== null && groupList !== undefined && groupList !== ''
+	groupList === null
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

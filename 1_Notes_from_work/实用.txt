@@ -40,7 +40,66 @@ Math.Random()：
 	返回值是一个伪随机选择的数，在该范围内 (近似) 均匀分布。
 	
 	
-	
+判空：
+	1. 集合类Array、List、Map、Set的判空：
+		a.List进行判空
+			//判断关联的积分项是否为空，若不为空，则插入数据库
+			if(pointsItemList != null && !pointsItemList.isEmpty()){
+			 // 不为空的代码处理
+			}
+			!= null 与 ！isEmpty()就如前辈所说的杯子与水的道理：!= null是为了判断有没有水杯；!isEmpty()是为了判断水杯里有没有水；二者合一，就能稳稳的判定pointsItemList 是否为空。
+
+			误区：使用pointsItemLists.size() == 0, 
+				List一旦初始化，就无法用.size()来处理，因为.size()是判断的元素的个数。
+		b.Array进行判空
+			// 判断是否为空
+			public static boolean isEmptyArray(Object[] objs) {
+				return (null == objs || objs.length == 0);
+			}
+			// 判断是否不为空
+			public static boolean isNotEmptyArray(Object[] objs) {
+				return !isEmptyArray(objs);
+			}
+		c.Map进行判空
+			// 判断是否为空
+			public static boolean isEmptyMap(Map<?, ?> map) {
+				return (null == map || map.size() == 0);
+			}
+			// 判断是否不为空
+			public static boolean isNotEmptyMap(Map<?, ?> map) {
+				return !isEmptyMap(map);
+			}
+		d.Set进行判空
+			// 判断是否为空
+			public static boolean isEmptySet(Set<?> set) {
+				return (null == set || set.size() == 0);
+			}
+			// 判断是否不为空
+			public static boolean isNotEmptySet(Set<?> set) {
+				return !isEmptySet(set);
+			}
+	2. String 对象的判空：
+		a.判定空对象：String s = null;
+			定义：
+				空对象是指定义一个对象s，但是没有给该对象分配空间，即没有实例化该对象，因此，
+				空对象在调用所有对象方法时候都会抛出异常，如s.length(), s.isEmpty()等方法。
+
+			判定：
+				判断一个字符变量是否是null ,使用 逻辑判断 等于(==)与null对象比较，代码表达式如下： 
+				s == null;
+		b.判定空值”“：String s = “”;
+			定义：
+				空值是指一个字符串对象已经实例化，即系统已经给该变量分配了空间，只是对象的内容为空。
+			判定：
+				三种方式： 
+					(1) s.equals(“”)， equals方法比较的是两个对象的内容是否相同; 
+					(2) s.length() == 0， length()方法是查看某个字符串对象的字符个数; 
+					(3) s.isEmpty()，isEmpty()方法是判断某个字符串对象字符个数是否为0 ;
+		c.判定空格” “：String s = ” “;
+			定义：
+				是指一个字符对象已经实例化，对象的内容为空格。
+			判定：
+				s.equals(” “) ;
 	
 	
 	

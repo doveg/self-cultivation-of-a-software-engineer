@@ -1,15 +1,25 @@
 
 常用快捷键 笔记
+keyboard shorcut notes
 
 IntelliJ IDEA ：
 	
 	格式化：Alt + Shift + L ；
 	格式化 import：Ctrl+Alt+O ；
-	自动生成：Alt + Insert ；
-	获取方法返回值：Alt + Enter ；
 	
 	修改多行：Alt + 鼠标左键 ；
 	大小写转换：Ctrl + Shift + U ；
+	重构：Ctrl+Shift+Alt+T ；
+	获取方法返回值：Alt + Enter ；
+	自动补全：Ctrl+Shift+Space ；
+	自动生成：Alt + Insert ；
+	
+	自动完成：Ctrl+Shift+Enter ；
+	全局搜索：Shift+Shift ；
+	所有命令：Ctrl+Shift+A ；
+	代码生成：Template/Postfix + Tab ；
+	按语法选中代码：Ctrl+W ；
+	切换标签：Ctrl+Tab ；
 	
 	基本的代码提示：Ctrl+Space ；
 	智能地按类型信息提示：Ctrl+Shift+Space ；
@@ -43,16 +53,7 @@ IntelliJ IDEA ：
 	改名：Shift+F6 ；
 	
 	
-	重构：Ctrl+Shift+Alt+T ；
-	自我修复：Alt+Enter ；
-	补全：Ctrl+Shift+Space ；
-	生成：Alt+Insert ；
-	自动完成：Ctrl+Shift+Enter ；
-	全局搜索：Shift+Shift ；
-	所有命令：Ctrl+Shift+A ；
-	代码生成：Template/Postfix + Tab ；
-	按语法选中代码：Ctrl+W ；
-	切换标签：Ctrl+Tab ；
+	
 	
 	
 	按语法选中代码：Ctrl+W ；

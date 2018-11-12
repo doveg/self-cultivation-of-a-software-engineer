@@ -122,8 +122,16 @@ datagrid 选中行：
 		
 	}
 
-
-
+日期：
+	
+		日期格式：
+			3/4/2010 2:3
+	
+	
+	$('#ss').timespinner('setValue', '17:45');
+	$('#ss').timespinner('getValue'); 
+		时间格式：
+			2:3
 
 
 

@@ -102,9 +102,34 @@ Math.Random()：
 				s.equals(” “) ;
 	
 	
+String 类型转 sql.Time：
+
+	public static java.sql.Time strToTime(String strDate) {  
+		String str = strDate;
+		SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+		java.util.Date d = null;
+		try {
+			d = format.parse(str);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}  
+		java.sql.Time time = new java.sql.Time(d.getTime());  
+		return time.valueOf(str);  
+	}  
 	
-	
-	
+	自用：
+		SimpleDateFormat sdf= new SimpleDateFormat("HH:mm:ss");
+		try {
+			Time timeStart = new Time(sdf.parse(timeStartOrigin).getTime());
+			Time timeEnd = new Time(sdf.parse(timeEndOrigin).getTime());
+			goodsInfo.setTimeStart(timeStart);
+			goodsInfo.setTimeEnd(timeEnd);
+		} catch (ParseException exception) {
+			exception.printStackTrace();
+		}
+
+
+
 	
 	
 	

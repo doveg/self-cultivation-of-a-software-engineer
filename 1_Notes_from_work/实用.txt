@@ -130,12 +130,30 @@ String 类型转 sql.Time：
 
 
 
-	
-	
-	
-	
-	
-	
+精确运算：
+	double：计算不精确，会有类似 0.0000000000000002 的误差，正确的方法是使用 BigDecimal 或者用整型；
+	整型：适合于货币精度已知的情况，比如 12.11 + 1.10 转成 1211+110 计算，最后再 /100 即可；
+		int：最大只能存储999999999，不到10亿的数值；
+		TINYINT、SMALLINT、MEDIUMINT、INT 和 BIGINT 占用存储空间分别为 1 字节、2 字节、3 字节、4 字节和 8 字节，
+		就无符号的整数而言，这些类型能表示的最大整数分别为 255、65535、16777215、4294967295 和 18446744073709551615。
+	DECIMAL 从MySQL 5.1 引入，列的声明语法是DECIMAL(M,D)。
+		Decimal(n,m)表示数值中共有n位数，其中整数n-m位，小数m位。
+		在MySQL 5.1中，参量的取值范围如下：
+			·M是数字的最大数（精度）。其范围为1～65（在较旧的MySQL版本中，允许的范围是1～254），M 的默认值是10。
+			·D是小数点右侧数字的数目（标度）。其范围是0～30，但不得超过M。
+		说明：float占4个字节，double占8个字节，decimail(M,D)占M+2个字节。
+	BigDecimal方法：
+		BigDecimal b1 = new BigDecimal(Double.toString(value1));
+		BigDecimal b2 = new BigDecimal(Double.toString(value2));
+		return b1.add(b2).doubleValue();
+		return b1.subtract(b2).doubleValue();
+		return b1.multiply(b2).doubleValue();
+		提供（相对）精确的除法运算，当发生除不尽的情况时， 精确到小数点以后10位，以后的数字四舍五入。
+			return divide(dividend, divisor, DEF_DIV_SCALE);
+		提供（相对）精确的除法运算。 当发生除不尽的情况时，由scale参数指定精度，以后的数字四舍五入。
+			return b1.divide(b2, scale,RoundingMode.HALF_UP).doubleValue();
+		供指定数值的（精确）小数位四舍五入处理。
+			return b.divide(one,scale, RoundingMode.HALF_UP).doubleValue();
 	
 	
 	

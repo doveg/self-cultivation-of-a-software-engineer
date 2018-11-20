@@ -36,8 +36,8 @@ icon 图标：
 	a href="#" class="easyui-linkbutton" iconCls="icon-man"
 
 输入框取值：
-	var combovalue = $("#").combobox("getValue");
-	var combovalue = $("#").combobox("getValues");
+	var combovalue = $("#").combobox('getValue');
+	var combovalue = $("#").combobox('getValue');
 	var value = $("#").textbox('getValue');
 	var value = $("#").textbox('getText');
 	var value = $('#').datebox('getValue');

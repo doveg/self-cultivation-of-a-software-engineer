@@ -17,6 +17,9 @@
 	underscore：下划线；[ʌndə'skɔː]
 	escape：转义；
 	
+	tuple：元组；[tjʊpəl; ˈtʌpəl]
+	
+	
 	
 	capitalization：用大写，资本化；[,kæpɪt(ə)laɪ'zeɪʃ(ə)n]
 	

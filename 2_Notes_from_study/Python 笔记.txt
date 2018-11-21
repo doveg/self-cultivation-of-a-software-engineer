@@ -38,6 +38,7 @@ Variables
 		
 	Boolean operators：
 		== ：
+		!= ：
 	
 	Comparison operators：
 		链式比较：chained comparison
@@ -88,35 +89,55 @@ Strings
 	
 Data structures
 	Lists introduction：
-		slicing：切片；可用于字符串、数组、List等类型；
+		slicing：切片；可用于字符串、数组、List、元组等类型；
 		lst[start:end]：起始(包含)，结束(不包含)
 		lst[start:end:stride]：起始(包含)，结束(不包含)，跨度(每几个取一个，为负则会从最末往前取)；
 	Lists operations：
 		+= ：增量赋值；
 		append()：追加；
+	List items：
+		animals = ['elephant', 'lion', 'tiger', "giraffe", "monkey", 'dog']
+		animals[1:3] = ['cat']
+		animals[1:3] = []
+		animals[:] = []
+	Tuples：元组；
+		元组内元素无法被增加、修改或者删除；只能进行查询、截取和 + * 等运算操作；
+		单元素元组必须以逗号结尾；
+		内置函数：
+			len()：
+			cmp()：
+			max()：
+			min()：
+	Dictionaries：字典；
+		键值对；
+		dic[key] = value
+		keys()：键；
+		values()：值；
+		String in dic.keys();
+		integer in dic.values();
 		
+Condition expressions
+	Boolean operators：
+		not：一级优先；
+		and：二级优先；
+		or：三级优先；
+		== ：
+		!= ：
+		is：变量和字符串；
+		运算顺序：
+			not：first；
+			and：next；
+			or：last。
+	If statement：
+		if boolean :
+			todo
+		elif boolean :
+			todo
+		else:
+			todo
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+Loops
+	For loop：
 		
 		
 		

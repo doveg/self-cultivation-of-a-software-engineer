@@ -1,14 +1,32 @@
 
+实用基础
 
-
-
-
-
-
-
-
-list 判空：
-	list == null || list.size() == 0
+	
+单词：
+	comma：逗号；['kɒmə]
+	colon：冒号；['kəʊlən]
+	exclamation：惊叹号；[,eksklə'meɪʃ(ə)n]
+	apostrophe：撇号、省略号；[ə'pɒstrəfɪ]
+	
+	
+	quotation marks：引号；[kwə(ʊ)'teɪʃ(ə)n]
+		single quotation marks：单引号；
+		double quotation marks：双引号；
+	
+	square brackets：方括号；[skweə] ['brækɪts]
+	underscore：下划线；[ʌndə'skɔː]
+	escape：转义；
+	
+	
+	capitalization：用大写，资本化；[,kæpɪt(ə)laɪ'zeɪʃ(ə)n]
+	
+	
+	
+	
+	giraffe：长颈鹿；[dʒɪˈrɑ:f]
+	dinosaur：恐龙；['daɪnəsɔː]
+	
+	
 
 
 包装类 转 字符串：
@@ -39,6 +57,9 @@ Math.Random()：
 	返回带正号的 double 值，该值大于等于 0.0 且小于 1.0，即取值范围是 [0.0,1.0) 的左闭右开区间；
 	返回值是一个伪随机选择的数，在该范围内 (近似) 均匀分布。
 	
+	
+list 判空：
+	list == null || list.size() == 0
 	
 判空：
 	1. 集合类Array、List、Map、Set的判空：

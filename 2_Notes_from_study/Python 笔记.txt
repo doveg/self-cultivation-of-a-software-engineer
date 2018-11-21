@@ -1,0 +1,140 @@
+	
+Python 笔记
+	
+	
+基础
+	
+	
+	
+Introduction
+	# ：注释；comments
+	
+Variables
+	variable definition：变量定义；
+		链式赋值：a = b = 2；chained assignment；
+		变量名：不能以数字开头；
+		
+	Variable types：变量类型；
+		numbers: 
+			integers：
+			floats：
+		
+	Type conversion：类型转换；
+		int(x)：
+		float(x)：		
+		str(b)：转成字符串类型；
+	
+	Arithmetic operators：算术操作；
+		addition ( +)
+		subtraction ( -)
+		multiplication ( *)
+		division ( /)
+		power ( **)：指数；
+		modulo ( %)：求模；
+		
+	Augmented assignment：增量赋值；
+		+= ：
+		-= ：
+		
+	Boolean operators：
+		== ：
+	
+	Comparison operators：
+		链式比较：chained comparison
+			one < two < three
+		>= ：
+		<= ：
+		> :
+		< :
+	
+Strings
+	Concatenation：连接符；
+		+ ：
+		
+	String multiplication：字符串乘法；
+		string-by-number multiplication：
+		hello * 10
+		
+	String indexing：字符串索引取值；
+		str[index]：索引处的元素；
+		
+	String negative indexing：字符串负索引取值；
+		str[-1]：从末尾开始；
+	
+	String slicing：字符串切片；
+		slicing：切片；可用于字符串、数组、List等类型；
+		str[start:end]：起始(包含)，结束(不包含)
+		str[start:]：
+		str[:end]：
+		str[:]：全部；
+		
+	In operator：包含；
+		keyword in String：
+		
+	String length：字符串长度；
+		len()：String 长度；
+		
+	Character escaping：字符转义；
+		\ ：转义符；
+		'\n'：换行；
+	Basic string methods：字符串操作方法；
+		lower()：
+		upper()：
+	String formatting：字符串格式化；
+		% ：占位符；
+		%s ：字符串占位符；
+			% %s ：% 后面的变量会替换掉 String 中的 %s；
+		%d ：数字占位符；
+	
+Data structures
+	Lists introduction：
+		slicing：切片；可用于字符串、数组、List等类型；
+		lst[start:end]：起始(包含)，结束(不包含)
+		lst[start:end:stride]：起始(包含)，结束(不包含)，跨度(每几个取一个，为负则会从最末往前取)；
+	Lists operations：
+		+= ：增量赋值；
+		append()：追加；
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		

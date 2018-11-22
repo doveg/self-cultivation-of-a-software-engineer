@@ -2,142 +2,282 @@
 Python 笔记
 	
 	
-基础
+基础部分
 	
-	
-	
-Introduction
-	# ：注释；comments
-	
-Variables
-	variable definition：变量定义；
-		链式赋值：a = b = 2；chained assignment；
-		变量名：不能以数字开头；
+	Introduction
+		comments：注释；
+			# 单行注释 
+			"""
+			多行注释 
+			"""
 		
-	Variable types：变量类型；
-		numbers: 
-			integers：
-			floats：
+	Variables：变量；
+		variable definition：变量定义；
+			链式赋值：a = b = 2；chained assignment；
+			变量名：不能以数字开头；
+			
+		Variable types：变量类型；
+			numbers: 
+				integers：
+				floats：
+			
+		Type conversion：类型转换；
+			int(x)：转成整数类形；
+			float(x)：转成浮点类型；
+			str(b)：转成字符串类型；
 		
-	Type conversion：类型转换；
-		int(x)：
-		float(x)：		
-		str(b)：转成字符串类型；
-	
-	Arithmetic operators：算术操作；
-		addition ( +)
-		subtraction ( -)
-		multiplication ( *)
-		division ( /)
-		power ( **)：指数；
-		modulo ( %)：求模；
+		Arithmetic operators：算术操作；
+			addition (+)
+			subtraction (-)
+			multiplication (*)
+			division (/)
+			power (**)：指数；
+			modulo (%)：求模；
+			
+		Augmented assignment：增量赋值；
+			+= ：
+			-= ：
+			
+		Boolean operators：布尔运算；
+			== ：
+			!= ：
 		
-	Augmented assignment：增量赋值；
-		+= ：
-		-= ：
+		Comparison operators：
+			链式比较：chained comparison
+				one < two < three
+			>= ：
+			<= ：
+			> :
+			< :
 		
-	Boolean operators：
-		== ：
-		!= ：
-	
-	Comparison operators：
-		链式比较：chained comparison
-			one < two < three
-		>= ：
-		<= ：
-		> :
-		< :
-	
-Strings
-	Concatenation：连接符；
-		+ ：
+	Strings：字符串；
+		Concatenation：连接符；
+			+ ：
+			
+		String multiplication：字符串乘法；
+			string-by-number multiplication：
+			hello * 10
+			
+		String indexing：字符串索引取值；
+			str[index]：索引处的元素；
+			
+		String negative indexing：字符串负索引取值；
+			str[-1]：从末尾开始；
 		
-	String multiplication：字符串乘法；
-		string-by-number multiplication：
-		hello * 10
+		String slicing：字符串切片；
+			slicing：切片；可用于字符串、数组、List等类型；
+			str[start:end]：起始(包含)，结束(不包含)
+			str[start:]：
+			str[:end]：
+			str[:]：全部；
+			
+		In operator：包含；
+			keyword in String：
+			
+		String length：字符串长度；
+			len()：String 长度；
+			
+		Character escaping：字符转义；
+			\ ：转义符；
+			'\n'：换行；
 		
-	String indexing：字符串索引取值；
-		str[index]：索引处的元素；
+		Basic string methods：字符串操作方法；
+			lower()：
+			upper()：
 		
-	String negative indexing：字符串负索引取值；
-		str[-1]：从末尾开始；
-	
-	String slicing：字符串切片；
-		slicing：切片；可用于字符串、数组、List等类型；
-		str[start:end]：起始(包含)，结束(不包含)
-		str[start:]：
-		str[:end]：
-		str[:]：全部；
+		String formatting：字符串格式化；
+			% ：占位符；
+			%s ：字符串占位符；
+				% %s ：% 后面的变量会替换掉 String 中的 %s；
+			%d ：数字占位符；
 		
-	In operator：包含；
-		keyword in String：
+	Data structures：数据结构；
+		Lists introduction：列表；
+			slicing：切片；可用于字符串、数组、List、元组等类型；
+			lst[start:end]：起始(包含)，结束(不包含)
+			lst[start:end:stride]：起始(包含)，结束(不包含)，跨度(每几个取一个，为负则会从最末往前取)；
 		
-	String length：字符串长度；
-		len()：String 长度；
+		Lists operations：列表操作；
+			+= ：增量赋值；
+			append()：追加；
 		
-	Character escaping：字符转义；
-		\ ：转义符；
-		'\n'：换行；
-	Basic string methods：字符串操作方法；
-		lower()：
-		upper()：
-	String formatting：字符串格式化；
-		% ：占位符；
-		%s ：字符串占位符；
-			% %s ：% 后面的变量会替换掉 String 中的 %s；
-		%d ：数字占位符；
-	
-Data structures
-	Lists introduction：
-		slicing：切片；可用于字符串、数组、List、元组等类型；
-		lst[start:end]：起始(包含)，结束(不包含)
-		lst[start:end:stride]：起始(包含)，结束(不包含)，跨度(每几个取一个，为负则会从最末往前取)；
-	Lists operations：
-		+= ：增量赋值；
-		append()：追加；
-	List items：
-		animals = ['elephant', 'lion', 'tiger', "giraffe", "monkey", 'dog']
-		animals[1:3] = ['cat']
-		animals[1:3] = []
-		animals[:] = []
-	Tuples：元组；
-		元组内元素无法被增加、修改或者删除；只能进行查询、截取和 + * 等运算操作；
-		单元素元组必须以逗号结尾；
-		内置函数：
-			len()：
-			cmp()：
-			max()：
-			min()：
-	Dictionaries：字典；
-		键值对；
-		dic[key] = value
-		keys()：键；
-		values()：值；
-		String in dic.keys();
-		integer in dic.values();
+		List items：列表项；
+			animals = ['elephant', 'lion', 'tiger', "giraffe", "monkey", 'dog']
+			animals[1:3] = ['cat']
+			animals[1:3] = []
+			animals[:] = []
 		
-Condition expressions
-	Boolean operators：
-		not：一级优先；
-		and：二级优先；
-		or：三级优先；
-		== ：
-		!= ：
-		is：变量和字符串；
-		运算顺序：
-			not：first；
-			and：next；
-			or：last。
-	If statement：
-		if boolean :
-			todo
-		elif boolean :
-			todo
-		else:
-			todo
+		Tuples：元组；
+			元组内元素无法被增加、修改或者删除；只能进行查询、截取和 + * 等运算操作；
+			单元素元组必须以逗号结尾；
+			内置函数：
+				len()：长度；
+				cmp()：比较；
+				max()：最大元素；
+				min()：最小元素；
 		
-Loops
-	For loop：
+		Dictionaries：字典；
+			键值对；
+			dic[key] = value
+			keys()：键；
+			values()：值；
+			String in dic.keys();
+			integer in dic.values();
+			
+	Condition expressions：条件表达式；
+		Boolean operators：布尔运算；
+			not：一级优先；
+			and：二级优先；
+			or：三级优先；
+			== ：
+			!= ：
+			is：变量和字符串；
+			运算顺序：
+				not：first；
+				and：next；
+				or：last。
+		
+		If statement：条件语句；
+			if boolean :
+				todo
+			elif boolean :
+				todo
+			else:
+				todo
+			
+	Loops：循环；
+		For loop：for 循环；
+			for i in range(5):
+				print(i)   
+		
+		For loop using string：字符串 for 循环；
+			length = 0
+			for ch in hello_world:
+				length += 1
+		
+		While loop：while 循环；
+			square = 1
+			while square <= 10:
+				print(square)
+				square += 1 
+		
+		Break keyword：打断；
+			count = 0
+			while True:
+				print(count)
+				count += 1
+				if count >= 5:
+					break
+		
+		Continue keyword：略过继续；
+			for x in range(10):
+				if x % 2 == 0:
+					continue
+				print(x)
+			
+	Functions：函数；
+		Definition：定义；
+			def hello_world():
+				print("Hello, World!")
+		
+		Parameters and call arguments：形参和调用传参；
+			def square(x):
+				print(x ** 2)
+				square(5)
+		
+		Return value：返回值；
+			def fib(n):
+				result = []
+				a = 1
+				b = 1
+			while a < n:
+				result.append(a)
+				tmp_var = b
+				b = a + b
+				a = tmp_var
+			return result
+		
+		Default parameters：默认参数；
+			def multiply_by(a, b=2):
+				return a * b
+			
+	Classes and objects：类和对象；	
+		Definition：定义；
+			class MyClass:
+			my_object = MyClass()
+		
+		Variable access：变量访问；
+			my_object = MyClass()
+			my_object.variable1
+		
+		Self explanation：当前对象；
+			self：调用时的类的实例
+				类的方法必须有个额外的第一个参数；
+				按照Python的惯例，它用 self 来表示。
+				self 不是关键字；
+				self 代表当前对象的地址；
+				self 在定义类时不可以省略，在调用时会自动传入。
+				self 能避免非限定调用造成的全局变量。
+			class Calculator:
+				current = 0
+				def add(self, amount):
+					self.current += amount
+				def get_current(self):
+					return self.current
+		
+		Special __init__ method：初始化方法；
+			__init__()：
+				初始化方法，用于初始化一个类；
+				类实例创建之后调用, 对当前对象的实例的一些初始化, 没有返回值；
+				__new__()：创建类实例的方法, 创建对象时调用, 返回当前对象的一个实例；
+				__str__()：内置方法, 只能返回字符串, 并且只能有一个参数 self；
+				__call__()：
+					对象通过提供一个 __call__(self, *args, *kwargs) 方法可以模拟函数的行为，
+					如果一个对象提供了该方法, 可以向函数一样去调用它
+			
+	Modules and packages：模块和包；
+		Import module：导入模块；
+			import my_module
+			
+		Built-in modules：内置模块；
+			import datetime
+			print(datetime.datetime.today())
+			
+		From import：
+			from calculator import Calculator：可以直接调用，无需模块名调用；
+			
+	File input output：文件输入输出；
+		Read file：读取文件；
+			f = open("output.txt", "r")
+			for line in f.readlines():
+				print(line)
+			f.close()
+		Write to file：写入文件；
+			f = open("output.txt", "a")
+			for i in zoo:
+				f.write(i)
+			f.close()
+			注意：
+				f = open("output.txt", "w")：如果存在同名文件，会先删除再新建文件写入；
+				f = open("output.txt", "a")：追加写入；
+		
+		
+提高
+		
+	描述符类：Python中一种用于储存类属性值的对象；
+		通常需要以下几种魔术方法：
+			__set__(self, instance, value)
+			__get__(self, instance, owner)
+			__delete__(self, instance)
+			__set_name__(self, owner， name)
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		

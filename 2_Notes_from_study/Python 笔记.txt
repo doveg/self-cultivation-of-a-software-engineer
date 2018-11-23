@@ -281,6 +281,51 @@ Python 笔记
 		
 		
 		
+Django
+	Django settings：配置；
+		settings file contains all the configuration of your Django installation；
+		设置文件包含了所有的配置信息。
+	
+	Models：模板；
+		each model maps to a single database table. 
+		每个模板对应一张数据库表；
+		Each model is a Python class that subclasses django.db.models.Model.
+		每个模板都是一个类；继承于 django.db.models.Model；
+		Each attribute of the model represents a database field.
+		模板的每一个属性，对应数据库表中的一个字段；
+		Django gives you an automatically-generated database-access API
+		能自动生成访问数据库的 API。
+		
+	URL dispatcher：资源路径调度器；
+		URLconf (URL configuration)：simple mapping between URL patterns (simple regular expressions)；
+			To capture a value from the URL, just put parenthesis around it.
+			用圆括号获取 URL 中的值；
+			There’s no need to add a leading slash, because every URL has that. 
+			For example, it’s ^articles, not ^/articles.
+			开头不需要斜杠；
+			The 'r' in front of each regular expression string is optional but recommended. 
+			It tells Python that a string is “raw” – that nothing in the string should be escaped.
+			r 代表字符串是原生的，没有转义符。
+		regular expressions：正则表达式；
+			^ ：开头；
+			$ ：结尾；
+			[0-9] ：范围内选择；
+			{4} ：重复次数；
+			() ：允许重复多个字符；
+			+ ：软性量词 出现一次或多次(至少一次)。
+		
+	Writing views：视图；
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		

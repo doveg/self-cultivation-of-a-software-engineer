@@ -15,27 +15,39 @@
 	parenthesis：圆括号；[pə'renθɪsɪs]
 	square brackets：方括号；[skweə] ['brækɪts]
 	underscore：下划线；[ʌndə'skɔː]
-	escape：转义；
+	escape：转义，反斜杠；
+	leading slash：斜杠，前倒斜杠；[slæʃ]
+	
+	
 	
 	tuple：元组；[tjʊpəl; ˈtʌpəl]
 	
 	parameter：参数；形参；[pə'ræmɪtə]
 	
+	render：补偿；['rendə]
 	
-	
-	
+	inherit：继承；[ɪn'herɪt]
 	convention：惯例；[kən'venʃ(ə)n]
 	capitalization：用大写，资本化；[,kæpɪt(ə)laɪ'zeɪʃ(ə)n]
 	
 	Fibonacci sequence：斐波拉契数列；
 	
+	chaos：混沌；['keɪɒs]
+	sake：目的，利益；[seɪk]
 	
 	giraffe：长颈鹿；[dʒɪˈrɑ:f]
 	dinosaur：恐龙；['daɪnəsɔː]
 	
 	
-
-
+	
+	
+	
+	
+	
+	
+	
+	
+	
 包装类 转 字符串：
 	String.valueOf();
 

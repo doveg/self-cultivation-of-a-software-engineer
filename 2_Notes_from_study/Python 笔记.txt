@@ -315,6 +315,46 @@ Django
 			+ ：软性量词 出现一次或多次(至少一次)。
 		
 	Writing views：视图；
+		def post_list(request):
+			return render(request, 'blog/post_list.html', {})
+		
+	Templates：模板；
+		HTML 文件；
+		
+	Dynamic data in templates：模板中的动态数据；
+		def post_list(request):
+			posts = Post.objects.order_by('published_date')
+			return render(request, 'blog/post_list.html', {posts})
+		Example：全部数据；
+			Post.objects.all()
+		Filter objects：过滤；
+			Post.objects.filter(author=me)
+		Ordering objects：排序；
+			Post.objects.order_by('created_date')
+			Post.objects.order_by('-created_date')
+		Chaining QuerySets：链接查询集；
+			Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
+		
+	Django template language：模板语言；
+		Variables are surrounded by {{ and }}
+		变量语法：{{ }}
+		Tags are surrounded by {% and %}
+		标签语法：{% %}
+			{% for post in posts %}
+				{{ post.author }} {{ post.title }} {{ post.text }} {{ post.created_date }} {{ post.published_date }}
+			{% end for %}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		

@@ -32,6 +32,9 @@
 	
 	Fibonacci sequence：斐波拉契数列；
 	
+	
+	
+	essence：本质、精华；['es(ə)ns]
 	chaos：混沌；['keɪɒs]
 	sake：目的，利益；[seɪk]
 	

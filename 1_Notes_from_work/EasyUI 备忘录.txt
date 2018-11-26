@@ -2,136 +2,138 @@
 EasyUI 工作笔记
 
 
-微调：
-	&nbsp;
-	<br />
+基础
 
-风格：
-	style="width: 100px"
-	style="width: 110px"
-	style="width: 160px"
+	微调：
+		&nbsp;
+		<br />
 
-	style="height: 23px"
-	style="height: 30px"
+	风格：
+		style="width: 100px"
+		style="width: 110px"
+		style="width: 160px"
 
-	border-radius:5px;
-	plain="true"
-	data-options="prompt:''"
+		style="height: 23px"
+		style="height: 30px"
 
-控件样式：
-	class="easyui-textbox"
-	class="easyui-combobox"
-	class="easyui-datebox"
-	class="easyui-linkbutton"
+		border-radius:5px;
+		plain="true"
+		data-options="prompt:''"
 
-
-
-	
-icon 图标：
-	a href="#" class="easyui-linkbutton" iconCls="icon-search"
-	a href="#" class="easyui-linkbutton" iconCls="icon-add"
-	a href="#" class="easyui-linkbutton" iconCls="icon-edit"
-	a href="#" class="easyui-linkbutton" iconCls="icon-remove"
-	a href="#" class="easyui-linkbutton" iconCls="icon-undo"
-	a href="#" class="easyui-linkbutton" iconCls="icon-man"
-
-输入框取值：
-	var combovalue = $("#").combobox('getValue');
-	var combovalue = $("#").combobox('getValue');
-	var value = $("#").textbox('getValue');
-	var value = $("#").textbox('getText');
-	var value = $('#').datebox('getValue');
-	var value = $('#').datetimebox('getValue');
-	var value = $("input[name='radio_name'][checked]").val(); 
-	var value = $('input[@name=items][@checked]').val();
-
-输入框设置值：
-	$('#').combobox('setValue', value);	
-	$('#').textbox('setValue', value); 
-	$('#').datebox('setValue', '6/1/2012');	
-	$('#').datetimebox('setValue', '6/1/2012 12:30:56');
-
-
-datagrid 选中行：
-	var row = $('#dg').datagrid('getSelected');
-	var rows = $('#dg').datagrid('getSelections')
+	控件样式：
+		class="easyui-textbox"
+		class="easyui-combobox"
+		class="easyui-datebox"
+		class="easyui-linkbutton"
 
 
 
-
-下拉框初始化：
-	json = '[{"id":"0","text":"查看已上架","selected":true},{"id":"1","text":"查看已下架"}]';
-	data = $.parseJSON(json);
-	$('#activityStatus').combobox({
-		valueField:'id', 
-		textField:'text',
-		data:data,
-		onChange: function(){
-			initGrid();
-		}
-	});
-
-
-
-
-模拟样式下拉框：
-	.easyuiLike_select{
-		border: 1px solid #e2e2e2;
-		border-radius: 5px;
-		height: 23px;
-		width: 120px;
-	}
-	class="easyuiLike_select"
-
-
-
-
-对话框：
-	$('#dd').dialog('open');
-	$('#dd').dialog('close');
-
-
-
-解析：
-	$.parseJSON("") 里面要的是 json 字符串。
-
-
-
-	data-options="required:true" 
-	onchange="gostatus()
-	name="goodsStatus"
-
-
-下拉框动作监听：
-	$('#idname').combobox({
-		onChange: function(){
-			alert(1);
-		}
-	});
-
-
-设置每页默认行数：
-	pagination:true,
-	pageSize:30,
-	pageList:[10,30,50,100,150,200],
-
-
-字段格式化：
-	formatter: toFix,
-	function toFix(value, row, index){
 		
-	}
+	icon 图标：
+		a href="#" class="easyui-linkbutton" iconCls="icon-search"
+		a href="#" class="easyui-linkbutton" iconCls="icon-add"
+		a href="#" class="easyui-linkbutton" iconCls="icon-edit"
+		a href="#" class="easyui-linkbutton" iconCls="icon-remove"
+		a href="#" class="easyui-linkbutton" iconCls="icon-undo"
+		a href="#" class="easyui-linkbutton" iconCls="icon-man"
 
-日期：
-	
-		日期格式：
-			3/4/2010 2:3
-	
-	
-	$('#ss').timespinner('setValue', '17:45');
-	$('#ss').timespinner('getValue'); 
-		时间格式：
-			2:3
+	输入框取值：
+		var combovalue = $("#").combobox('getValue');
+		var combovalue = $("#").combobox('getValue');
+		var value = $("#").textbox('getValue');
+		var value = $("#").textbox('getText');
+		var value = $('#').datebox('getValue');
+		var value = $('#').datetimebox('getValue');
+		var value = $("input[name='radio_name'][checked]").val(); 
+		var value = $('input[@name=items][@checked]').val();
+
+	输入框设置值：
+		$('#').combobox('setValue', value);	
+		$('#').textbox('setValue', value); 
+		$('#').datebox('setValue', '6/1/2012');	
+		$('#').datetimebox('setValue', '6/1/2012 12:30:56');
+
+
+	datagrid 选中行：
+		var row = $('#dg').datagrid('getSelected');
+		var rows = $('#dg').datagrid('getSelections')
+
+
+
+
+	下拉框初始化：
+		json = '[{"id":"0","text":"查看已上架","selected":true},{"id":"1","text":"查看已下架"}]';
+		data = $.parseJSON(json);
+		$('#activityStatus').combobox({
+			valueField:'id', 
+			textField:'text',
+			data:data,
+			onChange: function(){
+				initGrid();
+			}
+		});
+
+
+
+
+	模拟样式下拉框：
+		.easyuiLike_select{
+			border: 1px solid #e2e2e2;
+			border-radius: 5px;
+			height: 23px;
+			width: 120px;
+		}
+		class="easyuiLike_select"
+
+
+
+
+	对话框：
+		$('#dd').dialog('open');
+		$('#dd').dialog('close');
+
+
+
+	解析：
+		$.parseJSON("") 里面要的是 json 字符串。
+
+
+
+		data-options="required:true" 
+		onchange="gostatus()
+		name="goodsStatus"
+
+
+	下拉框动作监听：
+		$('#idname').combobox({
+			onChange: function(){
+				alert(1);
+			}
+		});
+
+
+	设置每页默认行数：
+		pagination:true,
+		pageSize:30,
+		pageList:[10,30,50,100,150,200],
+
+
+	字段格式化：
+		formatter: toFix,
+		function toFix(value, row, index){
+			
+		}
+
+	日期：
+		
+			日期格式：
+				3/4/2010 2:3
+		
+		
+		$('#ss').timespinner('setValue', '17:45');
+		$('#ss').timespinner('getValue'); 
+			时间格式：
+				2:3
 
 
 

@@ -92,7 +92,8 @@
 			JSP 容器：把 jsp 页面翻译成一般的 servlet。
 	
 	
-	
+	CI (Continuous Integration)：持续集成。
+	CD (Continuous Delivery)：持续交付。
 	
 	
 	

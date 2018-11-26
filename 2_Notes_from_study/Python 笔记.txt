@@ -345,28 +345,79 @@ Django
 			{% end for %}
 		
 		
+单元测试
+	结果类型：
+	    def test_success(self):
+			pass
+
+		def test_failure(self):
+			self.assertEqual(True, False)
+
+		def test_error(self):
+			raise Exception
 		
+		pass 语句：
+			空语句，是为了保持程序结构的完整性。
+			pass 不做任何事情，一般用做占位语句
+			
+		raise 关键字：
+			用来触发异常；后面是要引发的异常的名称；异常类的名称后面可以添加一个逗号以及指定的参数；
+			一旦执行了raise语句，raise后面的语句将不能执行；
+			
+		format 函数：
+			通过 {} 和 : 来代替%。
+			例如："Hello, {}!".format(name)
 		
+		copy 函数：
+			复制；
+			
+	Assertion Types：断言类型；
+		the integer zero is considered false, while all other integers are considered true. 
+		0 代表假；其他整型代表真；
+		Most containers are considered false when empty and true when non-empty
+		空容器代表假，非空容器代表真。
 		
+		例如：
+			def test_zero(self):
+				self.assertFalse(0)
+
+			def test_one(self):
+				self.assertTrue(1)
+			
+			def test_none(self):
+				self.assertFalse(None)
 		
+		    def _test_container_class(self, empty_container, non_empty_container):
+				self.assertFalse(empty_container)
+				self.assertTrue(non_empty_container)
+
+			def test_list(self):
+				self._test_container_class([], [False])
+
+			def test_tuple(self):
+				self._test_container_class((), (False, ))
+
+			def test_set(self):
+				self._test_container_class(set(), {False})
+
+			def test_dict(self):
+				self._test_container_class({}, {False: False})
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		assertion methods：
+			Method						Checks that				New in
+			assertEqual(a, b)			a == b	 
+			assertNotEqual(a, b)		a != b	 
+			assertTrue(x)				bool(x) is True	 
+			assertFalse(x)				bool(x) is False	 
+			assertIs(a, b)				a is b					3.1
+			assertIsNot(a, b)			a is not b				3.1
+			assertIsNone(x)				x is None				3.1
+			assertIsNotNone(x)			x is not None			3.1
+			assertIn(a, b)				a in b					3.1
+			assertNotIn(a, b)			a not in b				3.1
+			assertIsInstance(a, b)		isinstance(a, b)		3.2
+			assertNotIsInstance(a, b)	not isinstance(a, b)	3.2
+			assertCountEqual(a, b)		a.len() == b.len()		
 		
 		
 		

@@ -245,6 +245,1039 @@ Python 笔记
 				方法是再创建一个函数，用该函数的参数绑定循环变量当前的值，
 				无论该循环变量后续如何更改，已绑定到函数参数的值不变
 			
+	匿名函数：
+		在传入函数时，有些时候，不需要显式地定义函数，直接传入匿名函数更方便。
+		关键字 lambda 表示匿名函数，冒号前面的x表示函数参数。
+			Lambda：是一个表达式，也可以说它是一个匿名函数。
+		匿名函数有个限制，就是只能有一个表达式，不用写return，返回值就是该表达式的结果。
+			因为函数没有名字，不必担心函数名冲突。
+			此外，匿名函数也是一个函数对象，也可以把匿名函数赋值给一个变量，再利用变量来调用该函数
+				f = lambda x: x * x
+				f
+			同样，也可以把匿名函数作为返回值返回，比如：
+				def build(x, y):
+					return lambda: x * x + y * y
+			
+	装饰器：
+		在代码运行期间动态增加功能。
+			@语法，把decorator置于函数的定义处：
+			@log
+			def now():
+				print('2015-3-25')
+			把@log放到now()函数的定义处，相当于执行了语句：
+				now = log(now)
+			一个完整的decorator的写法如下：
+				import functools
+				def log(func):
+					@functools.wraps(func)
+					def wrapper(*args, **kw):
+						print('call %s():' % func.__name__)
+						return func(*args, **kw)
+					return wrapper
+			或者针对带参数的decorator：
+				import functools
+				def log(text):
+					def decorator(func):
+						@functools.wraps(func)
+						def wrapper(*args, **kw):
+							print('%s %s():' % (text, func.__name__))
+							return func(*args, **kw)
+						return wrapper
+					return decorator
+			*args是非关键字参数，用于元组；
+			**kw是关键字参数，用于字典
+			
+	偏函数(局部函数)：
+		计算机科学中，局部应用是指固定一个函数的一些参数，然后产生另一个更小元的函数。
+		functools.partial 作用：
+			把一个函数的某些参数给固定住（也就是设置默认值），返回一个新的函数，调用这个新函数会更简单。
+			
+	模块：
+		一个.py文件就称之为一个模块（Module）。
+		自己创建模块时要注意命名，不能和Python自带的模块名称冲突。
+		例如，系统自带了sys模块，自己的模块就不可命名为sys.py，否则将无法导入系统自带的sys模块。
+			
+	包：
+		按目录来组织模块的方法称为包（Package）。
+			每一个包目录下面都会有一个__init__.py的文件，这个文件是必须存在的，
+			否则，Python就把这个目录当成普通目录，而不是一个包。
+			__init__.py可以是空文件，也可以有Python代码，
+			因为__init__.py本身就是一个模块，而它的模块名就是包名。
+			
+	作用域：
+		通过_前缀来实现。
+		正常的函数和变量名是公开的（public），可以被直接引用，比如：abc，x123，PI等；
+		类似__xxx__这样的变量是特殊变量，可以被直接引用，但是有特殊用途，
+			比如上面的__author__，__name__就是特殊变量，
+			hello模块定义的文档注释也可以用特殊变量__doc__访问，
+			我们自己的变量一般不要用这种变量名；
+		类似_xxx和__xxx这样的函数或变量，就是非公开的（private），不应该被直接引用，
+			比如_abc，__abc等；
+			private函数和变量“不应该”被直接引用，而不是“不能”被直接引用，
+			是因为Python并没有一种方法可以完全限制访问private函数或变量，
+			但是，从编程习惯上不应该引用private函数或变量。
+	
+		通俗的理解__name__ == '__main__'：假如你叫小明.py，在朋友眼中，你是小明(__name__ == '小明')；在你自己眼中，你是你自己(__name__ == '__main__')。
+
+		if __name__ == '__main__'的意思是：当.py文件被直接运行时，if __name__ == '__main__'之下的代码块将被运行；当.py文件以模块形式被导入时，if __name__ == '__main__'之下的代码块不被运行。
+			
+	第三方模块：
+		通过包管理工具pip完成的。
+			如果你正在使用Mac或Linux，安装pip本身这个步骤就可以跳过了。
+			如果你正在使用Windows，安装Python时确保勾选了pip和Add python.exe to Path。
+			
+	模块搜索路径：
+		默认情况下，Python解释器会搜索当前目录、所有已安装的内置模块和第三方模块，
+		搜索路径存放在sys模块的path变量中：
+			import sys
+			sys.path
+		如果我们要添加自己的搜索目录，有两种方法：
+			一是直接修改sys.path，添加要搜索的目录：
+				import sys
+				sys.path.append('/Users/michael/my_py_scripts')
+				这种方法是在运行时修改，运行结束后失效。
+			第二种方法是设置环境变量PYTHONPATH，该环境变量的内容会被自动添加到模块搜索路径中。
+				设置方式与设置Path环境变量类似。
+				注意只需要添加你自己的搜索路径，Python自己本身的搜索路径不受影响。
+			
+	类和实例：
+		类可以起到模板的作用，因此，可以在创建实例的时候，把一些我们认为必须绑定的属性强制填写进去。
+		通过定义一个特殊的__init__方法，在创建实例的时候，就把name，score等属性绑上去：
+			class Student(object):
+				def __init__(self, name, score):
+					self.name = name
+					self.score = score
+			__init__方法的第一个参数永远是self，表示创建的实例本身，
+			因此，在__init__方法内部，就可以把各种属性绑定到self，因为self就指向创建的实例本身。
+		和普通的函数相比，在类中定义的函数只有一点不同，就是第一个参数永远是实例变量self，
+		并且，调用时，不用传递该参数。
+		除此之外，类的方法和普通函数没有什么区别，
+		所以，你仍然可以用默认参数、可变参数、关键字参数和命名关键字参数。
+			
+	数据封装：
+		封装数据的函数是和Student类本身是关联起来的，我们称之为类的方法。
+			比如：print，get，set 方法。
+			在 set 方法中，可以对参数做检查，避免传入无效的参数。
+			
+	访问限制：	
+		要让内部属性不被外部访问，可以把属性的名称前加上两个下划线__，
+		在Python中，实例的变量名如果以__开头，就变成了一个私有变量（private），
+			只有内部可以访问，外部不能访问。
+		确保了外部代码不能随意修改对象内部的状态，这样通过访问限制的保护，代码更加健壮。
+			Python中，变量名类似__xxx__的，也就是以双下划线开头，并且以双下划线结尾的，是特殊变量，
+			特殊变量是可以直接访问的，不是private变量，
+			所以，不能用__name__、__score__这样的变量名。
+		有些时候，你会看到以一个下划线开头的实例变量名，
+			比如_name，这样的实例变量外部是可以访问的，
+			但是，按照约定俗成的规定，当你看到这样的变量时，
+			意思就是，“虽然我可以被访问，但是，请把我视为私有变量，不要随意访问”。
+		双下划线开头的实例变量是不是一定不能从外部访问呢？其实也不是。
+			不能直接访问__name是因为Python解释器对外把__name变量改成了_Student__name，
+			所以，仍然可以通过_Student__name来访问__name变量
+			
+	继承和多态：
+		继承：
+			OOP程序设计中，当我们定义一个class的时候，可以从某个现有的class继承，
+			新的class称为子类（Subclass），
+			而被继承的class称为基类、父类或超类（Base class、Super class）
+		好处：
+			使子类获得了父类的全部功能。
+			可以实现多态：
+				当子类和父类都存在相同的run()方法时，我们说，子类的run()覆盖了父类的run()，
+				在代码运行的时候，总是会调用子类的run()。
+				因为覆盖，所以多态。
+		“开闭”原则：
+			对扩展开放：允许新增Animal子类；
+			对修改封闭：不需要修改依赖Animal类型的run_twice()等函数。
+			
+	静态语言 vs 动态语言
+		对于静态语言（例如Java）来说，如果需要传入Animal类型，
+			则传入的对象必须是Animal类型或者它的子类，否则，将无法调用run()方法。
+		对于Python这样的动态语言来说，则不一定需要传入Animal类型。
+			我们只需要保证传入的对象有一个run()方法就可以了。	
+		Python的“file-like object“就是一种鸭子类型。
+			对真正的文件对象，它有一个read()方法，返回其内容。
+			但是，许多对象，只要有read()方法，都被视为“file-like object“。
+			许多函数接收的参数就是“file-like object“，你不一定要传入真正的文件对象，
+			完全可以传入任何实现了read()方法的对象。
+			
+	获取对象信息：
+		type()：
+			判断对象类型；
+		isinstance()：
+			判断一个变量是否是某个类型可以用isinstance()判断：
+			比如：isinstance(a, list)。
+		type() 和 isinstance()：
+			能用type()判断的基本类型也可以用isinstance()判断；
+			isinstance()还可以判断一个变量是否是某些类型中的一种；
+			总是优先使用isinstance()判断类型，可以将指定类型及其子类“一网打尽”。
+		dir()：
+			获得一个对象的所有属性和方法；
+			它返回一个包含字符串的list；
+			__len__()：返回序列的长度。
+				在Python中，如果你调用len()函数试图获取一个对象的长度，
+				实际上在len()函数内部，它自动去调用该对象的__len__()方法。
+			getattr()：获取属性；
+			setattr()：设置属性；
+			hasattr()：是否有某个属性。
+			
+	实例属性和类属性：
+		直接在class中定义属性，这种属性是类属性，归类所有；
+			当我们定义了一个类属性后，这个属性虽然归类所有，但类的所有实例都可以访问到。
+		编写程序的时候，千万不要对实例属性和类属性使用相同的名字，
+		因为相同名称的实例属性将屏蔽掉类属性，
+		但是当你删除实例属性后，再使用相同的名称，访问到的将是类属性。
+			
+	__slots__ 使用：	
+		当我们定义了一个class，创建了一个class的实例后，我们可以给该实例绑定任何属性和方法，
+		这就是动态语言的灵活性。
+			动态绑定允许我们在程序运行的过程中动态给class加上功能，这在静态语言中很难实现。	
+		Python允许在定义class的时候，定义一个特殊的__slots__变量，来限制该class实例能添加的属性：
+			class Student(object):
+				__slots__ = ('name', 'age')		# 用tuple定义允许绑定的属性名称
+		注意：
+			__slots__定义的属性仅对当前类实例起作用，对继承的子类是不起作用的：
+			除非在子类中也定义__slots__，
+				子类实例允许定义的属性就是自身的__slots__加上父类的__slots__。
+			
+	@property 使用：
+		Python 内置的 @property 装饰器负责把一个方法变成属性调用。
+			只定义getter方法，不定义setter方法就是一个只读属性。
+			
+	多重继承：	
+		一个子类就可以同时获得多个父类的所有功能。
+			
+	MixIn：	
+		目的：给一个类增加多个功能，
+			在设计类的时候，优先考虑通过多重继承来组合多个MixIn的功能，
+			而不是设计多层次的复杂的继承关系。
+		由于Python允许使用多重继承，因此，MixIn就是一种常见的设计。
+			只允许单一继承的语言（如Java）不能使用MixIn的设计。
+			
+	定制类：
+		__str__()：
+			定义__str__()方法，返回一个好看的字符串；
+		
+		__repr__()：
+			__str__()返回用户看到的字符串，而__repr__()返回程序开发者看到的字符串，
+			__repr__()是为调试服务的。
+			通常__str__()和__repr__()代码都是一样的，所以，有个偷懒的写法：
+				class Student(object):
+					def __init__(self, name):
+						self.name = name
+					def __str__(self):
+						return 'Student object (name=%s)' % self.name
+					__repr__ = __str__
+		
+		__iter__()：
+			该方法返回一个迭代对象，
+			Python的for循环就会不断调用该迭代对象的__next__()方法拿到循环的下一个值，
+			直到遇到StopIteration错误时退出循环。
+			
+		__getitem__()：
+			迭代对象虽然能作用于for循环，看起来和list有点像，
+			但是，把它当成list来使用还是不行。比如，取第5个元素。
+			如果把对象看成dict，__getitem__()的参数也可能是一个可以作key的object，例如str。
+				与之对应的是__setitem__()方法，把对象视作list或dict来对集合赋值。
+				最后，还有一个__delitem__()方法，用于删除某个元素。
+		自己定义的类表现得和Python自带的list、tuple、dict没什么区别，
+		这完全归功于动态语言的“鸭子类型”，不需要强制继承某个接口。
+			
+		__getattr__()：
+			动态返回一个属性。
+			当调用不存在的属性时，Python解释器会试图调用__getattr__(self, 'score')来尝试获得属性，
+			我们就有机会返回score的值
+			
+		__call__()：
+			直接对实例进行调用。
+			__call__()还可以定义参数。
+				对实例进行直接调用就好比对一个函数进行调用一样，
+				所以你完全可以把对象看成函数，把函数看成对象，因为这两者之间本来就没啥根本的区别。
+			如果你把对象看成函数，那么函数本身其实也可以在运行期动态创建出来，
+				因为类的实例都是运行期创建出来的，这么一来就模糊了对象和函数的界限。
+			那么，怎么判断一个变量是对象还是函数呢？
+				我们需要判断一个对象是否能被调用，能被调用的对象就是一个Callable对象
+			通过callable()函数，我们就可以判断一个对象是否是“可调用”对象。
+			
+	枚举类：
+		用枚举类型定义一个class类型，每个常量都是class的一个唯一实例。
+			from enum import Enum
+			Month = Enum('Month', ('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'))
+		@unique 装饰器可以帮助我们检查保证没有重复值。
+			如果需要更精确地控制枚举类型，可以从Enum派生出自定义类：
+				from enum import Enum, unique
+				@unique
+				class Weekday(Enum):
+					Sun = 0 # Sun的value被设定为0
+					Mon = 1
+					Tue = 2
+					Wed = 3
+					Thu = 4
+					Fri = 5
+					Sat = 6
+		
+	元类：
+		type()：
+			class的定义是运行时动态创建的，而创建class的方法就是使用type()函数。
+			既可以返回一个对象的类型，又可以创建出新的类型，
+				比如，我们可以通过type()函数创建出Hello类，而无需通过class Hello(object)...的定义。
+			要创建一个class对象，type()函数依次传入3个参数：
+				class的名称；
+				继承的父类集合，注意Python支持多重继承，如果只有一个父类，别忘了tuple的单元素写法；
+				class的方法名称与函数绑定，这里我们把函数fn绑定到方法名hello上。
+		metaclass：
+			除了使用type()动态创建类以外，要控制类的创建行为，还可以使用metaclass。
+			metaclass，直译为元类，简单的解释就是：
+				当我们定义了类以后，就可以根据这个类创建出实例，所以：先定义类，然后创建实例。
+			但是如果我们想创建出类呢？
+				那就必须根据metaclass创建出类，所以：先定义metaclass，然后创建类。
+				连接起来就是：先定义metaclass，就可以创建类，最后创建实例。
+			所以，metaclass允许你创建类或者修改类。换句话说，你可以把类看成是metaclass创建出来的“实例”。
+			metaclass是Python面向对象里最难理解，也是最难使用的魔术代码。
+				它可以改变类创建时的行为。这种强大的功能使用起来务必小心
+			
+	错误处理：
+		try ... except ... finally ... 错误处理机制：
+			Python的错误其实也是class，所有的错误类型都继承自BaseException，
+			所以在使用except时需要注意的是，它不但捕获该类型的错误，还把其子类也“一网打尽”。
+		调用栈：
+			如果错误没有被捕获，它就会一直往上抛，最后被Python解释器捕获，打印一个错误信息然后程序退出。
+			出错的时候，一定要分析错误的调用栈信息，才能定位错误的位置。
+		记录错误：
+			Python内置的logging模块可以非常容易地记录错误信息。
+			通过配置，logging还可以把错误记录到日志文件里，方便事后排查。
+		抛出错误
+			因为错误是class，捕获一个错误就是捕获到该class的一个实例。
+			因此，错误并不是凭空产生的，而是有意创建并抛出的。
+			Python的内置函数会抛出很多类型的错误，我们自己编写的函数也可以抛出错误。
+			如果要抛出错误，首先根据需要，可以定义一个错误的class，选择好继承关系，
+			然后，用raise语句抛出一个错误的实例
+			只有在必要的时候才定义我们自己的错误类型。
+			如果可以选择Python已有的内置的错误类型（比如ValueError，TypeError），
+				尽量使用Python内置的错误类型。
+			raise语句如果不带参数，就会把当前错误原样抛出。
+			此外，在except中raise一个Error，还可以把一种类型的错误转化成另一种类型。
+			
+	调试：
+		print()：
+			用print()把可能有问题的变量打印出来看看。
+		断言：
+			凡是用print()来辅助查看的地方，都可以用断言（assert）来替代。
+			启动Python解释器时可以用-O参数来关闭assert：
+				python -O err.py
+				关闭后，你可以把所有的assert语句当成pass来看。
+		logging：
+			把print()替换为logging是第3种方式，和assert比，logging不会抛出错误，而且可以输出到文件。
+			logging的好处：
+				它允许你指定记录信息的级别，有debug，info，warning，error等几个级别，当
+					我们指定level=INFO时，logging.debug就不起作用了。
+					同理，指定level=WARNING后，debug和info就不起作用了。
+					这样一来可以放心地输出不同级别的信息，也不用删除，最后统一控制输出哪个级别的信息。
+				通过简单的配置，一条语句可以同时输出到不同的地方，比如console和文件。
+		pdb：
+			启动Python的调试器pdb，让程序以单步方式运行，可以随时查看运行状态。
+			这种通过pdb在命令行调试的方法理论上是万能的，但实在是太麻烦了。
+			pdb.set_trace()：
+				这个方法也不需要单步执行，我们只需要import pdb，
+				然后，在可能出错的地方放一个pdb.set_trace()，就可以设置一个断点
+				运行代码，程序会自动在pdb.set_trace()暂停并进入pdb调试环境，
+				可以用命令p查看变量，或者用命令c继续运行
+		IDE
+			如果要比较爽地设置断点、单步执行，就需要一个支持调试功能的IDE。
+			目前比较好的Python IDE有：
+				Visual Studio Code：https://code.visualstudio.com/，需要安装Python插件。
+				PyCharm：http://www.jetbrains.com/pycharm/
+			
+	单元测试：
+		测试驱动开发（TDD：Test-Driven Development）
+			以测试为驱动的开发模式好处：
+				确保一个程序模块的行为符合我们设计的测试用例。
+				在将来修改的时候，可以极大程度地保证该模块行为仍然是正确的。
+		单元测试：用来对一个模块、一个函数或者一个类来进行正确性检验的测试工作。
+			编写单元测试，需要引入Python自带的unittest模块。
+			编写单元测试时，需要编写一个测试类，从unittest.TestCase继承。
+			以test开头的方法就是测试方法，不以test开头的方法不被认为是测试方法，测试的时候不会被执行。
+			对每一类测试都需要编写一个test_xxx()方法。
+				unittest.TestCase提供了内置的条件判断，只需要调用这些方法就可以断言输出是否是所期望的。
+					最常用的断言就是assertEqual()。
+				另一种重要的断言就是期待抛出指定类型的Error，
+					比如通过d['empty']访问不存在的key时，断言会抛出KeyError
+		运行单元测试
+			编写好单元测试，就可以运行单元测试。最简单的运行方式是在mydict_test.py的最后加两行代码：
+				if __name__ == '__main__':
+					unittest.main()
+			另一种方法是在命令行通过参数-m unittest直接运行单元测试；
+				这样可以一次批量运行很多单元测试，并且，有很多工具可以自动来运行这些单元测试。
+		setUp与tearDown
+			可以在单元测试中编写两个特殊的setUp()和tearDown()方法。
+			这两个方法会分别在每调用一个测试方法的前后分别被执行。
+			setUp()和tearDown()方法作用：
+				如果测试需要启动一个数据库，这时，就可以在setUp()方法中连接数据库，
+				在tearDown()方法中关闭数据库，这样，不必在每个测试方法中重复相同的代码
+						
+	文档测试
+		Python内置的“文档测试”（doctest）模块可以直接提取注释中的代码并执行测试。
+			doctest严格按照Python交互式命令行的输入和输出来判断测试结果是否正确。
+			只有测试异常的时候，可以用...表示中间一大段烦人的输出。
+			
+	读文件：
+		使用Python内置的open()函数，传入文件名和标示符：
+			f = open('/Users/michael/test.txt', 'r')
+		如果文件打开成功，接下来，调用read()方法可以一次读取文件的全部内容，
+			Python把内容读到内存，用一个str对象表示。
+		最后一步是调用close()方法关闭文件。
+			文件使用完毕后必须关闭，因为文件对象会占用操作系统的资源，
+			并且操作系统同一时间能打开的文件数量也是有限的。
+		由于文件读写时都有可能产生IOError，一旦出错，后面的f.close()就不会调用。
+			所以，为了保证无论是否出错都能正确地关闭文件，我们可以使用try ... finally来实现：
+			try:
+				f = open('/path/to/file', 'r')
+				print(f.read())
+			finally:
+				if f:
+					f.close()
+		但是每次都这么写实在太繁琐，所以，Python引入了with语句来自动帮我们调用close()方法：
+			with open('/path/to/file', 'r') as f:
+				print(f.read())
+		调用read()会一次性读取文件的全部内容，如果文件有10G，内存就爆了，
+			所以，要保险起见，可以反复调用read(size)方法，每次最多读取size个字节的内容。
+		调用readline()可以每次读取一行内容，
+		调用readlines()一次读取所有内容并按行返回list。
+			
+	file-like Object
+		像open()函数返回的这种有个read()方法的对象，在Python中统称为file-like Object。
+		除了file外，还可以是内存的字节流，网络流，自定义流等等。
+		file-like Object不要求从特定类继承，只要写个read()方法就行。
+		StringIO就是在内存中创建的file-like Object，常用作临时缓冲。
+			
+	二进制文件
+		前面讲的默认都是读取文本文件，并且是UTF-8编码的文本文件。
+		要读取二进制文件，比如图片、视频等等，用'rb'模式打开文件即可：
+			f = open('/Users/michael/test.jpg', 'rb')
+			f.read()
+			
+	字符编码
+		要读取非UTF-8编码的文本文件，需要给open()函数传入encoding参数，例如，读取GBK编码的文件：
+			f = open('/Users/michael/gbk.txt', 'r', encoding='gbk')
+		open()函数还接收一个errors参数，表示如果遇到编码错误后如何处理。最简单的方式是直接忽略：
+			f = open('/Users/michael/gbk.txt', 'r', encoding='gbk', errors='ignore')	
+			
+	写文件：
+		写文件和读文件是一样的，
+		唯一区别是调用open()函数时，传入标识符'w'或者'wb'表示写文本文件或写二进制文件。
+			f = open('/Users/michael/test.txt', 'w')
+			f.write('Hello, world!')
+			f.close()
+		当我们写文件时，操作系统往往不会立刻把数据写入磁盘，而是放到内存缓存起来，空闲的时候再慢慢写入。
+		只有调用close()方法时，操作系统才保证把没有写入的数据全部写入磁盘。
+		忘记调用close()的后果是数据可能只写了一部分到磁盘，剩下的丢失了。
+		所以，还是用with语句来得保险：
+			with open('/Users/michael/test.txt', 'w') as f:
+				f.write('Hello, world!')
+		以'w'模式写入文件时，如果文件已存在，会直接覆盖（相当于删掉后新写入一个文件）。
+		如果希望追加到文件末尾，可以传入'a'以追加（append）模式写入。
+			
+	StringIO：
+		在内存中读写str。
+		要把str写入StringIO，我们需要先创建一个StringIO，然后，像文件一样写入即可：
+			from io import StringIO
+			f = StringIO()
+			f.write('hello')
+			getvalue()方法用于获得写入后的str。
+		要读取StringIO，可以用一个str初始化StringIO，然后，像读文件一样读取：	
+			from io import StringIO
+			f = StringIO('Hello!\nHi!\nGoodbye!')
+			
+	BytesIO：
+		StringIO操作的只能是str，如果要操作二进制数据，就需要使用BytesIO。
+		BytesIO实现了在内存中读写bytes，我们创建一个BytesIO，然后写入一些bytes：
+			from io import BytesIO
+			f = BytesIO()
+			f.write('中文'.encode('utf-8'))
+			
+	操作文件和目录：
+		操作系统提供的接口函数：
+			Python内置的os模块也可以直接调用操作系统提供的接口函数。
+				os.name
+				os.uname()
+		环境变量：
+			在操作系统中定义的环境变量，全部保存在os.environ这个变量中，可以直接查看：
+				os.environ
+		操作文件和目录：
+			操作文件和目录的函数一部分放在os模块中，一部分放在os.path模块中。
+				查看、创建和删除目录可以这么调用：
+					# 查看当前目录的绝对路径:
+						os.path.abspath('.')
+					# 在某个目录下创建一个新目录，首先把新目录的完整路径表示出来:
+						os.path.join('/Users/michael', 'testdir')
+					# 创建一个目录:
+						os.mkdir('/Users/michael/testdir')
+					# 删掉一个目录:
+						os.rmdir('/Users/michael/testdir')
+			把两个路径合成一个时，不要直接拼字符串，而要通过os.path.join()函数，
+				这样可以正确处理不同操作系统的路径分隔符。
+			在Linux/Unix/Mac下，os.path.join()返回这样的字符串：
+				part-1/part-2
+			而Windows下会返回这样的字符串：
+				part-1\part-2
+			# 对文件重命名:
+				os.rename('test.txt', 'test.py')
+			# 删掉文件:
+				os.remove('test.py')
+			
+	序列化：
+		把变量从内存中变成可存储或传输的过程。
+			在Python中叫pickling，在其他语言中也被称之为serialization，marshalling，flattening等等。
+		反序列化 (unpickling) ：
+			把变量内容从序列化的对象重新读到内存里。
+		Python提供了pickle模块来实现序列化。
+
+			首先，我们尝试把一个对象序列化并写入文件：
+				import pickle
+				d = dict(name='Bob', age=20, score=88)
+				pickle.dumps(d)
+			pickle.dumps()方法把任意对象序列化成一个bytes，然后，就可以把这个bytes写入文件。
+			或者用另一个方法pickle.dump()直接把对象序列化后写入一个file-like Object：
+				f = open('dump.txt', 'wb')
+				pickle.dump(d, f)
+				f.close()
+			看看写入的dump.txt文件，一堆乱七八糟的内容，这些都是Python保存的对象内部信息。
+			当我们要把对象从磁盘读到内存时，
+			可以先把内容读到一个bytes，然后用pickle.loads()方法反序列化出对象，
+			也可以直接用pickle.load()方法从一个file-like Object中直接反序列化出对象。
+			我们打开另一个Python命令行来反序列化刚才保存的对象：
+				f = open('dump.txt', 'rb')
+				d = pickle.load(f)
+				f.close()
+				d
+			当然，这个变量和原来的变量是完全不相干的对象，它们只是内容相同而已。
+			Pickle的问题和所有其他编程语言特有的序列化问题一样，就是它只能用于Python，
+			并且可能不同版本的Python彼此都不兼容，
+			因此，只能用Pickle保存那些不重要的数据，不能成功地反序列化也没关系。
+			
+	JSON：
+		JSON表示的对象就是标准的JavaScript语言的对象，
+		JSON和Python内置的数据类型对应如下：
+			JSON类型	Python类型
+			{}			dict
+			[]			list
+			"string"	str
+			1234.56		int或float
+			true/false	True/False
+			null		None
+		Python内置的json模块提供了非常完善的Python对象到JSON格式的转换。
+		我们先看看如何把Python对象变成一个JSON：
+			import json
+			d = dict(name='Bob', age=20, score=88)
+			json.dumps(d)
+		dumps()方法返回一个str，内容就是标准的JSON。
+		类似的，dump()方法可以直接把JSON写入一个file-like Object。
+		要把JSON反序列化为Python对象，用loads()或者对应的load()方法，
+		前者把JSON的字符串反序列化，后者从file-like Object中读取字符串并反序列化：
+			json_str = '{"age": 20, "score": 88, "name": "Bob"}'
+			json.loads(json_str)
+			
+	JSON进阶：
+		Python的dict对象可以直接序列化为JSON的{}，
+			不过，很多时候，我们更喜欢用class表示对象，然后序列化。
+		dumps()方法的参数列表，除了第一个必须的obj参数外，dumps()方法还提供了一大堆的可选参数：
+			这些可选参数就是让我们来定制JSON序列化。
+			默认情况下，dumps()方法不知道如何将实例变为一个JSON的{}对象。
+			可选参数default就是把任意一个对象变成一个可序列为JSON的对象，
+			我们只需要为实例专门写一个转换函数，再把函数传进去即可。
+		把任意class的实例变为dict：
+			print(json.dumps(s, default=lambda obj: obj.__dict__))
+		因为通常class的实例都有一个__dict__属性，它就是一个dict，用来存储实例变量。
+		也有少数例外，比如定义了__slots__的class。
+			
+进程和线程
+	多进程：
+		Unix/Linux操作系统提供了一个fork()系统调用，它非常特殊。
+			普通的函数调用，调用一次，返回一次，但是fork()调用一次，返回两次，
+			因为操作系统自动把当前进程（称为父进程）复制了一份（称为子进程），
+			然后，分别在父进程和子进程内返回。
+		子进程永远返回0，而父进程返回子进程的ID。
+			这样做的理由是，一个父进程可以fork出很多子进程，
+			所以，父进程要记下每个子进程的ID，而子进程只需要调用getppid()就可以拿到父进程的ID。
+		Python的os模块封装了常见的系统调用，其中就包括fork，可以在Python程序中轻松创建子进程。
+			
+	multiprocessing：	
+		跨平台版本的多进程模块。
+			multiprocessing模块提供了一个Process类来代表一个进程对象。
+			创建子进程时，只需要传入一个执行函数和函数的参数，创建一个Process实例，用start()方法启动，
+			这样创建进程比fork()还要简单。
+			join()方法可以等待子进程结束后再继续往下运行，通常用于进程间的同步。
+			
+	Pool：
+		如果要启动大量的子进程，可以用进程池的方式批量创建子进程
+			
+	子进程：
+		很多时候，子进程并不是自身，而是一个外部进程。
+		我们创建了子进程后，还需要控制子进程的输入和输出。
+		subprocess模块可以让我们非常方便地启动一个子进程，然后控制其输入和输出。
+		如果子进程还需要输入，则可以通过communicate()方法输入。	
+			
+	进程间通信：
+		Process之间肯定是需要通信的，操作系统提供了很多机制来实现进程间的通信。
+		Python的multiprocessing模块包装了底层的机制，提供了Queue、Pipes等多种方式来交换数据。
+			Unix/Linux下，multiprocessing模块封装了fork()调用，使我们不需要关注fork()的细节。
+			由于Windows没有fork调用，因此，multiprocessing需要“模拟”出fork的效果，
+			父进程所有Python对象都必须通过pickle序列化再传到子进程去，
+			所有，如果multiprocessing在Windows下调用失败了，要先考虑是不是pickle失败了。
+			
+	多线程：
+		多任务可以由多进程完成，也可以由一个进程内的多线程完成。
+			由于线程是操作系统直接支持的执行单元，因此，高级语言通常都内置多线程的支持，
+			Python的线程是真正的Posix Thread，而不是模拟出来的线程。
+		Python的标准库提供了两个模块：_thread和threading，
+			_thread是低级模块，threading是高级模块，对_thread进行了封装。
+			绝大多数情况下，我们只需要使用threading这个高级模块。
+		启动一个线程就是把一个函数传入并创建Thread实例，然后调用start()开始执行：
+			import time, threading
+			# 新线程执行的代码:
+			def loop():
+				print('thread %s is running...' % threading.current_thread().name)
+				n = 0
+				while n < 5:
+					n = n + 1
+					print('thread %s >>> %s' % (threading.current_thread().name, n))
+					time.sleep(1)
+				print('thread %s ended.' % threading.current_thread().name)
+			print('thread %s is running...' % threading.current_thread().name)
+			t = threading.Thread(target=loop, name='LoopThread')
+			t.start()
+			t.join()
+			print('thread %s ended.' % threading.current_thread().name)
+		由于任何进程默认就会启动一个线程，我们把该线程称为主线程，主线程又可以启动新的线程，
+		Python的threading模块有个current_thread()函数，它永远返回当前线程的实例。
+		主线程实例的名字叫MainThread，子线程的名字在创建时指定，我们用LoopThread命名子线程。
+		名字仅仅在打印时用来显示，完全没有其他意义，
+		如果不起名字Python就自动给线程命名为Thread-1，Thread-2……
+			
+	Lock：
+		多线程和多进程最大的不同在于，多进程中，同一个变量，各自有一份拷贝存在于每个进程中，互不影响；
+		多线程中，所有变量都由所有线程共享，任何一个变量都可以被任何一个线程修改，
+		因此，线程之间共享数据最大的危险在于多个线程同时改一个变量，把内容给改乱了。
+			
+		当某个线程开始执行时，该线程因为获得了锁，
+		因此其他线程不能同时执行，只能等待，直到锁被释放后，获得该锁以后才能改。
+		由于锁只有一个，无论多少线程，同一时刻最多只有一个线程持有该锁，所以，不会造成修改的冲突。
+		创建一个锁就是通过threading.Lock()来实现：
+			balance = 0
+			lock = threading.Lock()
+			def run_thread(n):
+				for i in range(100000):
+					# 先要获取锁:
+					lock.acquire()
+					try:
+						# 放心地改吧:
+						change_it(n)
+					finally:
+						# 改完了一定要释放锁:
+						lock.release()
+		当多个线程同时执行lock.acquire()时，只有一个线程能成功地获取锁，然后继续执行代码，
+		其他线程就继续等待直到获得锁为止。
+		获得锁的线程用完后一定要释放锁，否则那些苦苦等待锁的线程将永远等待下去，成为死线程。
+		所以我们用try...finally来确保锁一定会被释放。
+			
+		锁的好处就是确保了某段关键代码只能由一个线程从头到尾完整地执行，
+		坏处当然也很多：
+		首先是阻止了多线程并发执行，包含锁的某段代码实际上只能以单线程模式执行，效率就大大地下降了。
+		其次，由于可以存在多个锁，不同的线程持有不同的锁，并试图获取对方持有的锁时，可能会造成死锁，
+		导致多个线程全部挂起，既不能执行，也无法结束，只能靠操作系统强制终止。
+			
+	多核 CPU：
+		用C、C++或Java来改写相同的死循环，直接可以把全部核心跑满，4核就跑到400%，8核就跑到800%
+		Python的线程虽然是真正的线程，但解释器执行代码时，有一个GIL锁：Global Interpreter Lock，
+		任何Python线程执行前，必须先获得GIL锁，
+		然后，每执行100条字节码，解释器就自动释放GIL锁，让别的线程有机会执行。
+		这个GIL全局锁实际上把所有线程的执行代码都给上了锁，
+		所以，多线程在Python中只能交替执行，即使100个线程跑在100核CPU上，也只能用到1个核。
+			
+		GIL是Python解释器设计的历史遗留问题，通常我们用的解释器是官方实现的CPython，
+		要真正利用多核，除非重写一个不带GIL的解释器。
+		在Python中，可以使用多线程，但不要指望能有效利用多核。
+		如果一定要通过多线程利用多核，那只能通过C扩展来实现，不过这样就失去了Python简单易用的特点。
+		Python虽然不能利用多线程实现多核任务，但可以通过多进程实现多核任务。
+		多个Python进程有各自独立的GIL锁，互不影响。
+			
+	ThreadLocal：
+		在多线程环境下，每个线程都有自己的数据。
+		一个线程使用自己的局部变量比使用全局变量好，
+		因为局部变量只有线程自己能看见，不会影响其他线程，而全局变量的修改必须加锁。
+		但是局部变量也有问题，就是在函数调用的时候，传递起来很麻烦。
+		线程局部变量(线程本地变量)：
+			全局变量local_school就是一个ThreadLocal对象，
+			每个Thread对它都可以读写student属性，但互不影响。
+			你可以把local_school看成全局变量，但每个属性如local_school.student都是线程的局部变量，
+			可以任意读写而互不干扰，也不用管理锁的问题，ThreadLocal内部会处理。
+		ThreadLocal最常用的地方就是为每个线程绑定一个数据库连接，HTTP请求，用户身份信息等，
+		这样一个线程的所有调用到的处理函数都可以非常方便地访问这些资源。
+		一个ThreadLocal变量虽然是全局变量，但每个线程都只能读写自己线程的独立副本，互不干扰。
+		ThreadLocal解决了参数在一个线程中各个函数之间互相传递的问题。
+			
+	进程 vs. 线程：
+		首先，要实现多任务，通常我们会设计Master-Worker模式，Master负责分配任务，Worker负责执行任务，
+			因此，多任务环境下，通常是一个Master，多个Worker。
+			如果用多进程实现Master-Worker，主进程就是Master，其他进程就是Worker。
+			如果用多线程实现Master-Worker，主线程就是Master，其他线程就是Worker。
+		多进程模式最大的优点就是稳定性高，因为一个子进程崩溃了，不会影响主进程和其他子进程。
+			（当然主进程挂了所有进程就全挂了，但是Master进程只负责分配任务，挂掉的概率低）
+			著名的Apache最早就是采用多进程模式。
+
+		多进程模式的缺点是创建进程的代价大，
+			在Unix/Linux系统下，用fork调用还行，
+			在Windows下创建进程开销巨大。
+			另外，操作系统能同时运行的进程数也是有限的，在内存和CPU的限制下，
+			如果有几千个进程同时运行，操作系统连调度都会成问题。
+
+		多线程模式通常比多进程快一点，但是也快不到哪去，
+		而且，多线程模式致命的缺点就是任何一个线程挂掉都可能直接造成整个进程崩溃，
+			因为所有线程共享进程的内存。
+			在Windows上，如果一个线程执行的代码出了问题，
+			你经常可以看到这样的提示：“该程序执行了非法操作，即将关闭”，
+			其实往往是某个线程出了问题，但是操作系统会强制结束整个进程。
+		在Windows下，多线程的效率比多进程要高，所以微软的IIS服务器默认采用多线程模式。
+			由于多线程存在稳定性的问题，IIS的稳定性就不如Apache。
+			为了缓解这个问题，IIS和Apache现在又有多进程+多线程的混合模式，真是把问题越搞越复杂。
+			
+	线程切换：
+		操作系统在切换进程或者线程时是有代价的，
+		它需要先保存当前执行的现场环境（CPU寄存器状态、内存页等），
+		然后，把新任务的执行环境准备好（恢复上次的寄存器状态，切换内存页等），才能开始执行。
+			这个切换过程虽然很快，但是也需要耗费时间。
+			如果有几千个任务同时进行，操作系统可能就主要忙着切换任务，根本没有多少时间去执行任务了，
+			这种情况最常见的就是硬盘狂响，点窗口无反应，系统处于假死状态。
+			
+	计算密集型 vs. IO密集型：
+		是否采用多任务的第二个考虑是任务类型。
+		我们可以把任务分为计算密集型和IO密集型。
+		计算密集型任务的特点是要进行大量的计算，消耗CPU资源，
+			比如计算圆周率、对视频进行高清解码等等，全靠CPU的运算能力。
+			这种计算密集型任务虽然也可以用多任务完成，
+			但是任务越多，花在任务切换的时间就越多，CPU执行任务的效率就越低，
+			所以，要最高效地利用CPU，计算密集型任务同时进行的数量应当等于CPU的核心数。
+			计算密集型任务由于主要消耗CPU资源，因此，代码运行效率至关重要。
+				Python这样的脚本语言运行效率很低，完全不适合计算密集型任务。
+				对于计算密集型任务，最好用C语言编写。
+		第二种任务的类型是IO密集型，涉及到网络、磁盘IO的任务都是IO密集型任务，
+			这类任务的特点是CPU消耗很少，任务的大部分时间都在等待IO操作完成
+			（因为IO的速度远远低于CPU和内存的速度）。
+			对于IO密集型任务，任务越多，CPU效率越高，但也有一个限度。
+			常见的大部分任务都是IO密集型任务，比如Web应用。
+			IO密集型任务执行期间，99%的时间都花在IO上，花在CPU上的时间很少，
+				用运行速度极快的C语言替换用Python这样运行速度极低的脚本语言，完全无法提升运行效率。
+				对于IO密集型任务，最合适的语言就是开发效率最高（代码量最少）的语言，脚本语言是首选。
+				
+	异步IO：
+		考虑到CPU和IO之间巨大的速度差异，
+			一个任务在执行的过程中大部分时间都在等待IO操作，
+			单进程单线程模型会导致别的任务无法并行执行，
+			因此，我们才需要多进程模型或者多线程模型来支持多任务并发执行。
+		现代操作系统对IO操作已经做了巨大的改进，最大的特点就是支持异步IO。
+			如果充分利用操作系统提供的异步IO支持，就可以用单进程单线程模型来执行多任务，
+			这种全新的模型称为事件驱动模型，
+			Nginx就是支持异步IO的Web服务器，它在单核CPU上采用单进程模型就可以高效地支持多任务。
+			在多核CPU上，可以运行多个进程（数量与CPU核心数相同），充分利用多核CPU。
+			由于系统总的进程数量十分有限，因此操作系统调度非常高效。
+			用异步IO编程模型来实现多任务是一个主要的趋势。
+		对应到Python语言，单线程的异步编程模型称为协程，
+			有了协程的支持，就可以基于事件驱动编写高效的多任务程序。
+			后面会讨论如何编写协程。
+			
+	分布式进程：
+		在Thread和Process中，应当优选Process，因为Process更稳定，
+			Process可以分布到多台机器上，而Thread最多只能分布到同一台机器的多个CPU上。
+		Python的multiprocessing模块不但支持多进程，其中managers子模块还支持把多进程分布到多台机器上。
+			一个服务进程可以作为调度者，将任务分布到其他多个进程中，依靠网络通信。
+			由于managers模块封装很好，不必了解网络通信的细节，就可以很容易地编写分布式多进程程序。
+		在一台机器上写多进程程序时，创建的Queue可以直接拿来用，
+			在分布式多进程环境下，添加任务到Queue不可以直接对原始的task_queue进行操作，
+			那样就绕过了QueueManager的封装，必须通过manager.get_task_queue()获得的Queue接口添加。
+		Python的分布式进程接口简单，封装良好，适合需要把繁重任务分布到多台机器的环境下。
+			注意Queue的作用是用来传递任务和接收结果，每个任务的描述数据量要尽量小。
+			比如发送一个处理日志文件的任务，就不要发送几百兆的日志文件本身，
+			而是发送日志文件存放的完整路径，由Worker进程再去共享的磁盘上读取文件。
+			
+	正则表达式：
+		一种用来匹配字符串的强有力的武器。
+		它的设计思想是用一种描述性的语言来给字符串定义一个规则，
+		凡是符合规则的字符串，我们就认为它“匹配”了，否则，该字符串就是不合法的。
+			精确匹配：
+				\d ：一个数字
+				\w ：一个字母或数字
+				\s ：匹配一个空格（也包括Tab等空白符）
+				.  ：任意字符
+				*  ：任意个字符（包括0个）
+				+  ：至少一个字符
+				?  ：最多一个字符；0个或1个字符
+				{n} ：n 个字符
+				{n,m} ：n-m 个字符
+				\s+ ：至少有一个空格，例如匹配' '，' '等
+			进阶：
+				[] ：范围
+					[0-9a-zA-Z\_] ：一个数字、字母或者下划线；
+					[0-9a-zA-Z\_]+ ：匹配至少由一个数字、字母或者下划线组成的字符串
+					[a-zA-Z\_][0-9a-zA-Z\_]* ：
+						由字母或下划线开头，后接任意个由一个数字、字母或者下划线组成的字符串；
+						也就是Python合法的变量。
+					[a-zA-Z\_][0-9a-zA-Z\_]{0, 19} ：
+						长度是1-20个字符（前面1个字符 + 后面最多19个字符）
+				A|B ：配A或B，所以(P|p)ython可以匹配'Python'或者'python'。
+				^   ：行的开头，^\d 表示必须以数字开头。
+				$   ：行的结束，\d$表示必须以数字结束。
+			re模块：
+				Python提供re模块，包含所有正则表达式的功能。
+				由于Python的字符串本身也用\转义，所以要特别注意：
+					s = 'ABC\\-001' # Python的字符串
+					# 对应的正则表达式字符串变成：
+					# 'ABC\-001'
+				因此我们强烈建议使用Python的r前缀，就不用考虑转义的问题了：
+					s = r'ABC\-001' # Python的字符串
+					# 对应的正则表达式字符串不变：
+					# 'ABC\-001'
+				match()：
+					判断是否匹配，如果匹配成功，返回一个Match对象，否则返回None。
+			切分字符串：
+				用正则表达式切分字符串比用固定的字符更灵活。
+			分组：
+				除了简单地判断是否匹配之外，正则表达式还有提取子串的强大功能。
+				用 () 表示的就是要提取的分组（Group）。
+				如果正则表达式中定义了组，就可以在Match对象上用group()方法提取出子串来。
+				注意到group(0)永远是原始字符串，group(1)、group(2)……表示第1、2、……个子串。
+			贪婪匹配：
+				最后需要特别指出的是，正则匹配默认是贪婪匹配，也就是匹配尽可能多的字符。
+					举例如下，匹配出数字后面的0：
+						>>> re.match(r'^(\d+)(0*)$', '102300').groups()
+						('102300', '')
+					由于\d+采用贪婪匹配，直接把后面的0全部匹配了，结果0*只能匹配空字符串了。
+				必须让\d+采用非贪婪匹配（也就是尽可能少匹配），才能把后面的0匹配出来，
+					加个?就可以让\d+采用非贪婪匹配：
+						>>> re.match(r'^(\d+?)(0*)$', '102300').groups()
+						('1023', '00')
+			编译：
+				当我们在Python中使用正则表达式时，re模块内部会干两件事情：
+					编译正则表达式，如果正则表达式的字符串本身不合法，会报错；
+					用编译后的正则表达式去匹配字符串。
+				如果一个正则表达式要重复使用几千次，出于效率的考虑，我们可以预编译该正则表达式，
+					接下来重复使用时就不需要编译这个步骤了，直接匹配。
+						>>> import re
+						# 编译:
+						>>> re_telephone = re.compile(r'^(\d{3})-(\d{3,8})$')
+			
+常用内建模块：
+	datetime：
+			Python 处理日期和时间的标准库。
+		获取当前日期和时间：
+			>>> from datetime import datetime
+			>>> now = datetime.now() # 获取当前datetime
+			注意：
+				datetime是模块，datetime模块还包含一个datetime类，
+				通过from datetime import datetime导入的才是datetime这个类。
+		获取指定日期和时间：
+			直接用参数构造一个datetime：
+			>>> from datetime import datetime
+			>>> dt = datetime(2015, 4, 19, 12, 20) # 用指定日期时间创建datetime
+		datetime转换为timestamp：
+			1970年1月1日 00:00:00 UTC+00:00时区的时刻称为 epoch time，记为0
+			（1970年以前的时间timestamp为负数），
+			当前时间就是相对于epoch time的秒数，称为timestamp。
+			把一个datetime类型转换为timestamp只需要简单调用timestamp()方法：
+				>>> from datetime import datetime
+				>>> dt = datetime(2015, 4, 19, 12, 20) # 用指定日期时间创建datetime
+				>>> dt.timestamp() # 把datetime转换为timestamp
+			注意Python的timestamp是一个浮点数。如果有小数位，小数位表示毫秒数。
+			某些编程语言（如Java和JavaScript）的timestamp使用整数表示毫秒数，
+				这种情况下只需要把timestamp除以1000就得到Python的浮点表示方法。
+		timestamp转换为datetime：
+			要把timestamp转换为datetime，使用datetime提供的fromtimestamp()方法：
+				>>> from datetime import datetime
+				>>> t = 1429417200.0
+				>>> print(datetime.fromtimestamp(t))
+			timestamp是一个浮点数，它没有时区的概念，而datetime是有时区的。
+				上述转换是在timestamp和本地时间做转换。
+			timestamp也可以直接被转换到UTC标准时区的时间：
+				>>> from datetime import datetime
+				>>> t = 1429417200.0
+				>>> print(datetime.fromtimestamp(t)) # 本地时间
+				2015-04-19 12:20:00
+				>>> print(datetime.utcfromtimestamp(t)) # UTC时间
+				2015-04-19 04:20:00
+		str转换为datetime：
+			很多时候，用户输入的日期和时间是字符串，要处理日期和时间，首先必须把str转换为datetime。
+				转换方法是通过datetime.strptime()实现，需要一个日期和时间的格式化字符串：
+				>>> from datetime import datetime
+				>>> cday = datetime.strptime('2015-6-1 18:19:59', '%Y-%m-%d %H:%M:%S')
+				2015-06-01 18:19:59
+		datetime转换为str：
+			如果已经有了datetime对象，要把它格式化为字符串显示给用户，就需要转换为str，
+				转换方法是通过strftime()实现的，同样需要一个日期和时间的格式化字符串：
+				>>> from datetime import datetime
+				>>> now = datetime.now()
+				>>> print(now.strftime('%a, %b %d %H:%M'))
+				Mon, May 05 16:28
+		datetime加减：
+			对日期和时间进行加减实际上就是把datetime往后或往前计算，得到新的datetime。
+				加减可以直接用+和-运算符，不过需要导入timedelta这个类：
+				>>> from datetime import datetime, timedelta
+				>>> now = datetime.now()
+				>>> now
+				datetime.datetime(2015, 5, 18, 16, 57, 3, 540997)
+				>>> now + timedelta(hours=10)
+				datetime.datetime(2015, 5, 19, 2, 57, 3, 540997)
+				>>> now - timedelta(days=1)
+				datetime.datetime(2015, 5, 17, 16, 57, 3, 540997)
+				>>> now + timedelta(days=2, hours=12)
+				datetime.datetime(2015, 5, 21, 4, 57, 3, 540997)
+		本地时间转换为UTC时间：
+			本地时间是指系统设定时区的时间，
+				例如北京时间是UTC+8:00时区的时间，而UTC时间指UTC+0:00时区的时间。
+			一个datetime类型有一个时区属性tzinfo，但是默认为None，
+				所以无法区分这个datetime到底是哪个时区，
+				除非强行给datetime设置一个时区：
+					>>> from datetime import datetime, timedelta, timezone
+					>>> tz_utc_8 = timezone(timedelta(hours=8)) # 创建时区UTC+8:00
+					>>> now = datetime.now()
+					>>> now
+					datetime.datetime(2015, 5, 18, 17, 2, 10, 871012)
+					>>> dt = now.replace(tzinfo=tz_utc_8) # 强制设置为UTC+8:00
+					>>> dt
+					datetime.datetime(2015, 5, 18, 17, 2, 10, 871012, tzinfo=datetime.timezone(datetime.timedelta(0, 28800)))
+				如果系统时区恰好是UTC+8:00，那么上述代码就是正确的，否则不能强制设置为UTC+8:00时区。
+		时区转换：
+			我们可以先通过utcnow()拿到当前的UTC时间，再转换为任意时区的时间：
+			时区转换的关键在于，拿到一个datetime时，要获知其正确的时区，
+				然后强制设置时区，作为基准时间。
+			利用带时区的datetime，通过astimezone()方法，可以转换到任意时区。
+		小结：
+			datetime表示的时间需要时区信息才能确定一个特定的时间，否则只能视为本地时间。
+			如果要存储datetime，最佳方法是将其转换为timestamp再存储，因为timestamp的值与时区完全无关。
+			
+	collections：
+		Python内建的一个集合模块，提供了许多有用的集合类。
+		namedtuple：
+			可以创建一个自定义的tuple对象，
+			并且规定了tuple元素的个数，
+			可以用属性而不是索引来引用tuple的某个元素。
+			它具备tuple的不变性，又可以根据属性来引用，使用十分方便。
+			例如：
+				# namedtuple('名称', [属性list]):
+				Circle = namedtuple('Circle', ['x', 'y', 'r'])
+		deque：
+			使用list存储数据时，按索引访问元素很快，但是插入和删除元素就很慢了，
+			因为list是线性存储，数据量大的时候，插入和删除效率很低。
+			deque 是为了高效实现插入和删除操作的双向列表，适合用于队列和栈：
+				除了实现list的append()和pop()外，
+				还支持appendleft()和popleft()，
+				这样就可以非常高效地往头部添加或删除元素。
+		defaultdict：
+			使用dict时，如果引用的Key不存在，就会抛出KeyError。
+			如果希望key不存在时，返回一个默认值，就可以用defaultdict。
+			注意默认值是调用函数返回的，而函数在创建defaultdict对象时传入。
+			除了在Key不存在时返回默认值，defaultdict的其他行为跟dict是完全一样的。
+		OrderedDict：
+			使用dict时，Key是无序的。在对dict做迭代时，我们无法确定Key的顺序。
+			如果要保持Key的顺序，可以用OrderedDict：
+			注意：OrderedDict的Key会按照插入的顺序排列，不是Key本身排序：
+			OrderedDict可以实现一个FIFO（先进先出）的dict，当容量超出限制时，先删除最早添加的Key。
+		ChainMap：
+			ChainMap可以把一组dict串起来并组成一个逻辑上的dict。
+			ChainMap本身也是一个dict，但是查找的时候，会按照顺序在内部的dict依次查找。
+			什么时候使用ChainMap最合适？
+				举个例子：
+				应用程序往往都需要传入参数，
+				参数可以通过命令行传入，可以通过环境变量传入，还可以有默认参数。
+				我们可以用ChainMap实现参数的优先级查找，
+				即先查命令行参数，如果没有传入，再查环境变量，如果没有，就使用默认参数。
+		Counter：
+			一个简单的计数器。
+			例如：统计字符出现的个数：
+				>>> from collections import Counter
+				>>> c = Counter()
+				>>> for ch in 'programming':
+				...     c[ch] = c[ch] + 1
+				...
+				>>> c
+				Counter({'g': 2, 'm': 2, 'r': 2, 'a': 1, 'i': 1, 'o': 1, 'n': 1, 'p': 1})
+			Counter实际上也是dict的一个子类。
+				上面的结果可以看出，字符'g'、'm'、'r'各出现了两次，其他字符各出现了一次。
+		Base64：
+			是一种用64个字符来表示任意二进制数据的方法。
+			Base64编码会把3字节的二进制数据编码为4字节的文本数据，长度增加33%，
+			好处是编码后的文本数据可以在邮件正文、网页等直接显示。
+			最后会剩下1个或2个字节怎么办？
+				Base64用\x00字节在末尾补足后，再在编码的末尾加上1个或2个=号，表示补了多少字节，
+				解码的时候，会自动去掉。
+			Python内置的base64可以直接进行base64的编解码：
+				>>> import base64
+				>>> base64.b64encode(b'binary\x00string')
+				b'YmluYXJ5AHN0cmluZw=='
+				>>> base64.b64decode(b'YmluYXJ5AHN0cmluZw==')
+				b'binary\x00string'
+			由于标准的Base64编码后可能出现字符+和/，在URL中就不能直接作为参数，
+			所以又有一种"url safe"的base64编码，其实就是把字符+和/分别变成-和_：
+				>>> base64.b64encode(b'i\xb7\x1d\xfb\xef\xff')
+				b'abcd++//'
+				>>> base64.urlsafe_b64encode(b'i\xb7\x1d\xfb\xef\xff')
+				b'abcd--__'
+				>>> base64.urlsafe_b64decode('abcd--__')
+				b'i\xb7\x1d\xfb\xef\xff'
+			还可以自己定义64个字符的排列顺序，这样就可以自定义Base64编码，
+				不过，通常情况下完全没有必要。
+			Base64是一种通过查表的编码方法，不能用于加密，即使使用自定义的编码表也不行。
+			Base64适用于小段内容的编码，比如数字证书签名、Cookie的内容等。
+			由于=字符也可能出现在Base64编码中，但=用在URL、Cookie里面会造成歧义，
+				所以，很多Base64编码后会把=去掉：
+			小结：
+				Base64是一种任意二进制到文本字符串的编码方法，
+				常用于在URL、Cookie、网页中传输少量二进制数据。
+		struct：
+			Python没有专门处理字节的数据类型。但由于b'str'可以表示字节，所以，字节数组＝二进制str。
+			C语言中，我们可以很方便地用struct、union来处理字节，以及字节和int，float的转换。
+			在Python中，比方说要把一个32位无符号整数变成字节，也就是4个长度的bytes，
+				你得配合位运算符这么写：
+					>>> n = 10240099
+					>>> b1 = (n & 0xff000000) >> 24
+					>>> b2 = (n & 0xff0000) >> 16
+					>>> b3 = (n & 0xff00) >> 8
+					>>> b4 = n & 0xff
+					>>> bs = bytes([b1, b2, b3, b4])
+					>>> bs
+					b'\x00\x9c@c'
+				非常麻烦。如果换成浮点数就无能为力了。
+			Python提供了一个struct模块来解决bytes和其他二进制数据类型的转换。
+			struct的pack函数把任意数据类型变成bytes：
+				>>> import struct
+				>>> struct.pack('>I', 10240099)
+				b'\x00\x9c@c'
+				pack的第一个参数是处理指令，'>I'的意思是：
+					> 表示字节顺序是big-endian，也就是网络序，
+					I 表示4字节无符号整数。
+					后面的参数个数要和处理指令一致。
+			unpack把bytes变成相应的数据类型：
+				>>> struct.unpack('>IH', b'\xf0\xf0\xf0\xf0\x80\x80')
+				(4042322160, 32896)
+				根据>IH的说明，后面的bytes依次变为
+				I：4字节无符号整数
+				H：2字节无符号整数。
+			Windows的位图文件（.bmp）是一种非常简单的文件格式，我们来用struct分析一下。
+				首先找一个bmp文件，没有的话用“画图”画一个。
+				读入前30个字节来分析：
+					>>> s = b'\x42\x4d\x38\x8c\x0a\x00\x00\x00\x00\x00\x36\x00\x00\x00\x28\x00\x00\x00\x80\x02\x00\x00\x68\x01\x00\x00\x01\x00\x18\x00'
+				BMP格式采用小端方式存储数据，文件头的结构按顺序如下：
+					两个字节：'BM'表示Windows位图，'BA'表示OS/2位图；
+					一个4字节整数：表示位图大小；
+					一个4字节整数：保留位，始终为0；
+					一个4字节整数：实际图像的偏移量；
+					一个4字节整数：Header的字节数；
+					一个4字节整数：图像宽度；
+					一个4字节整数：图像高度；
+					一个2字节整数：始终为1；
+					一个2字节整数：颜色数。
+				所以，组合起来用unpack读取：
+					>>> struct.unpack('<ccIIIIIIHH', s)
+					(b'B', b'M', 691256, 0, 54, 40, 640, 360, 1, 24)
+				结果显示，b'B'、b'M'说明是Windows位图，位图大小为640x360，颜色数为24。
 			
 			
 			
@@ -264,6 +1297,8 @@ Python 笔记
 			
 			
 			
+		lower()：
+			返回小写的字符串。
 			
 		strip()：
 			用于移除字符串头尾指定的字符（默认为空格或换行符）或字符序列。

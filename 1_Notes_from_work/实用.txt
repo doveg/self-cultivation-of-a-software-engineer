@@ -23,13 +23,24 @@
 	tuple：元组；[tjʊpəl; ˈtʌpəl]
 	
 	parameter：参数；形参；[pə'ræmɪtə]
-	
+	arguments：参数；['ɑːgjʊm(ə)nts]
 	render：补偿；['rendə]
 	
-	inherit：继承；[ɪn'herɪt]
-	convention：惯例；[kən'venʃ(ə)n]
-	capitalization：用大写，资本化；[,kæpɪt(ə)laɪ'zeɪʃ(ə)n]
 	
+	
+	inherit：继承；[ɪn'herɪt]
+	coroutine：协程；[,kəuru:'ti:n]
+	convention：惯例；[kən'venʃ(ə)n]
+	slot：插槽；[slɒt]
+	pickle：泡菜；腌制：['pɪk(ə)l]
+	threshold：门槛；阈值；['θreʃəʊld; 'θreʃ,həʊld]
+	
+	
+	
+	toggle：系紧；开关；['tɒg(ə)l]
+	sibling：兄弟姊妹；同层级；['sɪblɪŋ]
+	epoch：世纪；新纪元；新时代；['iːpɒk; 'epɒk]
+	capitalization：用大写，资本化；[,kæpɪt(ə)laɪ'zeɪʃ(ə)n]
 	Fibonacci sequence：斐波拉契数列；
 	
 	
@@ -37,8 +48,8 @@
 	essence：本质、精华；['es(ə)ns]
 	chaos：混沌；['keɪɒs]
 	sake：目的，利益；[seɪk]
-	explicit：明确的；[ɪk'splɪsɪt; ek-]
-	
+	explicit：明确的；显式；[ɪk'splɪsɪt; ek-]
+	rejoice：使高兴；[rɪ'dʒɒɪs]
 	
 	giraffe：长颈鹿；[dʒɪˈrɑ:f]
 	dinosaur：恐龙；['daɪnəsɔː]
@@ -47,8 +58,8 @@
 	
 	
 	
-	
-	
+	fun is cheap, show me your reason and sake.
+	keep away from the people who lacks common sense.
 	
 	
 	
@@ -200,10 +211,33 @@ String 类型转 sql.Time：
 		供指定数值的（精确）小数位四舍五入处理。
 			return b.divide(one,scale, RoundingMode.HALF_UP).doubleValue();
 	
+>、>>、>>> 的区别：
+	> ：大于；
+		如：if(a>b)...结果是boolean类型
+	>> ：带符号右移；
+		如：int i=15; i>>2的结果是3，移出的部分将被抛弃。
+		转为二进制的形式可能更好理解，0000 1111(15)右移2位
+		结果是0000 0011(3)，0001 1010(18)右移3位的结果是0000 0011(3)。
+
+	>>>：无符号右移；
+		按二进制形式把所有的数字向右移动对应巍峨位数，低位移出（舍弃），高位的空位补零。
+		对于正数来说和带符号右移相同，对于负数来说不同。
+		其他结构和>>相似。
 	
-	
-	
-	
+位运算符：
+	~ ：按位非（NOT）（一元运算） 
+	& ：按位与（AND） 
+	| ：按位或（OR） 
+	^ ：按位异或（XOR） 
+	>> ：右移 
+	>>> ：右移，左边空出的位以0填充 
+	<< ：左移 
+	&= ：按位与赋值 
+	|= ：按位或赋值 
+	^= ：按位异或赋值 
+	>>= ：右移赋值 
+	>>>= ：右移赋值，左边空出的位以0填充 
+	<<= ：左移赋值
 	
 	
 	

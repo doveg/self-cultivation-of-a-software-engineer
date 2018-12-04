@@ -9,8 +9,8 @@
 	apostrophe：撇号、省略号；[ə'pɒstrəfɪ]
 	
 	quotation marks：引号；[kwə(ʊ)'teɪʃ(ə)n]
-		single quotation marks：单引号；
-		double quotation marks：双引号；
+	single quotation marks：单引号；
+	double quotation marks：双引号；
 	
 	parenthesis：圆括号；[pə'renθɪsɪs]
 	square brackets：方括号；[skweə] ['brækɪts]
@@ -19,13 +19,12 @@
 	leading slash：斜杠，前倒斜杠；[slæʃ]
 	
 	
-	
 	tuple：元组；[tjʊpəl; ˈtʌpəl]
 	
 	parameter：参数；形参；[pə'ræmɪtə]
 	arguments：参数；['ɑːgjʊm(ə)nts]
 	render：补偿；['rendə]
-	
+	digit：数字；一指宽；['dɪdʒɪt] 
 	
 	
 	inherit：继承；[ɪn'herɪt]

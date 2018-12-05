@@ -3,6 +3,7 @@
 
 	
 单词：
+	
 	comma：逗号；['kɒmə]
 	colon：冒号；['kəʊlən]
 	exclamation：惊叹号；[,eksklə'meɪʃ(ə)n]
@@ -23,6 +24,12 @@
 	
 	parameter：参数；形参；[pə'ræmɪtə]
 	arguments：参数；['ɑːgjʊm(ə)nts]
+	
+	
+	recur：重现；循环；递归； [rɪ'kɜː]
+	recursive：递归的；循环的；[rɪ'kɜːsɪv]
+	allocate：分配；拨出；['æləkeɪt]
+	
 	render：补偿；['rendə]
 	digit：数字；一指宽；['dɪdʒɪt] 
 	

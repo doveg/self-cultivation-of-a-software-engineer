@@ -2,7 +2,9 @@
 Python 笔记
 	
 	
-基础部分
+Python 教程笔记
+
+一、基础：
 	
 	Python解释器：
 		CPython是使用最广的Python解释器。
@@ -20,11 +22,25 @@ Python 笔记
 		输入输出统称为 Input/Output，或者简写为IO。
 		
 	数据类型和变量：
-		整数 (integer)；
+		数据类型：
+			Number；String；List；Tuple；Dictionary；Set。
+		Number 包括：
+			int、float、bool、complex (复数)。
+		整数 (int)；
 			(Python的整数没有大小限制)
 		浮点数 (float)；
 			因为按照科学记数法表示时，一个浮点数的小数点位置是可变的。
 			(Python的浮点数也没有大小限制，但是超出一定范围就直接表示为 inf 无限大)
+		布尔值 (bool)；
+			布尔值和布尔代数的表示完全一致，一个布尔值只有True、False两种值。
+			Python中，可以直接用True、False表示布尔值（请注意大小写），也可以通过布尔运算计算出来。
+			布尔值可以用and、or和not运算。
+				and运算：与运算，只有所有都为True，and运算结果才是True；
+				or运算：或运算，只要其中有一个为True，or运算结果就是True；
+				not运算：非运算，它是一个单目运算符，把True变成False，False变成True；
+		空值 (None)；
+			None不能理解为0，因为0是有意义的，而None是一个特殊的空值。
+			
 		字符串 (str)；
 			以单引号'或双引号"括起来的任意文本；
 				''或""本身只是一种表示方式，不是字符串的一部分，因此字符串'abc'只有a，b，c这3个字符。
@@ -34,15 +50,7 @@ Python 笔记
 					比如\n表示换行，\t表示制表符，字符\本身也要转义，所以\\表示的字符就是\
 				用r''表示''内部的字符串默认不转义。
 			用'''...'''的格式表示多行内容。
-		布尔值 bool()；
-			布尔值和布尔代数的表示完全一致，一个布尔值只有True、False两种值。
-			Python中，可以直接用True、False表示布尔值（请注意大小写），也可以通过布尔运算计算出来。
-			布尔值可以用and、or和not运算。
-				and运算是与运算，只有所有都为True，and运算结果才是True；
-				or运算是或运算，只要其中有一个为True，or运算结果就是True；
-				not运算是非运算，它是一个单目运算符，把True变成False，False变成True；
-		空值 (None)；
-			None不能理解为0，因为0是有意义的，而None是一个特殊的空值。
+		
 		变量：
 			Python中，变量不仅可以是数字，还可以是任意数据类型。
 			等号=是赋值语句，可以把任意数据类型赋值给变量，同一个变量可以反复赋值，
@@ -71,55 +79,7 @@ Python 笔记
 				例如Java对32位整数的范围限制在-2147483648-2147483647。
 			Python的浮点数也没有大小限制，但是超出一定范围就直接表示为inf（无限大）。
 	
-	字符串和编码：
-		字符编码：
-			计算机只能处理数字，如果要处理文本，就必须先把文本转换为数字才能处理。
-			最早的计算机在设计时采用8个比特（bit）作为一个字节（byte），
-				所以，一个字节能表示的最大的整数就是255（二进制11111111=十进制255），
-			如果要表示更大的整数，就必须用更多的字节。
-				比如两个字节可以表示的最大整数是65535，4个字节可以表示的最大整数是4294967295。
-			Unicode标准也在不断发展，但最常用的是用两个字节表示一个字符：
-				ASCII编码是1个字节，而Unicode编码通常是2个字节；
-				（如果要用到非常偏僻的字符，就需要4个字节）。
-			对于单个字符的编码，Python提供了ord()函数获取字符的整数表示，
-				chr()函数把编码转换为对应的字符
-			如果要在网络上传输，或者保存到磁盘上，就需要把str变为以字节为单位的bytes。
-				Python对bytes类型的数据用带b前缀的单引号或双引号表示。
-		Python的字符串：
-			Python 3 中，字符串是以Unicode编码的，也就是说，Python的字符串支持多语言。
-				以Unicode表示的str通过encode()方法可以编码为指定的bytes；
-				把bytes变为str，就需要用decode()方法。
-			源代码中包含中文的时候，在保存源代码时，就需要务必指定保存为UTF-8编码。
-				当Python解释器读取源代码时，为了让它按UTF-8编码读取，我们通常在文件开头写上这两行：
-					#!/usr/bin/env python3
-					# -*- coding: utf-8 -*-
-		格式化：
-			输出格式化的字符串；
-			Python中，采用的格式化方式和C语言是一致的，用%实现：
-				%运算符就是用来格式化字符串的。
-				在字符串内部，%s表示用字符串替换，%d表示用整数替换，
-				有几个%?占位符，后面就跟几个变量或者值，顺序要对应好。
-				如果只有一个%?，括号可以省略。
-					占位符		替换内容
-					%d			整数
-					%f			浮点数
-					%s			字符串
-					%x			十六进制整数
-				格式化整数和浮点数还可以指定是否补0和整数与小数的位数。
-					如果你不太确定应该用什么，%s永远起作用，它会把任何数据类型转换为字符串；
-					有些时候，字符串里面的%是一个普通字符怎么办？这个时候就需要转义，用%%来表示一个%。
-						>>> 'Hello, %s' % 'world'
-						'Hello, world'
-						>>> 'Hi, %s, you have $%d.' % ('Michael', 1000000)
-						'Hi, Michael, you have $1000000.'
-			format()：
-				另一种格式化字符串的方法是使用字符串的format()方法，
-				它会用传入的参数依次替换字符串内的占位符{0}、{1}……，
-				不过这种方式写起来比%要麻烦得多。
-		小结：
-			当str和bytes互相转换时，需要指定编码。最常用的编码是UTF-8。
-			
-	数据结构：
+	数据类型：
 		list：列表；
 			list是一种有序的集合，可以随时添加和删除其中的元素。
 				支持倒数索引，如：list[-1]
@@ -192,9 +152,62 @@ Python 笔记
 					相反，replace方法创建了一个新字符串'Abc'并返回，
 						如果我们用变量b指向该新字符串，就容易理解了，变量a仍指向原有的字符串'abc'，
 						但变量b却指向新字符串'Abc'了
-			str、tuple、None：不可变对象。
 			对于不变对象来说，调用对象自身的任意方法，也不会改变该对象自身的内容。
 			相反，这些方法会创建新的对象并返回，这样，就保证了不可变对象本身永远是不可变的。
+			不可变对象包括：
+				str、tuple、None。
+				Number、String、Tuple。
+				Number 包括：int、float、bool、complex。	
+			可变对象包括：
+				List、Dictionary、Set。
+	
+	字符串和编码：
+		字符编码：
+			计算机只能处理数字，如果要处理文本，就必须先把文本转换为数字才能处理。
+			最早的计算机在设计时采用8个比特（bit）作为一个字节（byte），
+				所以，一个字节能表示的最大的整数就是255（二进制11111111=十进制255），
+			如果要表示更大的整数，就必须用更多的字节。
+				比如两个字节可以表示的最大整数是65535，4个字节可以表示的最大整数是4294967295。
+			Unicode标准也在不断发展，但最常用的是用两个字节表示一个字符：
+				ASCII编码是1个字节，而Unicode编码通常是2个字节；
+				（如果要用到非常偏僻的字符，就需要4个字节）。
+			对于单个字符的编码，Python提供了ord()函数获取字符的整数表示，
+				chr()函数把编码转换为对应的字符
+			如果要在网络上传输，或者保存到磁盘上，就需要把str变为以字节为单位的bytes。
+				Python对bytes类型的数据用带b前缀的单引号或双引号表示。
+		Python的字符串：
+			Python 3 中，字符串是以Unicode编码的，也就是说，Python的字符串支持多语言。
+				以Unicode表示的str通过encode()方法可以编码为指定的bytes；
+				把bytes变为str，就需要用decode()方法。
+			源代码中包含中文的时候，在保存源代码时，就需要务必指定保存为UTF-8编码。
+				当Python解释器读取源代码时，为了让它按UTF-8编码读取，我们通常在文件开头写上这两行：
+					#!/usr/bin/env python3
+					# -*- coding: utf-8 -*-
+		格式化：
+			输出格式化的字符串；
+			Python中，采用的格式化方式和C语言是一致的，用%实现：
+				%运算符就是用来格式化字符串的。
+				在字符串内部，%s表示用字符串替换，%d表示用整数替换，
+				有几个%?占位符，后面就跟几个变量或者值，顺序要对应好。
+				如果只有一个%?，括号可以省略。
+					占位符		替换内容
+					%d			整数
+					%f			浮点数
+					%s			字符串
+					%x			十六进制整数
+				格式化整数和浮点数还可以指定是否补0和整数与小数的位数。
+					如果你不太确定应该用什么，%s永远起作用，它会把任何数据类型转换为字符串；
+					有些时候，字符串里面的%是一个普通字符怎么办？这个时候就需要转义，用%%来表示一个%。
+						>>> 'Hello, %s' % 'world'
+						'Hello, world'
+						>>> 'Hi, %s, you have $%d.' % ('Michael', 1000000)
+						'Hi, Michael, you have $1000000.'
+			format()：
+				另一种格式化字符串的方法是使用字符串的format()方法，
+				它会用传入的参数依次替换字符串内的占位符{0}、{1}……，
+				不过这种方式写起来比%要麻烦得多。
+		小结：
+			当str和bytes互相转换时，需要指定编码。最常用的编码是UTF-8。
 			
 	条件判断：
 		格式：
@@ -238,13 +251,12 @@ Python 笔记
 			break和continue会造成代码执行逻辑分叉过多，容易出错。
 			大多数循环并不需要用到break和continue语句。
 			
-函数：
+二、函数：
 	调用函数：
 		声明函数名称，传入参数；
 		函数名其实就是指向一个函数对象的引用，完全可以把函数名赋给一个变量，
 			相当于给这个函数起了一个“别名”。
 		调用Python的函数，需要根据函数定义，传入正确的参数。
-		
 	
 	定义函数：
 		Python中，定义一个函数要使用def语句，依次写出函数名、括号、括号中的参数和冒号:，
@@ -280,7 +292,8 @@ Python 笔记
 			函数可以同时返回多个值，但其实就是一个tuple。
 			
 	函数的参数：
-		除了正常定义的必选参数外，还可以使用默认参数、可变参数和关键字参数，使得函数定义出来的接口，
+		除了正常定义的必选参数外，还可以使用默认参数、可变参数和关键字参数，
+			使得函数定义出来的接口，
 			不但能处理复杂的参数，还可以简化调用者的代码。
 		
 		位置参数：
@@ -377,16 +390,42 @@ Python 笔记
 		大多数编程语言没有针对尾递归做优化，Python解释器也没有做优化，
 			所以，即使把上面的fact(n)函数改成尾递归方式，也会导致栈溢出。	
 		递归函数的优点是逻辑简单清晰，缺点是过深的调用会导致栈溢出。
-		
-	数据类型转换：
+		汉诺塔问题：
+			思路：
+				move((1), a, b, c)	print(a, "->", c)
+				move((2), a, b, c)	print(a, "->", b)	print(a, "->", c)	print(b, "->", c)
+				move((3), a, b, c)
+					move((2), a, c, b)
+					print(a, "->", c)
+					move((2), b, a, c)
+						move((1), a, c, b)	print(a, "->", c)
+						print(a, "->", c)	print(a, "->", b)
+						move((1), b, a, c)	print(c, "->", b)
+						print(a, "->", c)	print(a, "->", c)
+						move((1), a, c, b)	print(b, "->", a)
+						print(a, "->", c)	print(b, "->", c)
+						move((1), b, a, c)	print(a, "->", c)
+			解答：
+				# -*- coding: utf-8 -*-
+				def move(n, a, b, c):
+					if n == 1:
+						print(a, '-->', c)
+					else:
+						move((n-1), a, c, b)
+						print(a, "-->", c)
+						move((n-1), b, a, c)
+				move(3, 'A', 'B', 'C')
+				
+	数据类型转换函数：
 		int()：把其他数据类型转换为整数；
 		float()：把其他数据类型转换为浮点数；
 		str()：把其他数据类型转换为字符串；
 		bool()：把其他数据类型转换为布尔型；
-		hex()：函数把一个整数转换成十六进制表示的字符串。
+		chr(x)：将一个整数转换为一个字符；
+		hex()：把一个整数转换成十六进制表示的字符串；
+		oct(x)：将一个整数转换为一个八进制字符串。
 	
-	基本函数：
-		
+	常用函数：
 		abs()：
 			求绝对值的函数。
 		range()：
@@ -394,46 +433,49 @@ Python 笔记
 			可以生成一个整数序列，再通过list()函数可以转换为list。
 		max()：
 			可以接收任意多个参数，并返回最大的那个。
-		
-		
-		
-		
-		
 		len()：
 			获得 list 的元素个数；
 			计算 str 的字符数；
 			计算 bytes 的字节数。
-			
 		lower()：
 			返回小写的字符串。
-			
+		upper()：
+			返回大写的字符串。
 		strip()：
 			用于移除字符串头尾指定的字符（默认为空格或换行符）或字符序列。
-			
 		split()：
 			根据规定的字符将字符串进行分割。
 		
+三、高级特性：
 		
-	
-			
-	
-			
 	切片：
 		L[0:3]表示，从索引0开始取，直到索引3为止，但不包括索引3。即索引0，1，2，正好是3个元素。
 		如果第一个索引是0，还可以省略。
 		L[-1]取倒数第一个元素，同样支持倒数切片；倒数第一个元素的索引是-1。
-		
 			tuple也可以用切片操作，只是操作的结果仍是tuple。
 			字符串也可以用切片操作，只是操作结果仍是字符串：
-			
+		注意：slice 切片和 range 整数列表都是前包后不包。
+		
 	迭代 Iteration ：
 		for ... in ... 循环：
 			for循环不仅可以用在list或tuple上，还可以作用在其他可迭代对象上。
 		Python内置的enumerate函数可以把一个list变成索引-元素对，
-		这样就可以在for循环中同时迭代索引和元素本身：
-			for i, value in enumerate(['A', 'B', 'C']):
-			
+			这样就可以在for循环中同时迭代索引和元素本身：
+				for i, value in enumerate(['A', 'B', 'C']):
+		可迭代对象：
+			list；tuple；dict；set；str。
+			生成式；生成器；
+		不可迭代对象：
+			int；float；bool；None。
+		判断对象是可迭代对象：
+			通过collections模块的Iterable类型判断
+				>>> from collections import Iterable
+				>>> isinstance('abc', Iterable) # str是否可迭代
+		
 	列表生成式：
+		写列表生成式：
+			把要生成的元素x * x放到前面，后面跟for循环，就可以把list创建出来，
+			十分有用，多写几次，很快就可以熟悉这种语法。
 		生成 [1x1, 2x2, 3x3, ..., 10x10]：
 			[x * x for x in range(1, 11)]
 		for循环后面还可以加上if判断，这样我们就可以筛选出仅偶数的平方：
@@ -442,9 +484,10 @@ Python 笔记
 			[m + n for m in 'ABC' for n in 'XYZ']
 		os.listdir可以列出文件和目录
 			[d for d in os.listdir('.')]
-		for 循环其实可以同时使用两个甚至多个变量，比如dict的items()可以同时迭代key和value：
-			d = {'x': 'A', 'y': 'B', 'z': 'C' }
-			for k, v in d.items():
+		for 循环其实可以同时使用两个甚至多个变量，
+			比如dict的items()可以同时迭代key和value：
+				d = {'x': 'A', 'y': 'B', 'z': 'C' }
+				for k, v in d.items():
 		列表生成式也可以使用两个变量来生成list：
 			d = {'x': 'A', 'y': 'B', 'z': 'C' }
 			[k + '=' + v for k, v in d.items()]
@@ -452,32 +495,36 @@ Python 笔记
 			L = ['Hello', 'World', 'IBM', 'Apple']
 			[s.lower() for s in L]
 			
-	生成器：generator
-		第一种方法很简单，只要把一个列表生成式的[]改成()，就创建了一个generator：
+	生成器：
+		generator：在循环的过程中不断推算出后续的元素。
+			Python中一边循环一边计算的机制。
+		创建 generator 第一种方法：把一个列表生成式的[]改成()：
 			L = [x * x for x in range(10)]
 			g = (x * x for x in range(10))
 			可以通过next()函数获得generator的下一个返回值：
-			generator保存的是算法，每次调用next(g)，就计算出g的下一个元素的值，直到计算到最后一个元素，
-			没有更多的元素时，抛出StopIteration的错误。
+				generator保存的是算法，每次调用next(g)，就计算出g的下一个元素的值，
+				直到计算到最后一个元素，没有更多的元素时，抛出StopIteration的错误。
 			不断调用next(g)实在是太变态了，正确的方法是使用for循环，因为generator也是可迭代对象：
-			g = (x * x for x in range(10))
-			for n in g:
+				g = (x * x for x in range(10))
+				for n in g:
 			我们创建了一个generator后，通过for循环来迭代它，并且不需要关心StopIteration的错误。
-		第二种：如果一个函数定义中包含yield关键字，那么这个函数就不再是一个普通函数，而是一个generator：
-			generator和函数的执行流程不一样。
+		创建 generator 第二种方法：函数定义中包含yield关键字，
+			这个函数不再是一个普通函数，而是一个generator；
+		generator和函数的执行流程不一样。
 			函数是顺序执行，遇到return语句或者最后一行函数语句就返回。
 			而变成generator的函数，在每次调用next()的时候执行，遇到yield语句返回，
 			再次执行时从上次返回的yield语句处继续执行。
+		把函数改成generator后，我们基本上从来不会用next()来获取下一个返回值，而是直接使用for循环来迭代。
 		用for循环调用generator时，发现拿不到generator的return语句的返回值。
-		如果想要拿到返回值，必须捕获StopIteration错误，返回值包含在StopIteration的value中：
-			g = fib(6)
-			while True:
-				try:
-					x = next(g)
-					print('g:', x)
-				except StopIteration as e:
-					print('Generator return value:', e.value)
-					break
+			如果想要拿到返回值，必须捕获StopIteration错误，返回值包含在StopIteration的value中：
+				g = fib(6)
+				while True:
+					try:
+						x = next(g)
+						print('g:', x)
+					except StopIteration as e:
+						print('Generator return value:', e.value)
+						break
 		
 	迭代器(Iterator)：
 		可以被next()函数调用并不断返回下一个值的对象。
@@ -1411,7 +1458,7 @@ Python 笔记
 				>>> print(datetime.utcfromtimestamp(t)) # UTC时间
 				2015-04-19 04:20:00
 		str转换为datetime：
-			很多时候，用户输入的日期和时间是字符串，要处理日期和时间，首先必须把str转换为datetime。
+			很多时候用户输入的日期和时间是字符串，要处理日期和时间，首先必须把str转换为datetime。
 				转换方法是通过datetime.strptime()实现，需要一个日期和时间的格式化字符串：
 				>>> from datetime import datetime
 				>>> cday = datetime.strptime('2015-6-1 18:19:59', '%Y-%m-%d %H:%M:%S')
@@ -2632,7 +2679,7 @@ Web 开发：
 		
 	不可变对象：
 		str；
-		integer；
+		int；
 		None；
 		tuple；
 	
@@ -2643,9 +2690,7 @@ Web 开发：
 	Introduction
 		comments：注释；
 			# 单行注释 
-			"""
-			多行注释 
-			"""
+			
 		
 	Variables：变量；
 		variable definition：变量定义；
@@ -2654,9 +2699,11 @@ Web 开发：
 			
 		Variable types：变量类型；
 			numbers: 
-				integers：
+				int：
 				floats：
-			
+				bool：
+				complex：
+				
 		Type conversion：类型转换；
 			int(x)：转成整数类形；
 			float(x)：转成浮点类型；
@@ -2687,6 +2734,12 @@ Web 开发：
 			< :
 		
 	Strings：字符串；
+			''
+			""
+			"""
+				多行注释 
+			"""
+			
 		Concatenation：连接符；
 			+ ：
 			
@@ -2757,8 +2810,8 @@ Web 开发：
 			dic[key] = value
 			keys()：键；
 			values()：值；
-			String in dic.keys();
-			integer in dic.values();
+			str in dic.keys();
+			int in dic.values();
 			
 	Condition expressions：条件表达式；
 		Boolean operators：布尔运算；
@@ -3008,7 +3061,7 @@ Django
 			复制；
 			
 	Assertion Types：断言类型；
-		the integer zero is considered false, while all other integers are considered true. 
+		the int zero is considered false, while all other ints are considered true. 
 		0 代表假；其他整型代表真；
 		Most containers are considered false when empty and true when non-empty
 		空容器代表假，非空容器代表真。

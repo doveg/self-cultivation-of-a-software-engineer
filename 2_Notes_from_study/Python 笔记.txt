@@ -464,7 +464,7 @@ Python 教程笔记
 				for i, value in enumerate(['A', 'B', 'C']):
 		可迭代对象：
 			list；tuple；dict；set；str。
-			生成式；生成器；
+			生成式；生成器。
 		不可迭代对象：
 			int；float；bool；None。
 		判断对象是可迭代对象：
@@ -525,75 +525,177 @@ Python 教程笔记
 					except StopIteration as e:
 						print('Generator return value:', e.value)
 						break
-		
+		杨辉三角：
+			把每一行看做一个list，试写一个generator，不断输出下一行的list：
+				# -*- coding: utf-8 -*-
+				def triangles():
+					N = [1]
+					while True:
+						yield N
+						N = N + [0]
+						N = [N[i-1] + N[i] for i in range(len(N))]
+				
 	迭代器(Iterator)：
 		可以被next()函数调用并不断返回下一个值的对象。
-		可以直接作用于for循环的数据类型有以下几种：
-			一类是集合数据类型，如list、tuple、dict、set、str等；
-			一类是generator，包括生成器和带yield的generator function。
-		这些可以直接作用于for循环的对象统称为可迭代对象：Iterable。
+		可以直接作用于for循环的对象统称为可迭代对象：Iterable。
+			可以直接作用于for循环的数据类型：
+				集合数据类型，如：list、tuple、dict、set、str等；
+				generator，包括：生成器和带yield的generator function。
 		可以使用isinstance()判断一个对象是否是Iterable对象：
 			from collections import Iterable
 			isinstance([], Iterable)
 		为什么list、dict、str等数据类型不是Iterator？
 			这是因为Python的Iterator对象表示的是一个数据流，
-			Iterator对象可以被next()函数调用并不断返回下一个数据，直到没有数据时抛出StopIteration错误。
+				Iterator对象可以被next()函数调用并不断返回下一个数据，直到没有数据时抛出StopIteration错误。
 			可以把这个数据流看做是一个有序序列，
-			但我们却不能提前知道序列的长度，只能不断通过next()函数实现按需计算下一个数据，
-			所以Iterator的计算是惰性的，只有在需要返回下一个数据时它才会计算。
+				但我们却不能提前知道序列的长度，只能不断通过next()函数实现按需计算下一个数据，
+				所以Iterator的计算是惰性的，只有在需要返回下一个数据时它才会计算。
 			Iterator甚至可以表示一个无限大的数据流，例如全体自然数。
-			而使用list是永远不可能存储全体自然数的。
-		小结
+				而使用list是永远不可能存储全体自然数的。
+		小结：
 			可作用于for循环的对象都是Iterable类型；
 			可作用于next()函数的对象都是Iterator类型，它们表示一个惰性计算的序列；
 			集合数据类型如list、dict、str等是Iterable但不是Iterator，
 			不过可以通过iter()函数获得一个Iterator对象。
 			Python的for循环本质上就是通过不断调用next()函数实现的。
+	
+四、函数式编程：
+		函数是Python内建支持的一种封装，我们通过把大段代码拆成函数，通过一层一层的函数调用，
+			就可以把复杂任务分解成简单的任务，这种分解可以称之为面向过程的程序设计。
+		函数式编程(Functional Programming)，虽然也可以归结到面向过程的程序设计，但其思想更接近数学计算。
+		计算机的层次上，CPU执行的是加减乘除的指令代码，以及各种条件判断和跳转指令，
+			所以，汇编语言是最贴近计算机的语言。
+		计算则指数学意义上的计算，越是抽象的计算，离计算机硬件越远。
+			对应到编程语言：越低级的语言，越贴近计算机，抽象程度低，执行效率高，比如C语言；
+				越高级的语言，越贴近计算，抽象程度高，执行效率低，比如Lisp语言。
+		函数式编程就是一种抽象程度很高的编程范式，纯粹的函数式编程语言编写的函数没有变量，
+			因此，任意一个函数，只要输入是确定的，输出就是确定的，这种纯函数我们称之为没有副作用。
+		允许使用变量的程序设计语言，由于函数内部的变量状态不确定，同样的输入，可能得到不同的输出，
+			因此，这种函数是有副作用的。
+		函数式编程的一个特点就是，允许把函数本身作为参数传入另一个函数，还允许返回一个函数。
 		
 	高阶函数：
-		高阶函数的抽象能力是非常强大的，核心代码可以保持得非常简洁。
-		变量可以指向函数：函数本身也可以赋值给变量；
-		函数名也是变量：可以把 函数名 指向其他对象；
-		传入函数：
-			既然变量可以指向函数，函数的参数能接收变量，那么一个函数就可以接收另一个函数作为参数，
-			这种函数就称之为高阶函数。
-		
+		Higher-order function：
+			高阶函数：
+				变量可以指向函数，函数的参数能接收变量，一个函数就可以接收另一个函数作为参数。
+				高阶函数的抽象能力是非常强大的，核心代码可以保持得非常简洁。
+			变量可以指向函数：
+				函数本身也可以赋值给变量；
+			函数名也是变量：
+				可以把函数名指向其他对象；
+			传入函数：
+				高阶函数的参数可以接收函数，也可以返回函数。
+				把函数作为参数传入，函数式编程就是指这种高度抽象的编程范式。
+			
 		map()：
-			接收两个参数，一个是函数，一个是Iterable，
-			map将传入的函数依次作用到序列的每个元素，并把结果作为新的Iterator返回。
+			接收两个参数，一个是函数，一个是可迭代对象(Iterable)，
+				map将传入的函数依次作用到序列的每个元素，并把结果作为新的Iterator返回。
 			
 		reduce()：
 			reduce 把一个函数作用在一个序列[x1, x2, x3, ...]上，
 			这个函数必须接收两个参数，reduce把结果继续和序列的下一个元素做累积计算，
 			其效果就是：
 				reduce(f, [x1, x2, x3, x4]) = f(f(f(x1, x2), x3), x4)
+			字符串str也是一个序列，配合map()，可以写出把str转换为int的函数：
+				from functools import reduce
+				DIGITS = {'0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9}
+				def str2int(s):
+					def fn(x, y):
+						return x * 10 + y
+					def char2num(s):
+						return DIGITS[s]
+					return reduce(fn, map(char2num, s))
 			
 		lambda()：
-			
+			匿名函数；
+				例如：lambda x, y: x * 10 + y
+				lambda 后面是自变量；
+				冒号后面是表达式。
 			
 		filter()：
 			用于过滤序列。
-			接收一个函数和一个序列。
+			和map()类似，filter()也接收一个函数和一个序列。
 			和map()不同的是，filter()把传入的函数依次作用于每个元素，
 			然后根据返回值是True还是False决定保留还是丢弃该元素。
-			
+			把一个序列中的空字符串删掉，可以这么写：
+				def not_empty(s):
+					return s and s.strip()
+				list(filter(not_empty, ['A', '', 'B', None, 'C', '  ']))
+			return 中的 or 和 and 语句：
+				and：
+					return True and False 	# 返回False
+					return 1 and 2 			# 返回2
+				or：
+					return True or False 	# 返回True
+					return 1 or 2 			# 返回1
+				结论：
+					or ：找真值：
+						如果有一个值为真，or 立刻返回第一个真值；
+						如果所有的值都为假，or 返回最后一个假值。
+					and ：找假值：
+						如果布尔上下文中的某个值为假，and 返回第一个假值；
+						如果布尔上下文中的所有值都为真，and 返回最后一个真值。
+				练习：
+			filter()函数返回的是一个Iterator，也就是一个惰性序列，
+				所以要强迫filter()完成计算结果，需要用list()函数获得所有结果并返回list。
+			用filter求素数：
+				计算素数的一个方法是埃氏筛法：
+					def _odd_iter():
+						n = 1
+						while True:
+							n = n + 2
+							yield n
+					def _not_divisible(n):
+						return lambda x: x % n > 0	
+					def primes():
+						yield 2
+						it = _odd_iter() # 初始序列
+						while True:
+							n = next(it) # 返回序列的第一个数
+							yield n
+							it = filter(_not_divisible(n), it) # 构造新序列			
+					# 打印1000以内的素数:
+					for n in primes():
+						if n < 1000:
+							print(n)
+						else:
+							break
+			回数：从左向右读和从右向左读都是一样的数：
+				用filter()筛选出回数：
+					def is_palindrome(n):
+						n = str(n)
+						return int(n) == int(n[::-1])
+				
 		sorted()：
-			可以对list进行排序；
-			sorted()是一个高阶函数，它还可以接收一个key函数来实现自定义的排序。
-			key指定的函数将作用于list的每一个元素上，并根据key函数返回的结果进行排序。
-			然后sorted()函数按照keys进行排序，并按照对应关系返回list相应的元素：
-			
-			
+			排序算法：
+				可以对list进行排序：
+					sorted([36, 5, -12, 9, -21])
+				sorted()是一个高阶函数，它还可以接收一个key函数来实现自定义的排序：
+					sorted([36, 5, -12, 9, -21], key=abs)
+					key指定的函数将作用于list的每一个元素上，并根据key函数返回的结果进行排序。
+					然后sorted()函数按照keys进行排序，并按照对应关系返回list相应的元素。
+				字符串排序：
+					sorted(['bob', 'about', 'Zoo', 'Credit'])
+						默认情况下，对字符串排序，是按照ASCII的大小比较的，
+						由于'Z' < 'a'，结果，大写字母Z会排在小写字母a的前面。
+					字符串忽略大小写排序：
+						sorted(['bob', 'about', 'Zoo', 'Credit'], key=str.lower)
+					字符串忽略大小写反向排序：
+						sorted(['bob', 'about', 'Zoo', 'Credit'], key=str.lower, reverse=True)
+				用sorted()排序的关键在于实现一个映射函数。
+					
 	返回函数：
 		函数作为返回值：
 			高阶函数除了可以接受函数作为参数外，还可以把函数作为结果值返回。
 			
-		闭包
-			有权访问另一个函数作用域内变量的函数都是闭包。
-			返回的函数在其定义内部引用了局部变量args，
-				所以，当一个函数返回了一个函数后，其内部的局部变量还被新函数引用，
-				所以，闭包用起来简单，实现起来可不容易。
-			另一个需要注意的问题是，返回的函数并没有立刻执行，而是直到调用了f()才执行。
+		闭包：
+			相关参数和变量都保存在返回的函数中；
+				有权访问另一个函数作用域内变量的函数都是闭包。
+			注意：
+				当我们调用闭包时，每次调用都会返回一个新的函数，即使传入相同的参数
+			返回的函数在其定义内部引用了局部变量，
+				当一个函数返回了一个函数后，其内部的局部变量还被新函数引用，
+				返回的函数并没有立刻执行，而是直到调用了f()才执行。
 			返回闭包时牢记一点：返回函数不要引用任何循环变量，或者后续会发生变化的变量。
 				如果一定要引用循环变量怎么办？
 				方法是再创建一个函数，用该函数的参数绑定循环变量当前的值，
@@ -2690,7 +2792,6 @@ Web 开发：
 	Introduction
 		comments：注释；
 			# 单行注释 
-			
 		
 	Variables：变量；
 		variable definition：变量定义；

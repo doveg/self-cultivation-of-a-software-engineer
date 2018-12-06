@@ -19,13 +19,13 @@
 	escape：转义，反斜杠；
 	leading slash：斜杠，前倒斜杠；[slæʃ]
 	
-	
 	tuple：元组；[tjʊpəl; ˈtʌpəl]
+	reduce：减少；分解；归纳；[rɪ'djuːs]
 	
 	parameter：参数；形参；[pə'ræmɪtə]
 	arguments：参数；['ɑːgjʊm(ə)nts]
 	
-	
+	thread：线；螺纹；线程；[θred]
 	recur：重现；循环；递归； [rɪ'kɜː]
 	recursive：递归的；循环的；[rɪ'kɜːsɪv]
 	allocate：分配；拨出；['æləkeɪt]

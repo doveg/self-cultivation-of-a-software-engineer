@@ -725,134 +725,209 @@ Python 教程笔记
 				print(counterA(), counterA(), counterA(), counterA(), counterA()) # 1 2 3 4 5
 			
 	匿名函数：
-		在传入函数时，有些时候，不需要显式地定义函数，直接传入匿名函数更方便。
-		关键字 lambda 表示匿名函数，冒号前面的x表示函数参数。
-			Lambda：是一个表达式，也可以说它是一个匿名函数。
-		匿名函数有个限制，就是只能有一个表达式，不用写return，返回值就是该表达式的结果。
+		关键字 lambda：
+			表示匿名函数，冒号前面的 x 表示函数参数，冒号后面是表达式。
+			Lambda 是一个表达式，也可以说它是一个匿名函数。
+		匿名函数有个限制：
+			只能有一个表达式，不用写return，返回值就是该表达式的结果。
+		好处：
 			因为函数没有名字，不必担心函数名冲突。
-			此外，匿名函数也是一个函数对象，也可以把匿名函数赋值给一个变量，再利用变量来调用该函数
-				f = lambda x: x * x
-				f
+			匿名函数也是一个函数对象，也可以把匿名函数赋值给一个变量，再利用变量来调用该函数
+				>>> f = lambda x: x * x
+				>>> f
 			同样，也可以把匿名函数作为返回值返回，比如：
 				def build(x, y):
 					return lambda: x * x + y * y
-			
+			奇数筛选：
+				L = list(filter(lambda x : x % 2 == 1, range(1, 20)))
+		
 	装饰器：
 		在代码运行期间动态增加功能。
+		本质上，decorator就是一个返回函数的高阶函数。
 			@语法，把decorator置于函数的定义处：
 			@log
 			def now():
 				print('2015-3-25')
 			把@log放到now()函数的定义处，相当于执行了语句：
 				now = log(now)
-			一个完整的decorator的写法如下：
-				import functools
-				def log(func):
-					@functools.wraps(func)
-					def wrapper(*args, **kw):
-						print('call %s():' % func.__name__)
-						return func(*args, **kw)
-					return wrapper
-			或者针对带参数的decorator：
-				import functools
+		如果decorator本身需要传入参数，那就需要编写一个返回decorator的高阶函数，写出来会更复杂。
+			比如，要自定义log的文本：
 				def log(text):
 					def decorator(func):
-						@functools.wraps(func)
 						def wrapper(*args, **kw):
 							print('%s %s():' % (text, func.__name__))
 							return func(*args, **kw)
 						return wrapper
 					return decorator
-			*args是非关键字参数，用于元组；
-			**kw是关键字参数，用于字典
+			这个3层嵌套的decorator用法如下：
+				@log('execute')
+				def now():
+					print('2015-3-25')
+		functools.wraps 可以让我么不需要编写 wrapper.__name__ = func.__name__ 这样的代码。
+		一个完整的decorator的写法如下：
+			import functools
+			def log(func):
+				@functools.wraps(func)
+				def wrapper(*args, **kw):
+					print('call %s():' % func.__name__)
+					return func(*args, **kw)
+				return wrapper
+		或者针对带参数的decorator：
+			import functools
+			def log(text):
+				def decorator(func):
+					@functools.wraps(func)
+					def wrapper(*args, **kw):
+						print('%s %s():' % (text, func.__name__))
+						return func(*args, **kw)
+					return wrapper
+				return decorator
+			*args：可变参数，用于元组；
+			**kw：关键字参数，用于字典。
 			
 	偏函数(局部函数)：
+		通过设定参数的默认值，可以降低函数调用的难度。
 		计算机科学中，局部应用是指固定一个函数的一些参数，然后产生另一个更小元的函数。
 		functools.partial 作用：
 			把一个函数的某些参数给固定住（也就是设置默认值），返回一个新的函数，调用这个新函数会更简单。
-			
-	模块：
-		一个.py文件就称之为一个模块（Module）。
-		自己创建模块时要注意命名，不能和Python自带的模块名称冲突。
-		例如，系统自带了sys模块，自己的模块就不可命名为sys.py，否则将无法导入系统自带的sys模块。
-			
-	包：
-		按目录来组织模块的方法称为包（Package）。
-			每一个包目录下面都会有一个__init__.py的文件，这个文件是必须存在的，
-			否则，Python就把这个目录当成普通目录，而不是一个包。
-			__init__.py可以是空文件，也可以有Python代码，
-			因为__init__.py本身就是一个模块，而它的模块名就是包名。
-			
-	作用域：
-		通过_前缀来实现。
-		正常的函数和变量名是公开的（public），可以被直接引用，比如：abc，x123，PI等；
-		类似__xxx__这样的变量是特殊变量，可以被直接引用，但是有特殊用途，
-			比如上面的__author__，__name__就是特殊变量，
-			hello模块定义的文档注释也可以用特殊变量__doc__访问，
-			我们自己的变量一般不要用这种变量名；
-		类似_xxx和__xxx这样的函数或变量，就是非公开的（private），不应该被直接引用，
-			比如_abc，__abc等；
-			private函数和变量“不应该”被直接引用，而不是“不能”被直接引用，
-			是因为Python并没有一种方法可以完全限制访问private函数或变量，
-			但是，从编程习惯上不应该引用private函数或变量。
+		functools.partial 可以创建一个偏函数。
+		小结：
+			当函数的参数个数太多，需要简化时，使用functools.partial可以创建一个新的函数，
+			这个新函数可以固定住原函数的部分参数，从而在调用时更简单。
 	
-		通俗的理解__name__ == '__main__'：假如你叫小明.py，在朋友眼中，你是小明(__name__ == '小明')；在你自己眼中，你是你自己(__name__ == '__main__')。
-
-		if __name__ == '__main__'的意思是：当.py文件被直接运行时，if __name__ == '__main__'之下的代码块将被运行；当.py文件以模块形式被导入时，if __name__ == '__main__'之下的代码块不被运行。
+五、模块
+	使用模块：
+		模块：
+			一个.py文件就称为一个模块（Module）。
+			自己创建模块时要注意命名，不能和Python自带的模块名称冲突。
+			例如，系统自带了sys模块，自己的模块就不可命名为sys.py，否则将无法导入系统自带的sys模块。
+				
+		包：
+			按目录来组织模块的方法称为包（Package）。
+				每一个包目录下面都会有一个__init__.py的文件，这个文件是必须存在的，
+				否则，Python就把这个目录当成普通目录，而不是一个包。
+				__init__.py可以是空文件，也可以有Python代码，
+				因为__init__.py本身就是一个模块，而它的模块名就是包名。
+			自己创建模块时要注意命名，不能和Python自带的模块名称冲突。
+				例如，系统自带了sys模块，自己的模块就不可命名为sys.py，否则将无法导入系统自带的sys模块。
+		
+		sys 模块：
+			#!/usr/bin/env python3
+			# -*- coding: utf-8 -*-	
+			' a test module '
+			import sys
+				第1行注释可以让这个hello.py文件直接在Unix/Linux/Mac上运行，
+				第2行注释表示.py文件本身使用标准UTF-8编码；
+				第3行是一个字符串，表示模块的文档注释，任何模块代码的第一个字符串都被视为模块的文档注释；
+				第4行导入 sys 模块，就有了变量sys指向该模块，利用sys这个变量，就可以访问sys模块的所有功能。
+			if __name__=='__main__':
+				test()
+				当我们在命令行运行hello模块文件时，Python解释器把一个特殊变量__name__置为__main__，
+				而如果在其他地方导入该hello模块时，if判断将失败，
+				因此，这种if测试可以让一个模块通过命令行运行时执行一些额外的代码，最常见的就是运行测试。
+			通俗的理解__name__ == '__main__'：
+				假如你叫小明.py，在朋友眼中，你是小明(__name__ == '小明')；
+				在你自己眼中，你是你自己(__name__ == '__main__')。
+			if __name__ == '__main__'的意思是：
+				当.py文件被直接运行时，if __name__ == '__main__'之下的代码块将被运行；
+				当.py文件以模块形式被导入时，if __name__ == '__main__'之下的代码块不被运行。
+		作用域：
+			通过_前缀来实现。
+				正常的函数和变量名是公开的（public），可以被直接引用；
+					比如：abc，x123，PI 等。
+				类似__xxx__这样的变量是特殊变量，可以被直接引用，但是有特殊用途，
+					比如上面的__author__，__name__就是特殊变量，
+				hello模块定义的文档注释也可以用特殊变量__doc__访问，
+					我们自己的变量一般不要用这种变量名；
+				类似_xxx和__xxx这样的函数或变量，就是非公开的（private），不应该被直接引用，
+					比如_abc，__abc等；
+				private函数和变量“不应该”被直接引用，而不是“不能”被直接引用，
+					是因为Python并没有一种方法可以完全限制访问private函数或变量，
+					但是，从编程习惯上不应该引用private函数或变量。
+			外部不需要引用的函数全部定义成private，只有外部需要引用的函数才定义为public。
 			
 	第三方模块：
 		通过包管理工具pip完成的。
 			如果你正在使用Mac或Linux，安装pip本身这个步骤就可以跳过了。
 			如果你正在使用Windows，安装Python时确保勾选了pip和Add python.exe to Path。
-			
-	模块搜索路径：
-		默认情况下，Python解释器会搜索当前目录、所有已安装的内置模块和第三方模块，
-		搜索路径存放在sys模块的path变量中：
-			import sys
-			sys.path
-		如果我们要添加自己的搜索目录，有两种方法：
-			一是直接修改sys.path，添加要搜索的目录：
+		安装常用模块：
+			推荐直接使用Anaconda，
+				这是一个基于Python的数据处理和科学计算平台，它已经内置了许多非常有用的第三方库，
+				我们装上Anaconda，就相当于把数十个第三方模块自动安装好了，非常简单易用。
+		模块搜索路径：
+			默认情况下，Python解释器会搜索当前目录、所有已安装的内置模块和第三方模块，
+			搜索路径存放在sys模块的path变量中：
 				import sys
-				sys.path.append('/Users/michael/my_py_scripts')
-				这种方法是在运行时修改，运行结束后失效。
-			第二种方法是设置环境变量PYTHONPATH，该环境变量的内容会被自动添加到模块搜索路径中。
-				设置方式与设置Path环境变量类似。
-				注意只需要添加你自己的搜索路径，Python自己本身的搜索路径不受影响。
+				sys.path
+			如果我们要添加自己的搜索目录，有两种方法：
+				一是直接修改sys.path，添加要搜索的目录：
+					import sys
+					sys.path.append('/Users/michael/my_py_scripts')
+					这种方法是在运行时修改，运行结束后失效。
+				第二种方法是设置环境变量PYTHONPATH，该环境变量的内容会被自动添加到模块搜索路径中。
+					设置方式与设置Path环境变量类似。
+					注意只需要添加你自己的搜索路径，Python自己本身的搜索路径不受影响。
+	
+六、面向对象编程
+	面向对象编程：
+		Object Oriented Programming (OOP)：
+			是一种程序设计思想。OOP把对象作为程序的基本单元，一个对象包含了数据和操作数据的函数。
+		面向过程与面向对象：
+			面向过程的程序设计：
+				把计算机程序视为一系列的命令集合，即一组函数的顺序执行。
+				为了简化程序设计，面向过程把函数继续切分为子函数，
+				即把大块函数通过切割成小块函数来降低系统的复杂度。
+			而面向对象的程序设计：
+				把计算机程序视为一组对象的集合，而每个对象都可以接收其他对象发过来的消息，并处理这些消息，
+				计算机程序的执行就是一系列消息在各个对象之间传递。
+		Python中，所有数据类型都可以视为对象，当然也可以自定义对象。
+			自定义的对象数据类型就是面向对象中的类（Class）的概念。
+			给对象发消息实际上就是调用对象对应的关联函数，我们称之为对象的方法（Method）。
+		面向对象的设计思想是抽象出Class，根据Class创建Instance。
+			面向对象的抽象程度又比函数要高，因为一个Class既包含数据，又包含操作数据的方法。
+		面向对象的三大特点：数据封装、继承和多态。
 			
 	类和实例：
+		面向对象最重要的概念就是类（Class）和实例（Instance），必须牢记类是抽象的模板。
 		类可以起到模板的作用，因此，可以在创建实例的时候，把一些我们认为必须绑定的属性强制填写进去。
-		通过定义一个特殊的__init__方法，在创建实例的时候，就把name，score等属性绑上去：
-			class Student(object):
-				def __init__(self, name, score):
-					self.name = name
-					self.score = score
-			__init__方法的第一个参数永远是self，表示创建的实例本身，
-			因此，在__init__方法内部，就可以把各种属性绑定到self，因为self就指向创建的实例本身。
-		和普通的函数相比，在类中定义的函数只有一点不同，就是第一个参数永远是实例变量self，
-		并且，调用时，不用传递该参数。
-		除此之外，类的方法和普通函数没有什么区别，
-		所以，你仍然可以用默认参数、可变参数、关键字参数和命名关键字参数。
-			
-	数据封装：
-		封装数据的函数是和Student类本身是关联起来的，我们称之为类的方法。
-			比如：print，get，set 方法。
-			在 set 方法中，可以对参数做检查，避免传入无效的参数。
+			通过定义一个特殊的__init__方法，在创建实例的时候，就把name，score等属性绑上去：
+				class Student(object):
+					def __init__(self, name, score):
+						self.name = name
+						self.score = score
+				__init__方法的第一个参数永远是self，表示创建的实例本身，
+				因此，在__init__方法内部，就可以把各种属性绑定到self，因为self就指向创建的实例本身。
+			和普通的函数相比，在类中定义的函数只有一点不同，就是第一个参数永远是实例变量self，
+				并且，调用时，不用传递该参数。
+			除此之外，类的方法和普通函数没有什么区别，
+				所以，你仍然可以用默认参数、可变参数、关键字参数和命名关键字参数。
+		数据封装：
+			封装数据的函数是和Student类本身是关联起来的，我们称之为类的方法。
+				比如：print，get，set 方法。
+				在 set 方法中，可以对参数做检查，避免传入无效的参数。
+		小结：
+			类是创建实例的模板，而实例则是一个一个具体的对象，各个实例拥有的数据都互相独立，互不影响；
+			方法就是与实例绑定的函数，和普通函数不同，方法可以直接访问实例的数据；
+			和静态语言不同，Python允许对实例变量绑定任何数据，
+				对于两个实例变量，虽然它们都是同一个类的不同实例，但拥有的变量名称都可能不同。
 			
 	访问限制：	
 		要让内部属性不被外部访问，可以把属性的名称前加上两个下划线__，
-		在Python中，实例的变量名如果以__开头，就变成了一个私有变量（private），
+		Python中，实例的变量名如果以__开头，就变成了一个私有变量（private），
 			只有内部可以访问，外部不能访问。
-		确保了外部代码不能随意修改对象内部的状态，这样通过访问限制的保护，代码更加健壮。
-			Python中，变量名类似__xxx__的，也就是以双下划线开头，并且以双下划线结尾的，是特殊变量，
+			确保了外部代码不能随意修改对象内部的状态，这样通过访问限制的保护，代码更加健壮。
+		Python中，变量名类似__xxx__的，也就是以双下划线开头，并且以双下划线结尾的，是特殊变量，
 			特殊变量是可以直接访问的，不是private变量，
 			所以，不能用__name__、__score__这样的变量名。
-		有些时候，你会看到以一个下划线开头的实例变量名，
-			比如_name，这样的实例变量外部是可以访问的，
-			但是，按照约定俗成的规定，当你看到这样的变量时，
-			意思就是，“虽然我可以被访问，但是，请把我视为私有变量，不要随意访问”。
-		双下划线开头的实例变量是不是一定不能从外部访问呢？其实也不是。
-			不能直接访问__name是因为Python解释器对外把__name变量改成了_Student__name，
-			所以，仍然可以通过_Student__name来访问__name变量
+		单下划线和双下划线开头：
+			有些时候，你会看到以一个下划线开头的实例变量名，
+				比如_name，这样的实例变量外部是可以访问的，
+				但是，按照约定俗成的规定，当你看到这样的变量时，
+				意思就是，“虽然我可以被访问，但是，请把我视为私有变量，不要随意访问”。
+			双下划线开头的实例变量是不是一定不能从外部访问呢？
+				其实也不是。
+				不能直接访问__name是因为Python解释器对外把__name变量改成了_Student__name，
+				所以，仍然可以通过_Student__name来访问__name变量。
 			
 	继承和多态：
 		继承：
@@ -868,31 +943,32 @@ Python 教程笔记
 		“开闭”原则：
 			对扩展开放：允许新增Animal子类；
 			对修改封闭：不需要修改依赖Animal类型的run_twice()等函数。
-			
-	静态语言 vs 动态语言
-		对于静态语言（例如Java）来说，如果需要传入Animal类型，
-			则传入的对象必须是Animal类型或者它的子类，否则，将无法调用run()方法。
-		对于Python这样的动态语言来说，则不一定需要传入Animal类型。
-			我们只需要保证传入的对象有一个run()方法就可以了。	
-		Python的“file-like object“就是一种鸭子类型。
-			对真正的文件对象，它有一个read()方法，返回其内容。
-			但是，许多对象，只要有read()方法，都被视为“file-like object“。
-			许多函数接收的参数就是“file-like object“，你不一定要传入真正的文件对象，
-			完全可以传入任何实现了read()方法的对象。
+		静态语言 vs 动态语言：
+			对于静态语言（例如Java）来说，如果需要传入Animal类型，
+				则传入的对象必须是Animal类型或者它的子类，否则，将无法调用run()方法。
+			对于Python这样的动态语言来说，则不一定需要传入Animal类型。
+				我们只需要保证传入的对象有一个run()方法就可以了。	
+			Python的“file-like object“就是一种鸭子类型。
+				对真正的文件对象，它有一个read()方法，返回其内容。
+				但是，许多对象，只要有read()方法，都被视为“file-like object“。
+				许多函数接收的参数就是“file-like object“，你不一定要传入真正的文件对象，
+				完全可以传入任何实现了read()方法的对象。
 			
 	获取对象信息：
 		type()：
 			判断对象类型；
+			返回对应的Class类型。
 		isinstance()：
-			判断一个变量是否是某个类型可以用isinstance()判断：
-			比如：isinstance(a, list)。
+			判断一个变量是否是某个类型；
+				比如：isinstance(a, list)。
 		type() 和 isinstance()：
 			能用type()判断的基本类型也可以用isinstance()判断；
 			isinstance()还可以判断一个变量是否是某些类型中的一种；
 			总是优先使用isinstance()判断类型，可以将指定类型及其子类“一网打尽”。
 		dir()：
+			目录 (directory)；
 			获得一个对象的所有属性和方法；
-			它返回一个包含字符串的list；
+			返回一个包含字符串的list；
 			__len__()：返回序列的长度。
 				在Python中，如果你调用len()函数试图获取一个对象的长度，
 				实际上在len()函数内部，它自动去调用该对象的__len__()方法。
@@ -904,29 +980,78 @@ Python 教程笔记
 		直接在class中定义属性，这种属性是类属性，归类所有；
 			当我们定义了一个类属性后，这个属性虽然归类所有，但类的所有实例都可以访问到。
 		编写程序的时候，千万不要对实例属性和类属性使用相同的名字，
-		因为相同名称的实例属性将屏蔽掉类属性，
-		但是当你删除实例属性后，再使用相同的名称，访问到的将是类属性。
-			
-	__slots__ 使用：	
-		当我们定义了一个class，创建了一个class的实例后，我们可以给该实例绑定任何属性和方法，
-		这就是动态语言的灵活性。
-			动态绑定允许我们在程序运行的过程中动态给class加上功能，这在静态语言中很难实现。	
+			因为相同名称的实例属性将屏蔽掉类属性，
+			但是当你删除实例属性后，再使用相同的名称，访问到的将是类属性。
+		小结：
+			实例属性属于各个实例所有，互不干扰；
+			类属性属于类所有，所有实例共享一个属性；
+			不要对实例属性和类属性使用相同的名字，否则将产生难以发现的错误。
+		
+七、面向对象高级编程
+		数据封装、继承和多态只是面向对象程序设计中最基础的3个概念。
+		在Python中，面向对象还有很多高级特性，允许我们写出非常强大的功能。
+		比如：多重继承、定制类、枚举类、元类等概念。
+	
+	__slots__ 使用：
+		动态语言的灵活性：
+			当我们定义了一个class，创建了一个class的实例后，我们可以给该实例绑定任何属性和方法。
+				动态绑定允许我们在程序运行的过程中动态给class加上功能，这在静态语言中很难实现。	
+			如果想要限制实例的属性，需要使用__slots__。
 		Python允许在定义class的时候，定义一个特殊的__slots__变量，来限制该class实例能添加的属性：
 			class Student(object):
 				__slots__ = ('name', 'age')		# 用tuple定义允许绑定的属性名称
+		没有被放到__slots__中的属性，都不能被绑定，试图绑定将得到AttributeError的错误。
+			通过固定插槽，限制实例属性的添加。
+			python __slots__ 只能限制实例的属性及方法，对于类则没有影响，对于子类则更是没有限制。
 		注意：
-			__slots__定义的属性仅对当前类实例起作用，对继承的子类是不起作用的：
+			__slots__ 定义的属性仅对当前类实例起作用，对继承的子类是不起作用的：
 			除非在子类中也定义__slots__，
 				子类实例允许定义的属性就是自身的__slots__加上父类的__slots__。
+		动态给类增加方法和属性：
+			def set_score(self, score):
+			#如果在slots中没有属性score将报lotsAttributeError: 'Student' object has no attribute 'score'
+				self.score = score
+			Student.set_score = set_score	#给类绑定方法和属性不受限制，可以不在slots中加set_score和score
+			Student.set_score(Student,66)	#类调用set_acore方法给自己绑定属性score为66
+			print(Student.score)
+			print(s.score)	#实例可以调用类属性scored但是不能用s.set_score(89)来中心赋值
+		动态给实例增加方法和属性
+			def set_age(self, age):
+				self.age = age
+			from types import MethodType
+			s.set_age = MethodType(set_age, s)
+			#直接给实例绑定方法由于类中没有该方法，必须在slots中添加set_age, age才可以
+			s.set_age(25)
+			print(s.age)
 			
 	@property 使用：
 		Python 内置的 @property 装饰器负责把一个方法变成属性调用。
+			既能检查参数，又可以用类似属性这样简单的方式来访问类的变量
 			只定义getter方法，不定义setter方法就是一个只读属性。
+			@property 广泛应用在类的定义中，可以让调用者写出简短的代码，同时保证对参数进行必要的检查。
+			把一个 getter 方法变成属性，只需要加上 @property 就可以了，
+				@property 本身又创建了另一个装饰器 @方法名.setter，负责把一个 setter 方法变成属性赋值。
 			
 	多重继承：	
 		一个子类就可以同时获得多个父类的所有功能。
+			class Animal(object):
+				pass
+			class Mammal(Animal):
+				pass
+			class Flyable(object):
+				def fly(self):
+					pass
+			class Bat(Mammal, Flyable):
+				pass
 			
-	MixIn：	
+	MixIn：
+		在设计类的继承关系时，通常，主线都是单一继承下来的。
+			但是，如果需要“混入”额外的功能，通过多重继承就可以实现。
+			这种设计通常称之为 MixIn。
+		为了更好地看出继承关系，我们把 Runnable 和 Flyable 改为 RunnableMixIn 和 FlyableMixIn。
+			比如：
+				class Bat(Mammal, FlyableMixIn):
+					pass
 		目的：给一个类增加多个功能，
 			在设计类的时候，优先考虑通过多重继承来组合多个MixIn的功能，
 			而不是设计多层次的复杂的继承关系。
@@ -934,12 +1059,18 @@ Python 教程笔记
 			只允许单一继承的语言（如Java）不能使用MixIn的设计。
 			
 	定制类：
+		Python的class中还有许多形如 __xxx__()，有特殊用途的函数，可以帮助我们定制类。
+		__slots__()；
+			固定卡槽来限定实例属性的添加。
+		__len__()：
+			返回想要的长度。
 		__str__()：
-			定义__str__()方法，返回一个好看的字符串；
-		
+			定义__str__()方法，返回一个好看的字符串。
+			直接显示变量调用的不是__str__()，而是__repr__()。
 		__repr__()：
-			__str__()返回用户看到的字符串，而__repr__()返回程序开发者看到的字符串，
-			__repr__()是为调试服务的。
+			__str__()返回用户看到的字符串；
+			__repr__()返回程序开发者看到的字符串，
+				__repr__()是为调试服务的。
 			通常__str__()和__repr__()代码都是一样的，所以，有个偷懒的写法：
 				class Student(object):
 					def __init__(self, name):
@@ -947,39 +1078,75 @@ Python 教程笔记
 					def __str__(self):
 						return 'Student object (name=%s)' % self.name
 					__repr__ = __str__
-		
 		__iter__()：
-			该方法返回一个迭代对象，
+			如果一个类想被用于for ... in循环，类似list或tuple那样，就必须实现一个__iter__()方法；
+				该方法返回一个迭代对象，
 			Python的for循环就会不断调用该迭代对象的__next__()方法拿到循环的下一个值，
-			直到遇到StopIteration错误时退出循环。
-			
+				直到遇到StopIteration错误时退出循环。
+			斐波那契数列为例：
+				class Fib(object):
+					def __init__(self):
+						self.a, self.b = 0, 1 # 初始化两个计数器a，b
+					def __iter__(self):
+						return self # 实例本身就是迭代对象，故返回自己
+					def __next__(self):
+						self.a, self.b = self.b, self.a + self.b # 计算下一个值
+						if self.a > 100000: # 退出循环的条件
+							raise StopIteration()
+						return self.a # 返回下一个值
 		__getitem__()：
-			迭代对象虽然能作用于for循环，看起来和list有点像，
-			但是，把它当成list来使用还是不行。比如，取第5个元素。
+			迭代对象虽然能作用于for循环，看起来和list有点像，但是，把它当成list来使用还是不行。
+			要表现得像list那样按照下标取出元素，需要实现__getitem__()方法：
+				class Fib(object):
+					def __getitem__(self, n):
+						a, b = 1, 1
+						for x in range(n):
+							a, b = b, a + b
+						return a
+			__getitem__()传入的参数可能是一个int，也可能是一个切片对象slice，所以要做判断：
+				class Fib(object):
+					def __getitem__(self, n):
+						if isinstance(n, int): # n是索引
+							a, b = 1, 1
+							for x in range(n):
+								a, b = b, a + b
+							return a
+						if isinstance(n, slice): # n是切片
+							start = n.start
+							stop = n.stop
+							if start is None:
+								start = 0
+							a, b = 1, 1
+							L = []
+							for x in range(stop):
+								if x >= start:
+									L.append(a)
+								a, b = b, a + b
+							return L
 			如果把对象看成dict，__getitem__()的参数也可能是一个可以作key的object，例如str。
 				与之对应的是__setitem__()方法，把对象视作list或dict来对集合赋值。
-				最后，还有一个__delitem__()方法，用于删除某个元素。
-		自己定义的类表现得和Python自带的list、tuple、dict没什么区别，
-		这完全归功于动态语言的“鸭子类型”，不需要强制继承某个接口。
-			
+				还有一个__delitem__()方法，用于删除某个元素。				
+			自己定义的类表现得和Python自带的list、tuple、dict没什么区别，
+				这完全归功于动态语言的“鸭子类型”，不需要强制继承某个接口。
 		__getattr__()：
-			动态返回一个属性。
+			写一个__getattr__()方法，可以动态返回一个属性。
 			当调用不存在的属性时，Python解释器会试图调用__getattr__(self, 'score')来尝试获得属性，
-			我们就有机会返回score的值
-			
+				我们就有机会返回score的值
+			注意：只有在没有找到属性的情况下，才调用__getattr__，已有的属性，不会在__getattr__中查找。
 		__call__()：
-			直接对实例进行调用。
-			__call__()还可以定义参数。
+			对象实例可以有自己的属性和方法，当我们调用实例方法时，我们用instance.method()来调用。
+			定义一个 __call__() 方法，就可以直接对实例进行调用。
+			__call__() 还可以定义参数：
 				对实例进行直接调用就好比对一个函数进行调用一样，
-				所以你完全可以把对象看成函数，把函数看成对象，因为这两者之间本来就没啥根本的区别。
-			如果你把对象看成函数，那么函数本身其实也可以在运行期动态创建出来，
+				所以完全可以把对象看成函数，把函数看成对象，因为这两者之间本来就没啥根本的区别。
+			如果把对象看成函数，那么函数本身其实也可以在运行期动态创建出来，
 				因为类的实例都是运行期创建出来的，这么一来就模糊了对象和函数的界限。
-			那么，怎么判断一个变量是对象还是函数呢？
-				我们需要判断一个对象是否能被调用，能被调用的对象就是一个Callable对象
-			通过callable()函数，我们就可以判断一个对象是否是“可调用”对象。
+			如何判断一个变量是对象还是函数：
+				判断一个对象是否能被调用，能被调用的对象就是一个Callable对象
+				通过 callable()，我们就可以判断一个对象是否是“可调用”对象。
 			
 	枚举类：
-		用枚举类型定义一个class类型，每个常量都是class的一个唯一实例。
+		定义一个class类型，每个常量都是class的一个唯一实例。
 			from enum import Enum
 			Month = Enum('Month', ('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'))
 		@unique 装饰器可以帮助我们检查保证没有重复值。
@@ -994,6 +1161,9 @@ Python 教程笔记
 					Thu = 4
 					Fri = 5
 					Sat = 6
+		访问这些枚举类型有多种方式：
+			可以用成员名称引用枚举常量，又可以直接根据value的值获得枚举常量。
+		Enum可以把一组相关常量定义在一个class中，且class不可变，而且成员可以直接比较。
 		
 	元类：
 		type()：
@@ -2779,13 +2949,15 @@ Web 开发：
 			
 			
 			
-			
-			
-			
-
-			
-			
-			
+格式：
+	定义类：
+		class ClassName(object):
+	定义类中的方法：
+		def fuc_name(self):
+	定义方法：
+		def fuc_name():	
+	创建实例：
+		instance_name = ClassName()
 			
 		
 			
@@ -3231,6 +3403,7 @@ Django
 			assertIsInstance(a, b)		isinstance(a, b)		3.2
 			assertNotIsInstance(a, b)	not isinstance(a, b)	3.2
 			assertCountEqual(a, b)		a.len() == b.len()		
+		
 		
 		
 		

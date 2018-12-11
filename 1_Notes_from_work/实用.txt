@@ -30,6 +30,7 @@
 	recursive：递归的；循环的；[rɪ'kɜːsɪv]
 	allocate：分配；拨出；['æləkeɪt]
 	
+	wrapper：包装材料；['ræpə]
 	render：补偿；['rendə]
 	digit：数字；一指宽；['dɪdʒɪt] 
 	
@@ -59,8 +60,8 @@
 	
 	giraffe：长颈鹿；[dʒɪˈrɑ:f]
 	dinosaur：恐龙；['daɪnəsɔː]
-	
-	
+	ostrich：鸵鸟；
+	parrot：鹦鹉；
 	
 	
 	
@@ -245,8 +246,8 @@ String 类型转 sql.Time：
 	>>>= ：右移赋值，左边空出的位以0填充 
 	<<= ：左移赋值
 	
-	
-	
+多态与覆盖：
+	因为覆盖，所以多态。
 	
 	
 	

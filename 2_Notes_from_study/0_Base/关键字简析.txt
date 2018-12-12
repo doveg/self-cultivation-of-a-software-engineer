@@ -91,17 +91,50 @@
 			catalina：一个 servlet 容器，处理 servlet;
 			JSP 容器：把 jsp 页面翻译成一般的 servlet。
 	
-	
 	CI (Continuous Integration)：持续集成。
 	CD (Continuous Delivery)：持续交付。
 	
+	VO (Value Object, View Object)：值对象；视图对象；
+		用于展示层，它的作用是把某个指定页面（或组件）的所有数据封装起来。
+		用于表示一个与前端进行交互的 java 对象。
+		有的朋友也许有疑问，这里可不可以使用 PO 传递数据？
+		实际上，这里的 VO 只包含前端需要展示的数据即可，
+		对于前端不需要的数据，比如数据创建和修改的时间等字段，
+		出于减少传输数据量大小和保护数据库结构不外泄的目的，不应该在 VO 中体现出来。
+		通常遵守 Java Bean 的规范，拥有 getter/setter 方法。
+		
+	PO（Persistent Object）：持久化对象；
+		它跟持久层（通常是关系型数据库）的数据结构形成一一对应的映射关系，
+		如果持久层是关系型数据库，那么，数据表中的每个字段（或若干个）就对应PO的一个（或若干个）属性。
 	
+	BO (Business Object)：业务对象；
+		BO 包括了业务逻辑，常常封装了对 DAO、RPC 等的调用，可以进行 PO 与 VO/DTO 之间的转换。
+		BO 通常位于业务层，要区别于直接对外提供服务的服务层：
+			BO 提供了基本业务单元的基本业务操作，在设计上属于被服务层业务流程调用的对象，
+			一个业务流程可能需要调用多个 BO 来完成。
 	
+	POJO (plain ordinary java object) 简单无规则java对象；
+		纯的传统意义的 java 对象。
+		就是说在一些 Object/Relation Mapping 工具中，
+		能够做到维护数据库表记录的 persisent object 完全是一个符合 Java Bean 规范的纯 Java 对象，
+		没有增加别的属性和方法。
+		我的理解就是最基本的 Java Bean ，只有属性字段及 setter 和 getter 方法
+		
+	DO（Domain Object）：领域对象；
+		就是从现实世界中抽象出来的有形或无形的业务实体。
+
+	DTO（Data Transfer Object）：数据传输对象；
+		这个概念来源于J2EE的设计模式，
+		原来的目的是为了EJB的分布式应用提供粗粒度的数据实体，以减少分布式调用的次数，
+		从而提高分布式调用的性能和降低网络负载，
+		但在这里，我泛指用于展示层与服务层之间的数据传输对象。 
 	
-	
-	
-	
-	
+	DAO (data access object) 数据访问对象
+		使用 DAO 访问数据库，包括插入、更新、删除、查询等操作，与 PO 一起使用。
+		DAO 一般在持久层，完全封装数据库操作，对外暴露的方法使得上层应用不需要关注数据库相关的任何信息。
+		
+	O/R Mapper 对象/关系映射
+		定义好所有的mapping之后,这个O/R Mapper可以帮我们做很多的工作.通过这些mappings,这个O/R Mapper可以生成所有的关于对象保存,删除,读取的SQL语句,我们不再需要写那么多行的DAL代码了。
 	
 	
 	

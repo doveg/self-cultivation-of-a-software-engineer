@@ -50,8 +50,8 @@ resultType 和 resultMap 区别：
 			resultType="map"
 			resultType="hashmap"
 			resultType="string"
+			resultType="java.lang.Long"
 			resultType="java.lang.Integer"
-	
 	resultMap：
 		需要和实体类进行映射转换；
 		需要在配置文件中定义一个对应的 resultMap 作为映射的标准；
@@ -66,26 +66,21 @@ resultType 和 resultMap 区别：
 			</resultMap>
 			<select id="getRecommendGoodsToday" resultMap="NewGoodsMap">
 			</select>
+		
 		类型：
 			jdbcType="VARCHAR"
 			jdbcType="BIGINT"
 			jdbcType="TIMESTAMP"
-		比如：
-			resultMap="PrizeDrawRulesMap"
-	
-	
-	
-	
+		
 	
 parameterType 和 resultMap 区别：
-	比如：
-		parameterType="com.livedoing.app.marketing.mobile.wxPublicAcountPrize.domain.PrizeRecord"
-	
-	
-	
-	
-	
-	
+	parameterType 是传入的参数的类型；
+		比如：
+			parameterType="com.livedoing.app.wxPublicAcountPrize.domain.PrizeRecord"
+			parameterType="java.lang.String"
+	resultMap 是属性、字段、类型的映射；
+		比如：
+			resultMap="PrizeDrawRulesMap"
 	
 Mybatis中javaType和jdbcType对应关系：
 	
@@ -122,8 +117,22 @@ Mybatis中javaType和jdbcType对应关系：
 	
 	
 	
-	
-	
+插入后返回 id：
+	MySQL环境下；
+	id为自增类型时，插入前加入 SELECT LAST_INSERT_ID()：
+		<insert id="addTopLine" parameterType="com.kigang.entity.TopLine">
+			<selectKey keyProperty="topId" order="AFTER" resultType="java.lang.Integer">
+				SELECT LAST_INSERT_ID()
+			</selectKey>
+			INSERT into `top_line` (user_id,top_title,top_content,top_image_url,audit_status) VALUES(#{userId},#{topTitle},#{topContent},#{topImageUrl},#{auditStatus})
+		</insert>
+	当id是UUID类型时，调用 select UUID()：
+		<insert id="addTopLine" parameterType="com.kigang.entity.TopLine">
+			<selectKey keyProperty="id" order="AFTER" resultType="java.lang.String">
+				SELECT UUID()
+			</selectKey>
+			INSERT into `top_line` (user_id,top_title,top_content,top_image_url,audit_status) VALUES(#{userId},#{topTitle},#{topContent},#{topImageUrl},#{auditStatus})
+		</insert>
 	
 	
 	

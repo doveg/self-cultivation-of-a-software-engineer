@@ -14,10 +14,56 @@ Mybatis 工作笔记
 	
 	
 	
-Mybatis 迭代数组：
-	<foreach collection="userIds" index="index" item="item" open="(" separator="," close=")">
-		#{item}
-	</foreach>
+Mybatis 里迭代数组：
+	1.多参数：
+		比如传入的参数为：Map<String,Object>
+			数据：status：1
+			ids：int[]{101,103,61,75}
+		<select id="getEntityList" resultType="App" parameterType="map">  
+			select * from t_app   
+			where id not in  
+			<foreach item="item" index="index" collection="ids" open="(" separator="," close=")">  
+				#{item} 
+			</foreach>  
+		</select>  
+	2.一个参数：
+		a.如果参数的类型是List, 则在使用时，collection属性要必须指定为：list
+			比如传入的参数为：findByIds(List<Long> ids)
+			<select id="findByIdsMap" resultMap="BaseResultMap">  
+				Select  
+				<include refid="Base_Column_List" />  
+				from jria where ID in  
+				<foreach item="item" index="index" collection="list" open="(" separator="," close=")">  
+					#{item}  
+				</foreach>  
+			</select>   
+
+		b.如果参数的类型是Array,则在使用时，collection属性要必须指定为：array
+			比如传入的参数为：findByIds(Long[] ids)
+			<select id="findByIdsMap" resultMap="BaseResultMap">  
+				select  
+				<include refid="Base_Column_List" />  
+				from jria where ID in  
+				<foreach item="item" index="index" collection="array" open="(" separator="," close=")">  
+					#{item}  
+				</foreach>  
+			</select>
+	小结：
+		Mybatis 迭代对象中的数组：
+			where ID in
+			<foreach item="item" index="index" collection="ids" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		Mybatis 迭代数组：
+			where ID in
+			<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		Mybatis 迭代列表：
+			where ID in
+			<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+				#{item}
+			</foreach>
 
 Mybatis 条件判断：
 	<if test="goodsTypeId != 0">and n.GOODS_TYPE_ID=#{goodsTypeId}</if>

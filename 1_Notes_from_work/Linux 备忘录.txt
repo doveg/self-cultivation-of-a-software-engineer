@@ -543,7 +543,6 @@ linux 查看内核版本、系统版本、系统位数
 
 Ubuntu 笔记
 
-
 	indicator-sysmonitor 安装：
 		sudo add-apt-repository ppa:fossfreedom/indicator-sysmonitor
 		sudo apt-get update
@@ -591,9 +590,27 @@ Ubuntu 笔记
 	ubuntu 下如何禁用/启用触控板：
 	
 		查看输入的硬件信息:xinput list
-		启用：xinput set-prop 13 "Device Enabled" 1 
-		禁用：xinput set-prop 13 "Device Enabled" 0
+		启用：xinput --set-prop 13 "Device Enabled" 1 
+		禁用：xinput --set-prop 13 "Device Enabled" 0
+		# 禁用
+		xinput --disable 14
+		# 启用
+		xinput --enable 14
 
+	Ubuntu 触摸板不能使用问题，解决方法如下：
+		1、打开终端，输入命令：
+			sudo modprobe -r psmouse
+			sudo modprobe psmouse proto=imps
+		2、为了下次重启后，还能使用，
+			新建文件：
+				/etc/modprobe/.d/options
+			options 文件内容为：
+				options psmouse proto=imps
+	
+	ubuntu触摸板关闭开启
+		sudo rmmod psmouse        #用来禁用触摸板
+		sudo modprobe psmouse     #用来启用触摸板
+		
 	ubuntu 下 Vim 安装：
 		locate vi | grep 'vi$' |xargs ls -al
 		sudo apt-get install vim

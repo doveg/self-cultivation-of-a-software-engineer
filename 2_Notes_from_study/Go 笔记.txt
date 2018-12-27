@@ -1,0 +1,122 @@
+		
+Go 笔记
+	
+一、Go 介绍：
+	
+	Go 特点：
+		Go 亦称为 Golang；
+			按照 Rob Pike 说法，语言叫做 Go，Golang 只是官方网站的网址；
+		是开源的编译型的静态语言，源代码会编译为二进制机器码；
+		支持静态链接，Go 代码可以静态链接为一个大的二进制文件；
+		Go 使得高可用性和可扩展性的 Web 应用的开发变得简便容易；
+			Go 的定位是系统编程语言，只是对 Web 开发支持较好。
+		
+	Go 工作区：
+		Go 源文件都应该放置在工作区里的 src 目录下。
+		
+	基本命令：
+		run：后面加 Go 格式的文件名，编译运行文件中的代码；
+		install：后面加包名，创建一个同包名的二进制文件；
+		
+	Go 文件结构：
+		package：每一个 Go 文件都应该在开头进行 package name 的声明；
+			只有可执行程序的包名应当为 main：package main。
+		import ""：引入了外部的包；
+		func main()：main 是一个特殊的函数，是程序的入口；
+			main 函数必须放置在 main 包中。
+		
+二、基础：
+
+	变量：
+		变量：指定了某存储单元（Memory Location）的名称，
+			该存储单元会存储特定类型的值。
+		声明单个变量：
+			var name type
+				比如：var age int
+			如果变量未被赋值，Go 会自动地将其初始化，
+				赋值该变量类型的零值（Zero Value）。
+		声明变量并初始化：
+			var name type = initialvalue
+				如：var age int = 29
+		类型推断（Type Inference）：
+			如果变量有初始值，那么 Go 能够自动推断具有初始值的变量的类型。
+				如果变量有初始值，就可以在变量声明中省略 type。
+				如：var name = initialvalue，Go 能够根据初始值推断变量的类型。
+		声明多个变量：
+			var name1, name2 type = initialvalue1, initialvalue2。
+			在一个语句中声明不同类型的变量：
+				var (  
+					name1 = initialvalue1,
+					name2 = initialvalue2
+				)
+		简短声明：
+			Go 也支持一种声明变量的简洁形式，称为简短声明（Short Hand Declaration），
+				该声明使用了 := 操作符。
+			name := initialvalue
+				简短声明要求 := 操作符左边的所有变量都有初始值。
+				简短声明的语法要求 := 操作符的左边至少有一个变量是尚未声明的。
+				如果:= 操作符的左边没有尚未声明的变量，
+					会抛出 no new variables on left side of := 的错误；
+			变量也可以在运行时进行赋值；
+				比如：c := math.Min(a, b)
+			Go 是强类型（Strongly Typed）语言，
+				不允许某一类型的变量赋值为其他类型的值。
+			
+	类型：
+		基本类型：
+			bool (布尔型)；
+			数字类型：
+				int8, int16, int32, int64, int (有符号整型)
+					通常应该使用 int 表示整型；
+					大小：32 位系统下是 32 位，64 位系统下是 64 位；
+					范围：32 位系统下是 -2147483648～2147483647，
+						64 位系统是 -9223372036854775808～9223372036854775807。
+				uint8, uint16, uint32, uint64, uint (无符号整型)
+					范围：32 位系统下是 0～4294967295，
+						64 位系统是 0～18446744073709551615。
+				float32, float64 (浮点型)
+					float64 是浮点数的默认类型。
+				complex64, complex128 (复数类型)
+					实部和虚部都是 float32 或者 float64 类型的的复数；
+					内建函数 complex 用于创建一个包含实部和虚部的复数：
+						func complex(r, i FloatType) ComplexType
+					使用简短语法来创建复数：
+						c := 6 + 7i
+				byte (字节)
+					是 uint8 的别名。
+				rune (如尼)
+					是 int32 的别名。
+			string (字符串)：
+				Go 中，字符串是字节的集合。
+		类型转换：
+			Go 有着非常严格的强类型特征，没有自动类型提升或类型转换。
+			类型强行转换：
+				T(v)。
+			把一个变量赋值给另一个不同类型的变量，需要显式的类型转换。
+				如：
+					i := 10
+					var j float64 = float64(i)
+		
+		
+	函数：
+		Printf()：
+			格式化打印；
+			使用 %T 格式说明符（Format Specifier），可以打印变量的类型；
+			使用 %d 可以打印数值型变量的值；
+			
+		Sizeof()：
+			变量的字节大小；
+			unsafe 包提供的函数，该函数接收变量并返回它的字节大小。
+			unsafe 包应该小心使用，因为使用 unsafe 包可能会带来可移植性问题。
+		
+		
+			
+		
+		
+		
+		
+		
+		
+		
+		
+		

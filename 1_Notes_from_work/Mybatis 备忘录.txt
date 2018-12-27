@@ -181,7 +181,34 @@ Mybatis中javaType和jdbcType对应关系：
 		</insert>
 	
 	
+一对多的一种写法：
+	<resultMap type="Teacher" id="teacherMaps">
+		<id column="id" property="id"/>
+		<result column="name" property="name"/>
+		<result column="class_name" property="className"/>
+		<collection property="students" ofType="Student" select="getStudents" column="id">
+		</collection>
+	</resultMap>
 	
+	<!-- 查询所有的老师级各自的所有学生 -->
+	<select id="getAllTeacher" parameterType="Teacher" resultMap="teacherMaps">
+		SELECT
+			t.id,
+			t.NAME,
+			t.class_name
+		FROM
+			teacher t
+	</select>
+	
+	<select id="getStudents" parameterType="int" resultType="Student">
+		select 
+			s.id,
+			s. NAME,
+			s.class_name as className
+		from student s
+		where teacher_id = #{id}
+	</select>
+
 	
 	
 	

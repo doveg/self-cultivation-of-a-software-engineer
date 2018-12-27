@@ -159,6 +159,22 @@ UUID：
 判空：
 	list 判空：
 		list == null || list.size() == 0
+		list.isEmpty();
+		
+	普通对象判空：
+		if (emp==null) ｛ ｝
+		
+	字符串判空：
+		if (str != null && str.equals("")) {}
+		if (str == null || str.length() <= 0){}
+		if (str == null || str.isEmpty()) {}
+		if (!"".equals(str)) {//将""写在前头，这样，不管name是否为null，都不会出错。}
+	
+	判空和判等：
+		判空时，养成null在前是个好习惯；
+			null==xxxx这样的写法，可以保证你不会少写=，因为你写null=xxx编译器肯定会给你报错。
+			使用equals方法时，必须将非空的对象放在前面，null的对象一定不能放在前面。
+　　	判等时，为了避免被判断对象可能为空，所以把肯定不为空的对象放到前面是个好习惯
 
 	1. 集合类Array、List、Map、Set的判空：
 		a.List进行判空
@@ -220,7 +236,7 @@ UUID：
 			判定：
 				s.equals(” “) ;
 	
-	
+		
 
 
 

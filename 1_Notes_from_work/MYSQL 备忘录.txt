@@ -67,12 +67,14 @@ drop、truncate 和 delete：
 		4、delete 删除可以返回行数；
 
 	
-	
-	
-	
-	
-	
-	
+分组取最新的一条记录：
+	多条最新：
+		select * from (select * from t_assistant_article order by create_time desc) as a group by base_id
+		SELECT * from (SELECT * from model_online_forecastscore_phone0001 ORDER BY id DESC) as cn GROUP BY cn.mobile
+	单条最新：
+		SELECT * from model WHERE (1 = 1) GROUP BY u.id ORDER BY field(u.state, 1, 2, 3) 
+			GROUP BY 和 ORDER BY 一起使用时，ORDER BY 要在 GROUP BY 的后面。 
+		SELECT *, ABS(NOW() - startTime)  AS diffTime FROM PolicyShuPrice ORDER BY diffTime ASC LIMIT 0, 1
 	
 	
 	

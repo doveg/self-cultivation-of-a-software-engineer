@@ -104,13 +104,27 @@ Go 笔记
 	常量：
 		定义：固定的值。
 			关键字 const 被用于表示常量；
-				例如：const a = 55；
+				例如：
+					const a = 55；
+					var b string = "I love Go"
 			常量不能再重新赋值为其他的值。
+				例如：
+					func main() {  
+						const a = 55 // 允许
+						a = 89       // 不允许重新赋值
+					}
 			常量的值会在编译的时候确定，所以不能将函数的返回值赋值给常量。
+				例如：
+					func main() {  
+						fmt.Println("Hello, playground")
+						var a = math.Sqrt(4)   // 允许
+						const b = math.Sqrt(4) // 不允许
+					}
 		
 		字符串常量：
 			双引号中的任何值都是 Go 中的字符串常量。
-			例如：const hello = "Hello World"
+				例如：
+					const hello = "Hello World"
 				像 Hello World 这样的字符串常量是没有任何类型的。
 			Go 是一门强类型语言，所有的变量必须有明确的类型。
 				无类型的常量有一个与它们相关联的默认类型，并且当且仅当一行代码需要时才提供它。
@@ -122,40 +136,140 @@ Go 笔记
 					myString 是 string 的别名。
 				即使我们知道这个 myString 是 string 类型的别名。
 					Go 的类型策略不允许将一种类型的变量赋值给另一种类型的变量。
-					因此将 defaultName 赋值给 customName 是不允许的，编译器会抛出一个错误。
+			Go 是一个强类型的语言，在分配过程中混合类型是不允许的。
+				例如：
+					func main() {  
+						var defaultName = "Sam" // 允许
+						type myString string
+						var customName myString = "Sam" // 允许
+						customName = defaultName // 不允许
+					}
+				因此将 defaultName 赋值给 customName 是不允许的，编译器会抛出一个错误。
 		
 		布尔常量：
 			布尔常量和字符串常量没有什么不同。
 			他们是两个无类型的常量 true 和 false。
 			字符串常量的规则适用于布尔常量。
+				例如：
+					func main() {  
+						const trueConst = true
+						type myBool bool
+						var defaultBool = trueConst // 允许
+						var customBool myBool = trueConst // 允许
+						defaultBool = customBool // 不允许
+					}
 		
 		数字常量：
 			数字常量包含整数、浮点数和复数的常量。数字常量中有一些微妙之处。
 			const a = 5
 			上面的常量 a 是没有类型的；
 			常量的默认类型可以被认为是根据上下文在运行中生成的。
+				例如：
+					func main() {  
+						const a = 5
+						var intVar int = a
+						var int32Var int32 = a
+						var float64Var float64 = a
+						var complex64Var complex64 = a
+						fmt.Println("intVar",intVar, "\nint32Var", int32Var, "\nfloat64Var", float64Var, "\ncomplex64Var",complex64Var)
+					}
 		
 		数字表达式：
 			数字常量可以在表达式中自由混合和匹配，
 			只有当它们被分配给变量或者在需要类型的代码中的任何地方使用时，才需要类型。
+				例如：
+					func main() {  
+						var a = 5.9/8
+						fmt.Printf("a's type %T value %v",a, a)
+					}
 				5.9/8 是允许的，因为两个都是数字常量。
 				除法的结果是 0.7375 是一个浮点型，所以 var a = 5.9/8 中，a 的类型是浮点型。
-			
-		
-		
-		
-		
 		
 	函数：
-		Printf()：
-			格式化打印；
-			使用 %T 格式说明符（Format Specifier），可以打印变量的类型；
-			使用 %d 可以打印数值型变量的值；
+		函数（Function）：
+			是一块执行特定任务的代码。
+			一个函数是在输入源基础上，通过执行一系列的算法，生成预期的输出。
 			
-		Sizeof()：
-			变量的字节大小；
-			unsafe 包提供的函数，该函数接收变量并返回它的字节大小。
-			unsafe 包应该小心使用，因为使用 unsafe 包可能会带来可移植性问题。
+		函数声明：
+			语法：
+				func functionname(parametername type) returntype {  
+					// 函数体（具体实现的功能）
+				}
+			解析：
+				func：函数的声明以关键词 func 开始，
+				函数名：后面紧跟自定义的函数名 functionname；
+				参数列表：函数的参数列表定义在 ( 和 ) 之间，
+					参数：声明一个参数的语法采用 参数名 参数类型 的方式，
+						任意多个参数采用类似 (parameter1 type, parameter2 type)，
+						即(参数1 参数1的类型,参数2 参数2的类型)的形式指定。
+				返回值类型：定义在之后的 returntype 处。
+				函数体：之后包含在 { 和 } 之间的代码。
+			函数中的参数列表和返回值并非是必须的。
+				例如：
+					func functionname() {  
+						// 译注: 表示这个函数不需要输入参数，且没有返回值
+					}
+					
+		函数示例：
+			输入参数是单件商品的价格和商品的个数，两者的乘积为商品总价，作为函数的输出值。
+				func calculateBill(price int, no int) int {  
+					var totalPrice = price * no // 商品总价 = 商品单价 * 数量
+					return totalPrice // 返回总价
+				}
+			如果有连续若干个参数，它们的类型一致，那么我们无须一一罗列，只需在最后一个参数后添加该类型。
+				例如：
+					func calculateBill(price, no int) int {  
+						var totalPrice = price * no
+						return totalPrice
+					}
+				price int, no int 可以简写为 price, no int。
+				
+		函数调用：
+			语法：functionname(parameters)。
+				例如：
+					calculateBill(10, 5)
+					
+		多返回值：
+			Go 语言支持一个函数可以有多个返回值。
+			如果一个函数有多个返回值，那么这些返回值必须用 ( 和 ) 括起来。
+				例如：
+					func rectProps(length, width float64)(float64, float64) {  
+						var area = length * width
+						var perimeter = (length + width) * 2
+						return area, perimeter
+					}
+					
+		命名返回值：
+			从函数中可以返回一个命名值。一旦命名了返回值，可以认为这些值在函数第一行就被声明为变量了。
+				例如：
+					func rectProps(length, width float64)(area, perimeter float64) {  
+						area = length * width
+						perimeter = (length + width) * 2
+						return // 不需要明确指定返回值，默认返回 area, perimeter 的值
+					}
+				上面函数中的 return 语句没有显式返回任何值。
+					由于 area 和 perimeter 在函数声明中指定为返回值, 
+					因此当遇到 return 语句时, 它们将自动从函数返回。
+					
+		空白符：
+			_ 在 Go 中被用作空白符，可以用作表示任何类型的任何值。
+				例如：
+					func main() {  
+						area, _ := rectProps(10.8, 5.6) // 返回值周长被丢弃
+						fmt.Printf("Area %f ", area)
+					}
+				在 area, _ := rectProps(10.8, 5.6) 这一行中，_ 用来跳过不要的计算结果。
+				
+		常用函数：
+			Printf()：
+				格式化打印；
+				使用 %T 格式说明符（Format Specifier），可以打印变量的类型；
+				使用 %d 可以打印数值型变量的值；
+				
+			Sizeof()：
+				变量的字节大小；
+				unsafe 包提供的函数，该函数接收变量并返回它的字节大小。
+				unsafe 包应该小心使用，因为使用 unsafe 包可能会带来可移植性问题。
 		
 		
 			

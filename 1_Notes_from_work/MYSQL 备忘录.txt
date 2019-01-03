@@ -77,7 +77,81 @@ drop、truncate 和 delete：
 		SELECT *, ABS(NOW() - startTime)  AS diffTime FROM PolicyShuPrice ORDER BY diffTime ASC LIMIT 0, 1
 	
 	
+MySQL 8 递归查询
+
+	递归公用表表达式(CTE)是一个具有引用CTE名称本身的子查询的CTE。
+	以下说明递归CTE的语法：
+		WITH RECURSIVE cte_name AS (
+			initial_query  -- anchor member
+			UNION ALL
+			recursive_query -- recursive member that references to the CTE name
+		)
+		SELECT * FROM cte_name;
+	SQL递归CTE由三个主要部分组成：
+		形成CTE结构的基本结果集的初始查询(initial_query)，初始查询部分被称为锚成员。
+		递归查询部分是引用CTE名称的查询，因此称为递归成员。
+			递归成员由一个UNION ALL或UNION DISTINCT运算符与锚成员相连。
+		终止条件是当递归成员没有返回任何行时，确保递归停止。
+	递归CTE的执行顺序如下：
+		首先，将成员分为两个：锚点和递归成员。
+		接下来，执行锚成员形成基本结果集(R0)，并使用该基本结果集进行下一次迭代。
+		然后，将Ri结果集作为输入执行递归成员，并将Ri+1作为输出。
+		之后，重复第三步，直到递归成员返回一个空结果集，换句话说，满足终止条件。
+		最后，使用UNION ALL运算符将结果集从R0到Rn组合。
 	
+	例如：
+		WITH RECURSIVE cte_name AS
+		(
+				SELECT
+					FCODE,
+					FNAME,
+					FPCODE,
+					FCODEKEY,
+					FCUSER,
+					FCDATE,
+					FMUSER,
+					FMDATE
+				FROM
+					t_commom_area A
+				WHERE
+					FPCODE = null
+			UNION ALL
+				SELECT
+					K.FCODE,
+					K.FNAME,
+					K.FPCODE,
+					K.FCODEKEY,
+					K.FCUSER,
+					K.FCDATE,
+					K.FMUSER,
+					K.FMDATE
+				FROM
+					t_commom_area K
+				INNER JOIN cte C ON C.FCODE = K.FPCODE
+		)
+		SELECT
+			FCODE,
+			FNAME,
+			FPCODE,
+			FCODEKEY,
+			FCUSER,
+			FCDATE,
+			FMUSER,
+			FMDATE
+		FROM
+			t_commom_area cte_name
+		WHERE
+			FCODE != ''
+			OR FNAME != ''
+			OR FCODEKEY != ''
+	例如：
+		with RECURSIVE cte as
+		(
+		select a.id,cast(a.name as varchar(100)) from tb a where id='002'
+		union all 
+		select k.id,cast(c.name||'>'||k.name as varchar(100)) as name  from tb k 
+		inner join cte c on c.id = k.pid
+		)select id,name from cte ;
 	
 	
 	

@@ -19,12 +19,17 @@ Go 笔记
 		install：后面加包名，创建一个同包名的二进制文件；
 		
 	文件结构：
+		例如：
+			package main
+			import "fmt"
+			func main() {  
+				fmt.Println("Hello World")
+			}
 		package：每一个 Go 文件都应该在开头进行 package name 的声明；
 			只有可执行程序的包名应当为 main：package main。
-		import ""：引入了外部的包；
-		func main()：main 是一个特殊的函数，是程序的入口；
-			main 函数必须放置在 main 包中。
-		
+		import ""：引入了外部的包，多个包可以用圆括号括起来。
+		func main()：main 是一个特殊的函数，是程序的入口，main 函数必须放置在 main 包中。
+			
 	目录结构：
 		src：源码文件夹；
 		bin：二进制文件。
@@ -34,79 +39,181 @@ Go 笔记
 	变量：
 		变量：指定了某存储单元（Memory Location）的名称，
 			该存储单元会存储特定类型的值。
+		
 		声明单个变量：
-			var name type
-				比如：var age int
+			语法：var name type
+				例如：
+					func main() {
+						var age int // 变量声明
+					}
 			如果变量未被赋值，Go 会自动地将其初始化，
 				赋值该变量类型的零值（Zero Value）。
+		
 		声明变量并初始化：
-			var name type = initialvalue
-				如：var age int = 29
+			语法：var name type = initialvalue
+				例如：
+					func main() {
+						var age int = 29 // 声明变量并初始化
+					}
+		
 		类型推断（Type Inference）：
 			如果变量有初始值，那么 Go 能够自动推断具有初始值的变量的类型。
 				如果变量有初始值，就可以在变量声明中省略 type。
-				如：var name = initialvalue，Go 能够根据初始值推断变量的类型。
+			语法：var name = initialvalue
+				Go 能够根据初始值推断变量的类型。
+				例如：
+					func main() {
+						var age = 29 // 可以推断类型
+					}
+		
 		声明多个变量：
-			var name1, name2 type = initialvalue1, initialvalue2。
+			语法：var name1, name2 type = initialvalue1, initialvalue2
+				例如：
+					func main() {
+						var width, height int = 100, 50 // 声明多个变量
+					}
 			在一个语句中声明不同类型的变量：
-				var (  
-					name1 = initialvalue1,
-					name2 = initialvalue2
-				)
+				语法：
+					var (  
+						name1 = initialvalue1,
+						name2 = initialvalue2
+					)
+				例如：
+					func main() {
+						var (
+							name   = "naveen"
+							age    = 29
+							height int
+						)
+					}
+		
 		简短声明：
 			Go 也支持一种声明变量的简洁形式，称为简短声明（Short Hand Declaration），
 				该声明使用了 := 操作符。
-			name := initialvalue
-				简短声明要求 := 操作符左边的所有变量都有初始值。
-				简短声明的语法要求 := 操作符的左边至少有一个变量是尚未声明的。
-				如果:= 操作符的左边没有尚未声明的变量，
-					会抛出 no new variables on left side of := 的错误；
+			语法：name := initialvalue
+				例如：
+					func main() {  
+						name, age := "naveen", 29 // 简短声明
+					}
+			要求：
+				:= 操作符左边的所有变量都有初始值。
+					例如：
+						func main() {  
+							name, age := "naveen" //error
+						}
+				:= 操作符的左边至少有一个变量是尚未声明的。
+					例如：
+						func main() {
+							a, b := 20, 30 // 声明变量a和b
+							b, c := 40, 50 // b已经声明，但c尚未声明
+							b, c = 80, 90 // 给已经声明的变量b和c赋新值
+						}
+					如果:= 操作符的左边没有尚未声明的变量，
+						会抛出 no new variables on left side of := 的错误。
+						例如：
+							func main() {  
+								a, b := 20, 30 // 声明a和b
+								a, b := 40, 50 // 错误，没有尚未声明的变量
+							}
 			变量也可以在运行时进行赋值；
-				比如：c := math.Min(a, b)
+				例如：
+					func main() {  
+						a, b := 145.8, 543.8
+						c := math.Min(a, b)
+						fmt.Println("minimum value is ", c)
+					}
 			Go 是强类型（Strongly Typed）语言，
 				不允许某一类型的变量赋值为其他类型的值。
-			
+					例如：
+						func main() {  
+							age := 29      // age是int类型
+							age = "naveen" // 错误，尝试赋值一个字符串给int类型变量
+						}
+		
 	类型：
 		基本类型：
 			bool (布尔型)；
+				例如：
+					func main() {  
+						a := true
+						b := false
+						c := a && b
+						d := a || b
+					}
+			
 			数字类型：
-				int8, int16, int32, int64, int (有符号整型)
+				int8, int16, int32, int64, int (有符号整型)：
 					通常应该使用 int 表示整型；
 					大小：32 位系统下是 32 位，64 位系统下是 64 位；
 					范围：32 位系统下是 -2147483648～2147483647，
 						64 位系统是 -9223372036854775808～9223372036854775807。
-				uint8, uint16, uint32, uint64, uint (无符号整型)
+					例如：
+						func main() {  
+							var a int = 89
+							b := 95
+							// a 的类型和大小
+							fmt.Printf("type of a is %T, size of a is %d", a, unsafe.Sizeof(a)) 
+							// b 的类型和大小
+							fmt.Printf("\ntype of b is %T, size of b is %d", b, unsafe.Sizeof(b)) 
+						}
+				uint8, uint16, uint32, uint64, uint (无符号整型)：
 					范围：32 位系统下是 0～4294967295，
 						64 位系统是 0～18446744073709551615。
-				float32, float64 (浮点型)
+				float32, float64 (浮点型)：
 					float64 是浮点数的默认类型。
-				complex64, complex128 (复数类型)
+					例如：
+						func main() {  
+							a, b := 5.67, 8.97
+							fmt.Printf("type of a %T b %T\n", a, b)
+							sum := a + b
+							diff := a - b
+							fmt.Println("sum", sum, "diff", diff)
+						}
+				complex64, complex128 (复数类型)：
 					实部和虚部都是 float32 或者 float64 类型的的复数；
 					内建函数 complex 用于创建一个包含实部和虚部的复数：
 						func complex(r, i FloatType) ComplexType
 					使用简短语法来创建复数：
 						c := 6 + 7i
-				byte (字节)
+				byte (字节)：
 					是 uint8 的别名。
-				rune (如尼)
+				rune (如尼)：
 					是 int32 的别名。
+			
 			string (字符串)：
 				Go 中，字符串是字节的集合。
+		
 		类型转换：
 			Go 有着非常严格的强类型特征，没有自动类型提升或类型转换。
+				例如：
+					func main() {  
+						i := 55      //int
+						j := 67.8    //float64
+						sum := i + j //不允许 int + float64
+					}
 			类型强行转换：
 				T(v)。
+				例如：
+					func main() {  
+						i := 55      //int
+						j := 67.8    //float64
+						sum := i + int(j) //j is converted to int
+					}
 			把一个变量赋值给另一个不同类型的变量，需要显式的类型转换。
-				如：
-					i := 10
-					var j float64 = float64(i)
+				例如：
+					func main() {  
+						i := 10
+						var j float64 = float64(i) // 若没有显式转换，该语句会报错
+					}
 		
 	常量：
 		定义：固定的值。
 			关键字 const 被用于表示常量；
 				例如：
-					const a = 55；
-					var b string = "I love Go"
+					func main() {  
+						const a = 55；
+						var b string = "I love Go"
+					}
 			常量不能再重新赋值为其他的值。
 				例如：
 					func main() {  
@@ -231,7 +338,7 @@ Go 笔记
 					
 		多返回值：
 			Go 语言支持一个函数可以有多个返回值。
-			如果一个函数有多个返回值，那么这些返回值必须用 ( 和 ) 括起来。
+			如果一个函数有多个返回值，那么这些返回值必须用圆括号括起来。
 				例如：
 					func rectProps(length, width float64)(float64, float64) {  
 						var area = length * width
@@ -263,22 +370,253 @@ Go 笔记
 		常用函数：
 			Printf()：
 				格式化打印；
-				使用 %T 格式说明符（Format Specifier），可以打印变量的类型；
-				使用 %d 可以打印数值型变量的值；
-				
+				格式说明符（Format Specifier）：
+					%T 可以打印变量的类型；
+					%d 可以打印数值型变量的值；
+					%.2f 可以将浮点数截断到小数点两位。
 			Sizeof()：
 				变量的字节大小；
 				unsafe 包提供的函数，该函数接收变量并返回它的字节大小。
 				unsafe 包应该小心使用，因为使用 unsafe 包可能会带来可移植性问题。
 		
-		
+	包：
+		包（Package）：
+			用于组织 Go 源代码，提供了更好的可重用性与可读性。
 			
+		main 函数和 main 包：
+			所有可执行的 Go 程序都必须包含一个 main 函数；
+				这个函数是程序运行的入口；
+				main 函数应该放置于 main 包中。
+			package packagename 这行代码指定了某一源文件属于一个包；
+				应该放在每一个源文件的第一行。
+				例如：
+					// geometry.go
+					package main 
+					import "fmt"
+					func main() {  
+						fmt.Println("Geometrical shape properties")
+					}
+				package main 这一行指定该文件属于 main 包。
+				import "packagename" 语句用于导入一个已存在的包。
+					
+		创建自定义的包：
+			属于某一个包的源文件都应该放置于一个单独命名的文件夹里。
+				按照 Go 的惯例，应该用包名命名该文件夹。
+				例如：
+					// rectprops.go
+					package rectangle
+					import "math"
+					func Area(len, wid float64) float64 {  
+						area := len * wid
+						return area
+					}
+					func Diagonal(len, wid float64) float64 {  
+						diagonal := math.Sqrt((len * len) + (wid * wid))
+						return diagonal
+					}
+				注意：函数 Area 和 Diagonal 都是以大写字母开头的。
+				
+		导入自定义包：
+			为了使用自定义包，我们必须要先导入它。导入自定义包的语法为 import path。
+			我们必须指定自定义包相对于工作区内 src 文件夹的相对路径。
+				例如：
+					// geometry.go
+					package main 
+					import (  
+						"fmt"
+						"geometry/rectangle" // 导入自定义包
+					)
+					func main() {  
+						var rectLen, rectWidth float64 = 6, 7
+						/*Area function of rectangle package used*/
+						fmt.Printf("area of rectangle %.2f\n", rectangle.Area(rectLen, rectWidth))
+						/*Diagonal function of rectangle package used*/
+						fmt.Printf("diagonal of the rectangle %.2f ", rectangle.Diagonal(rectLen, rectWidth))
+					}
+					
+		导出名字（Exported Names）：
+			在 Go 中，任何以大写字母开头的变量或者函数都是被导出的名字。
+				其它包只能访问被导出的函数和变量。
+				如果想在包外访问一个函数，它应该首字母大写。
+					
+		init 函数：
+			所有包都可以包含一个 init 函数。
+				init 函数不应该有任何返回值类型和参数，在我们的代码中也不能显式地调用它。
+				init 函数可用于执行初始化任务，也可用于在开始执行之前验证程序的正确性。
+			包的初始化顺序：
+				首先初始化包级别（Package Level）的变量；
+				紧接着调用 init 函数。
+					包可以有多个 init 函数（在一个文件或分布于多个文件中），
+					它们按照编译器解析它们的顺序进行调用。
+			项目级别的初始化顺序：
+				如果一个包导入了另一个包，会先初始化被导入的包。
+				尽管一个包可能会被导入多次，但是它只会被初始化一次。
+					
+		使用空白标识符（Blank Identifier）：	
+			导入了包，却不在代码中使用它，这在 Go 中是非法的。
+				当这么做时，编译器是会报错的。
+				原因是为了避免导入过多未使用的包，从而导致编译时间显著增加。
+					例如：
+						package main 
+						import (
+							"geometry/rectangle" // 导入自定的包
+						)
+						func main() {
+						}
+					上面的程序将会抛出错误 geometry.go:6: imported and not used: "geometry/rectangle"。
+			
+			在程序开发的活跃阶段，又常常会先导入包，而暂不使用它。
+				遇到这种情况就可以使用空白标识符 _。
+					例如：
+						package main
+						import (  
+							"geometry/rectangle" 
+						)
+						var _ = rectangle.Area // 错误屏蔽器
+						func main() {
+						}
+				我们应该了解错误屏蔽器（Error Silencer）的动态，在程序开发结束时就移除它们。
+				建议在 import 语句下面的包级别范围中写上错误屏蔽器。
+					
+			有时候我们导入一个包，只是为了确保它进行了初始化，而无需使用包中的任何函数或变量。
+				例如，我们或许需要确保调用了 rectangle 包的 init 函数，而不需要在代码中使用它。
+				这种情况也可以使用空白标识符。
+					例如：
+						package main 
+						import (
+							_ "geometry/rectangle" 
+						)
+						func main() {
+						}
+					
+	if-else 语句：
+		if 条件语句：
+			语法：
+				if condition {  
+				}
 		
+		if-else 语句：
+			有可选的 else if 和 else 部分：
+			语法：
+				if condition {  
+				} else if condition {
+				} else {
+					}
+			注意：
+				if-else 语句之间可以有任意数量的 else if。
+				条件判断顺序是从上到下。
+				如果 if 或 else if 条件判断的结果为真，则执行相应的代码块。
+				如果没有条件为真，则 else 代码块被执行。
+			例如：
+				func main() {  
+					num := 10
+					if num % 2 == 0 { //checks if number is even
+						fmt.Println("the number is even") 
+					}  else {
+						fmt.Println("the number is odd")
+					}
+				}
 		
-		
-		
-		
-		
-		
-		
-		
+		if 还有另外一种形式，它包含一个 statement 可选语句部分，该组件在条件判断之前运行。
+			语法：
+				if statement; condition {  
+				}
+			例如：
+				func main() {  
+					if num := 10; num % 2 == 0 { //checks if number is even
+						fmt.Println(num,"is even") 
+					}  else {
+						fmt.Println(num,"is odd")
+					}
+				}
+				num 在 if 语句中进行初始化，num 只能从 if 和 else 中访问。
+				也就是说 num 的范围仅限于 if else 代码块。
+				如果我们试图从其他外部的 if 或者 else 访问 num,编译器会不通过。
+					
+		一个注意点：
+			else 语句应该在 if 语句的大括号 } 之后的同一行中。
+			如果不是，编译器会不通过。
+				例如：
+					func main() {  
+						num := 10
+						if num % 2 == 0 { //checks if number is even
+							fmt.Println("the number is even") 
+						}  
+						else {
+							fmt.Println("the number is odd")
+						}
+					}
+					编译器会输出错误：main.go:12:5: syntax error: unexpected else, expecting }
+			因为 Go 语言的分号是自动插入：
+				如果 } 是该行的最终标记， } 之后会被插入一个分号。
+					
+	循环：
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					

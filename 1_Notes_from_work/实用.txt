@@ -130,7 +130,19 @@
 			} catch (ParseException exception) {
 				exception.printStackTrace();
 			}
-
+			
+			
+JSON 工具：
+	Gson 包：
+		Gson gson = new Gson();
+		String str = gson.toJson(nodeTree);
+	fastjson 包：
+		String str = JSON.toJSONString(nodeTree);
+			
+			
+			
+			
+			
 		
 UUID：
 	056085ce-8e46-492a-bcec-9a4d3690ce83

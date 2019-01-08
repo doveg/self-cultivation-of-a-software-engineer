@@ -643,6 +643,273 @@ Go 笔记
 			这里还有一个 range 结构，它可以被用来在 for 循环中操作数组对象。
 					
 	switch 语句：	
+		switch 是一个条件语句；
+			用于将表达式的值与可能匹配的选项列表进行比较，并根据匹配情况执行相应的代码块。
+				它可以被认为是替代多个 if else 子句的常用方式。
+			例如：
+				func main() {
+					finger := 4
+					switch finger {
+					case 1:
+						fmt.Println("Thumb")
+					case 2:
+						fmt.Println("Index")
+					case 3:
+						fmt.Println("Middle")
+					case 4:
+						fmt.Println("Ring")
+					case 5:
+						fmt.Println("Pinky")
+					}
+				}
+			在选项列表中，case 不允许出现重复项。
+		
+		默认情况（Default Case）：
+			例如：
+				func main() {
+					switch finger := 8; finger {
+					case 1:
+						fmt.Println("Thumb")
+					case 2:
+						fmt.Println("Index")
+					case 3:
+						fmt.Println("Middle")
+					case 4:
+						fmt.Println("Ring")
+					case 5:
+						fmt.Println("Pinky")
+					default: // 默认情况
+						fmt.Println("incorrect finger number")
+					}
+				}
+			default 不一定只能出现在 switch 语句的最后，它可以放在 switch 语句的任何地方。
+			在这里，finger 声明在了 switch 语句内，finger 变量的作用域仅限于这个 switch 内。
+					
+		多表达式判断：
+			通过用逗号分隔，可以在一个 case 中包含多个表达式。
+				例如：
+					func main() {
+						letter := "i"
+						switch letter {
+						case "a", "e", "i", "o", "u": // 一个选项多个表达式
+							fmt.Println("vowel")
+						default:
+							fmt.Println("not a vowel")
+						}
+					}
+					
+		无表达式的 switch：
+			在 switch 语句中，表达式是可选的，可以被省略。
+				如果省略表达式，则表示这个 switch 语句等同于 switch true，
+				并且每个 case 表达式都被认定为有效，相应的代码块也会被执行。
+			例如：					
+				func main() {
+					num := 75
+					switch { // 表达式被省略了
+					case num >= 0 && num <= 50:
+						fmt.Println("num is greater than 0 and less than 50")
+					case num >= 51 && num <= 100:
+						fmt.Println("num is greater than 51 and less than 100")
+					case num >= 101:
+						fmt.Println("num is greater than 100")
+					}
+
+				}
+			在上述代码中，switch 中缺少表达式，因此默认它为 true，
+				true 值会和每一个 case 的求值结果进行匹配。
+				这种类型的 switch 语句可以替代多个 if else 子句。
+					
+		Fallthrough 语句：
+			Go 中，每执行完一个 case 后，会从 switch 语句中跳出来，不再做后续 case 的判断和执行。
+			fallthrough 语句，
+				可以在已经执行完成的 case 之后，把控制权转移到下一个 case 的执行代码中。
+					例如：
+						func main() {
+							switch num := number(); { // num is not a constant
+							case num < 50:
+								fmt.Printf("%d is lesser than 50\n", num)
+								fallthrough
+							case num < 100:
+								fmt.Printf("%d is lesser than 100\n", num)
+								fallthrough
+							case num < 200:
+								fmt.Printf("%d is lesser than 200", num)
+							}
+						}
+					switch 和 case 的表达式不一定是常量。它们也可以在运行过程中通过计算得到。
+				fallthrough 语句应该是 case 子句的最后一个语句。
+					如果它出现在了 case 语句的中间，编译器会报错：fallthrough statement out of place
+					
+	数组和切片：
+		数组：
+			同一类型元素的集合。
+		
+		数组的声明：
+			形式：
+				一个数组的表示形式为 [n]T。
+				n 表示数组中元素的数量，T 代表每个元素的类型。
+					元素的数量 n 也是该类型的一部分。
+						例如：
+							func main() {
+								var a [3]int //int array with length 3
+							}
+					数组中的所有元素都被自动赋值为数组类型的零值。
+			索引：
+				数组的索引从 0 开始到 length - 1 结束。
+					例如：
+						func main() {
+							var a [3]int //int array with length 3
+							a[0] = 12 // array index starts at 0
+							a[1] = 78
+							a[2] = 50
+						}
+			简略声明：
+				来创建相同的数组。
+					例如：
+						func main() {
+							a := [3]int{12, 78, 50} // short hand declaration to create array
+						}
+				在简略声明中，不需要将数组中所有的元素赋值。
+					例如：
+						func main() {
+							a := [3]int{12} 
+						}
+					声明一个长度为 3 的数组，但只提供了一个值 12，剩下的 2 个元素自动赋值为 0。
+			不定长数组：
+				可以忽略声明数组的长度，并用 ... 代替，让编译器为你自动计算长度：
+					例如：
+						func main() {
+							a := [...]int{12, 78, 50} // ... makes the compiler determine the length
+						}
+				数组的大小是类型的一部分。因此 [5]int 和 [25]int 是不同类型。
+				数组不能调整大小，不要担心这个限制，因为 slices 的存在能解决这个问题。
+					
+		数组是值类型：
+			Go 中的数组是值类型而不是引用类型。
+				当数组赋值给一个新的变量时，该变量会得到一个原始数组的一个副本。
+				如果对新变量进行更改，则不会影响原始数组。
+					例如：
+						func main() {
+							a := [...]string{"USA", "China", "India", "Germany", "France"}
+							b := a // a copy of a is assigned to b
+							b[0] = "Singapore"
+						}
+			当数组作为参数传递给函数时，它们是按值传递，而原始数组保持不变。
+				例如：
+					func changeLocal(num [5]int) {
+						num[0] = 55
+					}
+					func main() {
+						num := [...]int{5, 6, 7, 8, 8}
+						changeLocal(num) //num is passed by value
+					}
+				上述数组 num 实际上是通过值传递给函数 changeLocal，数组不会因为函数调用而改变。
+		
+		数组的长度：
+			将数组作为参数传递给 len 函数，可以得到数组的长度。
+				例如：
+					func main() {
+						a := [...]float64{67.7, 89.8, 21, 78}
+						fmt.Println("length of a is",len(a))
+					}					
+					
+		使用 range 迭代数组：
+			for 循环可用于遍历数组中的元素。
+				例如：
+					func main() {
+						a := [...]float64{67.7, 89.8, 21, 78}
+						for i := 0; i < len(a); i++ { // looping from 0 to the length of the array
+							fmt.Printf("%d th element of a is %.2f\n", i, a[i])
+						}
+					}
+			Go 提供了一种更好、更简洁的方法，通过使用 for 循环的 range 方法来遍历数组。
+				range 返回索引和该索引处的值。
+				使用 range 重写上面的代码，我们还可以获取数组中所有元素的总和。
+					例如：
+						func main() {
+							a := [...]float64{67.7, 89.8, 21, 78}
+							sum := float64(0)
+							for i, v := range a {//range returns both the index and value
+								fmt.Printf("%d the element of a is %.2f\n", i, v)
+								sum += v
+							}
+							fmt.Println("\nsum of all elements of a",sum)
+						}
+				如果你只需要值并希望忽略索引，则可以通过用 _ 空白标识符替换索引来执行。
+					例如：
+						for _, v := range a { // ignores index  
+						}
+					
+		多维数组：
+			例如：
+				var b [3][2]string
+				b[0][0] = "apple"
+				b[0][1] = "samsung"
+				b[1][0] = "microsoft"
+				b[1][1] = "google"
+				b[2][0] = "AT&T"
+				b[2][1] = "T-Mobile"					
+			简略语法声明多维数组：
+				a := [3][2]string{
+					{"lion", "tiger"},
+					{"cat", "dog"},
+					{"pigeon", "peacock"}, 
+					// this comma is necessary. The compiler will complain if you omit this comma
+				}					
+					
+		切片：
+			Go 中，切片比传统数组更常见。
+			切片是由数组建立的一种方便、灵活且功能强大的包装（Wrapper）。
+			切片本身不拥有任何数据，它们只是对现有数组的引用。
+					
+		创建一个切片：
+			形式：
+				带有 T 类型元素的切片由 []T 表示。
+			使用语法：
+				a[start:end]
+				创建一个从 a 数组索引 start 开始到 end - 1 结束的切片。
+					例如：
+						func main() {
+							a := [5]int{76, 77, 78, 79, 80}
+							var b []int = a[1:4] // creates a slice from a[1] to a[3]
+						}
+			另一种创建切片的方法：
+				例如：
+					func main() {  
+						c := []int{6, 7, 8} // creates an array and returns a slice reference
+					}					
+				创建一个有 3 个整型元素的数组，并返回一个存储在 c 中的切片引用。
+					
+		切片的修改：
+			切片自己不拥有任何数据，它只是底层数组的一种表示。
+			对切片所做的任何修改都会反映在底层数组中。
+				例如：
+					func main() {
+						darr := [...]int{57, 89, 90, 82, 100, 78, 67, 69, 59}
+						dslice := darr[2:5]
+						fmt.Println("array before", darr)
+						for i := range dslice {
+							dslice[i]++
+						}
+						fmt.Println("array after", darr)
+					}
+			当多个切片共用相同的底层数组时，每个切片所做的更改将反映在数组中。
+				例如：
+					func main() {
+						numa := [3]int{78, 79 ,80}
+						nums1 := numa[:] // creates a slice which contains all elements of the array
+						nums2 := numa[:]
+						fmt.Println("array before change 1", numa)
+						nums1[0] = 100
+						fmt.Println("array after modification to slice nums1", numa)
+						nums2[1] = 101
+						fmt.Println("array after modification to slice nums2", numa)
+					}
+				numa [:] 缺少开始和结束值，开始和结束的默认值分别为 0 和 len (numa)。
+					
+		切片的长度和容量：
+			切片的长度是切片中的元素数。
+			切片的容量是从创建切片索引开始的底层数组中元素数。
 					
 					
 					
@@ -671,15 +938,4 @@ Go 笔记
 					
 					
 					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
+例如：

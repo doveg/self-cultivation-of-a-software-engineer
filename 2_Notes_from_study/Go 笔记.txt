@@ -910,8 +910,129 @@ Go 笔记
 		切片的长度和容量：
 			切片的长度是切片中的元素数。
 			切片的容量是从创建切片索引开始的底层数组中元素数。
+				例如：
+					func main() {
+						fruitarray := [...]string{"apple", "orange", "grape", "mango", "water melon", "pine apple", "chikoo"}
+						fruitslice := fruitarray[1:3]
+						// length of is 2 and capacity is 6
+						fmt.Printf("length of slice %d capacity %d", len(fruitslice), cap(fruitslice)) 
+					}
+			切片可以重置容量：
+				超出切片的容量会导致程序运行时抛出错误。
+				例如：
+					func main() {
+						fruitarray := [...]string{"apple", "orange", "grape", "mango", "water melon", "pine apple", "chikoo"}
+						fruitslice := fruitarray[1:3]
+						fmt.Printf("length of slice %d capacity %d\n", len(fruitslice), cap(fruitslice)) // length of is 2 and capacity is 6
+						fruitslice = fruitslice[:cap(fruitslice)] // re-slicing furitslice till its capacity
+						fmt.Println("After re-slicing length is",len(fruitslice), "and capacity is",cap(fruitslice))
+					}
 					
+		使用 make 创建一个切片：
+			func make（[]T，len，cap）
+				[]T 通过传递类型，长度和容量来创建切片。
+				容量是可选参数, 默认值为切片长度。
+				make 函数创建一个数组，并返回引用该数组的切片。
+			例如：
+				func main() {
+					i := make([]int, 5, 5)
+				}
 					
+		追加切片元素：
+			数组的长度是固定的，它的长度不能增加。
+			切片是动态的，使用 append 可以将新元素追加到切片上。
+			append 函数：
+				func append（s[]T，x ... T）[]T。
+					x ... T 在函数定义中表示该函数接受参数 x 的个数是可变的。
+					这些类型的函数被称为可变函数。
+			当新的元素被添加到切片时，会创建一个新的数组。
+				现有数组的元素被复制到这个新数组中，并返回这个新数组的新切片引用。
+				新切片的容量是旧切片的两倍。
+			切片类型的零值为 nil。一个 nil 切片的长度和容量为 0。
+				可以使用 append 函数将值追加到 nil 切片。
+					例如：
+						func main() {  
+							var names []string //zero value of a slice is nil
+							if names == nil {
+								fmt.Println("slice is nil going to append")
+								names = append(names, "John", "Sebastian", "Vinay")
+								fmt.Println("names contents:",names)
+							}
+						}
+				也可以使用 ... 运算符将一个切片添加到另一个切片。
+					例如：
+						func main() {
+							veggies := []string{"potatoes", "tomatoes", "brinjal"}
+							fruits := []string{"oranges", "apples"}
+							food := append(veggies, fruits...)
+							fmt.Println("food:",food)
+						}
+					
+		切片的函数传递：
+			切片在内部可由一个结构体类型表示。
+				表现形式，
+					type slice struct {  
+						Length        int
+						Capacity      int
+						ZerothElement *byte
+					}
+			切片包含长度、容量和指向数组第零个元素的指针。
+				当切片传递给函数时，即使它通过值传递，指针变量也将引用相同的底层数组。
+				当切片作为参数传递给函数时，函数内所做的更改也会在函数外可见。
+					例如：
+						func subtactOne(numbers []int) {
+							for i := range numbers {
+								numbers[i] -= 2
+							}
+						}
+						func main() {
+							nos := []int{8, 7, 6}
+							fmt.Println("slice before function call", nos)
+							subtactOne(nos)                               // function modifies the slice
+							fmt.Println("slice after function call", nos) // modifications are visible outside
+						}
+					
+		多维切片：
+			类似于数组，切片可以有多个维度。
+				例如：
+					func main() {  
+						 pls := [][]string {
+								{"C", "C++"},
+								{"JavaScript"},
+								{"Go", "Rust"},
+								}
+						for _, v1 := range pls {
+							for _, v2 := range v1 {
+								fmt.Printf("%s ", v2)
+							}
+							fmt.Printf("\n")
+						}
+					}
+					
+		内存优化：
+			切片持有对底层数组的引用。
+			只要切片在内存中，数组就不能被垃圾回收，在内存管理方面，这是需要注意的。
+				假设有一个非常大的数组，我们只想处理它的一小部分。
+				然后，我们由这个数组创建一个切片，并开始处理切片。
+				这里需要重点注意的是，在切片引用时数组仍然存在内存中。
+			一种解决方法是使用 copy 函数
+				func copy(dst，src[]T)int 生成一个切片的副本；
+				这样我们可以使用新的切片，原始数组可以被垃圾回收。
+					例如：
+						func countries() []string {
+							countries := []string{"USA", "Singapore", "Germany", "India", "Australia"}
+							neededCountries := countries[:len(countries)-2]
+							countriesCpy := make([]string, len(neededCountries))
+							copy(countriesCpy, neededCountries) //copies neededCountries to countriesCpy
+							return countriesCpy
+						}
+						func main() {
+							countriesNeeded := countries()
+							fmt.Println(countriesNeeded)
+						}
+					
+	可变参数函数：
+		
 					
 					
 					

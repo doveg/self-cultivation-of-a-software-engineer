@@ -1337,14 +1337,127 @@ Go 笔记
 					为每一个「字符」分配一个唯一的 ID（学名为码位 / 码点 / Code Point）
 				编码规则：
 					将「码位」转换为字节序列的规则（编码/解码 可以理解为 加密/解密 的过程）
-				广义的 Unicode 是一个标准，
-					定义了一个字符集以及一系列的编码规则，
-					即 Unicode 字符集和 UTF-8、UTF-16、UTF-32 等等编码……
 				Unicode 字符集：
 					为每一个字符分配一个码位，
 					例如「知」的码位是 30693，记作 U+77E5（30693 的十六进制为 0x77E5）。
 				UTF-8 是一套以 8 位为一个编码单位的可变长编码；
 					会将一个码位编码为 1 到 4 个字节：
+					
+			打印字符串的每一个字符：
+				例如：
+					func printBytes(s string) {
+						for i:= 0; i < len(s); i++ {
+							fmt.Printf("%x ", s[i])
+						}
+					}
+					func printChars(s string) {
+						for i:= 0; i < len(s); i++ {
+							fmt.Printf("%c ",s[i])
+						}
+					}
+					func main() {
+						name := "Hello World"
+						printBytes(name)
+						fmt.Printf("\n")
+						printChars(name)
+					}
+			上面的程序获取字符串的每一个字符，虽然看起来是合法的，但却有一个严重的 bug：
+				例如：
+					func printBytes(s string) {
+						for i:= 0; i < len(s); i++ {
+							fmt.Printf("%x ", s[i])
+						}
+					}
+					func printChars(s string) {
+						for i:= 0; i < len(s); i++ {
+							fmt.Printf("%c ",s[i])
+						}
+					}
+					func main() {
+						name := "Hello World"
+						printBytes(name)
+						fmt.Printf("\n")
+						printChars(name)
+						fmt.Printf("\n")
+						name = "Señor"
+						printBytes(name)
+						fmt.Printf("\n")
+						printChars(name)
+					}
+				我们打印字符时，却假定每个字符的编码只会占用一个字节，这是错误的。
+				在 UTF-8 编码中，一个代码点可能会占用超过一个字节的空间。
+					
+		rune：
+			rune 是 Go 语言的内建类型，它也是 int32 的别称。
+			在 Go 中，rune 表示一个代码点。
+			代码点无论占用多少个字节，都可以用一个 rune 来表示。
+				例如：
+					func printBytes(s string) {
+						for i:= 0; i < len(s); i++ {
+							fmt.Printf("%x ", s[i])
+						}
+					}
+					func printChars(s string) {
+						runes := []rune(s)
+						for i:= 0; i < len(runes); i++ {
+							fmt.Printf("%c ",runes[i])
+						}
+					}
+					func main() {
+						name := "Hello World"
+						printBytes(name)
+						fmt.Printf("\n")
+						printChars(name)
+						fmt.Printf("\n\n")
+						name = "Señor"
+						printBytes(name)
+						fmt.Printf("\n")
+						printChars(name)
+					}
+					
+		字符串的 for range 循环：
+			使用 rune 是一种遍历字符串的好方法，
+			但是 Go 给我们提供了一种更简单的方法来做到这一点：使用 for range 循环。
+				例如：
+					func printCharsAndBytes(s string) {
+						for index, rune := range s {
+							fmt.Printf("%c starts at byte %d\n", rune, index)
+						}
+					}
+					func main() {
+						name := "Señor"
+						printCharsAndBytes(name)
+					}
+					
+		用字节切片构造字符串：
+			例如：
+				func main() {  
+					byteSlice := []byte{0x43, 0x61, 0x66, 0xC3, 0xA9}
+					str := string(byteSlice)
+					fmt.Println(str)
+				}
+			如果把 16 进制换成对应的 10 进制值：
+				例如：
+					func main() {
+						byteSlice := []byte{67, 97, 102, 195, 169}//decimal equivalent of {'\x43', '\x61', '\x66', '\xC3', '\xA9'}
+						str := string(byteSlice)
+						fmt.Println(str)
+					}
+			进制表示：
+				二进制(Binary)：前缀 0b，后缀 B；
+				八进制(Octal)：前缀 0，后缀 Q；
+				十进制(Decimal)：前缀 \，后缀 D；
+				十六进制(Hexadecimal)：前缀 0x，后缀 H。
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
 					
 					
 					

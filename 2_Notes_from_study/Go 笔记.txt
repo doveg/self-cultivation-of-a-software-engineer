@@ -1449,7 +1449,7 @@ Go 笔记
 				十进制(Decimal)：前缀 \，后缀 D；
 				十六进制(Hexadecimal)：前缀 0x，后缀 H。
 					
-					
+		用 rune 切片构造字符串：
 					
 					
 					

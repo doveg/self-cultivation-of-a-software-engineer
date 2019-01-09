@@ -347,7 +347,8 @@ Go 笔记
 					}
 					
 		命名返回值：
-			从函数中可以返回一个命名值。一旦命名了返回值，可以认为这些值在函数第一行就被声明为变量了。
+			从函数中可以返回一个命名值。
+			一旦命名了返回值，可以认为这些值在函数第一行就被声明为变量了。
 				例如：
 					func rectProps(length, width float64)(area, perimeter float64) {  
 						area = length * width
@@ -379,6 +380,12 @@ Go 笔记
 				unsafe 包提供的函数，该函数接收变量并返回它的字节大小。
 				unsafe 包应该小心使用，因为使用 unsafe 包可能会带来可移植性问题。
 		
+			make()：
+				切片的创建：
+					make（[]T，len，cap）
+				map 的初始化；
+					make(map[string]int)
+					
 	包：
 		包（Package）：
 			用于组织 Go 源代码，提供了更好的可重用性与可读性。
@@ -1032,9 +1039,312 @@ Go 笔记
 						}
 					
 	可变参数函数：
+		定义：
+			参数个数可变的函数。
+		语法：
+			如果函数最后一个参数被记作 ...T ，
+				函数可以接受任意个 T 类型参数作为最后一个参数。
+			注意：
+				只有函数的最后一个参数才允许是可变的。
+				
+		理解可变参数函数：
+			append 函数的定义：
+				func append(slice []Type, elems ...Type) []Type
+					例如：
+						func find(num int, nums ...int) {
+							fmt.Printf("type of nums is %T\n", nums)
+							found := false
+							for i, v := range nums {
+								if v == num {
+									fmt.Println(num, "found at index", i, "in", nums)
+									found = true
+								}
+							}
+							if !found {
+								fmt.Println(num, "not found in ", nums)
+							}
+							fmt.Printf("\n")
+						}
+						func main() {
+							find(89, 89, 90, 95)
+							find(45, 56, 67, 45, 90, 109)
+							find(78, 38, 56, 98)
+							find(87)
+						}
+			可变参数函数的工作原理：
+				把可变参数转换为一个新的切片。
+					
+		切片传入可变参数函数：
+			例如：
+				func find(num int, nums ...int) {
+					fmt.Printf("type of nums is %T\n", nums)
+					found := false
+					for i, v := range nums {
+						if v == num {
+							fmt.Println(num, "found at index", i, "in", nums)
+							found = true
+						}
+					}
+					if !found {
+						fmt.Println(num, "not found in ", nums)
+					}
+					fmt.Printf("\n")
+				}
+				func main() {
+					nums := []int{89, 90, 95}
+					find(89, nums)
+				}
+			这种情况下无法通过编译，编译器报出错误。
+				可变参数参数会被转换为 int 类型切片然后在传入 find 函数中。
+				但是在这里 nums 已经是一个 int 类型切片，编译器试图在 nums 基础上再创建一个切片。
+				因为 nums 是一个 []int类型 而不是 int类型，所以创建失败。
+			将切片传入可变参数函数：
+				有一个可以直接将切片传入可变参数函数的语法糖，
+				你可以在在切片后加上 ... 后缀。
+				如果这样做，切片将直接传入函数，不再创建新的切片
+					例如：
+						func find(num int, nums ...int) {
+							fmt.Printf("type of nums is %T\n", nums)
+							found := false
+							for i, v := range nums {
+								if v == num {
+									fmt.Println(num, "found at index", i, "in", nums)
+									found = true
+								}
+							}
+							if !found {
+								fmt.Println(num, "not found in ", nums)
+							}
+							fmt.Printf("\n")
+						}
+						func main() {
+							nums := []int{89, 90, 95}
+							find(89, nums...)
+						}
+					
+		不直观的错误：
+			当你修改可变参数函数中的切片时，请确保你知道你正在做什么。
+				例如：
+					func change(s ...string) {  
+						s[0] = "Go"
+					}
+					func main() {
+						welcome := []string{"hello", "world"}
+						change(welcome...)
+						fmt.Println(welcome)
+					}
+				例如：
+					func change(s ...string) {
+						s[0] = "Go"
+						s = append(s, "playground")
+						fmt.Println(s)
+					}
+
+					func main() {
+						welcome := []string{"hello", "world"}
+						change(welcome...)
+						fmt.Println(welcome)
+					}
+					
+	Maps：
+		定义：
+			map 是在 Go 中将值（value）与键（key）关联的内置类型；
+			通过相应的键可以获取到值。
 		
+		创建 map：	
+			通过向 make 函数传入键和值的类型，可以创建 map。
+			语法：
+				make(map[type of key]type of value)
+					例如：
+						personSalary := make(map[string]int)
+			map 的零值是 nil。
+				如果你想添加元素到 nil map 中，会触发运行时 panic。
+					panic: assignment to entry in nil map
+				因此 map 必须使用 make 函数初始化，然后才能添加元素。
+					例如：
+						func main() {  
+							var personSalary map[string]int
+							if personSalary == nil {
+								fmt.Println("map is nil. Going to make one.")
+								personSalary = make(map[string]int)
+							}
+						}
+		
+		给 map 添加元素：
+			给 map 添加新元素的语法和数组相同：
+				例如：
+					func main() {
+						personSalary := make(map[string]int)
+						personSalary["steve"] = 12000
+						personSalary["jamie"] = 15000
+						personSalary["mike"] = 9000
+						fmt.Println("personSalary map contents:", personSalary)
+					}
+			可以在声明的时候初始化 map：
+				例如：
+					func main() {  
+						personSalary := map[string]int {
+							"steve": 12000,
+							"jamie": 15000,
+						}
+						personSalary["mike"] = 9000
+						fmt.Println("personSalary map contents:", personSalary)
+					}
+			键不一定只能是 string 类型：
+				所有可比较的类型，如 boolean，interger，float，complex，string 等，都可以作为键。
 					
+		获取 map 中的元素：
+			语法：
+				map[key]
+					例如：
+						func main() {
+							personSalary := map[string]int{
+								"steve": 12000,
+								"jamie": 15000,
+							}
+							personSalary["mike"] = 9000
+							employee := "jamie"
+							fmt.Println("Salary of", employee, "is", personSalary[employee])
+						}
+			如果获取一个不存在的元素，map 会返回该元素类型的零值：
+				例如：
+					func main() {
+						personSalary := map[string]int{
+							"steve": 12000,
+							"jamie": 15000,
+						}
+						personSalary["mike"] = 9000
+						employee := "jamie"
+						fmt.Println("Salary of joe is", personSalary["joe"])
+					}
+				personSalary 中不包含 joe 的情况下我们不会获取到任何运行时错误。
+			如果想知道 map 中到底是不是存在这个 key：
+				语法：
+					value, ok := map[key]
+					如果 ok 是 true，表示 key 存在，key 对应的值就是 value，反之表示 key 不存在。
+				例如：
+					func main() {
+						personSalary := map[string]int{
+							"steve": 12000,
+							"jamie": 15000,
+						}
+						personSalary["mike"] = 9000
+						newEmp := "joe"
+						value, ok := personSalary[newEmp]
+						if ok == true {
+							fmt.Println("Salary of", newEmp, "is", value)
+						} else {
+							fmt.Println(newEmp,"not found")
+						}
+					}
+			遍历 map 中所有的元素：
+				需要用 for range 循环。
+				例如：
+					func main() {
+						personSalary := map[string]int{
+							"steve": 12000,
+							"jamie": 15000,
+						}
+						personSalary["mike"] = 9000
+						fmt.Println("All items of a map")
+						for key, value := range personSalary {
+							fmt.Printf("personSalary[%s] = %d\n", key, value)
+						}
+					}
+				注意：
+					当使用 for range 遍历 map 时，不保证每次执行程序获取的元素顺序相同。
 					
+		删除 map 中的元素：
+			语法：
+				delete(map, key)
+				这个函数没有返回值。
+					例如：
+						func main() {  
+							personSalary := map[string]int{
+								"steve": 12000,
+								"jamie": 15000,
+							}
+							personSalary["mike"] = 9000
+							fmt.Println("map before deletion", personSalary)
+							delete(personSalary, "steve")
+							fmt.Println("map after deletion", personSalary)
+						}
+					
+		获取 map 的长度：
+			len 函数：
+				例如：
+					func main() {
+						personSalary := map[string]int{
+							"steve": 12000,
+							"jamie": 15000,
+						}
+						personSalary["mike"] = 9000
+						fmt.Println("length is", len(personSalary))
+					}
+					
+		Map 是引用类型：
+			和 slices 类似，map 也是引用类型。
+			当 map 被赋值为一个新变量的时候，它们指向同一个内部数据结构。
+			改变其中一个变量，就会影响到另一变量。
+				例如：
+					func main() {
+						personSalary := map[string]int{
+							"steve": 12000,
+							"jamie": 15000,
+						}
+						personSalary["mike"] = 9000
+						fmt.Println("Original person salary", personSalary)
+						newPersonSalary := personSalary
+						newPersonSalary["mike"] = 18000
+						fmt.Println("Person salary changed", personSalary)
+					}
+			当 map 作为函数参数传递时也会发生同样的情况。
+			函数中对 map 的任何修改，对于外部的调用都是可见的。
+					
+		Map 的相等性：
+			map 之间不能使用 == 操作符判断，
+			== 只能用来检查 map 是否为 nil。
+					
+	字符串：
+		定义：	
+			Go 语言中的字符串是一个字节切片。把内容放在双引号""之间，我们可以创建一个字符串。
+				例如：
+					func main() {
+						name := "Hello World"
+					}
+				Go 中的字符串是兼容 Unicode 编码的，并且使用 UTF-8 进行编码。
+					
+		单独获取字符串的每一个字节：
+			字符串是一个字节切片，所以我们可以获取字符串的每一个字节。
+				例如：
+					func printBytes(s string) {
+						for i:= 0; i < len(s); i++ {
+							fmt.Printf("%x ", s[i])
+						}
+					}
+					func main() {
+						name := "Hello World"
+						printBytes(name)
+					}
+					上面的程序输出 48 65 6c 6c 6f 20 57 6f 72 6c 64。
+					这些打印出来的字符是 "Hello World" 以 Unicode UTF-8 编码的结果。
+				len(s)：返回字符串中字节的数量；
+				%x ：格式限定符，用于指定 16 进制编码。
+					
+			Unicode 和 UTF-8：
+				Unicode 是「字符集」；UTF-8 是「编码规则」。
+				字符集：
+					为每一个「字符」分配一个唯一的 ID（学名为码位 / 码点 / Code Point）
+				编码规则：
+					将「码位」转换为字节序列的规则（编码/解码 可以理解为 加密/解密 的过程）
+				广义的 Unicode 是一个标准，
+					定义了一个字符集以及一系列的编码规则，
+					即 Unicode 字符集和 UTF-8、UTF-16、UTF-32 等等编码……
+				Unicode 字符集：
+					为每一个字符分配一个码位，
+					例如「知」的码位是 30693，记作 U+77E5（30693 的十六进制为 0x77E5）。
+				UTF-8 是一套以 8 位为一个编码单位的可变长编码；
+					会将一个码位编码为 1 到 4 个字节：
 					
 					
 					

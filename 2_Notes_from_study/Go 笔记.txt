@@ -1450,6 +1450,389 @@ Go 笔记
 				十六进制(Hexadecimal)：前缀 0x，后缀 H。
 					
 		用 rune 切片构造字符串：
+			例如：
+				func main() {  
+					runeSlice := []rune{0x0053, 0x0065, 0x00f1, 0x006f, 0x0072}
+					str := string(runeSlice)
+					fmt.Println(str)
+				}
+					
+		字符串的长度：
+			获取字符串的长度：
+				utf8 package 包中的 func RuneCountInString(s string) (n int) 方法；
+				这个方法传入一个字符串参数然后返回字符串中的 rune 的数量。
+					例如：
+						func length(s string) {  
+							fmt.Printf("length of %s is %d\n", s, utf8.RuneCountInString(s))
+						}
+						func main() { 
+							word1 := "Señor" 
+							length(word1)
+							word2 := "Pets"
+							length(word2)
+						}
+					utf8.RuneCountInString()：字符数。
+					
+		字符串是不可变的：
+			Go 中的字符串是不可变的：一旦一个字符串被创建，那么它将无法被修改。
+				例如：
+					func mutate(s string)string {  
+						s[0] = 'a'//any valid unicode character within single quote is a rune 
+						return s
+					}
+					func main() {  
+						h := "hello"
+						fmt.Println(mutate(h))
+					}
+				由于字符串是不可变的，因此这个操作是非法的。
+				所以程序抛出了一个错误 main.go:8: cannot assign to s[0]。
+			为了修改字符串，可以把字符串转化为一个 rune 切片。
+			然后这个切片可以进行任何想要的改变，然后再转化为一个字符串。
+				例如：
+					func mutate(s []rune) string {  
+						s[0] = 'a' 
+						return string(s)
+					}
+					func main() {  
+						h := "hello"
+						fmt.Println(mutate([]rune(h)))
+					}
+				mutate 函数接收一个 rune 切片参数，它将切片的第一个元素修改为 'a'，
+					然后将 rune 切片转化为字符串，并返回该字符串。
+				把 h 转化为一个 rune 切片，并传递给了 mutate。
+					
+	指针：
+		定义：
+			一种存储变量内存地址（Memory Address）的变量。
+				例如：
+					变量 b 的值为 156，而 b 的内存地址为 0x1040a124。
+					变量 a 存储了 b 的地址。我们就称 a 指向了 b。
+		
+		指针的声明：
+			指针变量的类型：*T，该指针指向一个 T 类型的变量。
+			& 操作符用于获取变量的地址。
+				例如：
+					func main() {
+						b := 255
+						var a *int = &b
+					}
+					
+		指针的零值（Zero Value）：
+			指针的零值是 nil。
+				例如：
+					func main() {  
+						a := 25
+						var b *int
+						if b == nil {
+							b = &a
+							fmt.Println("b after initialization is", b)
+						}
+					}
+					
+		指针的解引用：
+			指针的解引用可以获取指针所指向的变量的值。将 a 解引用的语法是 *a。
+				例如：
+					func main() {  
+						b := 255
+						a := &b
+						fmt.Println("value of b is", *a)
+					}
+			用指针来修改 b 的值：
+				例如：
+					func main() {  
+						b := 255
+						a := &b
+						fmt.Println("value of b is", *a)
+						*a++
+						fmt.Println("new value of b is", b)
+					}
+					
+		向函数传递指针参数：
+			例如：
+				func change(val *int) {  
+					*val = 55
+				}
+				func main() {  
+					a := 58
+					fmt.Println("value of a before function call is",a)
+					b := &a
+					change(b)
+					fmt.Println("value of a after function call is", a)
+				}
+			向函数 change 传递了指针变量 b，而 b 存储了 a 的地址。
+			在 change 函数内使用解引用，修改了 a 的值。
+					
+		不要向函数传递数组的指针，而应该使用切片：
+			想要在函数内修改一个数组，并希望调用函数的地方也能得到修改后的数组，
+			一种解决方案是把一个指向数组的指针传递给这个函数。
+				例如：
+					func modify(arr *[3]int) {  
+						(*arr)[0] = 90
+					}
+					func main() {  
+						a := [3]int{89, 90, 91}
+						modify(&a)
+						fmt.Println(a)
+					}
+				将数组的地址传递给了 modify 函数。
+				在 modify 函数里把 arr 解引用，并将 90 赋值给这个数组的第一个元素。
+			a[x] 是 (*a)[x] 的简写形式，因此上面代码中的 (*arr)[0] 可以替换为 arr[0]。
+				例如：
+					func modify(arr *[3]int) {  
+						arr[0] = 90
+					}
+					func main() {  
+						a := [3]int{89, 90, 91}
+						modify(&a)
+						fmt.Println(a)
+					}
+			这种方式向函数传递一个数组指针参数，并在函数内修改数组。
+			尽管它是有效的，但却不是 Go 语言惯用的实现方式。我们最好使用切片来处理。
+				接下来我们用切片来重写之前的代码：
+					func modify(sls []int) {  
+						sls[0] = 90
+					}
+					func main() {  
+						a := [3]int{89, 90, 91}
+						modify(a[:])
+						fmt.Println(a)
+					}
+				别再传递数组指针了，而是使用切片吧。
+				使用切片的代码更加简洁，也更符合 Go 语言的习惯。
+			
+		Go 不支持指针运算
+			Go 并不支持其他语言（例如 C）中的指针运算。
+				例如：
+					func main() {  
+						b := [...]int{109, 110, 111}
+						p := &b
+						p++
+					}
+				上面的程序会抛出编译错误：
+					main.go:6: invalid operation: p++ (non-numeric type *[3]int)。
+					
+		指针变量和变量的指针：
+			指针变量：
+				是变量，变量的指针指向另一个指针；
+			变量指针：
+				是指针，变量的指针。
+				未被显式地初始化的变量，指针指向 nil；
+				已经被显式地初始化的变量，指针指向某个内存地址。
+					
+	结构体：
+		结构体：
+			用户定义的类型，表示若干个字段（Field）的集合。
+			有时应该把数据整合在一起，而不是让这些数据没有联系，这种情况下可以使用结构体。
+					
+		结构体的声明：
+			命名的结构体（Named Structure）：
+				创建名为 Employee 的新类型，它可以用于创建 Employee 类型的结构体变量。
+					例如：
+						type Employee struct {
+							firstName string
+							lastName  string
+							age       int
+						}
+				过把相同类型的字段声明在同一行，结构体可以变得更加紧凑。
+					例如：
+						type Employee struct {
+							firstName, lastName string
+							age, salary         int
+						}
+			匿名结构体（Anonymous Structure）：
+				声明结构体时也可以不用声明一个新类型。
+					例如：
+						var employee struct {
+							firstName, lastName string
+							age int
+						}
+					上述代码片段创建一个匿名结构体 employee。
+					
+		创建命名的结构体：
+			定义一个命名的结构体 Employee。
+				例如：
+					type Employee struct {  
+						firstName, lastName string
+						age, salary         int
+					}
+					func main() {
+						//creating structure using field names
+						emp1 := Employee{
+							firstName: "Sam",
+							age:       25,
+							salary:    500,
+							lastName:  "Anderson",
+						}
+						//creating structure without using field names
+						emp2 := Employee{"Thomas", "Paul", 29, 800}
+					}
+				定义 emp2 时我们省略了字段名，这需要保证字段名的顺序与声明结构体时的顺序相同。
+					
+		创建匿名结构体：
+			例如：
+				func main() {
+					emp3 := struct {
+						firstName, lastName string
+						age, salary         int
+					}{
+						firstName: "Andreah",
+						lastName:  "Nikola",
+						age:       31,
+						salary:    5000,
+					}
+					fmt.Println("Employee 3", emp3)
+				}
+			只是创建一个新的结构体变量 em3，而没有定义任何结构体类型。
+					
+		结构体的零值（Zero Value）：
+			当定义好的结构体并没有被显式地初始化时，该结构体的字段将默认赋为零值。
+				例如：
+					type Employee struct {  
+						firstName, lastName string
+						age, salary         int
+					}
+					func main() {  
+						var emp4 Employee //zero valued structure
+						fmt.Println("Employee 4", emp4)
+					}
+				该程序定义了 emp4，却没有初始化任何值。
+					firstName 和 lastName 赋值为 string 的零值（""）。
+					age 和 salary 赋值为 int 的零值（0）。
+			还可以为某些字段指定初始值，而忽略其他字段，被忽略的字段名会赋值为零值。
+				例如：
+					type Employee struct {  
+						firstName, lastName string
+						age, salary         int
+					}
+					func main() {  
+						emp5 := Employee{
+							firstName: "John",
+							lastName:  "Paul",
+						}
+						fmt.Println("Employee 5", emp5)
+					}
+				firstName 和 lastName 初始化了，而 age 和 salary 没有进行初始化。
+				age 和 salary 赋值为零值。
+					
+		访问结构体的字段：
+			点号操作符 . 用于访问结构体的字段。
+				例如：
+					type Employee struct {  
+						firstName, lastName string
+						age, salary         int
+					}
+					func main() {  
+						emp6 := Employee{"Sam", "Anderson", 55, 6000}
+						fmt.Println("First Name:", emp6.firstName)
+						fmt.Println("Last Name:", emp6.lastName)
+						fmt.Println("Age:", emp6.age)
+						fmt.Printf("Salary: $%d", emp6.salary)
+					}
+			还可以创建零值的 struct，以后再给各个字段赋值。
+				例如：
+					type Employee struct {  
+						firstName, lastName string
+						age, salary         int
+					}
+					func main() {  
+						var emp7 Employee
+						emp7.firstName = "Jack"
+						emp7.lastName = "Adams"
+						fmt.Println("Employee 7:", emp7)
+					}
+					
+		结构体的指针：
+			可以创建指向结构体的指针。
+				例如：
+					type Employee struct {  
+						firstName, lastName string
+						age, salary         int
+					}
+					func main() {  
+						emp8 := &Employee{"Sam", "Anderson", 55, 6000}
+						fmt.Println("First Name:", (*emp8).firstName)
+						fmt.Println("Age:", (*emp8).age)
+					}
+				emp8 是一个指向结构体 Employee 的指针；
+				(*emp8).firstName 表示访问结构体 emp8 的 firstName 字段。
+			Go 允许我们在访问 firstName 字段时，可以使用 emp8.firstName，
+				代替显式的解引用 (*emp8).firstName。
+					例如：
+						type Employee struct {  
+							firstName, lastName string
+							age, salary         int
+						}
+						func main() {  
+							emp8 := &Employee{"Sam", "Anderson", 55, 6000}
+							fmt.Println("First Name:", emp8.firstName)
+							fmt.Println("Age:", emp8.age)
+						}
+					
+		匿名字段：
+			匿名字段（Anonymous Field）：
+				创建结构体时，字段可以只有类型，而没有字段名。
+					例如：
+						type Person struct {  
+							string
+							int
+						}
+					例如：
+						type Person struct {  
+							string
+							int
+						}
+						func main() {  
+							p := Person{"Naveen", 50}
+							fmt.Println(p)
+						}
+				虽然匿名字段没有名称，其实匿名字段的名称默认为它的类型。
+					例如：
+						下面的 Person 结构体里，有两个名为 string 和 int 的字段。
+					例如：
+						type Person struct {  
+							string
+							int
+						}
+						func main() {  
+							var p1 Person
+							p1.string = "naveen"
+							p1.int = 50
+							fmt.Println(p1)
+						}
+				
+		嵌套结构体（Nested Structs）：
+			嵌套结构体：
+				结构体的字段有可能也是一个结构体。
+					例如：
+						type Address struct {  
+							city, state string
+						}
+						type Person struct {  
+							name string
+							age int
+							address Address
+						}
+						func main() {  
+							var p Person
+							p.name = "Naveen"
+							p.age = 50
+							p.address = Address {
+								city: "Chicago",
+								state: "Illinois",
+							}
+							fmt.Println("Name:", p.name)
+							fmt.Println("City:",p.address.city)
+						}
+					
+		提升字段（Promoted Fields）：
+			提升字段：
+				如果是结构体中有匿名的结构体类型字段，则该匿名结构体里的字段就称为提升字段。
+				这是因为提升字段就像是属于外部结构体一样，可以用外部结构体直接访问。
+					例如：
+					
+					
+					
+					
 					
 					
 					

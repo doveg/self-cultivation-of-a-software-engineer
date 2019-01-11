@@ -1829,6 +1829,420 @@ Go 笔记
 				如果是结构体中有匿名的结构体类型字段，则该匿名结构体里的字段就称为提升字段。
 				这是因为提升字段就像是属于外部结构体一样，可以用外部结构体直接访问。
 					例如：
+						type Address struct {
+							city, state string
+						}
+						type Person struct {
+							name string
+							age  int
+							Address
+						}
+						func main() {  
+							var p Person
+							p.name = "Naveen"
+							p.age = 50
+							p.Address = Address{
+								city:  "Chicago",
+								state: "Illinois",
+							}
+							fmt.Println("Name:", p.name)
+							fmt.Println("City:", p.city) //city is promoted field
+							fmt.Println("State:", p.state) //state is promoted field
+						}
+					
+		导出结构体和字段：
+			如果结构体名称以大写字母开头，则它是其他包可以访问的导出类型（Exported Type）。
+			如果结构体里的字段首字母大写，它也能被其他包访问到。
+				例如：
+					package computer
+					type Spec struct { //exported struct  
+						Maker string //exported field
+						model string //unexported field
+					}
+				例如：
+					package main
+					import "structs/computer"  
+					import "fmt"
+					func main() {  
+						var spec computer.Spec
+						spec.Maker = "apple"
+						spec.model = "Mac Mini"
+						fmt.Println("Spec:", spec)
+					}
+				访问未导出的字段 model，编译器会报错：
+					spec.model undefined (cannot refer to unexported field or method model)。
+					
+		结构体相等性（Structs Equality）：
+			结构体是值类型。如果它的每一个字段都是可比较的，则该结构体也是可比较的。
+			如果两个结构体变量的对应字段相等，则这两个变量也是相等的。
+				例如：
+					type name struct {  
+						firstName string
+						lastName string
+					}
+					func main() {  
+						name1 := name{"Steve", "Jobs"}
+						name2 := name{"Steve", "Jobs"}
+						if name1 == name2 {
+							fmt.Println("name1 and name2 are equal")
+						} else {
+							fmt.Println("name1 and name2 are not equal")
+						}
+						name3 := name{firstName:"Steve", lastName:"Jobs"}
+						name4 := name{}
+						name4.firstName = "Steve"
+						if name3 == name4 {
+							fmt.Println("name3 and name4 are equal")
+						} else {
+							fmt.Println("name3 and name4 are not equal")
+						}
+					}
+				name 包含两个 string 类型。
+				由于字符串是可比较的，因此可以比较两个 name 类型的结构体变量。
+				上面代码中 name1 和 name2 相等，而 name3 和 name4 不相等。
+			如果结构体包含不可比较的字段，则结构体变量也不可比较。
+				例如：
+					type image struct {  
+						data map[int]int
+					}
+					func main() {  
+						image1 := image{data: map[int]int{
+							0: 155,
+						}}
+						image2 := image{data: map[int]int{
+							0: 155,
+						}}
+						if image1 == image2 {
+							fmt.Println("image1 and image2 are equal")
+						}
+					}
+				map 类型是不可比较的，因此 image1 和 image2 也不可比较。
+					
+					
+	方法：
+		方法：
+			其实就是一个函数，在 func 这个关键字和方法名中间加入了一个特殊的接收器类型。
+			接收器可以是结构体类型或者是非结构体类型。
+			接收器是可以在方法的内部访问的。
+			
+		语法：
+			创建一个接收器类型为 Type 的方法 methodName：
+				func (t Type) methodName(parameter list) {
+				}
+			例如：
+				type Employee struct {
+					name     string
+					salary   int
+					currency string
+				}
+				/*
+				  displaySalary() 方法将 Employee 做为接收器类型
+				*/
+				func (e Employee) displaySalary() {
+					fmt.Printf("Salary of %s is %s%d", e.name, e.currency, e.salary)
+				}
+				func main() {
+					emp1 := Employee {
+						name:     "Sam Adolf",
+						salary:   5000,
+						currency: "$",
+					}
+					emp1.displaySalary() // 调用 Employee 类型的 displaySalary() 方法
+				}
+					
+		为什么已经有函数了还需要方法：
+			Go 不是纯粹的面向对象编程语言，而且Go不支持类。
+				因此，基于类型的方法是一种实现和类相似行为的途径。
+			相同的名字的方法可以定义在不同的类型上，而相同名字的函数是不被允许的。
+				假设我们有一个 Square 和 Circle 结构体。
+				可以在 Square 和 Circle 上分别定义一个 Area 方法。
+					例如：
+						type Rectangle struct {
+							length int
+							width  int
+						}
+						type Circle struct {
+							radius float64
+						}
+						func (r Rectangle) Area() int {
+							return r.length * r.width
+						}
+						func (c Circle) Area() float64 {
+							return math.Pi * c.radius * c.radius
+						}
+						func main() {
+							r := Rectangle{
+								length: 10,
+								width:  5,
+							}
+							fmt.Printf("Area of rectangle %d\n", r.Area())
+							c := Circle{
+								radius: 12,
+							}
+							fmt.Printf("Area of circle %f", c.Area())
+						}
+					
+		指针接收器与值接收器：
+			除了创建使用值接收器的方法，还可以创建使用指针接收器的方法。
+			值接收器和指针接收器之间的区别：
+				在指针接收器的方法内部的改变对于调用者是可见的，
+				然而值接收器的情况不是这样的。
+					例如：
+						type Employee struct {
+							name string
+							age  int
+						}
+						/*
+						使用值接收器的方法。
+						*/
+						func (e Employee) changeName(newName string) {
+							e.name = newName
+						}
+						/*
+						使用指针接收器的方法。
+						*/
+						func (e *Employee) changeAge(newAge int) {
+							e.age = newAge
+						}
+						func main() {
+							e := Employee{
+								name: "Mark Andrew",
+								age:  50,
+							}
+							fmt.Printf("Employee name before change: %s", e.name)
+							e.changeName("Michael Andrew")
+							fmt.Printf("\nEmployee name after change: %s", e.name)
+
+							fmt.Printf("\n\nEmployee age before change: %d", e.age)
+							(&e).changeAge(51)
+							fmt.Printf("\nEmployee age after change: %d", e.age)
+						}
+					changeName 方法中对 Employee 结构体的字段 name 所做的改变对调用者是不可见的，
+					changeAge 方法是使用指针 (e *Employee) 接收器的，
+						所以在调用 (&e).changeAge(51) 方法对 age 字段做出的改变对调用者将是可见的。
+					由于 changeAge 方法有一个指针接收器，所以我们使用 (&e) 来调用这个方法。
+						其实没有这个必要，Go语言让我们可以直接使用 e.changeAge(51)。
+						e.changeAge(51) 会自动被Go语言解释为 (&e).changeAge(51)。
+					
+		值接收器和指针接收器的使用：
+			指针接收器可以使用在：
+				对方法内部的接收器所做的改变应该对调用者可见时。
+			指针接收器也可以被使用在如下场景：
+				当拷贝一个结构体的代价过于昂贵时。
+					考虑下一个结构体有很多的字段。
+					在方法内使用这个结构体做为值接收器需要拷贝整个结构体，这是很昂贵的。
+					在这种情况下使用指针接收器，结构体不会被拷贝，只会传递一个指针到方法内部使用。
+			在其他的所有情况，值接收器都可以被使用。
+					
+		匿名字段的方法：
+			属于结构体的匿名字段的方法可以被直接调用，
+			就好像这些方法是属于定义了匿名字段的结构体一样。
+				例如：
+					type address struct {
+						city  string
+						state string
+					}
+					func (a address) fullAddress() {
+						fmt.Printf("Full address: %s, %s", a.city, a.state)
+					}
+					type person struct {
+						firstName string
+						lastName  string
+						address
+					}
+					func main() {
+						p := person{
+							firstName: "Elon",
+							lastName:  "Musk",
+							address: address {
+								city:  "Los Angeles",
+								state: "California",
+							},
+						}
+						p.fullAddress() //访问 address 结构体的 fullAddress 方法
+					}
+				明确的调用 p.address.fullAddress() 是没有必要的。
+					
+		在方法中使用值接收器 与 在函数中使用值参数：
+			当一个函数有一个值参数，它只能接受一个值参数。
+			当一个方法有一个值接收器，它可以接受值接收器和指针接收器。
+				例如：
+					type rectangle struct {
+						length int
+						width  int
+					}
+					func area(r rectangle) {
+						fmt.Printf("Area Function result: %d\n", (r.length * r.width))
+					}
+					func (r rectangle) area() {
+						fmt.Printf("Area Method result: %d\n", (r.length * r.width))
+					}
+					func main() {
+						r := rectangle{
+							length: 10,
+							width:  5,
+						}
+						area(r)
+						r.area()
+
+						p := &r
+						/*
+						   compilation error, cannot use p (type *rectangle) as type rectangle
+						   in argument to area
+						*/
+						//area(p)
+						p.area()//通过指针调用值接收器
+					}
+				把指针传递到只能接受一个值参数的函数 area，编译器将会报错。
+				使用指针接收器 p 调用了只接受一个值接收器的方法 area，这是完全有效的。
+				因为当 area 有一个值接收器时，为了方便Go语言把 p.area() 解释为 (*p).area()。
+					
+		在方法中使用指针接收器 与 在函数中使用指针参数：
+			函数使用指针参数只接受指针，和值参数相类似；
+			使用指针接收器的方法可以使用值接收器和指针接收器。
+				例如：
+					type rectangle struct {
+						length int
+						width  int
+					}
+					func perimeter(r *rectangle) {
+						fmt.Println("perimeter function output:", 2*(r.length+r.width))
+
+					}
+					func (r *rectangle) perimeter() {
+						fmt.Println("perimeter method output:", 2*(r.length+r.width))
+					}
+					func main() {
+						r := rectangle{
+							length: 10,
+							width:  5,
+						}
+						p := &r //pointer to r
+						perimeter(p)
+						p.perimeter()
+						/*
+							cannot use r (type rectangle) as type *rectangle in argument to perimeter
+						*/
+						//perimeter(r)
+						r.perimeter()//使用值来调用指针接收器
+					}
+				通过传入值参数 r 调用函数 perimeter，这是不被允许的，
+					因为函数的指针参数不接受值参数。
+				通过值接收器 r 来调用有指针接收器的方法 perimeter，这是被允许的，
+					为了方便 Go 把代码 r.perimeter() 解释为 (&r).perimeter()。
+					
+		非结构体上的方法：
+			可以在结构体类型上定义方法，也可以在非结构体类型上定义方法；
+				为了在一个类型上定义一个方法，方法的接收器类型定义和方法的定义应该在同一个包中。
+					反例：
+						package main
+						func (a int) add(b int) {
+						}
+						func main() {
+						}
+					试把一个 add 方法添加到内置的类型 int，这是不允许的；
+					因为 add 方法的定义和 int 类型的定义不在同一个包中。
+					该程序会抛出编译错误：cannot define new methods on non-local type int。
+				让该程序工作的方法是为内置类型 int 创建一个类型别名，
+				然后创建一个以该类型别名为接收器的方法。
+					例如：
+						type myInt int
+						func (a myInt) add(b myInt) myInt {
+							return a + b
+						}
+						func main() {
+							num1 := myInt(5)
+							num2 := myInt(10)
+							sum := num1.add(num2)
+							fmt.Println("Sum is", sum)
+						}
+					
+	接口（一）：
+		接口：
+			定义一个对象的行为。
+				只指定对象应该做什么，如何实现这个行为（即实现细节），则由对象本身去确定。
+			在 Go 中，接口就是方法签名（Method Signature）的集合。
+				当一个类型定义了接口中的所有方法，我们称它实现了该接口。
+			这与面向对象编程（OOP）的说法很类似：
+				接口指定一个类型应该具有的方法，并由该类型决定如何实现这些方法。
+			例如：
+				WashingMachine 是一个含有 Cleaning() 和 Drying() 两个方法的接口。
+				任何定义了 Cleaning() 和 Drying() 的类型，都称它实现了 WashingMachine 接口。
+					
+		接口的声明与实现：
+			其他一些语言（如 Java）要求一个类使用 implement 关键字，来显式地声明该类实现了接口。
+			在 Go 中，并不需要这样。
+				如果一个类型包含了接口中声明的所有方法，那么它就隐式地实现了 Go 接口。
+			例如：
+				//interface definition
+				type VowelsFinder interface {  
+					FindVowels() []rune
+				}
+				type MyString string
+				//MyString implements VowelsFinder
+				func (ms MyString) FindVowels() []rune {  
+					var vowels []rune
+					for _, rune := range ms {
+						if rune == 'a' || rune == 'e' || rune == 'i' || rune == 'o' || rune == 'u' {
+							vowels = append(vowels, rune)
+						}
+					}
+					return vowels
+				}
+				func main() {  
+					name := MyString("Sam Anderson")
+					var v VowelsFinder
+					v = name // possible since MyString implements VowelsFinder
+					fmt.Printf("Vowels are %c", v.FindVowels())
+
+				}
+			如果使用 name.FindVowels()，而不是 v.FindVowels()，程序依然能够照常运行，
+			但接口并没有体现出实际价值。
+					
+		接口的实际用途：
+			根据公司员工的个人薪资，计算公司的总支出。
+				例如：
+					type SalaryCalculator interface {  
+						CalculateSalary() int
+					}
+					type Permanent struct {  
+						empId    int
+						basicpay int
+						pf       int
+					}
+					type Contract struct {  
+						empId  int
+						basicpay int
+					}
+					//salary of permanent employee is sum of basic pay and pf
+					func (p Permanent) CalculateSalary() int {  
+						return p.basicpay + p.pf
+					}
+					//salary of contract employee is the basic pay alone
+					func (c Contract) CalculateSalary() int {  
+						return c.basicpay
+					}
+					/*
+					total expense is calculated by iterating though the SalaryCalculator slice and summing  
+					the salaries of the individual employees  
+					*/
+					func totalExpense(s []SalaryCalculator) {  
+						expense := 0
+						for _, v := range s {
+							expense = expense + v.CalculateSalary()
+						}
+						fmt.Printf("Total Expense Per Month $%d", expense)
+					}
+					func main() {  
+						pemp1 := Permanent{1, 5000, 20}
+						pemp2 := Permanent{2, 6000, 30}
+						cemp1 := Contract{3, 3000}
+						employees := []SalaryCalculator{pemp1, pemp2, cemp1}
+						totalExpense(employees)
+					}
+					
+					
+					
 					
 					
 					

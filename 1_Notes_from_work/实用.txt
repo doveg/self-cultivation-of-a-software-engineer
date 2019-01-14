@@ -24,6 +24,7 @@
 	
 	parameter：参数；形参；[pə'ræmɪtə]
 	arguments：参数；['ɑːgjʊm(ə)nts]
+	switch：开关；闸门；分流；[swɪtʃ]
 	
 	thread：线；螺纹；线程；[θred]
 	recur：重现；循环；递归； [rɪ'kɜː]

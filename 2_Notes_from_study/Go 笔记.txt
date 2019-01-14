@@ -2157,7 +2157,7 @@ Go 笔记
 							fmt.Println("Sum is", sum)
 						}
 					
-	接口（一）：
+	接口：
 		接口：
 			定义一个对象的行为。
 				只指定对象应该做什么，如何实现这个行为（即实现细节），则由对象本身去确定。
@@ -2168,7 +2168,7 @@ Go 笔记
 			例如：
 				WashingMachine 是一个含有 Cleaning() 和 Drying() 两个方法的接口。
 				任何定义了 Cleaning() 和 Drying() 的类型，都称它实现了 WashingMachine 接口。
-					
+				
 		接口的声明与实现：
 			其他一些语言（如 Java）要求一个类使用 implement 关键字，来显式地声明该类实现了接口。
 			在 Go 中，并不需要这样。
@@ -2198,7 +2198,7 @@ Go 笔记
 				}
 			如果使用 name.FindVowels()，而不是 v.FindVowels()，程序依然能够照常运行，
 			但接口并没有体现出实际价值。
-					
+			
 		接口的实际用途：
 			根据公司员工的个人薪资，计算公司的总支出。
 				例如：
@@ -2240,6 +2240,163 @@ Go 笔记
 						employees := []SalaryCalculator{pemp1, pemp2, cemp1}
 						totalExpense(employees)
 					}
+				SalaryCalculator 接口的切片（[]SalaryCalculator）作为参数，
+				通过调用不同类型对应的 CalculateSalary 方法，totalExpense 可以计算得到支出。
+					
+		接口的内部表示：
+			可以把接口看作内部的一个元组 (type, value)。
+			type 是接口底层的具体类型（Concrete Type），而 value 是具体类型的值。
+				例如：
+					type Test interface {  
+						Tester()
+					}
+
+					type MyFloat float64
+
+					func (m MyFloat) Tester() {  
+						fmt.Println(m)
+					}
+
+					func describe(t Test) {  
+						fmt.Printf("Interface type %T value %v\n", t, t)
+					}
+
+					func main() {  
+						var t Test
+						f := MyFloat(89.7)
+						t = f
+						describe(t)
+						t.Tester()
+					}
+				describe 函数打印出了接口的具体类型和值。
+					
+		空接口：
+			没有包含方法的接口称为空接口。
+			空接口表示为 interface{}。
+			由于空接口没有方法，因此所有类型都实现了空接口。
+				例如：
+					func describe(i interface{}) {  
+						fmt.Printf("Type = %T, value = %v\n", i, i)
+					}
+
+					func main() {  
+						s := "Hello World"
+						describe(s)
+						i := 55
+						describe(i)
+						strt := struct {
+							name string
+						}{
+							name: "Naveen R",
+						}
+						describe(strt)
+					}
+				describe(i interface{}) 函数接收空接口作为参数，因此，可以给这个函数传递任何类型。
+					
+		类型断言：
+			类型断言：
+				用于提取接口的底层值（Underlying Value）。
+				
+			语法：i.(T)
+				接口 i 的具体类型是 T，该语法用于获得接口的底层值。
+					例如：
+						func assert(i interface{}) {  
+							s := i.(int) //get the underlying int value from i
+							fmt.Println(s)
+						}
+						func main() {  
+							var s interface{} = 56
+							assert(s)
+						}
+					如果具体类型不是 int：
+						func assert(i interface{}) {  
+							s := i.(int) //get the underlying int value from i
+							fmt.Println(s)
+						}
+						func main() {  
+							var s interface{} = "Steven Paul"
+							assert(s)
+						}
+					程序会报错：panic: interface conversion: interface {} is string, not int.。
+			要解决该问题，我们可以使用以下语法：
+				v, ok := i.(T)
+					例如：
+						func assert(i interface{}) {  
+							v, ok := i.(int)
+							fmt.Println(v, ok)
+						}
+						func main() {  
+							var s interface{} = 56
+							assert(s)
+							var i interface{} = "Steven Paul"
+							assert(i)
+						}
+					由于 i 的具体类型不是 int，ok 赋值为 false，而 v 赋值为 0（int 的零值）。
+					
+		类型选择（Type Switch）：
+			类型选择用于将接口的具体类型与很多 case 语句所指定的类型进行比较。
+				它与一般的 switch 语句类似；
+				唯一的区别在于类型选择指定的是类型，而一般的 switch 指定的是值。
+			
+			类型选择的语法：
+				i.(type)
+				类似于类型断言，类型 T 由关键字 type 代替。
+					例如：
+						func findType(i interface{}) {  
+							switch i.(type) {
+							case string:
+								fmt.Printf("I am a string and my value is %s\n", i.(string))
+							case int:
+								fmt.Printf("I am an int and my value is %d\n", i.(int))
+							default:
+								fmt.Printf("Unknown type\n")
+							}
+						}
+						func main() {  
+							findType("Naveen")
+							findType(77)
+							findType(89.98)
+						}
+				还可以将一个类型和接口相比较。
+				如果一个类型实现了接口，那么该类型与其实现的接口就可以互相比较。
+					例如：
+						type Describer interface {  
+							Describe()
+						}
+						type Person struct {  
+							name string
+							age  int
+						}
+
+						func (p Person) Describe() {  
+							fmt.Printf("%s is %d years old", p.name, p.age)
+						}
+
+						func findType(i interface{}) {  
+							switch v := i.(type) {
+							case Describer:
+								v.Describe()
+							default:
+								fmt.Printf("unknown type\n")
+							}
+						}
+
+						func main() {  
+							findType("Naveen")
+							p := Person{
+								name: "Naveen R",
+								age:  25,
+							}
+							findType(p)
+						}
+					
+		实现接口：指针接受者与值接受者
+			上面的示例都是使用值接受者（Value Receiver）来实现接口的。
+			也可以使用指针接受者（Pointer Receiver）来实现接口，
+			只不过在用指针接受者实现接口时，还有一些细节需要注意。	
+				例如：
+					
+					
 					
 					
 					

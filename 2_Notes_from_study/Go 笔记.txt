@@ -2390,16 +2390,166 @@ Go 笔记
 							findType(p)
 						}
 					
-		实现接口：指针接受者与值接受者
+	接口（二）：
+		实现接口：指针接受者与值接受者；
 			上面的示例都是使用值接受者（Value Receiver）来实现接口的。
 			也可以使用指针接受者（Pointer Receiver）来实现接口，
 			只不过在用指针接受者实现接口时，还有一些细节需要注意。	
 				例如：
+					type Describer interface {  
+						Describe()
+					}
+					type Person struct {  
+						name string
+						age  int
+					}
+					func (p Person) Describe() { // 使用值接受者实现  
+						fmt.Printf("%s is %d years old\n", p.name, p.age)
+					}
+					type Address struct {
+						state   string
+						country string
+					}
+					func (a *Address) Describe() { // 使用指针接受者实现
+						fmt.Printf("State %s Country %s", a.state, a.country)
+					}
+					func main() {  
+						var d1 Describer
+						p1 := Person{"Sam", 25}
+						d1 = p1
+						d1.Describe()
+						p2 := Person{"James", 32}
+						d1 = &p2
+						d1.Describe()
+						var d2 Describer
+						a := Address{"Washington", "USA"}
+
+						/* 如果下面一行取消注释会导致编译错误：
+						   cannot use a (type Address) as type Describer
+						   in assignment: Address does not implement
+						   Describer (Describe method has pointer
+						   receiver)
+						*/
+						//d2 = a
+						d2 = &a // 这是合法的
+						// 因为在第 22 行，Address 类型的指针实现了 Describer 接口
+						d2.Describe()
+					}
+				使用值接受者声明的方法，既可以用值来调用，也能用指针调用。
+					不管是一个值，还是一个可以解引用的指针，调用这样的方法都是合法的。
+				对于使用指针接受者的方法，用一个指针或者一个可取得地址的值来调用都是合法的。
+					但接口中存储的具体值（Concrete Value）并不能取到地址，因此在第 45 行，对于编译器无法自动获取 a 的地址，于是程序报错。					
 					
+		实现多个接口：
+			类型可以实现多个接口。
+				例如：
+					type SalaryCalculator interface {  
+						DisplaySalary()
+					}
+					type LeaveCalculator interface {  
+						CalculateLeavesLeft() int
+					}
+					type Employee struct {  
+						firstName string
+						lastName string
+						basicPay int
+						pf int
+						totalLeaves int
+						leavesTaken int
+					}
+					func (e Employee) DisplaySalary() {  
+						fmt.Printf("%s %s has salary $%d", e.firstName, e.lastName, (e.basicPay + e.pf))
+					}
+					func (e Employee) CalculateLeavesLeft() int {  
+						return e.totalLeaves - e.leavesTaken
+					}
+					func main() {  
+						e := Employee {
+							firstName: "Naveen",
+							lastName: "Ramanathan",
+							basicPay: 5000,
+							pf: 200,
+							totalLeaves: 30,
+							leavesTaken: 5,
+						}
+						var s SalaryCalculator = e
+						s.DisplaySalary()
+						var l LeaveCalculator = e
+						fmt.Println("\nLeaves left =", l.CalculateLeavesLeft())
+					}
+				
+		接口的嵌套：
+			尽管 Go 没有提供继承机制，但可以通过嵌套其他的接口，创建一个新接口。
+				例如：
+					type SalaryCalculator interface {  
+						DisplaySalary()
+					}
+					type LeaveCalculator interface {  
+						CalculateLeavesLeft() int
+					}
+					type EmployeeOperations interface {  
+						SalaryCalculator
+						LeaveCalculator
+					}
+					type Employee struct {  
+						firstName string
+						lastName string
+						basicPay int
+						pf int
+						totalLeaves int
+						leavesTaken int
+					}
+					func (e Employee) DisplaySalary() {  
+						fmt.Printf("%s %s has salary $%d", e.firstName, e.lastName, (e.basicPay + e.pf))
+					}
+					func (e Employee) CalculateLeavesLeft() int {  
+						return e.totalLeaves - e.leavesTaken
+					}
+					func main() {  
+						e := Employee {
+							firstName: "Naveen",
+							lastName: "Ramanathan",
+							basicPay: 5000,
+							pf: 200,
+							totalLeaves: 30,
+							leavesTaken: 5,
+						}
+						var empOp EmployeeOperations = e
+						empOp.DisplaySalary()
+						fmt.Println("\nLeaves left =", empOp.CalculateLeavesLeft())
+					}
+				EmployeeOperations 嵌套了两个接口：SalaryCalculator 和 LeaveCalculator。
+				如果一个类型定义了 SalaryCalculator 和 LeaveCalculator 接口里包含的方法，
+					我们就称该类型实现了 EmployeeOperations 接口。
 					
+				
+		接口的零值：
+			接口的零值是 nil。
+			对于值为 nil 的接口，其底层值（Underlying Value）和具体类型（Concrete Type）都为 nil。
+				例如：
+					type Describer interface {  
+						Describe()
+					}
+					func main() {  
+						var d1 Describer
+						if d1 == nil {
+							fmt.Printf("d1 is nil and has type %T value %v\n", d1, d1)
+						}
+					}
+			对于值为 nil 的接口，由于没有底层值和具体类型，当我们试图调用它的方法时，程序会产生 panic 异常。
+				例如：
+					type Describer interface {
+						Describe()
+					}
+					func main() {  
+						var d1 Describer
+						d1.Describe()
+					}
+				程序产生运行时错误 panic： 
+					panic: runtime error: invalid memory address or nil pointer dereference [signal SIGSEGV: segmentation violation code=0xffffffff addr=0x0 pc=0xc8527] 。
 					
-					
-					
+	并发入门：
+		并发：
 					
 					
 					

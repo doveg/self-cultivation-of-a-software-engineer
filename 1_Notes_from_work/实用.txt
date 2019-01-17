@@ -337,16 +337,20 @@ UUID：
 		方法重写之后就有了多态。
 
 	
+控制台输出：
+	private static Log log = LogFactory.getLog(TfSupermxInfoDao.class);
+	log.debug("操作子表：" + sb);
 	
 	
+	static Logger log = LoggerFactory.getLogger(this.getClass());
+	log.trace("这是rrace日志。。。");
 	
 	
+	static Logger logger = LoggerFactory.getLogger(this.class);
 	
+	static Logger LOG= Logger.getLogger(this.class);
 	
-	
-	
-	
-	
+	static Logger logger = Logger.getLogger(Object.class);
 	
 	
 	

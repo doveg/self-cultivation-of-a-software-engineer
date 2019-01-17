@@ -385,7 +385,8 @@ Go 笔记
 					make（[]T，len，cap）
 				map 的初始化；
 					make(map[string]int)
-					
+				定义信道：
+					make(chan int)
 	包：
 		包（Package）：
 			用于组织 Go 源代码，提供了更好的可重用性与可读性。
@@ -2585,6 +2586,178 @@ Go 笔记
 				信道用于防止多个协程访问共享内存时发生竞态条件（Race Condition）。
 				信道可以看作是 Go 协程之间通信的管道。
 					
+		启动一个 Go 协程：
+			调用函数或者方法时，在前面加上关键字 go，可以让一个新的 Go 协程并发地运行。
+				例如：
+					func hello() {
+						fmt.Println("Hello world goroutine")
+					}
+					func main() {
+						go hello()
+						fmt.Println("main function")
+					}
+				go hello() 启动了一个新的 Go 协程。现在 hello() 函数与 main() 函数会并发地执行。
+			主函数会运行在一个特有的 Go 协程上，它称为 Go 主协程（Main Goroutine）。
+			两个 Go 协程的主要性质：
+				启动一个新的协程时，协程的调用会立即返回。
+					与函数不同，程序控制不会去等待 Go 协程执行完毕。
+					在调用 Go 协程之后，程序控制会立即返回到代码的下一行，忽略该协程的任何返回值。
+				如果希望运行其他 Go 协程，Go 主协程必须继续运行着。
+					如果 Go 主协程终止，则程序终止，于是其他 Go 协程也不会继续运行。
+			Go 主协程终止，于是 hello 协程就没有机会运行了。
+			信道可用于在其他协程结束执行之前，阻塞 Go 主协程。
+					
+		启动多个 Go 协程：
+			例如：
+				func numbers() {  
+					for i := 1; i <= 5; i++ {
+						time.Sleep(250 * time.Millisecond)
+						fmt.Printf("%d ", i)
+					}
+				}
+				func alphabets() {  
+					for i := 'a'; i <= 'e'; i++ {
+						time.Sleep(400 * time.Millisecond)
+						fmt.Printf("%c ", i)
+					}
+				}
+				func main() {  
+					go numbers()
+					go alphabets()
+					time.Sleep(3000 * time.Millisecond)
+					fmt.Println("main terminated")
+				}
+			numbers 协程首先休眠 250 微秒，接着打印 1，然后再次休眠，打印 2，
+			依此类推，一直到打印 5 结束。
+			alphabete 协程同样打印从 a 到 e 的字母，并且每次有 400 微秒的休眠时间。 
+			Go 主协程启动了 numbers 和 alphabete 两个 Go 协程，休眠了 3000 微秒后终止程序。
+					
+	信道（channel）：
+		信道：
+			可以想像成 Go 协程之间通信的管道。
+			如同管道中的水会从一端流到另一端，通过使用信道，数据也可以从一端发送，在另一端接收。
+					
+		信道的声明：
+			所有信道都关联了一个类型。
+				信道只能运输这种类型的数据，而运输其他类型的数据都是非法的。
+			chan T 表示 T 类型的信道。
+				信道的零值为 nil。
+				信道的零值没有什么用，应该像对 map 和切片所做的那样，用 make 来定义信道。
+					例如：
+						func main() {  
+							var a chan int
+							if a == nil {
+								fmt.Println("channel a is nil, going to define it")
+								a = make(chan int)
+								fmt.Printf("Type of a is %T", a)
+							}
+						}
+			简短声明通常也是一种定义信道的简洁有效的方法。
+				例如：
+					a := make(chan int)
+					定义一个 int 类型的信道 a。
+					
+		通过信道进行发送和接收：
+			语法：
+				data := <- a // 读取信道 a  
+				a <- data // 写入信道 a
+			信道旁的箭头方向指定了是发送数据还是接收数据。
+				第一行，箭头对于 a 来说是向外指的，
+					因此我们读取了信道 a 的值，并把该值存储到变量 data。
+					第二行，箭头指向了 a，因此我们在把数据写入信道 a
+					
+		发送与接收默认是阻塞的：
+			当把数据发送到信道时，程序控制会在发送数据的语句处发生阻塞，
+				直到有其它 Go 协程从信道读取到数据，才会解除阻塞。
+			与此类似，当读取信道的数据时，
+				如果没有其它的协程把数据写入到这个信道，那么读取过程就会一直阻塞着。
+					
+		协程之间的信道通信：
+			例如：
+				func hello(done chan bool) {  
+					fmt.Println("Hello world goroutine")
+					done <- true
+				}
+				func main() {  
+					done := make(chan bool)
+					go hello(done)
+					<-done
+					fmt.Println("main function")
+				}
+			主协程会在 <-done 这一行发生阻塞，等待来自信道 done 的数据。
+			<-done 这行代码通过协程（译注：原文笔误，信道）done 接收数据，
+				但并没有使用数据或者把数据存储到变量中，这完全是合法的。
+					
+		计算一个数中每一位的平方和与立方和，然后把平方和与立方和相加并打印出来。
+			在一个单独的 Go 协程计算平方和，而在另一个协程计算立方和，
+			最后在 Go 主协程把平方和与立方和相加。
+			例如：
+				func calcSquares(number int, squareop chan int) {  
+					sum := 0
+					for number != 0 {
+						digit := number % 10
+						sum += digit * digit
+						number /= 10
+					}
+					squareop <- sum
+				}
+				func calcCubes(number int, cubeop chan int) {  
+					sum := 0 
+					for number != 0 {
+						digit := number % 10
+						sum += digit * digit * digit
+						number /= 10
+					}
+					cubeop <- sum
+				} 
+				func main() {  
+					number := 589
+					sqrch := make(chan int)
+					cubech := make(chan int)
+					go calcSquares(number, sqrch)
+					go calcCubes(number, cubech)
+					squares, cubes := <-sqrch, <-cubech
+					fmt.Println("Final output", squares + cubes)
+				}
+				
+		死锁：
+			使用信道需要考虑的一个重点是死锁。
+			当 Go 协程给一个信道发送数据时，照理说会有其他 Go 协程来接收数据。
+			如果没有的话，程序就会在运行时触发 panic，形成死锁。
+					
+		单向信道：
+			双向信道：通过信道既能发送数据，又能接收数据。
+			单向信道：只能发送或者接收数据。
+				语法：
+					make(chan<- int)
+				例如：
+					func sendData(sendch chan<- int) {  
+						sendch <- 10
+					}
+
+					func main() {  
+						sendch := make(chan<- int)
+						go sendData(sendch)
+						fmt.Println(<-sendch)
+					}
+				chan<- int 定义了唯送信道，因为箭头指向了 chan。
+				试图通过唯送信道接收数据，编译器报错：
+					main.go:11: invalid operation: <-sendch (receive from send-only type chan<- int)
+			不能读取数据的唯送信道究竟有什么意义：
+				这就需要用到信道转换（Channel Conversion）了。
+				把一个双向信道转换成唯送信道或者唯收（Receive Only）信道都是行得通的，
+				但是反过来就不行。
+					例如：
+						func sendData(sendch chan<- int) {  
+							sendch <- 10
+						}
+						func main() {  
+							cha1 := make(chan int)
+							go sendData(cha1)
+							fmt.Println(<-cha1)
+						}
+					函数 sendData 里的参数 sendch chan<- int 把 cha1 转换为一个唯送信道。
+					于是该信道在 sendData 协程里是一个唯送信道，而在 Go 主协程里是一个双向信道。
 					
 					
 					

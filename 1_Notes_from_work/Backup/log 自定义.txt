@@ -1,0 +1,121 @@
+		
+		
+log 自定义
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	应用中不可直接使用日志系统（Log4j、Logback）中的 API，
+	而应依赖使用日志框架SLF4J 中的 API，使用门面模式的日志框架，
+	有利于维护和各个类的日志处理方式统一。
+		import org.slf4j.Logger;
+		import org.slf4j.LoggerFactory;
+		private static final Logger logger = LoggerFactory.getLogger(Abc.class);
+		
+		
+		
+	例如：
+		Logger logger = Logger.getLogger(AdminLoginController.class.getName());
+		logger.debug("------------------------------------"+userpassInputEncode);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	控制台输出：
+	
+		private static Log log = LogFactory.getLog(TfSupermxInfoDao.class);
+		log.debug("操作子表：" + s);
+		
+		static Logger log = LoggerFactory.getLogger(this.getClass());
+		log.trace("这是rrace日志。。。");
+		
+		static Logger logger = LoggerFactory.getLogger(this.class);
+		
+		static Logger LOG= Logger.getLogger(this.class);
+		
+		static Logger logger = Logger.getLogger(Object.class);
+		
+		
+	工具类：
+	
+		package com.ld.laowu.util.log;
+
+		import org.apache.log4j.Logger;
+		import sun.reflect.Reflection;
+
+		public class Log4JUtils{
+
+			private static Logger logger =  null;
+
+			public static Logger getLogger(){
+				if (null == logger){
+					logger = Logger.getLogger(Reflection.getCallerClass().getName());
+					logger.debug("调用者类名"+Reflection.getCallerClass().getName());
+					// Log4JUtils.getLogger().debug("log");
+				}
+				return logger;
+			}
+		}
+
+		调用：
+			Log4JUtils.getLogger().debug("log");
+		
+		
+		
+		
+		
+		
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		

@@ -2522,7 +2522,6 @@ Go 笔记
 				EmployeeOperations 嵌套了两个接口：SalaryCalculator 和 LeaveCalculator。
 				如果一个类型定义了 SalaryCalculator 和 LeaveCalculator 接口里包含的方法，
 					我们就称该类型实现了 EmployeeOperations 接口。
-					
 				
 		接口的零值：
 			接口的零值是 nil。
@@ -2758,6 +2757,145 @@ Go 笔记
 						}
 					函数 sendData 里的参数 sendch chan<- int 把 cha1 转换为一个唯送信道。
 					于是该信道在 sendData 协程里是一个唯送信道，而在 Go 主协程里是一个双向信道。
+		
+		关闭信道：
+			数据发送方可以关闭信道，通知接收方这个信道不再有数据发送过来。
+			当从信道接收数据时，接收方可以多用一个变量来检查信道是否已经关闭。
+				v, ok := <- ch
+					如果成功接收信道所发送的数据，那么 ok 等于 true。
+					而如果 ok 等于 false，说明我们试图读取一个关闭的通道。
+					从关闭的信道读取到的值会是该信道类型的零值。
+						例如：
+							当信道是一个 int 类型的信道时，那么从关闭的信道读取的值将会是 0。
+					例如：
+						func producer(chnl chan int) {  
+							for i := 0; i < 10; i++ {
+								chnl <- i
+							}
+							close(chnl)
+						}
+						func main() {  
+							ch := make(chan int)
+							go producer(ch)
+							for {
+								v, ok := <-ch
+								if ok == false {
+									break
+								}
+								fmt.Println("Received ", v, ok)
+							}
+						}
+		
+		for range 遍历信道：
+			for range 循环用于在一个信道关闭之前，从信道接收数据。
+				例如：
+					func producer(chnl chan int) {  
+						for i := 0; i < 10; i++ {
+							chnl <- i
+						}
+						close(chnl)
+					}
+					func main() {  
+						ch := make(chan int)
+						go producer(ch)
+						for v := range ch {
+							fmt.Println("Received ",v)
+						}
+					}
+				for range 循环从信道 ch 接收数据，直到该信道关闭。
+				一旦关闭了 ch，循环会自动结束。
+			计算一个数中每一位的平方和与立方和，然后把平方和与立方和相加并打印出来。
+				例如：
+					func digits(number int, dchnl chan int) {  
+						for number != 0 {
+							digit := number % 10
+							dchnl <- digit
+							number /= 10
+						}
+						close(dchnl)
+					}
+					func calcSquares(number int, squareop chan int) {  
+						sum := 0
+						dch := make(chan int)
+						go digits(number, dch)
+						for digit := range dch {
+							sum += digit * digit
+						}
+						squareop <- sum
+					}
+
+					func calcCubes(number int, cubeop chan int) {  
+						sum := 0
+						dch := make(chan int)
+						go digits(number, dch)
+						for digit := range dch {
+							sum += digit * digit * digit
+						}
+						cubeop <- sum
+					}
+
+					func main() {  
+						number := 589
+						sqrch := make(chan int)
+						cubech := make(chan int)
+						go calcSquares(number, sqrch)
+						go calcCubes(number, cubech)
+						squares, cubes := <-sqrch, <-cubech
+						fmt.Println("Final output", squares+cubes)
+					}
+				calcSquares 和 calcCubes 两个函数并发地调用了 digits。
+				calcSquares 和 calcCubes 两个协程使用 for range 循环分别监听了它们的信道，直到该信道关闭。
+				
+	缓冲信道和工作池（Buffered Channels and Worker Pools）：
+		缓冲信道：
+			只在缓冲已满的情况，才会阻塞向缓冲信道（Buffered Channel）发送数据。
+			只有在缓冲为空的时候，才会阻塞从缓冲信道接收数据。
+			
+		语法：
+			ch := make(chan type, capacity)
+				要让一个信道有缓冲，上面语法中的 capacity 应该大于 0；缓冲信道的容量默认为 0。
+		
+		创建：
+			通过向 make 函数再传递一个表示容量的参数（指定缓冲的大小），可以创建缓冲信道。
+				例如：
+					func main() {  
+						ch := make(chan string, 2)
+						ch <- "naveen"
+						ch <- "paul"
+						fmt.Println(<- ch)
+						fmt.Println(<- ch)
+					}
+					该信道的容量为 2，因此可向它写入两个字符串，而且不会发生阻塞。
+				例如：	
+					func write(ch chan int) {  
+						for i := 0; i < 5; i++ {
+							ch <- i
+							fmt.Println("successfully wrote", i, "to ch")
+						}
+						close(ch)
+					}
+					func main() {  
+						ch := make(chan int, 2)
+						go write(ch)
+						time.Sleep(2 * time.Second)
+						for v := range ch {
+							fmt.Println("read value", v,"from ch")
+							time.Sleep(2 * time.Second)
+
+						}
+					}
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
 					
 					
 					

@@ -23,8 +23,17 @@ log 自定义
 		
 		
 	例如：
-		Logger logger = Logger.getLogger(AdminLoginController.class.getName());
-		logger.debug("------------------------------------"+userpassInputEncode);
+	
+	    private final static Logger LOGGER = LoggerFactory.getLogger(AdminLoginController.class);
+		
+		LOGGER.info("-----------------------"+userpassInputEncode+"-----------------------");
+		LOGGER.debug("-----------------------"+userpassInputEncode+"-----------------------");
+	
+	或者：
+		private final static Logger logger = Logger.getLogger(AdminLoginController.class.getName());
+		
+		logger.info("-----------------------"+userpassInputEncode+"-----------------------");
+		logger.debug("-----------------------"+userpassInputEncode+"-----------------------");
 		
 		
 		

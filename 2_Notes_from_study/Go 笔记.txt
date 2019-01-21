@@ -2885,6 +2885,59 @@ Go 笔记
 						}
 					}
 					
+		死锁：
+			例如：
+				func main() {  
+					ch := make(chan string, 2)
+					ch <- "naveen"
+					ch <- "paul"
+					ch <- "steve"
+					fmt.Println(<-ch)
+					fmt.Println(<-ch)
+				}
+			没有并发协程来读取这个信道，因此这里会发生死锁（deadlock）。
+					
+		长度 vs 容量：
+			缓冲信道的容量是指信道可以存储的值的数量。
+			我们在使用 make 函数创建缓冲信道的时候会指定容量大小。
+			缓冲信道的长度是指信道中当前排队的元素个数。
+				例如：
+					func main() {  
+						ch := make(chan string, 3)
+						ch <- "naveen"
+						ch <- "paul"
+						fmt.Println("capacity is", cap(ch))
+						fmt.Println("length is", len(ch))
+						fmt.Println("read value", <-ch)
+						fmt.Println("new length is", len(ch))
+					}
+					
+		WaitGroup：
+			WaitGroup 用于实现工作池（Worker Pools），要理解工作池，首先需要学习 WaitGroup。
+			WaitGroup 用于等待一批 Go 协程执行结束。
+				程序控制会一直阻塞，直到这些协程全部执行完毕。
+					假设我们有 3 个并发执行的 Go 协程（由 Go 主协程生成）。
+					Go 主协程需要等待这 3 个协程执行结束后，才会终止。
+					这就可以用 WaitGroup 来实现。
+				例如：
+					func process(i int, wg *sync.WaitGroup) {  
+						fmt.Println("started Goroutine ", i)
+						time.Sleep(2 * time.Second)
+						fmt.Printf("Goroutine %d ended\n", i)
+						wg.Done()
+					}
+					func main() {  
+						no := 3
+						var wg sync.WaitGroup
+						for i := 0; i < no; i++ {
+							wg.Add(1)
+							go process(i, &wg)
+						}
+						wg.Wait()
+						fmt.Println("All go routines finished executing")
+					}
+					
+					
 					
 					
 					

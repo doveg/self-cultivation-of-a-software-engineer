@@ -2936,21 +2936,85 @@ Go 笔记
 						wg.Wait()
 						fmt.Println("All go routines finished executing")
 					}
+				第 21 行里，传递 wg 的地址是很重要的。
+					如果没有传递 wg 的地址，那么每个 Go 协程将会得到一个 WaitGroup 值的拷贝，
+					因而当它们执行结束时，main 函数并不会知道。
+			WaitGroup 是一个结构体类型，其初始值为零值。
+			WaitGroup 使用计数器来工作。
+				调用 WaitGroup 的 Add 并传递一个 int 时，WaitGroup 的计数器会加上 Add 的传参。
+				要减少计数器，可以调用 WaitGroup 的 Done() 方法。
+				Wait() 方法会阻塞调用它的 Go 协程，直到计数器变为 0 后才会停止阻塞。
 					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
+		工作池的实现：
+			缓冲信道的重要应用之一就是实现工作池。
+			工作池就是一组等待任务分配的线程。
+				一旦完成了所分配的任务，这些线程可继续等待任务的分配。
+			计算所输入数字的每一位的和。
+				例如：
+					type Job struct {  
+						id       int
+						randomno int
+					}
+					type Result struct {  
+						job         Job
+						sumofdigits int
+					}
+					var jobs = make(chan Job, 10)  
+					var results = make(chan Result, 10)
+					func digits(number int) int {  
+						sum := 0
+						no := number
+						for no != 0 {
+							digit := no % 10
+							sum += digit
+							no /= 10
+						}
+						time.Sleep(2 * time.Second)
+						return sum
+					}
+					func worker(wg *sync.WaitGroup) {  
+						for job := range jobs {
+							output := Result{job, digits(job.randomno)}
+							results <- output
+						}
+						wg.Done()
+					}
+					func createWorkerPool(noOfWorkers int) {  
+						var wg sync.WaitGroup
+						for i := 0; i < noOfWorkers; i++ {
+							wg.Add(1)
+							go worker(&wg)
+						}
+						wg.Wait()
+						close(results)
+					}
+					func allocate(noOfJobs int) {  
+						for i := 0; i < noOfJobs; i++ {
+							randomno := rand.Intn(999)
+							job := Job{i, randomno}
+							jobs <- job
+						}
+						close(jobs)
+					}
+					func result(done chan bool) {  
+						for result := range results {
+							fmt.Printf("Job id %d, input random no %d , sum of digits %d\n", result.job.id, result.job.randomno, result.sumofdigits)
+						}
+						done <- true
+					}
+					func main() {  
+						startTime := time.Now()
+						noOfJobs := 100
+						go allocate(noOfJobs)
+						done := make(chan bool)
+						go result(done)
+						noOfWorkers := 10
+						createWorkerPool(noOfWorkers)
+						<-done
+						endTime := time.Now()
+						diff := endTime.Sub(startTime)
+						fmt.Println("total time taken ", diff.Seconds(), "seconds")
+					}
 					
 					
 					

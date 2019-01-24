@@ -21,6 +21,7 @@
 	
 	tuple：元组；[tjʊpəl; ˈtʌpəl]
 	reduce：减少；分解；归纳；[rɪ'djuːs]
+	reduction：降阶；归约；[rɪ'dʌkʃ(ə)n]
 	
 	parameter：参数；形参；[pə'ræmɪtə]
 	arguments：参数；['ɑːgjʊm(ə)nts]
@@ -336,7 +337,44 @@ UUID：
 	因为覆盖，所以多态。
 		方法重写之后就有了多态。
 
-
+lambda ：
+	peek接收一个没有返回值的λ表达式，可以做一些输出，外部处理等；
+	map接收一个有返回值的λ表达式，之后Stream的泛型类型将转换为map参数λ表达式返回的类型。
+	
+	
+订单号生成：
+	Random rand = new Random();
+	int shu2 = rand.Next(1000, 9999);
+	string randId = DateTime.Now.ToString("yyyyMMddHHmmss") + shu2;
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

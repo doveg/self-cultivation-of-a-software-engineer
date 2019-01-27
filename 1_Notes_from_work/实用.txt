@@ -343,14 +343,11 @@ lambda ：
 	
 	
 订单号生成：
-	Random rand = new Random();
-	int shu2 = rand.Next(1000, 9999);
-	string randId = DateTime.Now.ToString("yyyyMMddHHmmss") + shu2;
 	
-	
-	
-	
-	
+	SimpleDateFormat sdf = new SimpleDateFormat ("yyyyMMddHHmmss");
+	String format = sdf.format(new Date());
+	int anInt = new Random().nextInt(8999)+1000;
+	String out_trade_no = format + anInt;
 	
 	
 	

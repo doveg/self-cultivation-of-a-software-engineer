@@ -1,0 +1,66 @@
+		
+		
+依赖包的优先级设置
+		
+		
+> 问题出现：
+
+	一个老项目的退款功能被微信支付后台停用，原因是 xml 解析工具有漏洞风险，
+	微信客服给出的解决方案是使用官方的补丁。
+	使用补丁后发现：xml-api 包与 jdk 自带的包冲突。
+	具体原因：
+		xml-api 包的某个类与 jdk 自带的某个类具有相同的全限定名，但是 xml-api 包中并没有相关实现，
+		IDE 没有依赖 jdk 自带的包，而是优先依赖 xml-api 包，导致项目无法完成编译。
+	
+> 尝试解决：
+
+	在 Maven 中排除 xml-api 包：
+		从父 pom 里面做排除：
+			但是项目年代久远，各种类库的依赖盘根错节，
+			到父 pom 里面没找到依赖，到依赖的自定义基本库里面也没找到。
+			况且考虑到父 pom 被其他项目依赖的可能性，所以还是想想其他办法。
+		全局排除：
+			在 pom 文件里加入冲突包的依赖，然后再排除包里全部的内容：
+				<dependency>
+					<groupId></groupId>
+					<artifactId></artifactId>
+					<version></version>
+					<exclusions>
+						<exclusion>
+							<groupId>*</groupId>
+							<artifactId>*</artifactId>
+						</exclusion>
+					</exclusions>
+				</dependency>
+			这个方法能够排除掉项目对 xml-api 包里的全部依赖；
+				但是因为先导入后排除，项目依然会优先依赖 xml-api 包；所以问题还是没有解决。
+	
+> 推荐方案：
+
+	修改依赖包的优先级：
+	
+		因为这个老项目是用 Eclipse 开发，先说 Eclipse 操作方法。
+		Eclipse：
+			设置 build path order；
+			把优先级高的包放到上面，
+			所以可以把 jre 的包放到最上面。
+		
+		顺便看了下 IDEA 的设置，也能修改优先级。
+		IDEA：
+			修改 classpath order：
+			菜单：File -> Project Structure -> Modules
+			快捷键：Ctrl + Alt + Shift + S  -> Modules
+			把优先级高的包放到上面，
+			IDEA 中，jdk 自带的包默认就是最高优先级，所以使用 IDEA 不会出现类似的问题。
+		
+		
+传送门：http://blog.51cto.com/13508140/2349469
+本文系笔者原创
+转载请注明出处
+—————————————
+		
+		
+		
+		
+		
+		

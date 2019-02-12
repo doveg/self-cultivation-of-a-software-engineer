@@ -343,7 +343,6 @@ lambda ：
 	
 	
 订单号生成：
-	
 	SimpleDateFormat sdf = new SimpleDateFormat ("yyyyMMddHHmmss");
 	String format = sdf.format(new Date());
 	int anInt = new Random().nextInt(8999)+1000;

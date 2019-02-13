@@ -16,21 +16,23 @@ USE `laowu`$$
 DROP FUNCTION IF EXISTS `f_getRecruitResume`$$
 
 CREATE DEFINER=`root`@`%` FUNCTION `f_getRecruitResume`(cid VARCHAR(32),rrpid VARCHAR(32),state  CHAR(1)) RETURNS INT(11)
-BEGIN
-        
-        DECLARE resumecount  INT DEFAULT 0;
-        
-        IF cid='' AND state = '' THEN 
-	     SELECT COUNT(1) AS  resumecount FROM t_recruit_resume_company T1 WHERE T1.RRPID=rrpid INTO resumecount;
-	ELSEIF cid='' AND state != '' THEN
-	    SELECT COUNT(1) AS  resumecount FROM t_recruit_resume_company T1 WHERE T1.RSTATE=state AND T1.RRPID=rrpid INTO resumecount;
-	ELSEIF cid!='' AND state = '' THEN 
-	     SELECT COUNT(1) AS  resumecount FROM t_recruit_resume_company T1 WHERE T1.CID=cid AND T1.RRPID=rrpid INTO resumecount;
-	ELSEIF cid!='' AND state != '' THEN
-	    SELECT COUNT(1) AS  resumecount FROM t_recruit_resume_company T1 WHERE T1.CID=cid AND T1.RSTATE=state AND T1.RRPID=rrpid INTO resumecount;
-	END IF;   
-	 
-	RETURN resumecount;   
+
+	BEGIN
+			
+		DECLARE resumecount INT DEFAULT 0;
+			
+		IF cid='' AND state = '' THEN 
+			 SELECT COUNT(1) AS  resumecount FROM t_recruit_resume_company T1 WHERE T1.RRPID=rrpid INTO resumecount;
+		ELSEIF cid='' AND state != '' THEN
+			SELECT COUNT(1) AS  resumecount FROM t_recruit_resume_company T1 WHERE T1.RSTATE=state AND T1.RRPID=rrpid INTO resumecount;
+		ELSEIF cid!='' AND state = '' THEN 
+			 SELECT COUNT(1) AS  resumecount FROM t_recruit_resume_company T1 WHERE T1.CID=cid AND T1.RRPID=rrpid INTO resumecount;
+		ELSEIF cid!='' AND state != '' THEN
+			SELECT COUNT(1) AS  resumecount FROM t_recruit_resume_company T1 WHERE T1.CID=cid AND T1.RSTATE=state AND T1.RRPID=rrpid INTO resumecount;
+		END IF;   
+		 
+		RETURN resumecount;
+		
     END$$
 
 DELIMITER ;
@@ -42,8 +44,6 @@ DELIMITER ;
 f_getTrainUser
 		
 		
-		
-		
 DELIMITER $$
 
 USE `laowu`$$
@@ -51,21 +51,23 @@ USE `laowu`$$
 DROP FUNCTION IF EXISTS `f_getTrainUser`$$
 
 CREATE DEFINER=`root`@`%` FUNCTION `f_getTrainUser`(cid VARCHAR(32),tiid VARCHAR(32),state  CHAR(1)) RETURNS INT(11)
-BEGIN
-        
-        DECLARE usercount  INT DEFAULT 0;
-        
-         IF cid='' AND state = '' THEN 
-	    SELECT COUNT(1) AS  usercount FROM t_train_user T1 WHERE T1.CID=cid AND T1.TIID=tiid INTO usercount;
-	ELSEIF cid='' AND state != '' THEN
-	    SELECT COUNT(1) AS  usercount FROM t_train_user T1 WHERE T1.CID=cid AND T1.STATE=state AND T1.TIID=tiid INTO usercount;
-	ELSEIF cid!='' AND state = '' THEN 
-	    SELECT COUNT(1) AS  usercount FROM t_train_user T1 WHERE T1.CID=cid AND T1.TIID=tiid INTO usercount;
-	ELSEIF cid!='' AND state != '' THEN
-	    SELECT COUNT(1) AS  usercount FROM t_train_user T1 WHERE T1.CID=cid AND T1.STATE=state AND T1.TIID=tiid INTO usercount;
-	END IF;   
-	 
-	RETURN usercount;   
+
+	BEGIN
+			
+		DECLARE usercount INT DEFAULT 0;
+			
+		IF cid='' AND state = '' THEN 
+			SELECT COUNT(1) AS  usercount FROM t_train_user T1 WHERE T1.CID=cid AND T1.TIID=tiid INTO usercount;
+		ELSEIF cid='' AND state != '' THEN
+			SELECT COUNT(1) AS  usercount FROM t_train_user T1 WHERE T1.CID=cid AND T1.STATE=state AND T1.TIID=tiid INTO usercount;
+		ELSEIF cid!='' AND state = '' THEN 
+			SELECT COUNT(1) AS  usercount FROM t_train_user T1 WHERE T1.CID=cid AND T1.TIID=tiid INTO usercount;
+		ELSEIF cid!='' AND state != '' THEN
+			SELECT COUNT(1) AS  usercount FROM t_train_user T1 WHERE T1.CID=cid AND T1.STATE=state AND T1.TIID=tiid INTO usercount;
+		END IF;   
+		
+		RETURN usercount;
+		
     END$$
 
 DELIMITER ;

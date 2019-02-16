@@ -171,7 +171,36 @@
 	
 	
 	
-	
+	Spring 九种设计模式：
+		
+		简单工厂
+		
+		工厂方法（Factory Method）
+		
+		单例模式（Singleton）
+		
+		适配器（Adapter）
+		
+		包装器（Decorator）
+		
+		代理（Proxy）
+		
+		观察者（Observer）
+		
+		
+		策略（Strategy）
+		
+		
+		模板方法（Template Method）
+
+		
+		
+		
+		
+		
+		
+		
+		
 	
 	
 	

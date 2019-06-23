@@ -168,9 +168,9 @@ HTTP
 				如果你正在编写 HTTP 的客户端，你最好还是检查 511 状态码以确认是否需要认证后才能访问。
 
 	
-Socket
+Socket：
 
-	Java socket 编程
+	Java socket 编程：
 		服务器端，
 			首先是服务器初始化 Socket，
 			然后是与端口进行绑定 (blind()),
@@ -181,14 +181,14 @@ Socket
 
 
 
-SOAP
+SOAP：
 	Simple Object Access Protocol：简单对象访问协议。
 	一种标准化的通讯规范，主要用于 Web 服务 (web service) 中。
 	这里之所以说是简单，是因为它是基于已经广泛使用的两个协议：HTTP 和 XML，
 	所以业界把这种技术称为“它是第一个没有发明任何新技术的技术"。
 
 
-RESTful
+RESTful：
 	HTTP 接口开发，也就是我们常说的 RESTful 风格的服务接口
 
 

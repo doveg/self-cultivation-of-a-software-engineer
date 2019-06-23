@@ -5,95 +5,113 @@ SQL 备忘
 
 
 
-聚合函数中加入条件：
-	sum()：
-		case when d.STATUS=7 then d.GOODS_PAYMENT else 0 end
-	count()：
-		if(d.STATUS=7,true,null)
-	
-in 和 not in 查询：
-	in 后面的结果里只能包含一个字段，字段里面可以有多个值；
-	in 前面只能包含一个字段；
-		如 where userIds in(0,7,8)。
-
-Mybatis 迭代数组：
-	<foreach collection="userIds" index="index" item="item" open="(" separator="," close=")">
-		#{item}
-	</foreach>
-	
-日期计算：
-	NOW()；
-	interval + 时间；
-		SELECT * FROM 表名 WHERE 字段名>NOW()-INTERVAL 2 HOUR;
-		SELECT * FROM 表名 WHERE 字段名 > DATE_SUB(NOW(), INTERVAL 60 MINUTE);
-	
-子查询的子表必须要有别名。
-	
-字段去重：
-	DISTINCT 字段。	
-	
-limit：
-	如果只给定一个参数，它表示返回最大的记录行数目： 
-	SELECT * FROM table LIMIT 5; //检索前 5 个记录行
-	也就是说：LIMIT n 等价于 LIMIT 0,n
-
-	为了检索从某一个偏移量到记录集的结束所有的记录行，可以指定第二个参数为 -1： 
-	SELECT * FROM table LIMIT 95,-1; // 检索记录行 96-last.
-	
-	常用的用法：
-	SELECT * FROM table LIMIT 5,10; // 检索记录行 第 6 行至第 15 行的数据
-	
-TIMESTAMP 默认值：
-	1，TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-		在创建新记录和修改现有记录的时候都对这个数据列刷新
-
-	2，TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-		在创建新记录的时候把这个字段设置为当前时间，但以后修改时，不再刷新它
-
-	3，TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-		在创建新记录的时候把这个字段设置为 0，以后修改时刷新它
-
-	4，TIMESTAMP DEFAULT ‘yyyy-mm-dd hh:mm:ss’ ON UPDATE CURRENT_TIMESTAMP 
-		在创建新记录的时候把这个字段设置为给定值，以后修改时刷新它
+	聚合函数中加入条件：
+		sum()：
+			case when d.STATUS=7 then d.GOODS_PAYMENT else 0 end
+		count()：
+			if(d.STATUS=7,true,null)
 		
-TRUNCATE() 函数：
-	truncate(number, 2);	截取到小数点后 2 位
-	TRUNCATE(X,D)
-		X 表示需要处理的数字，D 表示需要截取的位数。如果 D 为零，则返回的数字不含小数。D 也可以是负数，这样会把整数的部分置零。
-		示例如下：
-			mysql> SELECT TRUNCATE(1.223,1);
-			-> 1.2
-			mysql> SELECT TRUNCATE(1.999,1);
-			-> 1.9
-			mysql> SELECT TRUNCATE(1.999,0);
-			-> 1
-			mysql> SELECT TRUNCATE(-1.999,1);
-			-> -1.9
-			mysql> SELECT TRUNCATE(122,-2);
-			-> 100
-			mysql> SELECT TRUNCATE(10.28*100,0);
-			-> 1028
-	
-	
-	
-当月查询：
-	where MONTH(CREATE_TIME) = MONTH(now()) and YEAR(CREATE_TIME)=YEAR(NOW())
-	
-	
-当日查询：
-	where TO_DAYS(CREATE_TIME)=TO_DAYS(NOW())
-	where DATE(CREATE_TIME) = CURDATE()
-	where YEAR(CREATE_TIME) = YEAR(now()) and MONTH(CREATE_TIME) = MONTH(now()) and DAY(CREATE_TIME) = DAY(NOW())
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	in 和 not in 查询：
+		in 后面的结果里只能包含一个字段，字段里面可以有多个值；
+		in 前面只能包含一个字段；
+			如 where userIds in(0,7,8)。
+
+	Mybatis 迭代数组：
+		<foreach collection="userIds" index="index" item="item" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+		
+	日期计算：
+		NOW()；
+		interval + 时间；
+			SELECT * FROM 表名 WHERE 字段名>NOW()-INTERVAL 2 HOUR;
+			SELECT * FROM 表名 WHERE 字段名 > DATE_SUB(NOW(), INTERVAL 60 MINUTE);
+		
+	子查询的子表必须要有别名。
+		
+	字段去重：
+		DISTINCT 字段。	
+		
+	limit：
+		如果只给定一个参数，它表示返回最大的记录行数目： 
+		SELECT * FROM table LIMIT 5; //检索前 5 个记录行
+		也就是说：LIMIT n 等价于 LIMIT 0,n
+
+		为了检索从某一个偏移量到记录集的结束所有的记录行，可以指定第二个参数为 -1： 
+		SELECT * FROM table LIMIT 95,-1; // 检索记录行 96-last.
+		
+		常用的用法：
+		SELECT * FROM table LIMIT 5,10; // 检索记录行 第 6 行至第 15 行的数据
+		
+	TIMESTAMP 默认值：
+		1，TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+			在创建新记录和修改现有记录的时候都对这个数据列刷新
+
+		2，TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+			在创建新记录的时候把这个字段设置为当前时间，但以后修改时，不再刷新它
+
+		3，TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+			在创建新记录的时候把这个字段设置为 0，以后修改时刷新它
+
+		4，TIMESTAMP DEFAULT ‘yyyy-mm-dd hh:mm:ss’ ON UPDATE CURRENT_TIMESTAMP 
+			在创建新记录的时候把这个字段设置为给定值，以后修改时刷新它
+			
+	TRUNCATE() 函数：
+		truncate(number, 2);	截取到小数点后 2 位
+		TRUNCATE(X,D)
+			X 表示需要处理的数字，D 表示需要截取的位数。如果 D 为零，则返回的数字不含小数。D 也可以是负数，这样会把整数的部分置零。
+			示例如下：
+				mysql> SELECT TRUNCATE(1.223,1);
+				-> 1.2
+				mysql> SELECT TRUNCATE(1.999,1);
+				-> 1.9
+				mysql> SELECT TRUNCATE(1.999,0);
+				-> 1
+				mysql> SELECT TRUNCATE(-1.999,1);
+				-> -1.9
+				mysql> SELECT TRUNCATE(122,-2);
+				-> 100
+				mysql> SELECT TRUNCATE(10.28*100,0);
+				-> 1028
+		
+		
+		
+	当月查询：
+		where MONTH(CREATE_TIME) = MONTH(now()) and YEAR(CREATE_TIME)=YEAR(NOW())
+		
+		
+	当日查询：
+		where TO_DAYS(CREATE_TIME)=TO_DAYS(NOW())
+		where DATE(CREATE_TIME) = CURDATE()
+		where YEAR(CREATE_TIME) = YEAR(now()) and MONTH(CREATE_TIME) = MONTH(now()) and DAY(CREATE_TIME) = DAY(NOW())
+		
+		
+	对某字段定量增减：
+		set field = field + num
+		set field = field - num
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+实例：
 	
 	<!-- 统计用户消费数据 -->
 	<select id="getUserConsumptionData" resultType="java.util.HashMap">
@@ -119,7 +137,7 @@ TRUNCATE() 函数：
 		GROUP BY WX_BIND_PHONE 
 		order by PAYMENTS desc 
 		limit #{index}, #{rows} 
- </select>
+	</select>
 
 	<select id="getRecommendGoodsAll" resultMap="NewGoodsMap">
 		select n.GOODS_ID, n.GOODS_IMAGE, n.GOODS_NAME, n.MARKET_PRICE, n.GROUNDING_TIME, 

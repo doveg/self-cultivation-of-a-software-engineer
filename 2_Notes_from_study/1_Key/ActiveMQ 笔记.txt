@@ -2,69 +2,111 @@
 ActiveMQ
 
 
-ActiveMQ 核心
+	ActiveMQ 核心
 
-	是什么：
-		
-	为什么使用：
-		
-	基本原理：
-		观察者模式
-		queue 点到点
-		topic 广播
-		Producer
-		Consumer
-	怎么使用：
-		引入 jar 包；
-		整合 Spring；
-			配置 Producer 和 Destination。
-		测试。
+		是什么：
+			
+		为什么使用：
+			
+		基本原理：
+			观察者模式
+			queue 点到点
+			topic 广播
+			Producer
+			Consumer
+		怎么使用：
+			引入 jar 包；
+			整合 Spring；
+				配置 Producer 和 Destination。
+			测试。
 	
-小结
-	ActiveMQ 消息队列：实现商品同步、同步生成静态网页。Activemq 整合 spring。
-		1、queue 点到点
-		2、topic 广播
-		3、Producer
-		4、Consumer
-		ActiveMQ 作用：系统之间解耦时使用。实现数据最终一致。
-	同步索引库分析：
-		方案一：在 manager 中，添加商品的业务逻辑中，添加一个同步索引库的业务逻辑。
-			缺点：业务逻辑耦合度高，业务拆分不明确
-		方案二：业务逻辑在 search 中实现，调用服务在 manager 实现，业务逻辑分开。
-			缺点：服务之间的耦合度变高，服务的启动有先后顺序。
-		方案三：使用消息队列。
-			MQ：消息中间件，ActiveMQ、RabbitMQ、kafka。
+	
+	
+	
+	ActiveMQ 小结
+		ActiveMQ 消息队列：实现商品同步、同步生成静态网页。Activemq 整合 spring。
+			1、queue 点到点
+			2、topic 广播
+			3、Producer
+			4、Consumer
+			ActiveMQ 作用：系统之间解耦时使用。实现数据最终一致。
+		同步索引库分析：
+			方案一：在 manager 中，添加商品的业务逻辑中，添加一个同步索引库的业务逻辑。
+				缺点：业务逻辑耦合度高，业务拆分不明确
+			方案二：业务逻辑在 search 中实现，调用服务在 manager 实现，业务逻辑分开。
+				缺点：服务之间的耦合度变高，服务的启动有先后顺序。
+			方案三：使用消息队列。
+				MQ：消息中间件，ActiveMQ、RabbitMQ、kafka。
 
-ActiveMQ
-	ActiveMQ 是 Apache 出品，最流行的，能力强劲的开源消息总线。
-	ActiveMQ 是一个完全支持 JMS1.1 和 J2EE 1.4 规范的 JMS Provider 实现，
-		尽管 JMS 规范出台已经是很久的事情了，但是 JMS 在当今的 J2EE 应用中间仍然扮演着特殊的地位。
-	主要特点：
-		1. 多种语言和协议编写客户端。语言: Java，C，C++，C#，Ruby，Perl，Python，PHP。
-			应用协议: OpenWire，Stomp REST，WS Notification，XMPP，AMQP
-		2. 完全支持 JMS1.1 和 J2EE 1.4 规范 (持久化，XA 消息，事务)
-		3. 对 Spring 的支持，ActiveMQ 可以很容易内嵌到使用 Spring 的系统里面去，而且也支持 Spring2.0 的特性
-		4. 通过了常见 J2EE 服务器 (如 Geronimo，JBoss 4，GlassFish，WebLogic) 的测试，
-			其中通过 JCA 1.5 resource adaptors 的配置，
-			可以让 ActiveMQ 可以自动的部署到任何兼容 J2EE 1.4 商业服务器上
-		5. 支持多种传送协议:in-VM，TCP，SSL，NIO，UDP，JGroups，JXTA
-		6. 支持通过 JDBC 和 journal 提供高速的消息持久化
-		7. 从设计上保证了高性能的集群，客户端-服务器，点对点
-		8. 支持 Ajax
-		9. 支持与 Axis 的整合
-		10. 可以很容易得调用内嵌 JMS provider，进行测试
-		
-	ActiveMQ 消息形式：
-		消息的传递有两种类型：
-			点对点模式：一个生产者和一个消费者一一对应；
-			发布/订阅模式：一个生产者产生消息并进行发送后，可以由多个消费者进行接收。
-			JMS 定义了五种不同的消息正文格式，以及调用的消息类型，
-			允许你发送并接收以一些不同形式的数据，提供现有消息格式的一些级别的兼容性。
-			　　· StreamMessage -- Java 原始值的数据流
-			　　· MapMessage--一套名称-值对
-			　　· TextMessage--一个字符串对象
-			　　· ObjectMessage--一个序列化的 Java 对象
-			　　· BytesMessage--一个字节的数据流
+			
+			
+			
+			
+			
+			案例：
+				//往activemq中插入消息
+                jmsTemplate.send("zg.jack.queue", new MessageCreator() {
+                    @Override
+                    public Message createMessage(Session session) throws JMSException {
+                        com.zhuguang.jack.bean.Message message = new com.zhuguang.jack.bean.Message();
+                        message.setAmount(Integer.valueOf(amount));
+                        message.setStatus("unconfirm");
+                        message.setUserId(userId);
+                        message.setMessageId(messageId);
+                        return session.createObjectMessage(message);
+                    }
+                });
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+	ActiveMQ
+		ActiveMQ 是 Apache 出品，最流行的，能力强劲的开源消息总线。
+		ActiveMQ 是一个完全支持 JMS1.1 和 J2EE 1.4 规范的 JMS Provider 实现，
+			尽管 JMS 规范出台已经是很久的事情了，但是 JMS 在当今的 J2EE 应用中间仍然扮演着特殊的地位。
+		主要特点：
+			1. 多种语言和协议编写客户端。语言: Java，C，C++，C#，Ruby，Perl，Python，PHP。
+				应用协议: OpenWire，Stomp REST，WS Notification，XMPP，AMQP
+			2. 完全支持 JMS1.1 和 J2EE 1.4 规范 (持久化，XA 消息，事务)
+			3. 对 Spring 的支持，ActiveMQ 可以很容易内嵌到使用 Spring 的系统里面去，而且也支持 Spring2.0 的特性
+			4. 通过了常见 J2EE 服务器 (如 Geronimo，JBoss 4，GlassFish，WebLogic) 的测试，
+				其中通过 JCA 1.5 resource adaptors 的配置，
+				可以让 ActiveMQ 可以自动的部署到任何兼容 J2EE 1.4 商业服务器上
+			5. 支持多种传送协议:in-VM，TCP，SSL，NIO，UDP，JGroups，JXTA
+			6. 支持通过 JDBC 和 journal 提供高速的消息持久化
+			7. 从设计上保证了高性能的集群，客户端-服务器，点对点
+			8. 支持 Ajax
+			9. 支持与 Axis 的整合
+			10. 可以很容易得调用内嵌 JMS provider，进行测试
+			
+		ActiveMQ 消息形式：
+			消息的传递有两种类型：
+				点对点模式：一个生产者和一个消费者一一对应；
+				发布/订阅模式：一个生产者产生消息并进行发送后，可以由多个消费者进行接收。
+				JMS 定义了五种不同的消息正文格式，以及调用的消息类型，
+				允许你发送并接收以一些不同形式的数据，提供现有消息格式的一些级别的兼容性。
+				　　· StreamMessage -- Java 原始值的数据流
+				　　· MapMessage--一套名称-值对
+				　　· TextMessage--一个字符串对象
+				　　· ObjectMessage--一个序列化的 Java 对象
+				　　· BytesMessage--一个字节的数据流
 
 	ActiveMQ 安装
 		进入 http://activemq.apache.org/下载 ActiveMQ，使用的版本是 5.12.0
@@ -220,19 +262,19 @@ ActiveMQ
 						<property name="messageListener" ref="myMessageListener" />
 					</bean>
 
-实例
-	添加商品同步索引库
-		Producer
-			在 manager-server 工程中发送消息。
-			当商品添加完成后发送一个 TextMessage，包含一个商品 id。
-		Consumer
-			功能分析：
-			1、接收消息。需要创建 MessageListener 接口的实现类。
-			2、取消息，取商品 id。
-			3、根据商品 id 查询数据库。
-			4、创建一 SolrInputDocument 对象。
-			5、使用 SolrServer 对象写入索引库。
-			6、返回成功，返回 TaotaoResult。
+	实例
+		添加商品同步索引库
+			Producer
+				在 manager-server 工程中发送消息。
+				当商品添加完成后发送一个 TextMessage，包含一个商品 id。
+			Consumer
+				功能分析：
+				1、接收消息。需要创建 MessageListener 接口的实现类。
+				2、取消息，取商品 id。
+				3、根据商品 id 查询数据库。
+				4、创建一 SolrInputDocument 对象。
+				5、使用 SolrServer 对象写入索引库。
+				6、返回成功，返回 TaotaoResult。
 
 
 

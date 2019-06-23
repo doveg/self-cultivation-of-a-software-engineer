@@ -5,6 +5,8 @@ Dubbo
 Dubbo 核心
 
 	是什么：
+		分布式服务框架；
+		提供 RPC 远程调用、SOA 服务治理；
 		
 	为什么使用：
 		分布式中，表现层和服务层之间的通信；
@@ -20,11 +22,35 @@ Dubbo 核心
 	Dubbo 服务中间件；解决服务层和表现层两个工程之间的通信。在 Spring 中的配置。
 		dubbo-admin：Dubbo 监控中心。
 
+		
+		
+	Dubbo 特点：
+		远程通信；
+		集群容错；
+		自动发现；
+		
+		
+	常用标签：
+		<dubbo:application/>	应用信息：当前服务的项目信息配置；
+		container				服务运行容器；
+		<dubbo:provider/>		服务提供者：服务治理、性能调优配置；
+		<dubbo:service/>		服务提供者：暴露接口配置
+		<dubbo:consumer/>		服务消费者：服务治理、性能调优配置；
+		<dubbo:reference/>		服务消费者：引用接口配置
+		<dubbo:registry/>		注册中心；
+		<dubbo:protocol/>		远程调用协议；
+		
+		
+		
+		
+		
+		
+		
 
 	远程通信方案：
 		1、Webservice：效率不高基于 soap 协议。项目中不推荐使用。
 		2、Restful 形式的服务：http+json。如果服务太多，服务之间调用关系混乱，需要治疗服务。
-		3、Dubbo。使用 rpc 协议进行远程调用，直接使用 socket 通信。
+		3、Dubbo。使用 rpc 协议进行远程调用，直接使用 socket (TCP 长连接)通信。
 
 
 	使用 Dubbo 进行通信

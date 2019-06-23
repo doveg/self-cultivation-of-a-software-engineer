@@ -16,7 +16,21 @@
 	
 	
 	
-	
+	反射使用
+		反射的基本原理
+			反射获取类型的方式：
+				getclass () 和 .class 的区别：
+					getclass()：获得该对象的类型类；（推荐）
+						a.getClass返回的是 Class<? extends | A | >；
+						有多态能力，运行时可以返回子类的类型信息。
+					.class：一个特定类型的类型类；
+						.class返回的是 Class<A>。
+			得到类字节码的方式：
+				forName() 和 loadClass()：
+					forName()：得到的class是已经初始化完成的；（推荐）
+					loadClass()：得到的class是还没有连接的。
+						一般情况下，这两个方法效果一样，都能装载Class。
+						但如果程序依赖于Class是否被初始化，就必须用Class.forName(name)了。
 	
 	
 	

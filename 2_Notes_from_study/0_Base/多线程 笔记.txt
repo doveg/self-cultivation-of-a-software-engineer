@@ -37,7 +37,7 @@
 					创建线程类对象： Thread t = new Thread ( new A ( ) )；
 					调用线程对象的 start 方法，t.start ( )；
 		线程通信：
-			Condition 接口中的 await 和 signal 方法：
+			Condition 接口中的 await 和 signal 方法：（推荐）
 				reentrantLock.newCondition( )
 				1) await()：
 				2) signal()：

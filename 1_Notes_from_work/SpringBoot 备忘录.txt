@@ -1,9 +1,86 @@
 
-Spring Boot 笔记
+Spring Boot 备忘录
 
 
+Spring Boot 核心
 
-
+	是什么：
+		伴随 Spring 4.0 诞生；
+		内嵌 Web 容器的可执行程序框架。
+		
+		
+	为什么使用：
+		配置更简单；
+			比如同样是 web 框架，Spring Boot 比 SpringMVC 少了很多导入包和 xml 配置；
+		编码更简单；
+			配置注解化；
+		部署更简单；
+			每个 Spring Boot 项目自带 Web 容器；
+		监控更简单；
+			支持 HTTP 加路径的方式管理和监控项目；
+			支持可视化的 Spring Boot Admin。
+		
+	基本原理：
+		
+		
+	怎么使用：
+		@SpringBootApplication：
+			相当于 EnableAutoConfiguration + @ComponentScan。
+		@SpringBootConfiguration：
+			和 @Configuration 功能一样；
+			用来代替 xml 配置中的 bean 标签。
+		@EnableAutoConfiguration
+			自动加载 jar 的默认配置。
+		@ComponentScan：
+			自动扫描
+		@RestController：
+			相当于 @Controller + @ResponseBody
+		@Controller：
+			控制器类；
+		@ResponseBody：
+			返回参数转成 json 格式的字符串。
+		@RequestMapping：
+			请求映射路径；
+		@Value：
+			配置文件中定义的变量。
+		@ControllerAdvice：	
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		
+	Spring Boot 
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 
 @Autowired 与 @Resource：
 

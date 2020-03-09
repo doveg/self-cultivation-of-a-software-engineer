@@ -17,3 +17,6 @@ As a repository about notes, Chinese is the first language of the files, sorry a
 
 # Keep on updating ...
 
+--------------------------------------------------
+
+由于涉及到太多个人文件，仓库已经重新整理并且不再公开。。。

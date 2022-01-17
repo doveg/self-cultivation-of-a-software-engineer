@@ -7,16 +7,15 @@ As a repository about notes, Chinese is the first language of the files, sorry a
 
 # Introduction of context
 
-1_Notes_from_work: the memo in finding the solution and solving the problem in work;
+1_notes: the memo in finding the solution and solving the problem in work;
 
-2_Notes_from_study: the notes from studying the course or reading the articles; 
+3_experience: brief practical experience;
 
-3_Notes_In_Image: nice picture to understand the professional concept I collected; 
+5_Notes_about_career: amazing blogs about the career and development of a software engineer.
 
-4_Notes_about_career: amazing blogs about the career and development of a software engineer.
+6_books: nice book about software.
+
+7_notes-in-image: nice picture to understand the professional concept I collected; 
 
 # Keep on updating ...
 
---------------------------------------------------
-
-由于涉及到太多个人文件，仓库已经重新整理并且不再公开。。。

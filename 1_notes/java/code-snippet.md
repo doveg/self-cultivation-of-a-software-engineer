@@ -1,18 +1,12 @@
-## Java code snippet / Java 代码片段
+## code-snippet / Java 代码片段
 
-
-#### 基础
-
+#### 基础部分
 
 ###### 二维数组比较排序
 
 ```
     Arrays.sort(points, Comparator.comparingInt(a -> a[1]));
 ```
-
-
-
-
 
 ###### 初始化二维数组
 
@@ -21,11 +15,6 @@
 
     int[][] testArray = new int[4][2];
 ```
-
-
-
-
-
 
 ###### 字符转整形
 

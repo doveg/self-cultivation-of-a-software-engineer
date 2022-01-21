@@ -13,23 +13,23 @@
 5. 睡眠：
 6. 销毁：
 
-###### [线程池的处理流程](https://github.com/bourneo/self-cultivation-of-a-software-engineer/blob/master/7_image/java/thread-pool-process.png)
+###### 线程池的处理流程
 
 1. 初始化：根据配置创建线程池
 2. 提交任务
 3. 判断线程池线程数，是否小于核心线程池数量，小于则直接创建线程
 4. 判断等待队列是否已满，满了就执行拒绝策略，没有则直接创建线程
 
-![线程池的处理流程](https://github.com/bourneo/self-cultivation-of-a-software-engineer/blob/master/7_image/java/thread-pool-process.png)
+![线程池的处理流程](https://github.com/bourneo/self-cultivation-of-a-software-engineer/blob/master/7_image/java/thread-pool-process.png){:height="100px" width="100px"}
 
-###### [线程池的核心配置参数](https://github.com/bourneo/self-cultivation-of-a-software-engineer/blob/master/7_image/java/thread-pool-config.png)
+###### 线程池的核心配置参数
 
 1. 线程池的最大容量：任务数量超过线程池的最大线程数，任务会进入等待队列，等待空闲的线程
 2. 核心线程池：线程池会维持核心数量的线程数
 3. 存活时间：闲置线程到达最长存活时间，会被线程池销毁
 4. 拒绝策略：
 
-![线程池的核心配置参数](https://github.com/bourneo/self-cultivation-of-a-software-engineer/blob/master/7_image/java/thread-pool-config.png)
+![线程池的核心配置参数](https://github.com/bourneo/self-cultivation-of-a-software-engineer/blob/master/7_image/java/thread-pool-config.png){:height="100px" width="100px"}
 
 ###### 常用的线程池
 

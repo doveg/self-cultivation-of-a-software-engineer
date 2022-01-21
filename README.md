@@ -15,7 +15,7 @@ As a repository about notes, Chinese is the first language of the files, sorry a
 
 6_books: nice book about software.
 
-7_notes-in-image: nice picture to understand the professional concept I collected; 
+7_image: nice picture to understand the professional concept I collected; 
 
 # Keep on updating ...
 

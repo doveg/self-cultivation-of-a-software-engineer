@@ -1,6 +1,7 @@
 ## Java-collection / Java Collection 接口
 
 ---
+
 #### 基础部分
 
 ###### Set 接口的实现
@@ -19,11 +20,10 @@ PriorityQueue：
 
     根据元素排序决定出列的顺序
 
-###### [Collection 接口的继承关系](https://github.com/bourneo/self-cultivation-of-a-software-engineer/blob/master/7_image/java/Java-collection.webp)
+###### Collection 接口的继承关系
 
-
-![Collection 接口的继承关系](https://github.com/bourneo/self-cultivation-of-a-software-engineer/blob/master/7_image/java/Java-collection.webp)
-
+<div align="center">
+<img width="500"  alt="Collection 接口的继承关系" src="https://github.com/bourneo/self-cultivation-of-a-software-engineer/blob/master/7_image/java/Java-collection.webp"/></div>
 
 
 

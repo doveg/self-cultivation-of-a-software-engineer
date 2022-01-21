@@ -20,7 +20,7 @@
 3. 判断线程池线程数，是否小于核心线程池数量，小于则直接创建线程
 4. 判断等待队列是否已满，满了就执行拒绝策略，没有则直接创建线程
 
-![线程池的处理流程](https://github.com/bourneo/self-cultivation-of-a-software-engineer/blob/master/7_image/java/thread-pool-process.png){:height="100px" width="100px"}
+![线程池的处理流程](https://github.com/bourneo/self-cultivation-of-a-software-engineer/blob/master/7_image/java/thread-pool-process.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/100)
 
 ###### 线程池的核心配置参数
 
@@ -29,7 +29,7 @@
 3. 存活时间：闲置线程到达最长存活时间，会被线程池销毁
 4. 拒绝策略：
 
-![线程池的核心配置参数](https://github.com/bourneo/self-cultivation-of-a-software-engineer/blob/master/7_image/java/thread-pool-config.png){:height="100px" width="100px"}
+![线程池的核心配置参数](https://github.com/bourneo/self-cultivation-of-a-software-engineer/blob/master/7_image/java/thread-pool-config.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/100)
 
 ###### 常用的线程池
 

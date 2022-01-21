@@ -23,7 +23,7 @@ PriorityQueue：
 ###### Collection 接口的继承关系
 
 <div align="center">
-<img width="500"  alt="Collection 接口的继承关系" src="https://github.com/bourneo/self-cultivation-of-a-software-engineer/blob/master/7_image/java/Java-collection.webp"/></div>
+<img width="600"  alt="Collection 接口的继承关系" src="https://github.com/bourneo/self-cultivation-of-a-software-engineer/blob/master/7_image/java/Java-collection.webp"/></div>
 
 
 

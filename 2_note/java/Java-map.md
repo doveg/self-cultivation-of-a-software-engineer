@@ -17,7 +17,7 @@ TreeMap：
 ###### Map 接口的继承关系
 
 <div align="center">
-<img width="500"  alt="Map 接口的继承关系" src="https://github.com/bourneo/self-cultivation-of-a-software-engineer/blob/master/7_image/java/Java-map.webp"/></div>
+<img width="600"  alt="Map 接口的继承关系" src="https://github.com/bourneo/self-cultivation-of-a-software-engineer/blob/master/7_image/java/Java-map.webp"/></div>
 
 
 

@@ -2,6 +2,9 @@
 
 As a repository about notes of software
 
+
+---
+
 #### Introduction of context
 
 1. [note](https://github.com/bourneo/self-cultivation-of-a-software-engineer/blob/master/2_note/java)

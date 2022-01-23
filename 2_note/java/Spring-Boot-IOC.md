@@ -1,5 +1,7 @@
 ## Spring-Boot-IOC / Spring Boot 依赖注入
 
+---
+
 #### 基础部分
 
 ###### 什么是 Spring Bean
@@ -33,7 +35,7 @@ ApplicationContext：
     ApplicationContext 继承了 BeanFactory 接口，所以 ApplicationContext 包含 BeanFactory 的所有功能
     ApplicationContext 在容器启动时，一次性创建所有的 Bean
 
-###### 自动配置的原理
+###### SpringBoot 自动配置的原理
 
     SpringBoot 启动会加载大量的自动配置类：
         SpringBootApplication 注解
@@ -48,6 +50,13 @@ ApplicationContext：
 #### 提高部分
 
 ######
+
+---
+
+
+
+
+
 
 ---
 

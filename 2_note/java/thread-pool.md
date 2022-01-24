@@ -41,15 +41,15 @@
 1. 死锁：多线程应用都存在的风险
 2. 资源不足：线程池的配置不当，可能导致服务器资源耗尽
 
-###### Runnable 和 Thread 的关系
-
-1. Thread 类是 Runnable 接口的实现类，继承 Thread 类时覆写的还是 Runnable 接口的 run () 方法
-2. 使用 Runnable 是最方便的，因为其可以避免单继承的局限，同时也可以更好进行功能的扩充
-
 ###### 线程的创建的两种方式
 
 1. 通过继承 Thread 类，重写 Thread 的 run () 方法，将线程运行的逻辑放在其中
 2. 通过实现 Runnable 接口，实例化 Thread 类
+
+###### Runnable 和 Thread 的关系
+
+1. Thread 类是 Runnable 接口的实现类，继承 Thread 类时覆写的还是 Runnable 接口的 run () 方法
+2. 使用 Runnable 是最方便的，因为其可以避免单继承的局限，同时也可以更好进行功能的扩充
 
 ###### Runnable、Callable 和 Future 的关系
 

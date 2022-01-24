@@ -30,11 +30,10 @@
     - BeanFactory 是访问 Bean 容器的底层接口
     - 包含了 Bean 的定义，读取 Bean 配置文档，管理 Bean 的加载、实例化，控制 Bean 的生命周期，维护 Bean 之间的依赖关系
     - BeanFactory 的实现方式是是懒加载
-    - 依赖注入需要使用 BeanFactory 及其子接口来实现
 
 4. ApplicationContext：
     - ApplicationContext 是 Spring 的中央接口
-    - ApplicationContext 继承了 BeanFactory 接口，所以 ApplicationContext 包含 BeanFactory 的所有功能
+    - **ApplicationContext 继承了 BeanFactory 接口**，所以 ApplicationContext 包含 BeanFactory 的所有功能
     - ApplicationContext 在容器启动时，一次性创建所有的 Bean
 
 ###### SpringBoot 自动配置的原理
@@ -45,6 +44,7 @@
     - AutoConfigurationImportSelector 类：往 Spring 容器中导入组件
 
 2. xxxxAutoConfigurartion 自动配置类：给容器中添加组件
+
 3. xxxxProperties：封装配置文件中相关属性
 
 ---

@@ -54,14 +54,14 @@
 ###### Runnable、Callable 和 Future 的关系
 
 1. Runnable：
-    1. Runnable.run () 方法没有返回值
-    2. 不会向外抛异常
+    - Runnable.run () 方法没有返回值
+    - 不会向外抛异常
 2. Callable：
-    1. Callable.call () 方法有返回值
-    2. 可以向外抛异常
+    - Callable.call () 方法有返回值
+    - 可以向外抛异常
 3. Future：
-    1. 因为 Thread 不接受 Callable，只接受 Runnable，所以有了 FutureTask
-    2. FutureTask 是 Runnable 和 Future 的实现类：FutureTask 继承 RunnableFuture，RunnableFuture 同时实现了 Runnable 和 Future 两个接口
+    - 因为 Thread 不接受 Callable，只接受 Runnable，所以有了 FutureTask
+    - FutureTask 是 Runnable 和 Future 的实现类：FutureTask 继承了 RunnableFuture，RunnableFuture 实现了 Runnable 和 Future 接口
 
 ---
 
@@ -82,9 +82,9 @@
 
 占用内存：
 
-1. 线程相关的栈，程序计数器
-2. ThreadLocal
-3. 局部变量
+1. 线程相关的栈（虚拟机栈、本地方法栈），程序计数器
+2. ThreadLocal，业务代码中使用 ThreadLocal 又不清理
+3. 局部变量：线程处于阻塞状态，肯定还有栈帧没有出栈；栈帧中有局部变量表，凡是被局部变量表引用的内存都不能回收
 
 ###### keepAliveTime=0会怎么样
 
@@ -107,9 +107,9 @@ JDK 1.8中 ，keepAliveTime=0 表示非核心线程执行完立刻终止 补充�
 在业务代码上加 try-catch 进行异常处理即可
 
 1. 如果是 execute：
-    1. 可以自定义线程池，继承 ThreadPoolExecutor 并复写其 afterExecute(Runnable r, Throwable t)方法
-    2. 或者实现 Thread.UncaughtExceptionHandler 接口，实现 void uncaughtException(Thread t, Throwable e) 方法， 并将该 handler 传递给线程池的
-       ThreadFactory
+    - 可以自定义线程池，继承 ThreadPoolExecutor 并复写其 afterExecute(Runnable r, Throwable t)方法
+    - 或者实现 Thread.UncaughtExceptionHandler 接口，实现 void uncaughtException(Thread t, Throwable e) 方法， 并将该 handler 传递给线程池的
+      ThreadFactory
 2. 注意：afterExecute 和 UncaughtExceptionHandler 都不适用 submit
 
 ---

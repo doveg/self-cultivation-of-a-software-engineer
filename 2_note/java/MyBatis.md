@@ -1,4 +1,4 @@
-## ElasticSearch
+## MyBatis
 
 ---
 
@@ -8,6 +8,7 @@
 
     返回的是聚合计算和分析的结果
     ES 中 group by 称为分桶，桶聚合（bucketing）
+    不支持对聚合结果进行二次聚合
 
 ---
 

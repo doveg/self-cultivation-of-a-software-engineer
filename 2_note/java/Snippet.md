@@ -1,4 +1,4 @@
-## code-snippet / Java 代码片段
+## Snippet / Java 代码片段
 
 ---
 

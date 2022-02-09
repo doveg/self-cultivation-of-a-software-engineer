@@ -12,7 +12,15 @@
         - 请求 URL
         - HTTP 协议及版本
     - 请求头
+        - Header 里的属性和值
+        - 比如：Content-Type，指定请求体格式
     - 请求体
+        - 常用的有一下三种类型：
+        - 任意类型：服务器不会解析请求体，请求体的处理需要自己解析
+            - application/json 格式文本
+            - text/xml 格式文本
+        - 表单类型：application/x-www-form-urlencoded
+        - 文件：multipart/form-data; boundary
 
 - 常见的 HTTP 报文头属性
     - Accept
@@ -23,7 +31,7 @@
         - 对缓存进行控制，如一个请求希望响应的内容在客户端缓存一年，或不被缓可以通过这个报文头设置
     - Accept-Encoding
         - 例如: Accept-Encoding: gzip, deflate (这两种都是压缩格式)
-        - 这个属性是用来告诉服务器能接受什么编码格式，包括字符编码，压缩形式 (一般都是压缩形式)
+        - 告诉服务器能接受什么编码格式，包括字符编码，压缩形式 (一般都是压缩形式)
     - Host
         - 指定要请求的资源所在的主机和端口
     - User-Agent

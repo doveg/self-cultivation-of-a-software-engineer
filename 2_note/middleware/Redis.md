@@ -140,13 +140,15 @@ redisObject 内部结构：
     - 并将 redisObject 的 encoding 设置为 raw
 
 
-- embstr：如果字符串 string 保存的是一个字符串值，并且这个字符串小于 39 个字节，那么字符串将使用 embstr 编码的方式来保存这个字符串
+- embstr：
+    - 如果字符串 string 保存的是一个字符串值，并且这个字符串小于 39 个字节，那么字符串将使用 embstr 编码的方式来保存这个字符串
 
 ###### Redis 底层原理 - redisObject 如何表示 list
 
 列表对象 list 的编码方式有两种
 
-- ziplist：压缩列表是 节省内存而设计的内存结构（是 redis 创造的）
+- ziplist：
+    - 压缩列表是 节省内存而设计的内存结构（是 redis 创造的）
     - 优点：节省内存
     - 缺点：比其他结构要消耗更多的时间
     - 所以 redis 在数据量少的时候使用压缩列表存储

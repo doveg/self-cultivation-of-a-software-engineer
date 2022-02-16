@@ -31,10 +31,12 @@ PriorityQueue：
     - 一些队列有大小限制，因此如果想在一个满的队列中加入一个新项，多出的项就会被拒绝。这时新的 offer 方法就可以起作用了
     - 它不是对调用 add() 方法抛出一个 unchecked 异常，而只是得到由 offer() 返回的 false
 
+
 2. poll，remove 区别：
     - remove() 和 poll() 方法都是从队列中删除第一个元素
     - remove() 的行为与 Collection 接口的版本相似， 但是新的 poll() 方法在用空集合调用时不是抛出异常，只是返回 null
     - 因此新的方法更适合容易出现异常条件的情况
+
 
 3. peek，element区别：
     - element() 和 peek() 用于在队列的头部查询元素

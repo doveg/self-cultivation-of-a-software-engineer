@@ -44,10 +44,16 @@
 
 - [note](https://github.com/bourneo/self-cultivation-of-a-software-engineer/blob/master/2_note/java)
     - The memo in finding the solution and solving the problem in study or work
+
+
 - [experience](https://github.com/bourneo/self-cultivation-of-a-software-engineer/blob/master/3_experience)
     - Brief practical experience
+
+
 - [career](https://github.com/bourneo/self-cultivation-of-a-software-engineer/blob/master/6_career)
     - Nice book and video for study and promotion
+
+
 - [image](https://github.com/bourneo/self-cultivation-of-a-software-engineer/blob/master/7_image/java)
     - Mice picture to understand the professional concept I collected
 

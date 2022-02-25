@@ -1,8 +1,8 @@
-## Self-cultivation of a software engineer / 一个软件工程师的自我修养
+# Self-cultivation of a software engineer / 一个软件工程师的自我修养
 
 ---
 
-#### Content / 目录
+## Content / 目录
 
 - [algorithm](https://github.com/bourneo/self-cultivation-of-a-software-engineer/blob/master/2_note/algorithm/)
     - [Algorithm](https://github.com/bourneo/self-cultivation-of-a-software-engineer/blob/master/2_note/algorithm/Algorithm.md)
@@ -40,7 +40,7 @@
 
 ---
 
-#### Introduction of context
+## Introduction of context
 
 - [note](https://github.com/bourneo/self-cultivation-of-a-software-engineer/blob/master/2_note/java)
     - The memo in finding the solution and solving the problem in study or work

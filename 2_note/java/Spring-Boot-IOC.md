@@ -1,14 +1,16 @@
-## Spring-Boot-IOC / Spring Boot 依赖注入
+# Spring-Boot-IOC / Spring Boot 依赖注入
 
 ---
 
-#### 基础部分
+## 基础部分
 
-###### 什么是 Spring Bean
+---
+
+### 什么是 Spring Bean
 
 被 Spring 容器管理的 Java 对象
 
-###### IoC 容器的初始化
+### IoC 容器的初始化
 
 1. BeanDefinition 的 Resource 定位
 
@@ -21,7 +23,7 @@
 3. BeanDefinition 的注册
     - 在 IoC 容器内部将 BeanDefinition 注入到一个 HashMap 中
 
-###### BeanFactory 和 ApplicationContext 的区别
+### BeanFactory 和 ApplicationContext 的区别
 
 1. 核心区别：
 
@@ -40,7 +42,7 @@
     - **ApplicationContext 继承了 BeanFactory 接口**，所以 ApplicationContext 包含 BeanFactory 的所有功能
     - ApplicationContext 在容器启动时，一次性创建所有的 Bean
 
-###### SpringBoot 自动配置的原理
+### SpringBoot 自动配置的原理
 
 1. SpringBoot 启动会加载大量的自动配置类：
     - SpringBootApplication 注解
@@ -55,9 +57,11 @@
 
 ---
 
-#### 提高部分
+## 提高部分
 
-######
+---
+
+###
 
 ---
 

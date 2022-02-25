@@ -1,10 +1,12 @@
-## Redis
+# Redis
 
 ---
 
-#### 基础部分
+## 基础部分
 
-###### Redis 五大数据类型
+---
+
+### Redis 五大数据类型
 
 1. String
     - redis 的 String 可以表示任何数据，比如 jpg 图像或者序列化的对象
@@ -54,7 +56,7 @@
         - zrange：数据排序，根据分数从小到大
         - zrevrange：数据排序， 根据分数从大到小
 
-###### Redis 五大数据类型的使用场景
+### Redis 五大数据类型的使用场景
 
 1. String
     - 普通的 key-value 键值对都可以用 String 来保存
@@ -88,7 +90,7 @@
     - 用于存储、修改对象属性
     - 比如：
         - 用户（姓名、性别、爱好），文章（标题、发布时间、作者、内容）
-        - 其中 用户相当于 key，（姓名、性别、爱好）相当于存储的 value
+        - 其中用户相当于 key，（姓名、性别、爱好）相当于存储的 value
         - 用户主页访问量
 
 
@@ -98,16 +100,18 @@
 
 ---
 
-#### 提高部分
+## 提高部分
 
-###### Redis 底层原理 - redisObject 内部结构
+---
+
+### Redis 底层原理 - redisObject 内部结构
 
 Redis 内部使用一个 redisObject 对象来表示所有的 key 和 value
 
 redisObject 内部结构：
 
 - type：
-    - 用来表示 这个 redisObject 是属于 五种类型 (string、hash、list、set、zset) 的哪一种
+    - 用来表示这个 redisObject 是属于五种类型 (string、hash、list、set、zset) 的哪一种
     - 比如 type=string 代表 value 存储的是一个普通字符串
 
 
@@ -126,7 +130,7 @@ redisObject 内部结构：
 <div align="center">
 <img width="600"  alt="redisObject 内部结构" src="https://github.com/bourneo/self-cultivation-of-a-software-engineer/blob/master/7_image/middleware/redisObject内部结构.bmp"/></div>
 
-###### Redis 底层原理 - redisObject 如何表示 string
+### Redis 底层原理 - redisObject 如何表示 string
 
 字符串的编码方式有三种
 
@@ -143,22 +147,22 @@ redisObject 内部结构：
 - embstr：
     - 如果字符串 string 保存的是一个字符串值，并且这个字符串小于 39 个字节，那么字符串将使用 embstr 编码的方式来保存这个字符串
 
-###### Redis 底层原理 - redisObject 如何表示 list
+### Redis 底层原理 - redisObject 如何表示 list
 
 列表对象 list 的编码方式有两种
 
 - ziplist：
-    - 压缩列表是 节省内存而设计的内存结构（是 redis 创造的）
+    - 压缩列表是节省内存而设计的内存结构（是 redis 创造的）
     - 优点：节省内存
     - 缺点：比其他结构要消耗更多的时间
     - 所以 redis 在数据量少的时候使用压缩列表存储
 
 
 - linkedlist：
-    - 当列表长度少于 512 且 每个元素都少于 64 个字节，那么就用 ziplist 存储
+    - 当列表长度少于 512 且每个元素都少于 64 个字节，那么就用 ziplist 存储
     - 否则就用 linkedlist 存储
 
-###### Redis 底层原理 - redisObject 如何表示 hash
+### Redis 底层原理 - redisObject 如何表示 hash
 
 hash 的 encoding 编码方式有两种
 
@@ -169,7 +173,7 @@ hash 的 encoding 编码方式有两种
 - hashtable：
     - 当哈希对象保存的键值对个数大于 512，并且其中有键值对大于 64 个字节，就使用 hashtable 保存
 
-###### Redis 底层原理 - redisObject 如何表示 set
+### Redis 底层原理 - redisObject 如何表示 set
 
 set 的 encoding 编码方式有两种
 
@@ -181,7 +185,7 @@ set 的 encoding 编码方式有两种
 - hashtable：
     - hashtable 编码的底层实现是字典，字典的每个键是字符串对象，只不过值都是空 (NULL)
 
-###### Redis 底层原理 - redisObject 如何表示 zset
+### Redis 底层原理 - redisObject 如何表示 zset
 
 zset 的 encoding 编码方式有两种
 
@@ -193,7 +197,7 @@ zset 的 encoding 编码方式有两种
 - skiplist：
     - redis 的 skiplist 是由字典 dict 和跳表构成的
         - dict 用于记录字符串对象和分数，即查询字符串对象对应分数
-        - 跳表则用来，根据 分数查询对应字符串。
+        - 跳表则用来，根据分数查询对应字符串。
 
 
 - 为什么 skiplist 编码要同时用字典和跳表来实现：

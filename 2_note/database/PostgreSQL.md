@@ -1,10 +1,12 @@
-## PostgreSQL
+# PostgreSQL
 
 ---
 
-#### 基础部分
+## 基础部分
 
-###### MySQL 和 PostgreSQL 区别
+---
+
+### MySQL 和 PostgreSQL 区别
 
 1. **架构**
     - MySQL：MySQL 分为两层：上层的 SQL 层和几个存储引擎（比如 InnoDB，MyISAM）
@@ -34,7 +36,7 @@
 
 6. **ACID 的遵从性**
     - MySQL：只有 InnoDB 等少量存储引擎遵从 ACID，所以客户选取就更加灵活
-    - PostgreSQL：完全遵从 ACID，确保满足所有 ACID 的需求 支持的业务场景
+    - PostgreSQL：完全遵从 ACID，确保满足所有 ACID 的需求支持的业务场景
 
 
 7. 支持的业务场景
@@ -63,7 +65,7 @@
     - MySQL：在数据量小的时候，数据库更趋于轻量化，MySQL 很适合
     - PostgreSQL：一旦数据量稍涨，计算量上升，PostgreSQL 会是更好的选择
 
-###### PostgreSQL 特性
+### PostgreSQL 特性
 
 1. 外部数据源支持
     - 可以把 70 种外部数据源 (包括 Mysql, Oracle, CSV, hadoop …) 当成自己数据库中的表来查询
@@ -110,9 +112,11 @@
 
 ---
 
-#### 提高部分
+## 提高部分
 
-######
+---
+
+###
 
 ---
 

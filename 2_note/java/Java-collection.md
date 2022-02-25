@@ -1,31 +1,33 @@
-## Java-collection / Java Collection 接口
+# Java-collection / Java Collection 接口
 
 ---
 
-#### 基础部分
+## 基础部分
 
-###### Set 接口的实现
+---
+
+### Set 接口的实现
 
 HashSet：
 
-    根据元素的 HashCode 做去重
+- 根据元素的 HashCode 做去重
 
 TreeSet：
 
-    根据元素的 HashCode 做去重，并用平衡树进行排序
+- 根据元素的 HashCode 做去重，并用平衡树进行排序
 
-###### Queue 接口的实现
+### Queue 接口的实现
 
 PriorityQueue：
 
-    根据元素排序决定出列的顺序
+- 根据元素排序决定出列的顺序
 
-###### Collection 接口的继承关系图
+### Collection 接口的继承关系图
 
 <div align="center">
 <img width="600"  alt="Collection 接口的继承关系" src="https://github.com/bourneo/self-cultivation-of-a-software-engineer/blob/master/7_image/java/Java-collection.webp"/></div>
 
-###### 队列（Queue）的一些新方法
+### 队列（Queue）的一些新方法
 
 1. offer，add 区别：
     - 一些队列有大小限制，因此如果想在一个满的队列中加入一个新项，多出的项就会被拒绝。这时新的 offer 方法就可以起作用了
@@ -44,11 +46,13 @@ PriorityQueue：
 
 ---
 
-#### 提高部分
+## 提高部分
 
-###### 数组和链表实现队列哪个好
+---
 
-###### 队列的特性
+### 数组和链表实现队列哪个好
+
+### 队列的特性
 
 ---
 

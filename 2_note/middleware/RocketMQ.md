@@ -4,57 +4,61 @@
 
 ## 基础部分
 
+---
+
 ### RocketMQ 核心概念
 
-**NameServer / 注册中心**
+**NameServer / 注册中心**：
 
 - 主要负责对于源数据的管理，包括了对于 Topic 和路由信息的管理。
 
-**Producer / 消息生产者**
+**Producer / 消息生产者**：
 
 - 负责产生消息，一般由业务系统负责产生消息。
 
-**Broker / 消息中转角色**
+**Broker / 消息中转角色**：
 
 - 负责存储消息，转发消息。
 
-**Consumer / 消息消费者**
+**Consumer / 消息消费者**：
 
 - 负责消费消息，一般是后台系统负责异步消费。
 
-**Message / 消息**
+**Message / 消息**：
 
 - 要传输的信息。
 
-**Topic / 话题**
+**Topic / 话题**：
 
 - 可以看做消息的规类，它是消息的第一级类型。
 
-**Tag / 标签**
+**Tag / 标签**：
 
 - Tag 可以看作子主题，它是消息的第二级类型，用于为用户提供额外的灵活性。
 
-**Group / 分组**
+**Group / 分组**：
 
 - 一个组可以订阅多个 Topic。
 
-**Queue / 队列**
+**Queue / 队列**：
 
 - 在 Kafka 中叫 Partition，每个 Queue 内部是有序的
 - 在 RocketMQ 中分为读和写两种队列，一般来说读写队列数量一致，如果不一致就会出现很多问题。
 
-**Message Queue / 消息队列**
+**Message Queue / 消息队列**：
 
 - 主题被划分为一个或多个子主题，即消息队列。
 
-Offset /
+**Offset / 下标**：
 
 - 也可以认为 Message Queue 是一个长度无限的数组，Offset 就是下标。
 - 在 RocketMQ 中，所有消息队列都是持久化，长度无限的数据结构
 - 所谓长度无限是指队列中的每个存储单元都是定长，访问其中的存储单元使用 Offset 来访问，Offset 为 java long 类型，64 位，理论上在 100
   年内不会溢出，所以认为是长度无限。
 
-Message Order / 消息顺序 - 有两种：Orderly（顺序消费）和 Concurrently（并行消费）。
+Message Order / 消息顺序：
+
+- 有两种：Orderly（顺序消费）和 Concurrently（并行消费）。
 
 ### RocketMQ
 
@@ -65,6 +69,8 @@ Message Order / 消息顺序 - 有两种：Orderly（顺序消费）和 Concurre
 ---
 
 ## 提高部分
+
+---
 
 ### RocketMQ 的顺序消息
 
@@ -82,18 +88,25 @@ RocketMQ 的 topic 内的队列机制，可以保证存储满足 FIFO（First In
 
 ### RocketMQ 的消息重复
 
-- QoS：Quality of Service，服务质量
-- 消息领域有一个对消息投递的 QoS 定义，分为：
-    - 最多一次（At most once）
-    - 至少一次（At least once）
-    - 仅一次（ Exactly once）
+QoS：Quality of Service，服务质量。
 
-- 几乎所有的 MQ 产品都声称自己做到了 At least once。
-- 既然是至少一次，那避免不了消息重复，尤其是在分布式网络环境下。
-- 比如：网络原因闪断，ACK 返回失败等等故障，确认信息没有传送到消息队列，导致消息队列不知道自己已经消费过该消息了，再次将该消息分发给其他的消费者。
-- 不同的消息队列发送的确认信息形式不同。
-    - 例如 RabbitMQ 是发送一个 ACK 确认消息，RocketMQ 是返回一个 CONSUME_SUCCESS 成功标志，Kafka 实际上有个 offset 的概念。
-- RocketMQ 没有内置消息去重的解决方案，最新版本是否支持还需确认。
+消息领域有一个对消息投递的 QoS 定义，分为：
+
+- 最多一次（At most once）
+- 至少一次（At least once）
+- 仅一次（ Exactly once）
+
+几乎所有的 MQ 产品都声称自己做到了 At least once。
+
+既然是至少一次，那避免不了消息重复，尤其是在分布式网络环境下。
+
+比如：网络原因闪断，ACK 返回失败等等故障，确认信息没有传送到消息队列，导致消息队列不知道自己已经消费过该消息了，再次将该消息分发给其他的消费者。
+
+不同的消息队列发送的确认信息形式不同。
+
+- 例如 RabbitMQ 是发送一个 ACK 确认消息，RocketMQ 是返回一个 CONSUME_SUCCESS 成功标志，Kafka 实际上有个 offset 的概念。
+
+RocketMQ 没有内置消息去重的解决方案，最新版本是否支持还需确认。
 
 ### RocketMQ 的消息去重
 
@@ -207,13 +220,13 @@ Producer 已经把消息成功发送到了 Broker 端，但此消息被标记为
 
 ### RocketMQ 的消息回查
 
-由于网络闪段，生产者应用重启等原因。导致 Producer 端一直没有对 Half Message (半消息) 进行 二次确认。
+由于网络闪段，生产者应用重启等原因。导致 Producer 端一直没有对 Half Message (半消息) 进行二次确认。
 
-这是 Brock 服务器会定时扫描长期处于半消息的消息，会主动询问 Producer 端 该消息的最终状态 (Commit 或者 Rollback), 该消息即为消息回查。
+这是 Brock 服务器会定时扫描长期处于半消息的消息，会主动询问 Producer 端该消息的最终状态 (Commit 或者 Rollback), 该消息即为消息回查。
 
 消息回查过程：
 
-1. A 服务先发送个 Half Message 给 Brock 端，消息中携带 B 服务 即将要 + 100 元的信息。
+1. A 服务先发送个 Half Message 给 Brock 端，消息中携带 B 服务即将要 + 100 元的信息。
 2. 当 A 服务知道 Half Message 发送成功后，那么开始第 3 步执行本地事务。
 3. 执行本地事务 (会有三种情况 1、执行成功。2、执行失败。3、网络等原因导致没有响应)
 4. 如果本地事务成功，那么 Product 像 Brock 服务器发送 Commit, 这样 B 服务就可以消费该 message。

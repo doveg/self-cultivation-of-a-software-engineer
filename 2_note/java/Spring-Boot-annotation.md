@@ -1,10 +1,12 @@
-## Spring-Boot-annotation / Spring Boot 注解
+# Spring-Boot-annotation / Spring Boot 注解
 
 ---
 
-#### 基础部分
+## 基础部分
 
-###### @Transaction 注解的失效场景
+---
+
+### @Transaction 注解的失效场景
 
 1. 用在非 public 修饰的方法上
     - 因为 Spring AOP 会检查目标方法的修饰符是否为 public，不是 public 则不会获取 @Transactional 的属性配置信息
@@ -19,9 +21,11 @@
 
 ---
 
-#### 提高部分
+## 提高部分
 
-######
+---
+
+###
 
 ---
 

@@ -60,17 +60,93 @@ Message Order / 消息顺序：
 
 - 有两种：Orderly（顺序消费）和 Concurrently（并行消费）。
 
-### RocketMQ
+### RocketMQ 的数据存储
 
-### RocketMQ
+RocketMQ 的混合型存储结构针对 Producer 和 Consumer 分别采用了数据和索引部分相分离的存储结构，Producer 发送消息至 Broker 端，然后 Broker
+端使用同步或者异步的方式对消息刷盘持久化，保存至 CommitLog 中。
 
-### RocketMQ
+只要消息被刷盘持久化至磁盘文件 CommitLog 中，那么 Producer 发送的消息就不会丢失。
+
+正因为如此，Consumer 也就肯定有机会去消费这条消息，至于消费的时间可以稍微滞后一些也没有太大的关系。
+
+退一步地讲，即使 Consumer 端第一次没法拉取到待消费的消息，Broker 服务端也能够通过长轮询机制等待一定时间延迟后再次发起拉取消息的请求。
+
+具体做法是，使用 Broker 端的后台服务线程 — ReputMessageService 不停地分发请求并异步构建 ConsumeQueue（逻辑消费队列）和 IndexFile（索引文件）数据
+
+然后，Consumer 即可根据 ConsumerQueue 来查找待消费的消息了。
+
+其中，ConsumeQueue（逻辑消费队列）作为消费消息的索引，保存了指定 Topic 下的队列消息在 CommitLog 中的起始物理偏移量 offset，消息大小 size 和消息 Tag 的
+HashCode 值。
+
+而 IndexFile（索引文件）则只是为了消息查询提供了一种通过 key 或时间区间来查询消息的方法（ps：这种通过 IndexFile 来查找消息的方法不影响发送与消费消息的主流程）
+
+### RocketMQ 和 Kafka 的数据存储
+
+RocketMQ 采用的是混合型的存储结构，即为 Broker 单个实例下所有的队列共用一个日志数据文件（即为 CommitLog）来存储。
+
+RocketMQ 采用混合型存储结构的缺点在于，会存在较多的随机读操作，因此读的效率偏低。
+
+同时消费消息需要依赖 ConsumeQueue，构建该逻辑消费队列需要一定开销。
+
+Kafka 采用的是独立型的存储结构，每个队列一个文件。
+
+### RocketMQ 的消息过滤
+
+Broker 端消息过滤：
+
+- 在 Broker 中，按照 Consumer 的要求做过滤，优点是减少了对于 Consumer 无用消息的网络传输。
+- 缺点是增加了 Broker 的负担，实现相对复杂。
+
+Consumer 端消息过滤：
+
+- 这种过滤方式可由应用完全自定义实现，但是缺点是很多无用的消息要传输到 Consumer 端。
+
+### RocketMQ 的定时消息
+
+定时消息是指消息发到 Broker 后，不能立刻被 Consumer 消费，要到特定的时间点或者等待特定的时间后才能被消费。
+
+如果要支持任意的时间精度，在 Broker 层面，必须要做消息排序，如果再涉及到持久化，那么消息排序要不可避免的产生巨大性能开销。
+
+RocketMQ 支持定时消息，但是不支持任意时间精度，支持特定的 level，例如定时 5s，10s，1m 等。
+
+
+
 
 ---
 
 ## 提高部分
 
 ---
+
+### RocketMQ 消息消费的可靠性
+
+### RocketMQ 消息丢失的解决办法
+
+### RocketMQ 消息消费的流程
+
+Producer 与 NameServer 集群中的其中一个节点（随机选择）建立长连接，定期从 NameServer 获取 Topic 路由信息，并向提供 Topic 服务的 Broker
+Master 建立长连接，且定时向 Broker 发送心跳。
+
+Producer 只能将消息发送到 Broker master，但是 Consumer 则不一样，它同时和提供 Topic 服务的 Master 和 Slave 建立长连接，既可以从 Broker
+Master 订阅消息，也可以从 Broker Slave 订阅消息。
+
+### RocketMQ 的消息堆积问题
+
+消息中间件的主要功能是异步解耦，还有个重要功能是挡住前端的数据洪峰，保证后端系统的稳定性，这就要求消息中间件具有一定的消息堆积能力。
+
+消息堆积分以下两种情况：
+
+- 消息堆积在内存 Buffer，一旦超过内存 Buffer，可以根据一定的丢弃策略来丢弃消息，如 CORBA Notification 规范中描述。
+    - 适合能容忍丢弃消息的业务，这种情况消息的堆积能力主要在于内存 Buffer 大小，而且消息堆积后，性能下降不会太大，因为内存中数据多少对于对外提供的访问能力影响有限。
+- 消息堆积到持久化存储系统中，例如 DB，KV 存储，文件记录形式。
+    - 当消息不能在内存 Cache 命中时，要不可避免的访问磁盘，会产生大量读 IO，读 IO 的吞吐量直接决定了消息堆积后的访问能力。
+
+评估消息堆积能力主要有以下四点：
+
+1. 消息能堆积多少条，多少字节？即消息的堆积容量。
+2. 消息堆积后，发消息的吞吐量大小，是否会受堆积影响？
+3. 消息堆积后，正常消费的 Consumer 是否会受影响？
+4. 消息堆积后，访问堆积在磁盘的消息时，吞吐量有多大？
 
 ### RocketMQ 的顺序消息
 
@@ -86,7 +162,7 @@ RocketMQ 的 topic 内的队列机制，可以保证存储满足 FIFO（First In
 
 **RocketMQ 仅保证顺序发送，顺序消费由消费者业务保证**。
 
-### RocketMQ 的消息重复
+### RocketMQ 出现消息重复的原因
 
 QoS：Quality of Service，服务质量。
 
@@ -125,86 +201,7 @@ RocketMQ 没有内置消息去重的解决方案，最新版本是否支持还�
 
 建立一个消息表，拿到这个消息做数据库的 insert 操作。给这个消息做一个唯一主键（primary key）或者唯一约束，那么就算出现重复消费的情况，就会导致主键冲突，那么就不再处理这条消息。
 
-### RocketMQ 的数据存储
-
-RocketMQ 的混合型存储结构针对 Producer 和 Consumer 分别采用了数据和索引部分相分离的存储结构，Producer 发送消息至 Broker 端，然后 Broker
-端使用同步或者异步的方式对消息刷盘持久化，保存至 CommitLog 中。
-
-只要消息被刷盘持久化至磁盘文件 CommitLog 中，那么 Producer 发送的消息就不会丢失。
-
-正因为如此，Consumer 也就肯定有机会去消费这条消息，至于消费的时间可以稍微滞后一些也没有太大的关系。
-
-退一步地讲，即使 Consumer 端第一次没法拉取到待消费的消息，Broker 服务端也能够通过长轮询机制等待一定时间延迟后再次发起拉取消息的请求。
-
-具体做法是，使用 Broker 端的后台服务线程 —ReputMessageService 不停地分发请求并异步构建 ConsumeQueue（逻辑消费队列）和 IndexFile（索引文件）数据
-
-然后，Consumer 即可根据 ConsumerQueue 来查找待消费的消息了。
-
-其中，ConsumeQueue（逻辑消费队列）作为消费消息的索引，保存了指定 Topic 下的队列消息在 CommitLog 中的起始物理偏移量 offset，消息大小 size 和消息 Tag 的
-HashCode 值。
-
-而 IndexFile（索引文件）则只是为了消息查询提供了一种通过 key 或时间区间来查询消息的方法（ps：这种通过 IndexFile 来查找消息的方法不影响发送与消费消息的主流程）
-
-### RocketMQ 和 Kafka 的数据存储
-
-RocketMQ 采用的是混合型的存储结构，即为 Broker 单个实例下所有的队列共用一个日志数据文件（即为 CommitLog）来存储。
-
-RocketMQ 采用混合型存储结构的缺点在于，会存在较多的随机读操作，因此读的效率偏低。
-
-同时消费消息需要依赖 ConsumeQueue，构建该逻辑消费队列需要一定开销。
-
-Kafka 采用的是独立型的存储结构，每个队列一个文件。
-
-### RocketMQ 的消息过滤
-
-Broker 端消息过滤：
-
-- 在 Broker 中，按照 Consumer 的要求做过滤，优点是减少了对于 Consumer 无用消息的网络传输。
-- 缺点是增加了 Broker 的负担，实现相对复杂。
-
-Consumer 端消息过滤：
-
-- 这种过滤方式可由应用完全自定义实现，但是缺点是很多无用的消息要传输到 Consumer 端。
-
-### RocketMQ 的消息堆积
-
-消息中间件的主要功能是异步解耦，还有个重要功能是挡住前端的数据洪峰，保证后端系统的稳定性，这就要求消息中间件具有一定的消息堆积能力。
-
-消息堆积分以下两种情况：
-
-- 消息堆积在内存 Buffer，一旦超过内存 Buffer，可以根据一定的丢弃策略来丢弃消息，如 CORBA Notification 规范中描述。
-    - 适合能容忍丢弃消息的业务，这种情况消息的堆积能力主要在于内存 Buffer 大小，而且消息堆积后，性能下降不会太大，因为内存中数据多少对于对外提供的访问能力影响有限。
-- 消息堆积到持久化存储系统中，例如 DB，KV 存储，文件记录形式。
-    - 当消息不能在内存 Cache 命中时，要不可避免的访问磁盘，会产生大量读 IO，读 IO 的吞吐量直接决定了消息堆积后的访问能力。
-
-评估消息堆积能力主要有以下四点：
-
-1. 消息能堆积多少条，多少字节？即消息的堆积容量。
-2. 消息堆积后，发消息的吞吐量大小，是否会受堆积影响？
-3. 消息堆积后，正常消费的 Consumer 是否会受影响？
-4. 消息堆积后，访问堆积在磁盘的消息时，吞吐量有多大？
-
-### RocketMQ 的定时消息
-
-定时消息是指消息发到 Broker 后，不能立刻被 Consumer 消费，要到特定的时间点或者等待特定的时间后才能被消费。
-
-如果要支持任意的时间精度，在 Broker 层面，必须要做消息排序，如果再涉及到持久化，那么消息排序要不可避免的产生巨大性能开销。
-
-RocketMQ 支持定时消息，但是不支持任意时间精度，支持特定的 level，例如定时 5s，10s，1m 等。
-
-### RocketMQ 消息消费的流程
-
-Producer 与 NameServer 集群中的其中一个节点（随机选择）建立长连接，定期从 NameServer 获取 Topic 路由信息，并向提供 Topic 服务的 Broker
-Master 建立长连接，且定时向 Broker 发送心跳。
-
-Producer 只能将消息发送到 Broker master，但是 Consumer 则不一样，它同时和提供 Topic 服务的 Master 和 Slave 建立长连接，既可以从 Broker
-Master 订阅消息，也可以从 Broker Slave 订阅消息。
-
 ### RocketMQ 避免重复消费
-
-### RocketMQ 消息丢失的解决办法
-
-### RocketMQ 消息消费的可靠性
 
 ---
 

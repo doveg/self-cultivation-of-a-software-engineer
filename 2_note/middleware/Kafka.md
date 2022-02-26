@@ -6,14 +6,6 @@
 
 ---
 
-### Kafka 版本命名
-
-版本命名：Scala 编译器版本 + Kafka 版本号。
-
-Kafka 服务器端的代码完全由 Scala 语言编写。
-
-Scala 同时支持面向对象编程和函数式编程，用 Scala 写成的源代码编译之后也是普通的 .class 文件。
-
 ### Kafka 核心概念
 
 **Topic / 主题**：
@@ -175,7 +167,23 @@ Sticky：
 - 而是保留现有消费者原来的消费策略，将退出的消费者所消费的分区平均分配给现有消费者。
 - 新增消费者同理，同其他现存消费者的消费策略中分离。
 
-### Kafka 消息丢失问题-生产者丢失数据
+### Kafka 如何保证高可用
+
+备份机制：
+
+- Kafka 会尽量将所有的 Partition 以及各 Partition 的副本均匀地分配到整个集群的各个 Broker 上。
+
+故障恢复机制：
+
+- 首先需要在集群所有 Broker 中选出一个 Controller，负责各 Partition 的 Leader 选举以及 Replica 的重新分配。
+
+---
+
+## 提高部分
+
+---
+
+### Kafka 消息丢失问题——生产者丢失数据
 
 原因：
 
@@ -188,7 +196,7 @@ Sticky：
 - 也就是说不要使用 producer.send(msg)，而要使用 producer.send(msg, callback)。
 - 它能准确地告诉你消息是否真的提交成功了，一旦出现消息提交失败的情况，你就可以有针对性地进行处理。
 
-### Kafka 消息丢失问题-消费者丢失数据
+### Kafka 消息丢失问题——消费者丢失数据
 
 原因：
 
@@ -207,7 +215,7 @@ Sticky：
         - 在发生异常时，处理好未提交的 offset。
 
 
-- 消费者消费时间过长
+- 消费者消费时间过长：
     - 解决方案：
         - 提高消费能力，提高单条消息的处理速度； 根据实际场景可讲 max.poll.interval.ms 值设置大一点，避免不必要的 rebalance；可适当减小
           max.poll.records 的值，默认值是 500，可根据实际消息速率适当调小。
@@ -248,24 +256,6 @@ kafka 的 topic 是无序的，但是一个 topic 包含多个 partition，每�
 
 - kafka 中的 topic 中的内容可以被分为多 partition 存在，每个 partition 又分为多个 LogSegment。
 - 所以每次操作都是针对一小部分做操作，很轻便，并且增加并行操作的能力。
-
-### Kafka 如何保证高可用
-
-备份机制：
-
-- Kafka 会尽量将所有的 Partition 以及各 Partition 的副本均匀地分配到整个集群的各个 Broker 上。
-
-故障恢复机制：
-
-- 首先需要在集群所有 Broker 中选出一个 Controller，负责各 Partition 的 Leader 选举以及 Replica 的重新分配。
-
----
-
-## 提高部分
-
----
-
-###
 
 ---
 

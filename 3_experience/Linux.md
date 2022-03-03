@@ -1,4 +1,4 @@
-## Linux
+# Linux
 
 ---
 
@@ -6,7 +6,7 @@
 
 ---
 
-### Linux CPU 问题排查：
+### Linux CPU 问题排查
 
 top 能知道系统 CPU 是否高。
 

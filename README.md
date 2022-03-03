@@ -27,6 +27,7 @@
     - [Spring-Cloud](https://github.com/bourneo/self-cultivation-of-a-software-engineer/blob/master/2_note/java/Spring-Cloud.md)
     - [Thread-pool](https://github.com/bourneo/self-cultivation-of-a-software-engineer/blob/master/2_note/java/Thread-pool.md)
 - [middleware](https://github.com/bourneo/self-cultivation-of-a-software-engineer/blob/master/2_note/middleware/)
+    - [Kafka](https://github.com/bourneo/self-cultivation-of-a-software-engineer/blob/master/2_note/middleware/Kafka.md)
     - [Redis](https://github.com/bourneo/self-cultivation-of-a-software-engineer/blob/master/2_note/middleware/Redis.md)
     - [RocketMQ](https://github.com/bourneo/self-cultivation-of-a-software-engineer/blob/master/2_note/middleware/RocketMQ.md)
     - [Zookeeper](https://github.com/bourneo/self-cultivation-of-a-software-engineer/blob/master/2_note/middleware/Zookeeper.md)
@@ -36,6 +37,7 @@
 - [web](https://github.com/bourneo/self-cultivation-of-a-software-engineer/blob/master/2_note/web/)
     - [HTTP-HTTPS](https://github.com/bourneo/self-cultivation-of-a-software-engineer/blob/master/2_note/web/HTTP-HTTPS.md)
     - [OSI](https://github.com/bourneo/self-cultivation-of-a-software-engineer/blob/master/2_note/web/OSI.md)
+    - [Security](https://github.com/bourneo/self-cultivation-of-a-software-engineer/blob/master/2_note/web/Security.md)
     - [TCP-IP](https://github.com/bourneo/self-cultivation-of-a-software-engineer/blob/master/2_note/web/TCP-IP.md)
 
 ---

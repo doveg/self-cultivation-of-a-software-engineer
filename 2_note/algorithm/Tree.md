@@ -1,4 +1,4 @@
-# Tree
+# Tree / 树
 
 ---
 
@@ -10,7 +10,7 @@
 
 深度优先遍历：
 
-1. **前序遍历** (Pre-Order Traversal)：
+1. **前序遍历**（Pre-Order Traversal）：
     - 先访问根，然后访问子树
     - Java 代码：
    ```
@@ -21,7 +21,7 @@
       }
    ```
 
-2. **中序遍历** (In-Order Traversal)：
+2. **中序遍历**（In-Order Traversal）：
     - 先访问左（右）子树，然后访问根，最后访问右（左）子树
     - Java 代码：
    ```
@@ -32,7 +32,7 @@
       }
    ```
 
-3. **后序遍历** (Post-Order Traversal)：
+3. **后序遍历**（Post-Order Traversal）：
     - 先访问子树，然后访问根
     - Java 代码：
    ```
@@ -189,7 +189,7 @@ B+ 树相比 B 树的优势：
 参考链接：
 
 - [树的遍历](https://zh.wikipedia.org/wiki/%E6%A0%91%E7%9A%84%E9%81%8D%E5%8E%86)
-- [二叉树遍历(先序、中序、后序)](https://www.jianshu.com/p/456af5480cee)
+- [二叉树遍历（先序、中序、后序）](https://www.jianshu.com/p/456af5480cee)
 - [二叉树遍历（前序、中序、后序、层次遍历、深度优先、广度优先）](https://blog.csdn.net/My_Jobs/article/details/43451187)
 - [什么是平衡二叉树](https://cloud.tencent.com/developer/article/1419168)
 - [红黑树](https://zh.wikipedia.org/wiki/%E7%BA%A2%E9%BB%91%E6%A0%91)

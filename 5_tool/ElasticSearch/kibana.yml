@@ -1,0 +1,7 @@
+# 开启 x-pack 验证
+elasticsearch.username: ""
+elasticsearch.password: ""
+xpack.security.encryptionKey: "something_at_least_32_characters"
+
+
+

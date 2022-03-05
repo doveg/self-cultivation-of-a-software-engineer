@@ -1,0 +1,18 @@
+# 关闭 geoip 数据库的更新
+ingest.geoip.downloader.enabled: false
+
+
+
+# 开启 x-pack 验证
+xpack.security.enabled: true
+xpack.license.self_generated.type: basic
+xpack.security.transport.ssl.enabled: true
+
+
+
+
+
+
+
+
+

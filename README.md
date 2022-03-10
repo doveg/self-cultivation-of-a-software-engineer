@@ -7,7 +7,10 @@
 - [algorithm](https://github.com/bourneo/self-cultivation-of-a-software-engineer/blob/master/2_note/algorithm/)
     - [Algorithm](https://github.com/bourneo/self-cultivation-of-a-software-engineer/blob/master/2_note/algorithm/Algorithm.md)
     - [Tree](https://github.com/bourneo/self-cultivation-of-a-software-engineer/blob/master/2_note/algorithm/Tree.md)
+- [database](https://github.com/bourneo/self-cultivation-of-a-software-engineer/blob/master/2_note/architecture/)
+    - [database](https://github.com/bourneo/self-cultivation-of-a-software-engineer/blob/master/2_note/architecture/Architecture.md)
 - [database](https://github.com/bourneo/self-cultivation-of-a-software-engineer/blob/master/2_note/database/)
+    - [ClickHouse](https://github.com/bourneo/self-cultivation-of-a-software-engineer/blob/master/2_note/database/ClickHouse.md)
     - [ElasticSearch](https://github.com/bourneo/self-cultivation-of-a-software-engineer/blob/master/2_note/database/ElasticSearch.md)
     - [MongoDB](https://github.com/bourneo/self-cultivation-of-a-software-engineer/blob/master/2_note/database/MongoDB.md)
     - [MySQL](https://github.com/bourneo/self-cultivation-of-a-software-engineer/blob/master/2_note/database/MySQL.md)
@@ -50,6 +53,10 @@
 
 - [experience](https://github.com/bourneo/self-cultivation-of-a-software-engineer/blob/master/3_experience)
     - Brief practical experience
+
+
+- [tool](https://github.com/bourneo/self-cultivation-of-a-software-engineer/blob/master/5_tool)
+    - Basic tools guide for quick search
 
 
 - [career](https://github.com/bourneo/self-cultivation-of-a-software-engineer/blob/master/6_career)

@@ -1,4 +1,4 @@
-# Self-cultivation of a software engineer / 一个软件工程师的自我修养
+# Self-cultivation of a software engineer / 软件工程师的自我修养
 
 ---
 

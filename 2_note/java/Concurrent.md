@@ -124,6 +124,10 @@ Allocation（表示当前分配给进程的资源）。
 > > >
 > > > 进程是交互还是批处理
 
+### 可重入锁 ReentrantLock
+
+### 同步锁 Synchronized
+
 ---
 
 ## 提高部分

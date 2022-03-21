@@ -8,7 +8,7 @@
 
 ### RocketMQ 核心概念
 
-**NameServer / 名字服务器（注册中心）**：
+**NameServer / 命名服务器（注册中心）**：
 
 - 主要负责对于源数据的管理，包括了对于 Topic 和路由信息的管理。
 
@@ -16,7 +16,7 @@
 
 - 负责产生消息，一般由业务系统负责产生消息。
 
-**Broker / 代理服务器（消息中转角色）**：
+**Broker / 经纪人 / 代理服务器（消息中转角色）**：
 
 - 负责存储消息，转发消息。
 
@@ -28,7 +28,7 @@
 
 - 要传输的信息。
 
-**Topic / 话题**：
+**Topic / 主题**：
 
 - 可以看做消息的规类，它是消息的第一级类型。
 
@@ -184,6 +184,10 @@ Consumer 负载均衡：
 
 ### RocketMQ 死信队列
 
+[《两天玩转 RocketMQ-16-死信队列》](https://www.bilibili.com/video/BV1uQ4y1d7uS?p=16)
+
+可以监听死信队列，根据消息的重要性，进行重新处理。
+
 当一条消息消费失败，RocketMQ 就会自动进行消息重试，如果消息超过最大重试次数，RocketMQ 就会认为这个消息有问题。这种正常情况下无法被消费的消息称为死信消息（Dead-Letter
 Message）。
 
@@ -195,11 +199,49 @@ RocketMQ 不会立刻将这个有问题的消息丢弃，而会将其发送到�
 2. 如果一个 Group ID 未产生死信消息，消息队列 RocketMQ 不会为其创建相应的死信队列。
 3. 一个死信队列包含了对应 Group ID 产生的所有死信消息，不论该消息属于哪个 Topic。
 
+### RocketMQ 消息重试
+
+[《两天玩转 RocketMQ-15-消息重试》](https://www.bilibili.com/video/BV1iq4y1E7tP?p=15)
+
+有序消息重试；
+
+无序消息重试。
+
+### RocketMQ 的高速读写
+
+[《两天玩转 RocketMQ-15-消息重试》](https://www.bilibili.com/video/BV1iq4y1E7tP?p=15)
+
+写入方式：
+
+**随机写**：数据写入不连续的磁盘空间，性能较差。
+
+**顺序写**：连续的磁盘空间，速度较快。
+
+读取过程：
+
+硬盘数据、**内核态**、**用户态**、网络驱动内核、网卡、内存数据。
+
+RocketMQ 跳过用户态，由传统的 4 次复制，简化成 3 次复制，减少了 1 次复制过程。
+
+Java 利用 MappedByteBuffer 类，在 Linux 实现零拷贝。
+
 ---
 
 ## 提高部分
 
 ---
+
+### RocketMQ 工作原理
+
+[《两天玩转 RocketMQ-04-工作原理》](https://www.bilibili.com/video/BV1iq4y1E7tP?p=4)
+
+生产者；
+
+消费者；
+
+经纪人；
+
+命名服务器；
 
 ### RocketMQ 消息消费的可靠性
 
@@ -304,11 +346,63 @@ RocketMQ 没有内置消息去重的解决方案，最新版本是否支持还�
 
 ### RocketMQ 避免重复消费
 
+[《两天玩转 RocketMQ-17-重复消费》](https://www.bilibili.com/video/BV1uQ4y1d7uS?p=17)
+
+避免客户端扩容
+
+考虑网络抖动的情况
+
+### RocketMQ 幂等性
+
+[《两天玩转 RocketMQ-18-幂等性》](https://www.bilibili.com/video/BV1uQ4y1d7uS?p=18)
+
+消息幂等：消息重复消费，结果保持一致。
+
+解决重复消费的问题。
+
+使用业务 id 作为消息的 key。
+
+messageId 是 RocketMQ 生成的，并不能保证唯一。
+
+应用层面要考虑使用幂等的 sql，让接口拥有幂等性。
+
 ---
 
 ## RocketMQ 实现分布式事务
 
 ---
+
+### RocketMQ 事务消息
+
+[《两天玩转 RocketMQ-03-事务消息》](https://www.bilibili.com/video/BV1uQ4y1d7uS?p=3)
+
+正常事务消息：
+
+> 生产者发出半消息，得到经纪人的正确响应；
+>
+> 执行本地事务；
+>
+> 提交或者回滚事务。
+
+事务消息补偿：
+
+> 如果经纪人迟迟没等到生产者的提交和回滚，就会主动找生产者确认；
+>
+> 让生产者检查本地事务的状态；
+>
+> 经纪人根据状态选择回滚和提交。
+
+[《基于 RocketMQ 的分布式事务解决方案》](https://www.jianshu.com/p/286cac4625b6)
+
+事务消息案例：
+
+扣款前发送预备消息；
+
+收到确认之后执行扣款；
+
+扣款成功之后发送确认消息；
+
+经纪人收到确认消息，让消费者加钱。
 
 ### RocketMQ 的 Half Message / 半消息
 

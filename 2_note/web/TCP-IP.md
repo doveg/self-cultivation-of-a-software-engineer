@@ -307,6 +307,12 @@ IP 地址分类：
 
 ---
 
+### 什么是三次握手与四次挥手
+
+[《一条视频讲清楚 TCP 协议与 UDP 协议——什么是三次握手与四次挥手》——掌芝士 zzs](https://www.bilibili.com/video/BV1kV411j7hA?from=search&seid=17424179872667418942)
+
+https://www.bilibili.com/video/BV1kV411j7hA?from=search&seid=17424179872667418942
+
 ### TCP 协议的三次握手
 
 第一次握手：
@@ -396,6 +402,8 @@ TCP 四次挥手：
 8. TCP 首部较长 20 字节，UDP 首部较短８字节。
 9. HTTP、HTTPS、FTP、TELNET、SMTP (简单邮件传输协议) 协议基于可靠的 TCP 协议。
 10. TFTP、DNS、DHCP、TFTP、SNMP (简单网络管理协议)、RIP 基于不可靠的 UDP 协议。
+
+### 三握四挥的状态变化
 
 ---
 

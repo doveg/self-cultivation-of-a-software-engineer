@@ -28,6 +28,8 @@
 
 ### Linux 里 buffer 和 cache 如何区分吗
 
+buffer 是缓冲区，cache 是缓存。
+
 buffer 和 cache 都是内存中的一块区域，当 CPU 需要写数据到磁盘时，由于磁盘速度比较慢，所以 CPU 先把数据存进 buffer，然后 CPU 去执行其他任务，buffer
 中的数据会定期写入磁盘；
 
@@ -47,6 +49,14 @@ buffer 和 cache 都是内存中的一块区域，当 CPU 需要写数据到磁�
 | kill | pid | 关闭进程 |
 | ftp | domain | ftp 协议 |
 | top | - | 实时显示资源占用状态 |
+
+### 零拷贝
+
+视频讲解：[动画学习零拷贝](https://www.bilibili.com/video/BV1gq4y1S7Xt)
+
+避免 cpu 将数据从一块存储拷贝到另一块存储的技术。
+
+减少用户态与内核态的上下文切换和内存拷贝的次数。
 
 ### 用户态与内核态
 

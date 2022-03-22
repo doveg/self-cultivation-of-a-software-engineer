@@ -200,6 +200,8 @@ HashMap / 哈希散列：开发中最常用的数据结构之一，数据常驻�
 
 ### Bloom Filter
 
+视频讲解：[学习布隆过滤器](https://www.bilibili.com/video/BV19i4y1u7rV)
+
 Bloom Filter / 布隆过滤器：
 
 > 布隆过滤器的输出为否定的结果一定为真；

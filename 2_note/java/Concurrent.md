@@ -205,11 +205,13 @@ Object.notify()) 调用。
 
 线程私有变量，避免其他线程对对象进行修改。
 
-基于 ThreadLocalMap 实现。
+基于 ThreadLocalMap 实现，ThreadLocal 存在栈中，值是 ThreadLocalMap 在堆中的地址。
 
 ThreadLocalMap 的 entry 继承了弱引用。
 
-ThreadLocal 的核心方法：get / set / remove
+ThreadLocal 的核心方法：get / set / remove。
+
+ThreadLocal 用完之后要在 finally remove 掉。
 
 ### 强引用、软引用、弱引用、虚引用
 

@@ -311,6 +311,10 @@ IP 地址分类：
 
 视频讲解：[《一条视频讲清楚 TCP 协议与 UDP 协议——什么是三次握手与四次挥手》——掌芝士 zzs](https://www.bilibili.com/video/BV1kV411j7hA?from=search&seid=17424179872667418942)
 
+视频讲解：[三分钟了解 TCP 的四次挥手 | 平均 0.75 秒了解一次挥手](https://www.bilibili.com/video/BV1C5411Y7dG)
+
+视频讲解：[你是否也曾疑惑 TCP 三次握手的连接过程 | 以及它为什么是三次](https://www.bilibili.com/video/BV1vA411i7rs)
+
 ### TCP 协议的三次握手
 
 第一次握手：
@@ -389,6 +393,8 @@ TCP 四次挥手：
 当 Server 端也发送了 FIN 报文段时，这个时候就表示 Server 端也没有数据要发送了，就会告诉 Client 端，我也没有数据要发送了，之后彼此就会愉快的中断这次 TCP 连接。
 
 ### TCP 和 UDP 的区别
+
+视频讲解：[TCP 对决 UDP](https://www.bilibili.com/video/BV1rf4y1R7n3)
 
 1. TCP 是可靠传输，UDP 是不可靠传输。
 2. TCP 面向连接，UDP 无连接。

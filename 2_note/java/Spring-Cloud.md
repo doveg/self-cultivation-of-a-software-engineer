@@ -6,6 +6,20 @@
 
 ---
 
+### Spring Cloud 原理
+
+Spring Cloud 是一系列框架的有序集合。
+
+Spring Cloud 能和主流微服务组件集成。
+
+目前流行的方案有：
+
+> Spring Cloud + Zookeeper
+>
+> Spring Cloud + Netflix（Hystrix、Erika）
+>
+> Spring Cloud Alibaba
+
 ### 熔断、降级的注意事项
 
 熔断：

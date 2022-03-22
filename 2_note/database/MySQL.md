@@ -158,6 +158,12 @@ select * from Awhere id in(select id from B)
 
 子查询的表比较大的时候，使用 exists 可以有效减少总的循环次数来提升速度；当外查询的表比较大的时候，使用 in 可以有效减少对外查询表循环遍历来提升速度。
 
+### MySQL 中使用 IN 会不会走索引
+
+如果你 source 字段是一个 unique，in 肯定会用到索引。
+
+如果 source 字段来来去去就那么十几个值，这种情况下影响结果集巨大，就会全表扫描。这种情况全表扫描还要快于利用索引，只要理解索引的本质不难明白 MySQL 为何不使用索引。
+
 ### truncate、delete 与 drop 区别
 
 相同点：

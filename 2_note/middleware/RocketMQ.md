@@ -184,7 +184,7 @@ Consumer 负载均衡：
 
 ### RocketMQ 死信队列
 
-视频讲解：[《两天玩转 RocketMQ-16-死信队列》](https://www.bilibili.com/video/BV1uQ4y1d7uS?p=16)
+视频讲解：[两天玩转 RocketMQ-16-死信队列](https://www.bilibili.com/video/BV1uQ4y1d7uS?p=16)
 
 可以监听死信队列，根据消息的重要性，进行重新处理。
 
@@ -201,7 +201,7 @@ RocketMQ 不会立刻将这个有问题的消息丢弃，而会将其发送到�
 
 ### RocketMQ 消息重试
 
-视频讲解：[《两天玩转 RocketMQ-15-消息重试》](https://www.bilibili.com/video/BV1iq4y1E7tP?p=15)
+视频讲解：[两天玩转 RocketMQ-15-消息重试](https://www.bilibili.com/video/BV1iq4y1E7tP?p=15)
 
 有序消息重试；
 
@@ -209,7 +209,7 @@ RocketMQ 不会立刻将这个有问题的消息丢弃，而会将其发送到�
 
 ### RocketMQ 的高速读写
 
-视频讲解：[《两天玩转 RocketMQ-15-消息重试》](https://www.bilibili.com/video/BV1iq4y1E7tP?p=15)
+视频讲解：[两天玩转 RocketMQ-15-消息重试](https://www.bilibili.com/video/BV1iq4y1E7tP?p=15)
 
 写入方式：
 
@@ -227,7 +227,7 @@ Java 利用 MappedByteBuffer 类，在 Linux 实现零拷贝。
 
 ### RocketMQ 的刷盘机制
 
-视频讲解：[《两天玩转 RocketMQ-11-刷盘机制》](https://www.bilibili.com/video/BV1uQ4y1d7uS?p=11)
+视频讲解：[两天玩转 RocketMQ-11-刷盘机制](https://www.bilibili.com/video/BV1uQ4y1d7uS?p=11)
 
 同步刷盘：安全性高、效率低、速度慢。
 
@@ -242,7 +242,9 @@ Java 利用 MappedByteBuffer 类，在 Linux 实现零拷贝。
 
 ### RocketMQ 工作原理
 
-视频讲解：[《两天玩转 RocketMQ-04-工作原理》](https://www.bilibili.com/video/BV1iq4y1E7tP?p=4)
+视频讲解：[动画讲解 - rocketMq 的核心原理](https://www.bilibili.com/video/BV1wU4y1A7GB)
+
+视频讲解：[两天玩转 RocketMQ-04-工作原理](https://www.bilibili.com/video/BV1iq4y1E7tP?p=4)
 
 生产者；
 
@@ -355,7 +357,7 @@ RocketMQ 没有内置消息去重的解决方案，最新版本是否支持还�
 
 ### RocketMQ 避免重复消费
 
-视频讲解：[《两天玩转 RocketMQ-17-重复消费》](https://www.bilibili.com/video/BV1uQ4y1d7uS?p=17)
+视频讲解：[两天玩转 RocketMQ-17-重复消费](https://www.bilibili.com/video/BV1uQ4y1d7uS?p=17)
 
 避免客户端扩容
 
@@ -363,7 +365,7 @@ RocketMQ 没有内置消息去重的解决方案，最新版本是否支持还�
 
 ### RocketMQ 幂等性
 
-视频讲解：[《两天玩转 RocketMQ-18-幂等性》](https://www.bilibili.com/video/BV1uQ4y1d7uS?p=18)
+视频讲解：[两天玩转 RocketMQ-18-幂等性](https://www.bilibili.com/video/BV1uQ4y1d7uS?p=18)
 
 消息幂等：消息重复消费，结果保持一致。
 
@@ -380,38 +382,6 @@ messageId 是 RocketMQ 生成的，并不能保证唯一。
 ## RocketMQ 实现分布式事务
 
 ---
-
-### RocketMQ 事务消息
-
-视频讲解：[《两天玩转 RocketMQ-03-事务消息》](https://www.bilibili.com/video/BV1uQ4y1d7uS?p=3)
-
-正常事务消息：
-
-> 生产者发出半消息，得到经纪人的正确响应；
->
-> 执行本地事务；
->
-> 提交或者回滚事务。
-
-事务消息补偿：
-
-> 如果经纪人迟迟没等到生产者的提交和回滚，就会主动找生产者确认；
->
-> 让生产者检查本地事务的状态；
->
-> 经纪人根据状态选择回滚和提交。
-
-[《基于 RocketMQ 的分布式事务解决方案》](https://www.jianshu.com/p/286cac4625b6)
-
-事务消息案例：
-
-扣款前发送预备消息；
-
-收到确认之后执行扣款；
-
-扣款成功之后发送确认消息；
-
-经纪人收到确认消息，让消费者加钱。
 
 ### RocketMQ 的 Half Message / 半消息
 
@@ -435,6 +405,52 @@ Producer 已经把消息成功发送到了 Broker 端，但此消息被标记为
 4. 如果本地事务成功，那么 Product 像 Brock 服务器发送 Commit, 这样 B 服务就可以消费该 message。
 5. 如果本地事务失败，那么 Product 像 Brock 服务器发送 Rollback, 那么就会直接删除上面这条半消息。
 6. 如果因为网络等原因迟迟没有返回失败还是成功，那么会执行 RocketMQ 的回调接口，来进行事务的回查。
+
+### 分布式事务的主流方案
+
+TCC
+
+2PC
+
+3PC
+
+### RocketMQ 事务消息
+
+视频讲解：[rocketmq 的事务消息原理](https://www.bilibili.com/video/BV1aq4y1K7jB)
+
+RocketMQ 采用的 2PC 的方式提交事务，同时增加一个逻辑补偿来处理而二阶段超时或者失败的消息。
+
+视频讲解：[两天玩转 RocketMQ-03-事务消息](https://www.bilibili.com/video/BV1uQ4y1d7uS?p=3)
+
+通过半消息，避免生产者的消息未到达经纪人服务器的风险，并且经纪人有回查消息的机制，保证数据的一致性。
+
+正常事务消息：
+
+> 生产者发出半消息，得到经纪人的正确响应；
+>
+> 执行本地事务；
+>
+> 提交或者回滚事务。
+
+事务消息补偿：
+
+> 如果经纪人迟迟没等到生产者的提交和回滚，就会主动找生产者确认；
+>
+> 让生产者检查本地事务的状态；
+>
+> 经纪人根据状态选择回滚和提交。
+
+[基于 RocketMQ 的分布式事务解决方案](https://www.jianshu.com/p/286cac4625b6)
+
+事务消息案例：
+
+扣款前发送预备消息；
+
+收到确认之后执行扣款；
+
+扣款成功之后发送确认消息；
+
+经纪人收到确认消息，让消费者加钱。
 
 ### RocketMQ 的事务消息
 

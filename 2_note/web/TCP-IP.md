@@ -309,9 +309,7 @@ IP 地址分类：
 
 ### 什么是三次握手与四次挥手
 
-[《一条视频讲清楚 TCP 协议与 UDP 协议——什么是三次握手与四次挥手》——掌芝士 zzs](https://www.bilibili.com/video/BV1kV411j7hA?from=search&seid=17424179872667418942)
-
-https://www.bilibili.com/video/BV1kV411j7hA?from=search&seid=17424179872667418942
+视频讲解：[《一条视频讲清楚 TCP 协议与 UDP 协议——什么是三次握手与四次挥手》——掌芝士 zzs](https://www.bilibili.com/video/BV1kV411j7hA?from=search&seid=17424179872667418942)
 
 ### TCP 协议的三次握手
 

@@ -112,11 +112,23 @@
     - **ApplicationContext 继承了 BeanFactory 接口**，所以 ApplicationContext 包含 BeanFactory 的所有功能
     - ApplicationContext 在容器启动时，一次性创建所有的 Bean
 
-### BeanFactory
-
 ---
 
-## 提高部分
+## Spring-BeanFactory
+
+单例
+
+无状态
+
+执行 AbstractApplicationContext 的 refresh 之后，SingletonBeanRegistry 构造出 bean。
+
+refresh 方法是入口方法，会调用诸多子类的方法去做初始化。
+
+BeanDefinition 做 BeanFactory 的后置处理。
+
+AutowireCapableBeanFactory 自动注入能力接口
+
+defaultListableBeanFactory：为 ApplicationContext 提供了 getBean 的能力。 
 
 ---
 

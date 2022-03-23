@@ -8,17 +8,33 @@
 
 ### Spring Cloud 原理
 
-Spring Cloud 是一系列框架的有序集合。
+Spring Cloud 是一套微服务规范，是一系列框架的有序集合，能和主流微服务组件集成。
 
-Spring Cloud 能和主流微服务组件集成。
-
-目前流行的方案有：
+这套规范共有几代实现：
 
 > Spring Cloud + Zookeeper
 >
 > Spring Cloud + Netflix（Hystrix、Erika）
 >
 > Spring Cloud Alibaba
+
+Spring Cloud + Netflix：
+
+> 服务注册与发现：Eureka
+>
+> 负载均衡与服务调用：Ribbon
+>
+> 声明式服务调用：Fegin；Fegin 和 Ribbon 起到的作用一样
+>
+> 服务熔断与降级：Hystrix
+>
+> API 网关：Zuul
+>
+> 分布式配置：Config
+>
+> 消息队列：RabbitMQ
+>
+> 事件、消息总线：Bus
 
 ### 熔断、降级的注意事项
 

@@ -201,44 +201,6 @@ Object.notify()) 调用。
 
 关键字 Synchronized，通过监视器实现同步锁，是重量级锁。
 
-### 本地线程 ThreadLocal
-
-线程私有变量，避免其他线程对对象进行修改。
-
-基于 ThreadLocalMap 实现，ThreadLocal 存在栈中，值是 ThreadLocalMap 在堆中的地址。
-
-ThreadLocalMap 的 entry 继承了弱引用。
-
-ThreadLocal 的核心方法：get / set / remove。
-
-ThreadLocal 用完之后要在 finally remove 掉。
-
-### 强引用、软引用、弱引用、虚引用
-
-根据 GC Root 判断对象是否可达。
-
-强引用：
-
-软引用：
-
-弱引用：
-
-虚引用:
-
-### ConcurrentHashMap
-
-视频讲解：[动画讲解 - ConcurrentHashmap 的底层实现](https://www.bilibili.com/video/BV1Gq4y1Z7yM)
-
-JDK 8 中，主要采用 CAS 思想，是乐观锁机制。
-
-在更新数据时采用不断尝试的方式去更新。
-
-Synchronized 只锁数组中的一个节点。
-
-数据结构和 JDK 8 的 HashMap 一样。
-
-ConcurrentHashMap 中，key 和 value 都不能为空。
-
 ### 什么是死锁
 
 指多个进程在运行过程中因争夺资源而造成的一种僵局，当进程处于这种僵持状态时，若无外力作用，它们都将无法再向前推进。
@@ -341,11 +303,51 @@ Allocation（表示当前分配给进程的资源）。
 
 ---
 
-## 提高部分
+## 数据结构
 
 ---
 
-###
+### 本地线程 / ThreadLocal
+
+线程私有变量，避免其他线程对对象进行修改。
+
+基于 ThreadLocalMap 实现，ThreadLocal 存在栈中，值是 ThreadLocalMap 在堆中的地址。
+
+ThreadLocalMap 的 entry 继承了弱引用。
+
+ThreadLocal 的核心方法：get / set / remove。
+
+ThreadLocal 用完之后要在 finally remove 掉。
+
+### 强引用、软引用、弱引用、虚引用
+
+根据 GC Root 判断对象是否可达。
+
+强引用：
+
+软引用：
+
+弱引用：
+
+虚引用:
+
+### ConcurrentHashMap
+
+视频讲解：[动画讲解 - ConcurrentHashmap 的底层实现](https://www.bilibili.com/video/BV1Gq4y1Z7yM)
+
+JDK 8 中，主要采用 CAS 思想，是乐观锁机制。
+
+在更新数据时采用不断尝试的方式去更新。
+
+Synchronized 只锁数组中的一个节点。
+
+数据结构和 JDK 8 的 HashMap 一样。
+
+ConcurrentHashMap 中，key 和 value 都不能为空。
+
+### 阻塞队列 / BlockingQueue
+
+是一个支持两个附加操作的队列。
 
 ---
 

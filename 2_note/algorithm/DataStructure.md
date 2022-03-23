@@ -347,6 +347,8 @@ AVL 树本质上还是一棵二叉查找树，有以下特点：
 
 ### Red Black Tree
 
+视频讲解：[什么是红黑树，据说红黑树很难理解，看动画 5 分钟就弄明白原理](https://www.bilibili.com/video/BV1zU4y1H77f)
+
 Red Black Tree / 红黑树：
 
 是一种自平衡的二叉查找树，是 2-3-4 树的一种等同，它可以在 O (logN) 内做查找，插入和删除。

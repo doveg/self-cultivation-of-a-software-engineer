@@ -144,7 +144,7 @@
 
 3、redis 的 lpush rpop
 
-4、推荐使用 redis 原子操作 + sql 乐观锁
+4、推荐使用 redis 原子操作
 
 利用 redis 的 incr、decr 的原子性。
 

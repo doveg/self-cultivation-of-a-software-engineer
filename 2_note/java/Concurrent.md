@@ -197,6 +197,13 @@ Object.notify()) 调用。
 >
 > tryLock 方法：获取锁。
 
+### 可重入读写锁 ReentrantReadWriteLock
+
+ReentrantLock 是独占锁，某一时刻只有一个线程可以获取该锁，而实际中会有写少读多的场景，显然 ReentrantLock 满足不了这个需求，所以
+ReentrantReadWriteLock 应运而生。
+
+ReentrantReadWriteLock 采用读写分离的策略，允许多个线程可以同时获取读锁。
+
 ### 同步锁 Synchronized
 
 关键字 Synchronized，通过监视器实现同步锁，是重量级锁。
@@ -367,6 +374,7 @@ ConcurrentHashMap 中，key 和 value 都不能为空。
 - [CAS 原理](https://www.jianshu.com/p/ab2c8fce878b)
 - [【深入 AQS 原理】我画了 35 张图就是为了让你深入 AQS](https://juejin.cn/post/6844904146127044622)
 - [Java 技术之 AQS 详解](https://www.jianshu.com/p/da9d051dcc3d)
+- [读写锁 ——ReentrantReadWriteLock 原理详解](https://cloud.tencent.com/developer/article/1469555)
 - []()
 
 ---

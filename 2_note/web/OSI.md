@@ -94,6 +94,7 @@
 ### MAC 地址
 
 视频讲解：[简单说网络 1 - 计算机是如何通信的？IP 地址与 mac 地址是什么？dhcp 与 arp 又是什么？](https://www.bilibili.com/video/BV1CQ4y1d728)
+（推荐）
 
 介质访问控制层（Media access control）：
 
@@ -107,7 +108,7 @@ MAC 地址对应于 OSI 参考模型的第二层数据链路层，工作在数�
 
 ### 网络设备-交换机
 
-视频讲解：[交换机和路由器有什么区别？网关和路由又是什么意思？简单说网络 2 - 交换机与路由器](https://www.bilibili.com/video/BV1fU4y1t7Ju)
+视频讲解：[交换机和路由器有什么区别？网关和路由又是什么意思？简单说网络 2 - 交换机与路由器](https://www.bilibili.com/video/BV1fU4y1t7Ju) （推荐）
 
 交换机可以接入多台电脑。
 
@@ -128,7 +129,7 @@ MAC 地址对应于 OSI 参考模型的第二层数据链路层，工作在数�
 
 ### 网络设备-路由器
 
-视频讲解：[交换机和路由器有什么区别？网关和路由又是什么意思？简单说网络 2 - 交换机与路由器](https://www.bilibili.com/video/BV1fU4y1t7Ju)
+视频讲解：[交换机和路由器有什么区别？网关和路由又是什么意思？简单说网络 2 - 交换机与路由器](https://www.bilibili.com/video/BV1fU4y1t7Ju) （推荐）
 
 - 交换机需要记录的 MAC 地址表也越来越多，需要的交换机也越来越多
 - 但是交换机的容量和性能有限，MAC 地址表无法记录全世界电脑的 MAC 地址和对应的端口号，MAC 地址表太大也无法快速查找到对应的 MAC 地址表项
@@ -145,7 +146,7 @@ MAC 地址对应于 OSI 参考模型的第二层数据链路层，工作在数�
 
 ### 网关
 
-视频讲解：[交换机和路由器有什么区别？网关和路由又是什么意思？简单说网络 2 - 交换机与路由器](https://www.bilibili.com/video/BV1fU4y1t7Ju)
+视频讲解：[交换机和路由器有什么区别？网关和路由又是什么意思？简单说网络 2 - 交换机与路由器](https://www.bilibili.com/video/BV1fU4y1t7Ju) （推荐）
 
 计算机的网关（Gateway）就是到其他网段的出口，也就是路由器接口 IP 地址。
 
@@ -293,6 +294,7 @@ MAC，否则则通过路由器进行类似查找
 
 - [OSI 模型](https://zh.wikipedia.org/wiki/OSI%E6%A8%A1%E5%9E%8B)
 - [计算机网络常用知识总结](https://mp.weixin.qq.com/s?__biz=MzUyOTg1OTkyMA==&mid=2247486942&idx=1&sn=547fc2f0586a0e5e0003549afc50022e)
+- []()
 
 ---
 

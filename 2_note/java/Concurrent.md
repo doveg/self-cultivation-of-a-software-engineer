@@ -10,99 +10,99 @@
 
 JUC：JDK 中 java.util.concurrent 工具包的简称。
 
-> juc-locks 锁框架
+JUC-locks 锁框架：
+
+> 接口说明
 >
-> > 接口说明
-> >
-> > ReentrantLock 的使用
-> >
-> > ReentrantReadWriteLock 的使用
-> >
-> > LockSupport 工具类
-> >
-> > AbstractQueuedSynchronizer 综述
-> >
-> > AbstractQueuedSynchronizer 的独占功能原理
-> >
-> > Condition 原理
-> >
-> > AbstractQueuedSynchronizer 的共享功能原理
-> >
-> > ReentrantReadWriteLock 原理
-> >
-> > 更强的读写锁 ——StampedLock
+> ReentrantLock 的使用
 >
-> juc-atomic 原子类框架
+> ReentrantReadWriteLock 的使用
 >
-> > Unsafe 类
-> >
-> > AtomicInteger
-> >
-> > AtomicReference
-> >
-> > Atomic 数组
-> >
-> > AtomicXXXFieldUpdater
-> >
-> > 更强的原子类 ——LongAdder
+> LockSupport 工具类
 >
-> juc-sync 同步器框架
+> AbstractQueuedSynchronizer 综述
 >
-> > 倒数计数器 ——CountDownLatch
-> >
-> > 循环栅栏 ——CyclicBarrier
-> >
-> > 信号量 ——Semaphore
-> >
-> > 数据交换器 ——Exchanger
-> >
-> > 多阶段栅栏 ——Phaser
+> AbstractQueuedSynchronizer 的独占功能原理
 >
-> juc-collections 集合框架
+> Condition 原理
 >
-> > ConcurrentHashMap 的基本原理
-> >
-> > ConcurrentHashMap 的扩容
-> >
-> > 跳表 ——ConcurrentSkipListMap
-> >
-> > ConcurrentSkipListSet
-> >
-> > “写时复制” 的应用 ——CopyOnWriteArrayList
-> >
-> > CopyOnWriteArraySet
-> >
-> > 无锁队列 ——ConcurrentLinkedQueue
-> >
-> > 无锁双端队列 ——ConcurrentLinkedDeque
-> >
-> > 阻塞队列简介 ——BlockingQueue
-> >
-> > 基于数组的阻塞队列 ——ArrayBlockingQueue
-> >
-> > 基于单链表的阻塞队列 ——LinkedBlockingQueue
-> >
-> > 基于堆的优先级阻塞队列 ——PriorityBlockingQueue
-> >
-> > 特殊的同步队列 ——SynchronousQueue
-> >
-> > 延时阻塞队列 ——DelayQueue
-> >
-> > 基于双链表的阻塞双端队列 ——LinkedBlockingDeque
+> AbstractQueuedSynchronizer 的共享功能原理
 >
-> juc-executors 执行器框架
+> ReentrantReadWriteLock 原理
 >
-> > executors 框架概述
-> >
-> > 普通线程池 ——ThreadPoolExecutor
-> >
-> > 计划线程池 ——ScheduledThreadPoolExecutor
-> >
-> > Future 模式
-> >
-> > Fork/Join 框架的原理
-> >
-> > Fork/Join 框架的实现
+> 更强的读写锁 ——StampedLock
+
+JUC-atomic 原子类框架：
+
+> Unsafe 类
+>
+> AtomicInteger
+>
+> AtomicReference
+>
+> Atomic 数组
+>
+> AtomicXXXFieldUpdater
+>
+> 更强的原子类 ——LongAdder
+
+JUC-sync 同步器框架：
+
+> 倒数计数器 ——CountDownLatch
+>
+> 循环栅栏 ——CyclicBarrier
+>
+> 信号量 ——Semaphore
+>
+> 数据交换器 ——Exchanger
+>
+> 多阶段栅栏 ——Phaser
+
+JUC-collections 集合框架：
+
+> ConcurrentHashMap 的基本原理
+>
+> ConcurrentHashMap 的扩容
+>
+> 跳表 ——ConcurrentSkipListMap
+>
+> ConcurrentSkipListSet
+>
+> “写时复制” 的应用 ——CopyOnWriteArrayList
+>
+> CopyOnWriteArraySet
+>
+> 无锁队列 ——ConcurrentLinkedQueue
+>
+> 无锁双端队列 ——ConcurrentLinkedDeque
+>
+> 阻塞队列简介 ——BlockingQueue
+>
+> 基于数组的阻塞队列 ——ArrayBlockingQueue
+>
+> 基于单链表的阻塞队列 ——LinkedBlockingQueue
+>
+> 基于堆的优先级阻塞队列 ——PriorityBlockingQueue
+>
+> 特殊的同步队列 ——SynchronousQueue
+>
+> 延时阻塞队列 ——DelayQueue
+>
+> 基于双链表的阻塞双端队列 ——LinkedBlockingDeque
+
+JUC-executors 执行器框架：
+
+> executors 框架概述
+>
+> 普通线程池 ——ThreadPoolExecutor
+>
+> 计划线程池 ——ScheduledThreadPoolExecutor
+>
+> Future 模式
+>
+> Fork/Join 框架的原理
+>
+> Fork/Join 框架的实现
 
 ### 线程安全的原因
 
@@ -142,7 +142,7 @@ JUC：JDK 中 java.util.concurrent 工具包的简称。
 
 ### CAS / Compare and Swap / 比较并交换
 
-视频讲解：[【Java 并发】面试官问我 CAS、乐观锁、悲观锁，我反手就是骑脸输出](https://www.bilibili.com/video/BV1ff4y1q7we)
+视频讲解：[【Java 并发】面试官问我 CAS、乐观锁、悲观锁，我反手就是骑脸输出](https://www.bilibili.com/video/BV1ff4y1q7we) （推荐）
 
 CAS 是一种无锁算法，CAS 有 3 个操作数：内存值 V，旧的预期值 A，要修改的新值 B。
 
@@ -187,7 +187,7 @@ Condition 是在 java 1.5 中才出现的，它用来替代传统的 Object 的 
 其中 AbstractQueueSynchronizer 中实现了 Condition 中的方法，主要对外提供 awaite(Object.wait()) 和 signal(
 Object.notify()) 调用。
 
-### 可重入锁 ReentrantLock
+### ReentrantLock / 可重入锁
 
 核心方法：
 
@@ -197,14 +197,14 @@ Object.notify()) 调用。
 >
 > tryLock 方法：获取锁。
 
-### 可重入读写锁 ReentrantReadWriteLock
+### ReentrantReadWriteLock / 可重入读写锁
 
 ReentrantLock 是独占锁，某一时刻只有一个线程可以获取该锁，而实际中会有写少读多的场景，显然 ReentrantLock 满足不了这个需求，所以
 ReentrantReadWriteLock 应运而生。
 
 ReentrantReadWriteLock 采用读写分离的策略，允许多个线程可以同时获取读锁。
 
-### 同步锁 Synchronized
+### Synchronized / 同步锁
 
 关键字 Synchronized，通过监视器实现同步锁，是重量级锁。
 
@@ -314,7 +314,7 @@ Allocation（表示当前分配给进程的资源）。
 
 ---
 
-### 本地线程 / ThreadLocal
+### ThreadLocal / 线程局部变量 / 线程本地变量
 
 线程私有变量，避免其他线程对对象进行修改。
 
@@ -352,7 +352,7 @@ Synchronized 只锁数组中的一个节点。
 
 ConcurrentHashMap 中，key 和 value 都不能为空。
 
-### 阻塞队列 / BlockingQueue
+### BlockingQueue / 阻塞队列
 
 是一个支持两个附加操作的队列。
 

@@ -107,7 +107,7 @@
 
 无设计版本：
 
-```java
+```
 // 奖励服务
 class RewardService {
     // 外部服务
@@ -144,7 +144,7 @@ class RewardService {
 
 使用策略模式和适配器模式来优化：
 
-```java
+```
 // 策略接口
 interface Strategy {
     void issue(Object... params);
@@ -187,7 +187,7 @@ class Food implements Strategy {
 }
 ```
 
-```java
+```
 // 使用分支判断获取的策略上下文
 class StrategyContext {
     public static Strategy getStrategy(String rewardType) {
@@ -215,7 +215,7 @@ class RewardService {
 
 使用饿汉式单例模式去优化策略类：
 
-```java
+```
 // 策略上下文，用于管理策略的注册和获取
 class StrategyContext {
     private static final Map<String, Strategy> registerMap = new HashMap<>();
@@ -307,7 +307,7 @@ class Food extends AbstractStrategy implements Strategy {
 
 定义了一套任务状态的枚举和行为的枚举：
 
-```java
+```
 // 任务状态枚举
 @AllArgsConstructor
 @Getter
@@ -335,7 +335,7 @@ enum ActionType {
 
 对开始编写状态变更功能：
 
-```java
+```
 class Task {
     private Long taskId;
     // 任务的默认状态为初始化
@@ -382,7 +382,7 @@ class Task {
 
 用状态模式来优化任务类的实现：
 
-```java
+```
 // 任务状态抽象接口
 interface State {
     // 默认实现，不做任何处理
@@ -458,7 +458,7 @@ class Task {
 
 首先设计好抽象目标和抽象观察者，然后将活动和任务管理器的接收通知功能定制成具体观察者：
 
-```java
+```
 // 抽象观察者
 interface Observer {
     void response(Long taskId); // 反应
@@ -509,7 +509,7 @@ class TaskManageObserver implements Observer {
 
 将任务进行状态类优化成使用通用的通知方法，并在任务初始态执行状态流转时定义任务进行态所需的观察者：
 
-```java
+```
 // 任务进行状态
 class TaskOngoing extends Subject implements State {
     @Override
@@ -544,7 +544,7 @@ class TaskInit implements State {
 
 活动模型的特点在于其组成部分较多，小明原先的活动模型的构建方式是这样的：
 
-```java
+```
 // 抽象活动接口
 interface ActivityInterface {
     void participate(Long userId);
@@ -625,7 +625,7 @@ class TaskActivity extends Activity {
 
 可以通过在活动里面实现静态的建造者类来简易地实现：
 
-```java
+```
 // 活动类
 class Activity implements ActivityInterface {
     protected String type;
@@ -744,7 +744,7 @@ public void participate(Long userId) {
 
 装饰器模式后，新的代码就变成了这样：
 
-```java
+```
 // 抽象装饰角色
 abstract class ActivityDecorator implements ActivityInterface {
     protected ActivityInterface activity;

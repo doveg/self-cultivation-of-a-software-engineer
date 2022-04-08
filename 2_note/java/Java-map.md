@@ -6,6 +6,11 @@
 
 ---
 
+### Map 接口的继承关系图
+
+<div align="center">
+<img width="600"  alt="Map 接口的继承关系" src="https://github.com/bourneo/self-cultivation-of-a-software-engineer/blob/master/7_image/java/Java-map.webp"/></div>
+
 ### Map 接口的实现
 
 HashMap：
@@ -15,11 +20,6 @@ HashMap：
 TreeMap：
 
 - 根据键值对的 key 做去重，并用平衡树进行排序
-
-### Map 接口的继承关系图
-
-<div align="center">
-<img width="600"  alt="Map 接口的继承关系" src="https://github.com/bourneo/self-cultivation-of-a-software-engineer/blob/master/7_image/java/Java-map.webp"/></div>
 
 ---
 
@@ -68,10 +68,6 @@ Java 8 的 HashMap 实现：
 
 让 hashcode 和原数组长度进行与操作，为零的位置不变，否则扩容后就是原数组加上原位置。
 
-### HashMap 如何保持线程安全
-
-### HashMap put、get 原理
-
 ### HashMap 为什是 0.75 的装载因子 -> 主要是解决什么问题的
 
 装载因子是为了解决 hash 冲突带来的链表过大的问题。
@@ -100,6 +96,21 @@ HashMap 在得到 hashcode 之后，和右移十六位后的值做了异或操�
 
 利用扰动函数避免只有低位的 key 值参与与运算的问题。
 
+### HashMap 如何保持线程安全
+
+HashMap 非线程安全，ConcurrentHashMap 能保证线程安全。
+
+参考 ConcurrentHashMap 的同步锁实现，只锁数组的中的一个节点。
+
+### HashMap put、get 原理
+
+get 方法：
+
+- get 操作是通过调用 getNode 方法来实现的，还是老规矩先对 key 进行 hash 计算，传入函数，返回 getNode 函数返回的值。
+- 判断，如果 table 为空就返回空值。
+- 不为空就先去看看第一个位置的节点 hash 值和 key 值是否相同。
+- 果链表中不止一个节点那么就需要循环遍历了，如果存在多个 hash 碰撞这个是跑不掉的。
+- 如果节点是树节点那么就使用树节点的 get 方法来取数。
 
 ---
 
@@ -113,6 +124,7 @@ HashMap 在得到 hashcode 之后，和右移十六位后的值做了异或操�
 
 参考链接：
 
+- [HashMap 的 put、get 原理解读](https://www.jianshu.com/p/a3b64e18bfc6)
 - []()
 
 ---

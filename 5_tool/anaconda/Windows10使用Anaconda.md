@@ -2,13 +2,29 @@
 
 ---
 
+## Anaconda 安装
+
+---
+
 ## 安装
 
-官网下载安装包。
+官网下载安装包：https://www.anaconda.com
 
-选择自定义路径，注册为默认 Python 环境。
+自定义安装路径，注册为默认的 Python 环境。
+
+## 验证
+
+打开 Anaconda Powershell Prompt，输入命令：
+
+```
+conda -V
+```
+
+---
 
 ## Anaconda 命令实例
+
+---
 
 ### 查看 Anaconda 虚拟环境列表
 

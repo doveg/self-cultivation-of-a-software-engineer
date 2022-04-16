@@ -2,6 +2,26 @@
 
 ---
 
+## Content / 目录
+
+---
+
+- [一、基础部分](#基础部分)
+    - [01、Map 接口的继承关系图](#Map-接口的继承关系图)
+    - [02、Map 接口的实现](#Map-接口的实现)
+- [二、提高部分](#提高部分)
+    - [01、HashMap 原理](#HashMap-原理)
+    - [02、链表长度大于 8 会转成红黑树，为什么是 8](#链表长度大于-8-会转成红黑树，为什么是-8)
+    - [03、红黑树](#红黑树)
+    - [04、HashMap 扩容](#HashMap-扩容)
+    - [05、HashMap 的装载因子为什是 0.75](#HashMap-的装载因子为什是-0.75)
+    - [06、HashMap 长度为什么是 2 的 n 次方](#HashMap-长度为什么是-2-的-n-次方)
+    - [07、HashMap 如何保持线程安全](#HashMap-如何保持线程安全)
+    - [08、HashMap 的 put、get 原理](#HashMap-的-put、get-原理)
+    - [09、HashMap 存储 10w 条数据，数据查找的时间复杂度](#HashMap-存储-10w-条数据，数据查找的时间复杂度)
+
+---
+
 ## 基础部分
 
 ---
@@ -15,11 +35,11 @@
 
 HashMap：
 
-- 根据键值对的 key 做去重
+> 根据键值对的 key 做去重
 
 TreeMap：
 
-- 根据键值对的 key 做去重，并用平衡树进行排序
+> 根据键值对的 key 做去重，并用平衡树进行排序
 
 ---
 
@@ -40,7 +60,7 @@ TreeMap：
 
 Java 8 的 HashMap 实现：
 
-数组 + LinkedList / 红黑树，如果数组长度大于64，或者链表长度大于 8，链表会转成红黑树。
+**数组 + LinkedList / 红黑树，如果数组长度大于64，或者链表长度大于 8，链表会转成红黑树。**
 
 ~~如果链表长度又小于 6 了，会重新把单向数据链表转成红黑树。~~
 
@@ -48,9 +68,7 @@ Java 8 的 HashMap 实现：
 
 视频讲解：[HashMap 版本之间的区别](https://www.bilibili.com/video/BV1Sp4y1D732)
 
-理想情况下，随机的 hashcode 算法，节点的分布会遵循泊松分布。
-
-其实链表长度达到 8 的概率非常小。
+理想情况下，随机的 hashcode 算法，节点的分布会遵循泊松分布，链表长度达到 8 的概率非常小。
 
 ### 红黑树
 
@@ -66,21 +84,13 @@ Java 8 的 HashMap 实现：
 
 视频讲解：[HashMap 版本之间的区别](https://www.bilibili.com/video/BV1Sp4y1D732)
 
-让 hashcode 和原数组长度进行与操作，为零的位置不变，否则扩容后就是原数组加上原位置。
+**让 hashcode 和原数组长度进行与操作，为零的位置不变，否则扩容后就是原数组加上原位置。**
 
-### HashMap 为什是 0.75 的装载因子 -> 主要是解决什么问题的
+### HashMap 的装载因子为什是 0.75
 
-装载因子是为了解决 hash 冲突带来的链表过大的问题。
+1、装载因子是为了解决 hash 冲突带来的链表过大的问题。
 
-转载因子太小又会导致 HashMap 占用内存过多。
-
-0.75 是对 hash 冲突和 HashMap 占用内存两个妥协的产物。
-
-### HashMap 存储 10w 条数据，数据查找的时间复杂度
-
-理想情况下 HashMap 的时间复杂度为 O（1）。
-
-但是考虑到数组下面有链表或者红黑树。
+2、转载因子太小又会导致 HashMap 占用内存过多。0.75 是对 hash 冲突和 HashMap 占用内存两个妥协的产物。
 
 ### HashMap 长度为什么是 2 的 n 次方
 
@@ -88,7 +98,7 @@ Java 8 的 HashMap 实现：
 
 视频讲解：[HashMap 你很可能不知道的细节](https://www.bilibili.com/video/BV1534y1Q7CE)
 
-HashMap 的 key 值与 （HashMap 长度 - 1）进行与运算，2 的 n 次方可以方便取模。
+**HashMap 的 key 值与 （HashMap 长度 - 1）进行与运算，2 的 n 次方可以方便取模。**
 
 但是对于长度小的 HashMap，容易发生 hash 碰撞。
 
@@ -100,9 +110,9 @@ HashMap 在得到 hashcode 之后，和右移十六位后的值做了异或操�
 
 HashMap 非线程安全，ConcurrentHashMap 能保证线程安全。
 
-参考 ConcurrentHashMap 的同步锁实现，只锁数组的中的一个节点。
+参考 ConcurrentHashMap 的同步锁实现，**只锁数组的中的一个节点**。
 
-### HashMap put、get 原理
+### HashMap 的 put、get 原理
 
 get 方法：
 
@@ -111,6 +121,16 @@ get 方法：
 - 不为空就先去看看第一个位置的节点 hash 值和 key 值是否相同。
 - 果链表中不止一个节点那么就需要循环遍历了，如果存在多个 hash 碰撞这个是跑不掉的。
 - 如果节点是树节点那么就使用树节点的 get 方法来取数。
+
+### HashMap 存储 10w 条数据，数据查找的时间复杂度
+
+理想情况下 HashMap 的时间复杂度为 O(1)。
+
+考虑到数组下面有链表或者红黑树，在极端情况下可能接近 O(logN)。
+
+但是每个哈希桶中元素数量是成泊松分布的，所以不太可能达到 O(logN)，通常认为 HashMap 的查询时间复杂度为 O(1)。
+
+
 
 ---
 
@@ -125,6 +145,9 @@ get 方法：
 参考链接：
 
 - [HashMap 的 put、get 原理解读](https://www.jianshu.com/p/a3b64e18bfc6)
+- [hashmap为什么查询时间复杂度为O(1)](https://blog.csdn.net/john1337/article/details/104727895)
+- []()
+- []()
 - []()
 
 ---

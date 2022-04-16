@@ -2,6 +2,22 @@
 
 ---
 
+## Content / 目录
+
+---
+
+- [一、基础部分](#基础部分)
+    - [01、Collection 接口的继承关系图](#Collection-接口的继承关系图)
+    - [02、List 接口的实现](#List-接口的实现)
+    - [03、Set 接口的实现](#Set-接口的实现)
+    - [04、Queue 接口的实现](#Queue-接口的实现)
+    - [05、Queue 的一些新方法](#Queue-的一些新方法)
+- [二、提高部分](#提高部分)
+    - [01、数组和链表实现队列哪个好](#数组和链表实现队列哪个好)
+    - [02、队列的特性](#队列的特性)
+
+---
+
 ## 基础部分
 
 ---
@@ -43,7 +59,7 @@
 - 既可以根据元素的自然顺序来排序，也可以根据 Comparator 来设置排序规则；
 - 实际上是一个堆、不指定 Comparator 时默认为最小堆。
 
-### Queue / 队列的一些新方法
+### Queue 的一些新方法
 
 1、offer，add 区别：
 
@@ -73,6 +89,8 @@
 
 ### 队列的特性
 
+FIFO / 先入先出
+
 ---
 
 
@@ -88,7 +106,7 @@
 
 - [java集合Collection常用方法详解](https://blog.csdn.net/javaee_gao/article/details/96372530)
 - [Java 集合系列05之 LinkedList详细介绍(源码解析)和使用示例](https://www.cnblogs.com/skywang12345/p/3308807.html)
-- []()
+- [java队列——queue详细分析](https://www.cnblogs.com/lemon-flm/p/7877898.html)
 - []()
 - []()
 

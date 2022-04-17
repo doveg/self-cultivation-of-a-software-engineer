@@ -18,7 +18,7 @@ Spring Cloud 是一套微服务规范，是一系列框架的有序集合，能�
 >
 > Spring Cloud Alibaba
 
-Spring Cloud + Netflix：
+### Spring Cloud+Netflix
 
 | # | 名称 | 模块 | 备注 |
 |:---:|:---|:---|:---:|
@@ -32,14 +32,14 @@ Spring Cloud + Netflix：
 | 07 | Bus | 事件、消息总线 |  |
 |<img width=50px/>|<img width=200px/>|<img width=200px/>|<img width=200px/>|
 
-Spring Cloud Alibaba
+### Spring Cloud Alibaba
 
 | # | 名称 | 模块 | 备注 |
 |:---:|:---|:---|:---:|
 | 00 | **Nacos Discovery** | **注册中心：服务注册与发现** | Name and Config Service，读音：/nɑ:kəʊs/ |
 | 01 | Dubbo | **服务调用客户端：声明式服务调用** |  |
 | 02 | Spring Cloud Loadbalancer | **负载均衡** |  |
-| 03 | Sentinel | **服务熔断与降级** | Sentinel：哨兵。读音：/ˈsentɪn(ə)l/ |
+| 03 | **Sentinel** | **服务熔断与降级** | Sentinel：哨兵。读音：/ˈsentɪn(ə)l/ |
 | 04 | Spring Cloud Gateway | **服务网关** |  |
 | 05 | **Nacos Config** | **分布式配置** | Name and Config Service，读音：/nɑ:kəʊs/ |
 | 06 | RocketMQ | **消息队列** |  |
@@ -48,13 +48,20 @@ Spring Cloud Alibaba
 | 09 | Alibaba Cloud Schedulerx | 分布式调度 |  |
 |<img width=50px/>|<img width=200px/>|<img width=200px/>|<img width=200px/>|
 
-### 熔断、降级的注意事项
+### 熔断
 
 熔断：
 
 1. 自动熔断时机：在什么条件开启熔断，选好降级熔断算法
 2. 熔断恢复，恢复的条件
 3. 区分核心和非核心功能，注意核心功能和依赖关系，保证系统整体稳定
+
+技术选型：
+
+1. Hystrix
+2. Sentinel
+
+### 降级
 
 降级：
 
@@ -67,11 +74,6 @@ Spring Cloud Alibaba
 2. 失败次数降级
 3. 故障降级
 
-技术选型：
-
-1. Hystrix
-2. Sentinel
-
 ### 服务注册与发现 Consul
 
 Zookeeper 和 Consul ：
@@ -82,7 +84,7 @@ Eureka：
 
 AP 原则，无主从节点，一个节点挂了，自动切换其他节点可以使用，去中心化
 
-### 服务调用 OpenFeign
+### OpenFeign 服务调用
 
 Feign：
 
@@ -96,7 +98,9 @@ springcloud 在 Feign 的基础上支持了 SpringMVC 的注解，如 @RequestMa
 
 OpenFeign 的 @FeignClient 可以解析 SpringMVC 的 @RequestMapping 注解下的接口，并通过动态代理的方式产生实现类，实现类中做负载均衡并调用其他服务。
 
-### Ribbon 负载均衡策略
+### Ribbon 负载均衡
+
+负载均衡策略：
 
 **RandomRule：随机。**
 

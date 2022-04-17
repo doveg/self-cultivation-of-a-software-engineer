@@ -2,6 +2,41 @@
 
 ---
 
+## Content / 目录
+
+---
+
+- [一、基础部分](#基础部分)
+    - [01、RocketMQ 核心概念](#RocketMQ-核心概念)
+    - [01、RocketMQ 特性](#RocketMQ-特性)
+    - [01、RocketMQ 应用场景](#RocketMQ-应用场景)
+    - [01、RocketMQ 的数据存储](#RocketMQ-的数据存储)
+    - [01、RocketMQ 的消息过滤](#RocketMQ-的消息过滤)
+    - [01、RocketMQ 的定时消息](#RocketMQ-的定时消息)
+    - [01、RocketMQ 的高可用机制](#RocketMQ-的高可用机制)
+    - [01、RocketMQ 负载均衡](#RocketMQ-负载均衡)
+    - [01、RocketMQ 的死信队列](#RocketMQ-的死信队列)
+    - [01、RocketMQ 的消息重试](#RocketMQ-的消息重试)
+    - [01、RocketMQ 的高速读写](#RocketMQ-的高速读写)
+    - [01、RocketMQ 的刷盘机制](#RocketMQ-的刷盘机制)
+- [二、提高部分](#提高部分)
+    - [01、RocketMQ 的工作原理](#RocketMQ-的工作原理)
+    - [01、RocketMQ 消息消费的可靠性](#RocketMQ-消息消费的可靠性)
+    - [01、RocketMQ 消息消费的流程](#RocketMQ-消息消费的流程)
+    - [01、RocketMQ 的消息堆积](#RocketMQ-的消息堆积)
+    - [01、RocketMQ 的顺序消息](#RocketMQ-的顺序消息)
+    - [01、RocketMQ 的消息优先级](#RocketMQ-的消息优先级)
+    - [01、RocketMQ 消息重复的原因](#RocketMQ-消息重复的原因)
+    - [01、RocketMQ 的消息去重](#RocketMQ-的消息去重)
+    - [01、RocketMQ 避免重复消费](#RocketMQ-避免重复消费)
+    - [01、RocketMQ 幂等性](#RocketMQ-幂等性)
+- [三、RocketMQ 实现分布式事务](#RocketMQ-实现分布式事务)
+    - [01、RocketMQ 的半消息](#RocketMQ-的半消息)
+    - [01、RocketMQ 的消息回查](#RocketMQ-的消息回查)
+    - [01、RocketMQ 的事务消息](#RocketMQ-的事务消息)
+
+---
+
 ## 基础部分
 
 ---
@@ -64,7 +99,7 @@ Message Order / 消息顺序：
 
 - 有两种：Orderly（顺序消费）和 Concurrently（并行消费）。
 
-### RocketMQ 的特性
+### RocketMQ 特性
 
 1. 消息的订阅与发布：消息队列的基本功能。
 2. **顺序消息**：
@@ -79,7 +114,7 @@ Message Order / 消息顺序：
 6. 流量控制：当 Broker 处理消息的能力达到瓶颈时，通过拒绝生产者的发送请求进行流量控制，当消费者的消息能力达到瓶颈时，通过降低消息的拉取频率进行流量控制。
 7. 死信队列：当一条消息达到最大重试次数后，若消费依然失败，则表明消费者在正常情况下无法正确地消费该消息，此时，消息队列不会立刻将消息丢弃，而是将其发送到该消费者对应的特殊队列中。
 
-### RocketMQ 的应用场景
+### RocketMQ 应用场景
 
 1. 异步：不需要同步等待。
 2. 解耦：应用之间不互相依赖。
@@ -182,7 +217,7 @@ Consumer 负载均衡：
 
 - 对于广播模式并不是负载均衡的，要求一条消息需要投递到一个消费组下面所有的消费者实例，所以也就没有消息被分摊消费的说法。
 
-### RocketMQ 死信队列
+### RocketMQ 的死信队列
 
 视频讲解：[两天玩转 RocketMQ-16-死信队列](https://www.bilibili.com/video/BV1uQ4y1d7uS?p=16)
 
@@ -199,7 +234,7 @@ RocketMQ 不会立刻将这个有问题的消息丢弃，而会将其发送到�
 2. 如果一个 Group ID 未产生死信消息，消息队列 RocketMQ 不会为其创建相应的死信队列。
 3. 一个死信队列包含了对应 Group ID 产生的所有死信消息，不论该消息属于哪个 Topic。
 
-### RocketMQ 消息重试
+### RocketMQ 的消息重试
 
 视频讲解：[两天玩转 RocketMQ-15-消息重试](https://www.bilibili.com/video/BV1iq4y1E7tP?p=15)
 
@@ -240,7 +275,7 @@ Java 利用 MappedByteBuffer 类，在 Linux 实现零拷贝。
 
 ---
 
-### RocketMQ 工作原理
+### RocketMQ 的工作原理
 
 视频讲解：[动画讲解 - rocketMq 的核心原理](https://www.bilibili.com/video/BV1wU4y1A7GB)
 
@@ -266,7 +301,7 @@ Master 建立长连接，且定时向 Broker 发送心跳。
 Producer 只能将消息发送到 Broker master，但是 Consumer 则不一样，它同时和提供 Topic 服务的 Master 和 Slave 建立长连接，既可以从 Broker
 Master 订阅消息，也可以从 Broker Slave 订阅消息。
 
-### RocketMQ 的消息堆积问题
+### RocketMQ 的消息堆积
 
 消息中间件的主要功能是异步解耦，还有个重要功能是挡住前端的数据洪峰，保证后端系统的稳定性，这就要求消息中间件具有一定的消息堆积能力。
 
@@ -298,9 +333,11 @@ RocketMQ 的 topic 内的队列机制，可以保证存储满足 FIFO（First In
 
 **RocketMQ 仅保证顺序发送，顺序消费由消费者业务保证**。
 
-### RocketMQ 的消息优先级（Message Priority）
+### RocketMQ 的消息优先级
 
-优先级是指在一个消息队列中，每条消息都有不同的优先级，一般用整数来描述，优先级高的消息先投递，如果消息完全在一个内存队列中，那么在投递前可以按照优先级排序，令优先级高的先投递。
+Message Priority / 消息优先级：
+
+是指在一个消息队列中，每条消息都有不同的优先级，一般用整数来描述，优先级高的消息先投递，如果消息完全在一个内存队列中，那么在投递前可以按照优先级排序，令优先级高的先投递。
 
 具体到 RocketMQ，由于 RocketMQ 所有消息都是持久化的，所以如果按照优先级来排序，资源开销会非常大，
 
@@ -316,7 +353,7 @@ RocketMQ 的 topic 内的队列机制，可以保证存储满足 FIFO（First In
     - 如果要让 MQ 解决此问题，会对 MQ 的性能造成非常大的影响。
     - 这里要确保一点，业务上是否确实需要这种严格的优先级，如果将优先级压缩成几个，对业务的影响有多大？
 
-### RocketMQ 出现消息重复的原因
+### RocketMQ 消息重复的原因
 
 QoS：Quality of Service，服务质量。
 
@@ -383,9 +420,9 @@ messageId 是 RocketMQ 生成的，并不能保证唯一。
 
 ---
 
-### RocketMQ 的 Half Message / 半消息
+### RocketMQ 的半消息
 
-是指暂不能被 Consumer 消费的消息。
+Half Message / 半消息：是指暂不能被 Consumer 消费的消息。
 
 Producer 已经把消息成功发送到了 Broker 端，但此消息被标记为：暂不能投递状态，处于该种状态下的消息称为半消息。
 
@@ -414,7 +451,7 @@ TCC
 
 3PC
 
-### RocketMQ 事务消息
+### RocketMQ 的事务消息
 
 视频讲解：[rocketmq 的事务消息原理](https://www.bilibili.com/video/BV1aq4y1K7jB)
 
@@ -452,7 +489,7 @@ RocketMQ 采用的 2PC 的方式提交事务，同时增加一个逻辑补偿来
 
 经纪人收到确认消息，让消费者加钱。
 
-### RocketMQ 的事务消息
+### 事务消息
 
 消息队列 MQ 提供类似 X/Open XA 的分布式事务功能，通过消息队列 MQ 事务消息能达到分布式事务的最终一致。
 

@@ -8,23 +8,23 @@
 
 ## ES 基本概念
 
-1、index / 索引：
+**1、index / 索引：**
 
 > ES 中的索引类似于传统数据库中的数据库，ES 中数据存储于索引中，索引是具有类似特性的文档的集合。
 
-2、type / 类型：
+~~2、type / 类型：~~
 
 > 类型类似于传统库中的表，类型是索引内部的逻辑分区，类型就是为那些拥有相同的域的文档做的预定义。
 
-3、document / 文档：
+**3、document / 文档：**
 
 > 文档是 Lucene 索引和搜索的原子单位，它是包含了一个或多个域的容器，基于 JSON 格式进行表示。
 
-4、mapping / 映射：
+**4、mapping / 映射：**
 
 > 所有的文档在存储之前都要首先进行分析。用户可根据需要定义如何将文本分割成 token，哪些 token 应该被过滤掉，以及哪些文本需要进行额外处理等等。
 
-5、shard / 分片、replica / 副本：
+**5、shard / 分片、replica / 副本：**
 
 > 将一个索引内部的数据分布地存储于多个节点，它通过将一个索引切分为多个底层物理的 Lucene 索引完成索引数据的分割存储功能，
 >
@@ -260,6 +260,8 @@ ES 里的写流程，有 4 个底层的核心概念，refresh、flush、translog
 - [ElasticSearch 原理](https://www.jianshu.com/p/3b68f351bdc7)
 - [理解 ElasticSearch 工作原理](https://www.jianshu.com/p/52b92f1a9c47)
 - [Elasticsearch: 权威指南](https://www.elastic.co/guide/cn/elasticsearch/guide/current/scroll.html)
+- []()
+- []()
 - []()
 
 ---

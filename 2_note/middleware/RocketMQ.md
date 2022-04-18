@@ -532,6 +532,8 @@ RocketMQ 采用的 2PC 的方式提交事务，同时增加一个逻辑补偿来
 - [RocketMQ 使用指南](https://segmentfault.com/a/1190000040591160)
 - [一篇文章把 RabbitMQ、RocketMQ、Kafka 三元归一](http://dockone.io/article/2434606)
 - []()
+- []()
+- []()
 
 ---
 

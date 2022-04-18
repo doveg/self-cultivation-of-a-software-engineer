@@ -55,6 +55,14 @@ Encache 是一个纯 Java 的进程内缓存框架，具有快速、精干等特
     缓存支持堆内存储、堆外存储、磁盘存储（支持持久化）三种。
     支持多种集群方案，解决数据共享问题。
 
+### Encache 集群方案：
+
+    JGroups
+    RMI
+    JMS
+    EhCache Server
+    Terracotta
+
 ---
 
 ## 提高部分
@@ -77,6 +85,7 @@ Encache 是一个纯 Java 的进程内缓存框架，具有快速、精干等特
 参考链接：
 
 - [Java本地缓存技术选型（Guava Cache、Caffeine、Encache）](https://www.jianshu.com/p/e5dc3a18dcb8)
+- [玩转 EhCache 之最简单的缓存框架](https://www.jianshu.com/p/5a0669d6305e)
 - []()
 - []()
 - []()

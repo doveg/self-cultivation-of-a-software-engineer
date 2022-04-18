@@ -483,7 +483,17 @@ Socket 套接字：
 <div align="center">
 <img width="600"  alt="Socket套接字" src="https://github.com/bourneo/self-cultivation-of-a-software-engineer/blob/master/7_image/web/Socket套接字.webp"/></div>
 
+### WebSocket
 
+WebSocket 是一种计算机通信协议，通过单个 TCP 连接提供全双工通信信道。
+
+1、WebSocket 是双向的：使用 WebSocket 客户端或服务器可以发起消息发送。
+
+2、WebSocket 是全双工的：客户端和服务器通信是相互独立的。
+
+3、单个 TCP 连接：初始连接使用 HTTP，然后将此连接升级到基于套接字的连接。然后这个单一连接用于所有未来的通信。
+
+4、Light 与 http 相比，WebSocket 消息数据交换要轻得多。
 
 
 

@@ -22,7 +22,7 @@
 
 ### 创建线程的方式
 
-1、通过继承 Thread 类，并重写 run () 方法，将线程运行的逻辑放在其中。
+1、通过继承 Thread 类，并重写 run () 方法。
 
     首先定义一个类来继承 Thread 类，重写 run 方法。
     然后创建这个子类对象，并调用 start 方法启动线程。
@@ -40,9 +40,7 @@
     把 FutureTask 作为 Thread 类的 target ，创建 Thread 线程对象。
     通过 FutureTask 的 get 方法获取线程的执行结果。
 
-4、通过线程池创建线程
-
-此处用 JDK 自带的 Executors 来创建线程池对象。
+4、通过线程池创建线程，例如用 JDK 自带的 Executors 来创建线程池对象。
 
     首先，定一个 Runnable 的实现类，重写 run 方法。
     然后创建一个拥有固定线程数的线程池。
@@ -58,19 +56,21 @@
 
 1、Runnable：
 
-- Runnable.run () 方法没有返回值。
-- 不会向外抛异常。
+> Runnable.run () 方法没有返回值。
+>
+> 不会向外抛异常。
 
 2、Callable：
 
-- Callable.call () 方法有返回值。
-- 可以向外抛异常。
+> Callable.call () 方法有返回值。
+>
+> 可以向外抛异常。
 
 3、Future：
 
-- 因为 Thread 不接受 Callable，只接受 Runnable，所以有了 FutureTask。
-- FutureTask 是 Runnable 和 Future 的实现类：FutureTask 继承了 RunnableFuture，RunnableFuture 实现了 Runnable 和
-  Future 接口。
+> 因为 Thread 不接受 Callable，只接受 Runnable，所以有了 FutureTask。
+>
+> FutureTask 是 Runnable 和 Future 的实现类：FutureTask 继承了 RunnableFuture，RunnableFuture 实现了 Runnable 和 Future 接口。
 
 ---
 
@@ -80,13 +80,21 @@
 
 ### 线程池的核心配置参数（重点）
 
-1、线程池的最大容量：任务数量超过线程池的最大线程数，任务会进入等待队列，等待空闲的线程。
+最重要的：
 
-2、核心线程池：线程池会维持核心数量的线程数。
+1、**线程池的核心线程数**：线程池会维持核心数量的线程数。
 
-3、存活时间：闲置线程到达最长存活时间，会被线程池销毁。
+2、**线程池的等待队列的容量**：。
 
-4、拒绝策略。
+3、**线程池的最大线程数**：任务数量超过线程池的最大线程数，任务会进入等待队列，等待空闲的线程。
+
+4、**拒绝策略**：线程池达到容量限制后，怎么处理新的线程请求。
+
+比较重要的：
+
+5、**线程的最大存活时间**：闲置线程到达最长存活时间，会被线程池销毁。
+
+6、**线程池线程名的前缀**。方便定位问题，多个线程池的情况下，快速找到哪个线程池的线程存在异常。
 
 <div align="center">
 <img width="600"  alt="线程池的核心配置参数" src="https://github.com/bourneo/self-cultivation-of-a-software-engineer/blob/master/7_image/java/thread-pool-config.png"/></div>
@@ -108,25 +116,25 @@
 
 ### 拒绝策略（重点）
 
-1、AbortPolicy
+1、AbortPolicy / 抛异常：
 
-直接抛出拒绝异常（继承自 RuntimeException），会中断调用者的处理过程，所以除非有明确需求，一般不推荐。
+> 直接抛出拒绝异常（继承自 RuntimeException），会中断调用者的处理过程，所以除非有明确需求，一般不推荐。
 
-2、CallerRunsPolicy
+2、CallerRunsPolicy / 调用者自己执行：
 
-**在调用者线程中（也就是说谁把 r 这个任务甩来的），运行当前被丢弃的任务。**
+> **在调用者线程中（也就是说谁把 r 这个任务甩来的），运行当前被丢弃的任务。**
+>
+> 只会用调用者所在线程来运行任务，也就是说任务不会进入线程池。
+>
+> 如果线程池已经被关闭，则直接丢弃该任务。
 
-只会用调用者所在线程来运行任务，也就是说任务不会进入线程池。
+3、DiscardOldestPolicy / 丢弃最老的：
 
-如果线程池已经被关闭，则直接丢弃该任务。
+> **丢弃队列中最老的，然后再次尝试提交新任务。**
 
-3、DiscardOledestPolicy
+4、DiscardPolicy / 丢弃：
 
-**丢弃队列中最老的，然后再次尝试提交新任务。**
-
-4、DiscardPolicy
-
-直接丢弃无法加载的任务。这个代码就很简单了，真的是啥也没做。
+> 直接丢弃无法加载的任务。这个代码就很简单了，真的是啥也没做。
 
 ### 常用的线程池
 
@@ -140,6 +148,13 @@
 
 2、资源不足：线程池的配置不当，可能导致服务器资源耗尽。
 
+### 多线程的使用场景
+
+1、调用多个外部接口，并且接口数据不存在依赖关系，选择多线程。
+
+2、后台调度需要处理多个任务，选择多线程同时处理。
+
+3、通知外部系统，异步处理，不影响自己的核心业务逻辑。
 
 ---
 
@@ -155,8 +170,9 @@
 
 取决于 JDK 版本和线程池的配置：
 
-- JDK 1.6 之前，线程池会尽量保持 corePoolSize 个核心线程。
-- JDK 1.6 以及之后，如果 allowsCoreThreadTimeOut=true，核心线程也可以被终止。
+> JDK 1.6 之前，线程池会尽量保持 corePoolSize 个核心线程。
+>
+> JDK 1.6 以及之后，如果 allowsCoreThreadTimeOut=true，核心线程也可以被终止。
 
 ### 空闲线程过多会有什么问题
 
@@ -172,8 +188,9 @@
 
 JDK 1.8中 ，keepAliveTime=0 表示非核心线程执行完立刻终止补充：
 
-- 默认情况下，keepAliveTime 小于 0，初始化的时候才会报错。
-- 如果 allowsCoreThreadTimeOut，keepAliveTime 必须大于 0，不然初始化报错。
+> 默认情况下，keepAliveTime 小于 0，初始化的时候才会报错。
+>
+> 如果 allowsCoreThreadTimeOut，keepAliveTime 必须大于 0，不然初始化报错。
 
 ### shutdown 和 shutdownNow 的区别
 
@@ -191,9 +208,9 @@ JDK 1.8中 ，keepAliveTime=0 表示非核心线程执行完立刻终止补充�
 
 1、如果是 execute：
 
-- 可以自定义线程池，继承 ThreadPoolExecutor 并复写其 afterExecute(Runnable r, Throwable t)方法。
-- 或者实现 Thread.UncaughtExceptionHandler 接口，实现 void uncaughtException(Thread t, Throwable e) 方法， 并将该
-  handler 传递给线程池的 ThreadFactory。
+> 可以自定义线程池，继承 ThreadPoolExecutor 并复写其 afterExecute(Runnable r, Throwable t)方法。
+>
+> 或者实现 Thread.UncaughtExceptionHandler 接口，实现 void uncaughtException(Thread t, Throwable e) 方法， 并将该 handler 传递给线程池的 ThreadFactory。
 
 2、注意：afterExecute 和 UncaughtExceptionHandler 都不适用 submit。
 

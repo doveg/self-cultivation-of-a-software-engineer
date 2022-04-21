@@ -8,13 +8,14 @@
 
 ### Spring Framework 的原理
 
-###
+IoC
+
+AOP
 
 ###
 
 ###
 
-###
 ---
 
 ## Spring AOP
@@ -61,8 +62,31 @@
 
 默认策略：如果目标类实现了接口，则使用 JDK 动态代理，否则使用 Cglib 生成代理对象
 
+### JDK 动态代理和 CGLIB 的原理
 
+JDK 动态代理：
 
+    利用拦截器 (拦截器必须实现 InvocationHanlder) 加上反射机制生成一个实现代理接口的匿名类，在调用具体方法前调用 InvokeHandler 来处理
+
+CGLiB 动态代理：
+
+    利用 ASM 开源包，对代理对象类的 class 文件加载进来，通过修改其字节码生成子类来处理。
+
+### JDK 动态代理和 CGLIB 的性能
+
+JDK 动态代理：
+
+使用 CGLib 实现动态代理，CGLib 底层采用 ASM 字节码生成框架，使用字节码技术生成代理类，在 jdk6 之前比使用 Java 反射效率要高。
+
+唯一需要注意的是，CGLib 不能对声明为 final 的方法进行代理，因为 CGLib 原理是动态生成被代理类的子类。
+
+CGLIB：
+
+在 jdk6、jdk7、jdk8 逐步对 JDK 动态代理优化之后，在调用次数较少的情况下，JDK 代理效率高于 CGLIB 代理效率，
+
+只有当进行大量调用的时候，jdk6 和 jdk7 比 CGLIB 代理效率低一点，
+
+但是到 jdk8 的时候，jdk 代理效率高于 CGLIB 代理，总之，每一次 jdk 版本升级，jdk 代理效率都得到提升，而 CGLIB 代理消息确有点跟不上步伐。
 
 ---
 
@@ -128,7 +152,7 @@ BeanDefinition 做 BeanFactory 的后置处理。
 
 AutowireCapableBeanFactory 自动注入能力接口
 
-defaultListableBeanFactory：为 ApplicationContext 提供了 getBean 的能力。 
+defaultListableBeanFactory：为 ApplicationContext 提供了 getBean 的能力。
 
 ---
 
@@ -148,6 +172,10 @@ defaultListableBeanFactory：为 ApplicationContext 提供了 getBean 的能力�
 - [一口气说出 6 种，@Transactional 注解的失效场景](https://juejin.cn/post/6844904096747503629)
 - [Spring AOP 的理解与使用](https://juejin.cn/post/6901643231537627149)
 - [面试还不知道 BeanFactory 和 ApplicationContext 的区别？](https://juejin.cn/post/6844903877574131726)
+- [JDK 和 CGLIB 动态代理区别](https://www.jianshu.com/p/46d092bb737d)
+- []()
+- []()
+- []()
 
 ---
 

@@ -214,6 +214,22 @@ OOA 的主要原则：
 
 ---
 
+### 性能优化指标
+
+###
+
+###
+
+###
+
+###
+
+###
+
+###
+
+###
+
 ###
 
 ---
@@ -235,6 +251,9 @@ OOA 的主要原则：
 
 - [谈谈面向对象设计 (OOD) 原则](https://www.jianshu.com/p/e378025920f8)
 - [OOA (面向对象分析) & OOD (面向对象设计)& OOP (面向对象编程)](https://developer.aliyun.com/article/663902)
+- [浅谈性能优化有哪些指标](https://blog.csdn.net/qq_38584285/article/details/107403893)
+- [性能指标、响应时间、并发量… 聊聊性能优化的衡量指标](https://www.cnblogs.com/huaweiyun/p/16050435.html)
+- []()
 - []()
 - []()
 - []()

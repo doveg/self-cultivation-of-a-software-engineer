@@ -110,7 +110,17 @@ HashMap 在得到 hashcode 之后，和右移十六位后的值做了异或操�
 
 HashMap 非线程安全，ConcurrentHashMap 能保证线程安全。
 
-参考 ConcurrentHashMap 的同步锁实现，**只锁数组的中的一个节点**。
+视频讲解：[动画讲解 - ConcurrentHashmap 的底层实现](https://www.bilibili.com/video/BV1Gq4y1Z7yM)
+
+JDK 8 中，主要采用 CAS 思想，是乐观锁机制。
+
+在更新数据时采用不断尝试的方式去更新。
+
+**Synchronized 只锁数组中的一个节点**。
+
+数据结构和 JDK 8 的 HashMap 一样。
+
+ConcurrentHashMap 中，key 和 value 都不能为空。
 
 ### HashMap 的 put、get 原理
 

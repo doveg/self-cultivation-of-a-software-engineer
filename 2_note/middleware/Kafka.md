@@ -271,9 +271,3 @@ kafka 的 topic 是无序的，但是一个 topic 包含多个 partition，每�
 - [消息中间件 —Kafka 数据存储（一）](https://www.jianshu.com/p/3e54a5a39683)
 
 ---
-
-
-
-
-
-

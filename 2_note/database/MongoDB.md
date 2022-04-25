@@ -220,15 +220,6 @@ Page 上有 3 个重要的 list WT_ROW、WT_UPDATE、WT_INSERT。这个 Page 的
 
 
 
-
-
-
-
-
-
-
-
-
 ---
 
 参考链接：
@@ -239,12 +230,6 @@ Page 上有 3 个重要的 list WT_ROW、WT_UPDATE、WT_INSERT。这个 Page 的
 - []()
 
 ---
-
-
-
-
-
-
 
 
 

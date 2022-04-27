@@ -2,41 +2,6 @@
 
 ---
 
-## Content / 目录
-
----
-
-- [一、基础部分](#基础部分)
-    - [01、RocketMQ 核心概念](#RocketMQ-核心概念)
-    - [01、RocketMQ 特性](#RocketMQ-特性)
-    - [01、RocketMQ 应用场景](#RocketMQ-应用场景)
-    - [01、RocketMQ 的数据存储](#RocketMQ-的数据存储)
-    - [01、RocketMQ 的消息过滤](#RocketMQ-的消息过滤)
-    - [01、RocketMQ 的定时消息](#RocketMQ-的定时消息)
-    - [01、RocketMQ 的高可用机制](#RocketMQ-的高可用机制)
-    - [01、RocketMQ 负载均衡](#RocketMQ-负载均衡)
-    - [01、RocketMQ 的死信队列](#RocketMQ-的死信队列)
-    - [01、RocketMQ 的消息重试](#RocketMQ-的消息重试)
-    - [01、RocketMQ 的高速读写](#RocketMQ-的高速读写)
-    - [01、RocketMQ 的刷盘机制](#RocketMQ-的刷盘机制)
-- [二、提高部分](#提高部分)
-    - [01、RocketMQ 的工作原理](#RocketMQ-的工作原理)
-    - [01、RocketMQ 消息消费的可靠性](#RocketMQ-消息消费的可靠性)
-    - [01、RocketMQ 消息消费的流程](#RocketMQ-消息消费的流程)
-    - [01、RocketMQ 的消息堆积](#RocketMQ-的消息堆积)
-    - [01、RocketMQ 的顺序消息](#RocketMQ-的顺序消息)
-    - [01、RocketMQ 的消息优先级](#RocketMQ-的消息优先级)
-    - [01、RocketMQ 消息重复的原因](#RocketMQ-消息重复的原因)
-    - [01、RocketMQ 的消息去重](#RocketMQ-的消息去重)
-    - [01、RocketMQ 避免重复消费](#RocketMQ-避免重复消费)
-    - [01、RocketMQ 幂等性](#RocketMQ-幂等性)
-- [三、RocketMQ 实现分布式事务](#RocketMQ-实现分布式事务)
-    - [01、RocketMQ 的半消息](#RocketMQ-的半消息)
-    - [01、RocketMQ 的消息回查](#RocketMQ-的消息回查)
-    - [01、RocketMQ 的事务消息](#RocketMQ-的事务消息)
-
----
-
 ## 基础部分
 
 ---
@@ -524,9 +489,22 @@ RocketMQ 采用的 2PC 的方式提交事务，同时增加一个逻辑补偿来
 
 ---
 
+## RocketMQ 实践
 
+---
 
+### 解决消息堆积
 
+一个消费者一秒是 1000 条，一秒 3 个消费者是 3000 条，一分钟就是 18 万条。所以如果你积压了几百万到上千万的数据，即使消费者恢复了，也需要大概 1 小时的时间才能恢复过来。
+
+一般这个时候，只能临时紧急扩容了，具体操作步骤和思路如下：
+
+- 先修复 consumer 的问题，确保其恢复消费速度，然后将现有 consumer 都停掉。
+- 新建一个 topic，partition 是原来的 10 倍，临时建立好原先 10 倍的 queue 数量。
+- 然后写一个临时的分发数据的 consumer 程序，这个程序部署上去消费积压的数据，**消费之后不做耗时的处理**，直接均匀轮询写入临时建立好的 10 倍数量的 queue。
+- 接着临时征用 10 倍的机器来部署 consumer，每一批 consumer 消费一个临时 queue 的数据。这种做法相当于是临时将 queue 资源和 consumer 资源扩大 10
+  倍，以正常的 10 倍速度来消费数据。
+- 等快速消费完积压数据之后，**得恢复原先部署的架构**，**重新**用原先的 consumer 机器来消费消息。
 
 ---
 

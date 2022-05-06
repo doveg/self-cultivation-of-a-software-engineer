@@ -58,6 +58,64 @@ hash 分区：
 
 > 可以将数据均匀地分布到预先定义的分区中。
 
+
+
+---
+
+## SQL 关键字
+
+---
+
+### exist 和 in 的区别
+
+exists 用于对外表记录做筛选。exists 会遍历外表，将外查询表的每一行，代入内查询进行判断。当 exists 里的条件语句能够返回记录行时，条件就为真，返回外表当前记录。反之如果
+exists 里的条件语句不能返回记录行，条件为假，则外表当前记录被丢弃。
+
+select a.* from A awhere exists(select 1 from B b where a.id=b.id)
+
+in 是先把后边的语句查出来放到临时表中，然后遍历临时表，将临时表的每一行，代入外查询去查找。
+
+select * from Awhere id in(select id from B)
+
+子查询的表比较大的时候，使用 exists 可以有效减少总的循环次数来提升速度；当外查询的表比较大的时候，使用 in 可以有效减少对外查询表循环遍历来提升速度。
+
+### MySQL 中使用 in 会不会走索引
+
+如果你 source 字段是一个 unique，in 肯定会用到索引。
+
+如果 source 字段来来去去就那么十几个值，这种情况下影响结果集巨大，就会全表扫描。这种情况全表扫描还要快于利用索引，只要理解索引的本质不难明白 MySQL 为何不使用索引。
+
+### truncate、delete 与 drop 区别
+
+相同点：
+
+> truncate 和不带 where 子句的 delete、以及 drop 都会删除表内的数据。
+>
+> drop、truncate 都是 DDL 语句（数据定义语言），执行后会自动提交。
+
+不同点：
+
+> truncate 和 delete 只删除数据不删除表的结构；drop 语句将删除表的结构被依赖的约束、触发器、索引；
+>
+> 一般来说，执行速度: drop > truncate > delete。
+
+### having 和 where 的区别
+
+二者作用的对象不同，where 子句作用于表和视图，having 作用于组。
+
+where 在数据分组前进行过滤，having 在数据分组后进行过滤。
+
+
+
+
+
+
+---
+
+## 语句执行流程
+
+---
+
 ### 查询语句执行流程
 
 查询语句的执行流程如下：权限校验、查询缓存、分析器、优化器、权限校验、执行器、引擎。
@@ -99,47 +157,6 @@ update user set name = '条件' where id = 1;
 > 那么机器重启后，这台机器会通过 redo log 恢复数据，但是这个时候 binlog 并没有记录该数据，
 >
 > 后续进行机器备份的时候，就会丢失这一条数据，同时主从同步也会丢失这一条数据。
-
-### exist 和 in 的区别
-
-exists 用于对外表记录做筛选。exists 会遍历外表，将外查询表的每一行，代入内查询进行判断。当 exists 里的条件语句能够返回记录行时，条件就为真，返回外表当前记录。反之如果
-exists 里的条件语句不能返回记录行，条件为假，则外表当前记录被丢弃。
-
-select a.* from A awhere exists(select 1 from B b where a.id=b.id)
-
-in 是先把后边的语句查出来放到临时表中，然后遍历临时表，将临时表的每一行，代入外查询去查找。
-
-select * from Awhere id in(select id from B)
-
-子查询的表比较大的时候，使用 exists 可以有效减少总的循环次数来提升速度；当外查询的表比较大的时候，使用 in 可以有效减少对外查询表循环遍历来提升速度。
-
-### MySQL 中使用 IN 会不会走索引
-
-如果你 source 字段是一个 unique，in 肯定会用到索引。
-
-如果 source 字段来来去去就那么十几个值，这种情况下影响结果集巨大，就会全表扫描。这种情况全表扫描还要快于利用索引，只要理解索引的本质不难明白 MySQL 为何不使用索引。
-
-### truncate、delete 与 drop 区别
-
-相同点：
-
-> truncate 和不带 where 子句的 delete、以及 drop 都会删除表内的数据。
->
-> drop、truncate 都是 DDL 语句（数据定义语言），执行后会自动提交。
-
-不同点：
-
-> truncate 和 delete 只删除数据不删除表的结构；drop 语句将删除表的结构被依赖的约束、触发器、索引；
->
-> 一般来说，执行速度: drop > truncate > delete。
-
-### having 和 where 的区别
-
-二者作用的对象不同，where 子句作用于表和视图，having 作用于组。
-
-where 在数据分组前进行过滤，having 在数据分组后进行过滤。
-
-
 
 
 

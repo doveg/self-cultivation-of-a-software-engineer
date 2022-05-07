@@ -143,7 +143,7 @@ zSet 本来就是有序的，并且有排序功能。
 - [Redis 的五种数据类型及其底层原理](https://blog.csdn.net/u014453898/article/details/112292028)
 - [不能回滚的 Redis 事务还能用吗](https://www.cnblogs.com/lonely-wolf/p/14435075.html)
 - [Redis 夺命十二问，你能扛到第几问？](https://mp.weixin.qq.com/s/ItIHbYsR4xiu2psUniN-5g)
-- []()
+- [谈谈redis的热key问题如何解决](https://www.cnblogs.com/rjzheng/p/10874537.html)
 - []()
 - []()
 - []()

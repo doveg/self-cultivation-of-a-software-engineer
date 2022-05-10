@@ -1,0 +1,63 @@
+@startmindmap
+
++[#OrangeRed] 算法题
+
+--[#yellow] 数据结构
+
+---[#Pink] 基础
+
+----[#DeepSkyBlue] 字符串 / String
+----[#MediumSpringGreen] 数组 / Array
+----[#MediumSpringGreen] 矩阵
+----[#MediumSpringGreen] 哈希表 / HashTable
+----[#DeepSkyBlue] 位图 / BitMap
+----[#MediumSpringGreen] 链表 / LinkedList
+----[#MediumSpringGreen] 双向链表
+----[#DeepSkyBlue] 集合 / Set
+----[#DeepSkyBlue] 有序集合
+
+---[#Pink] 提高
+
+----[#MediumSpringGreen] 队列 / Queue
+----[#DeepSkyBlue] 优先队列 / PriorityQueue
+----[#DeepSkyBlue] 单调队列
+----[#MediumSpringGreen] 栈 / Stack
+----[#DeepSkyBlue] 单调栈
+----[#MediumSpringGreen] 树 / Tree
+----[#DeepSkyBlue] 二叉树 / Binary Tree
+----[#DeepSkyBlue] 前缀树 / 字典树 / Trie
+----[#DeepSkyBlue] 堆 / Heap
+----[#DeepSkyBlue] 图 / Map
+
+
+
+++[#yellow] 方法
+
++++[#Pink] 基础
+
+++++[#DeepSkyBlue] 二分查找
+++++[#MediumSpringGreen] 递归
+++++[#MediumSpringGreen] 双指针
+++++[#MediumSpringGreen] 位运算
+++++[#MediumSpringGreen] 动态规划
+++++[#DeepSkyBlue] 回溯
+++++[#DeepSkyBlue] 贪心
+++++[#DeepSkyBlue] 分治
+++++[#DeepSkyBlue] 排序（选择排序，快速排序、归并排序、桶排序、基数排序）
+
++++[#Pink] 提高
+
+++++[#MediumSpringGreen] 深度优先搜索
+++++[#MediumSpringGreen] 广度优先搜索
+++++[#DeepSkyBlue] 拓扑排序
+++++[#DeepSkyBlue] 并查集
+++++[#DeepSkyBlue] 记忆化搜索
+++++[#DeepSkyBlue] 滑动窗口
+++++[#DeepSkyBlue] 前缀和
+++++[#DeepSkyBlue] 多线程
+++++[#DeepSkyBlue] 扫描线
+++++[#DeepSkyBlue] 最小生成树
+++++[#DeepSkyBlue] 最短路
+
+
+@endmindmap

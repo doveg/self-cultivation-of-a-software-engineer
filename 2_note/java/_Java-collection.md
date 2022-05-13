@@ -59,6 +59,22 @@
 - 既可以根据元素的自然顺序来排序，也可以根据 Comparator 来设置排序规则；
 - 实际上是一个堆、不指定 Comparator 时默认为最小堆。
 
+PriorityQueue 实现原理：
+
+Java 中 PriorityQueue 通过二叉小顶堆实现，可以用一棵完全二叉树表示（任意一个非叶子节点的权值，都不大于其左右子节点的权值），
+
+也就意味着可以通过数组来作为 PriorityQueue 的底层实现。
+
+我们给每个元素按照层序遍历的方式进行了编号，如果你足够细心，会发现父节点和子节点的编号是有联系的，更确切的说父子节点的编号之间有如下关系：
+
+    leftNo = parentNo*2+1
+    rightNo = parentNo*2+2
+    parentNo = (nodeNo-1)/2
+
+通过上述三个公式，可以轻易计算出某个节点的父节点以及子节点的下标。这也就是为什么可以直接用数组来存储堆的原因。
+
+PriorityQueue 的 peek() 和 element 操作是常数时间，add(), offer(), 无参数的 remove() 以及 poll() 方法的时间复杂度都是 log(N)。
+
 ### Queue 的一些新方法
 
 1、offer，add 区别：
@@ -101,6 +117,9 @@ FIFO / 先入先出
 - [java集合Collection常用方法详解](https://blog.csdn.net/javaee_gao/article/details/96372530)
 - [Java 集合系列05之 LinkedList详细介绍(源码解析)和使用示例](https://www.cnblogs.com/skywang12345/p/3308807.html)
 - [java队列——queue详细分析](https://www.cnblogs.com/lemon-flm/p/7877898.html)
+- [深入理解 Java PriorityQueue](https://www.cnblogs.com/CarpenterLee/p/5488070.html)
+- [PriorityQueue的用法和底层实现原理](https://blog.csdn.net/u010623927/article/details/87179364)
+- []()
 - []()
 - []()
 

@@ -6,23 +6,23 @@
 
 ---[#Pink] 基础
 
-----[#DeepSkyBlue] 字符串 / String
+----[#MediumSpringGreen] 字符串 / String
 ----[#MediumSpringGreen] 数组 / Array
-----[#MediumSpringGreen] 矩阵
+----[#MediumSpringGreen] 二维数组 / 矩阵
 ----[#MediumSpringGreen] 哈希表 / HashTable
 ----[#DeepSkyBlue] 位图 / BitMap
 ----[#MediumSpringGreen] 链表 / LinkedList
 ----[#MediumSpringGreen] 双向链表
 ----[#DeepSkyBlue] 集合 / Set
-----[#DeepSkyBlue] 有序集合
+----[#DeepSkyBlue] 有序集合 / SortedSet
 
 ---[#Pink] 提高
 
+----[#MediumSpringGreen] 栈 / Stack
+----[#DeepSkyBlue] 单调栈
 ----[#MediumSpringGreen] 队列 / Queue
 ----[#DeepSkyBlue] 优先队列 / PriorityQueue
 ----[#DeepSkyBlue] 单调队列
-----[#MediumSpringGreen] 栈 / Stack
-----[#DeepSkyBlue] 单调栈
 ----[#MediumSpringGreen] 树 / Tree
 ----[#DeepSkyBlue] 二叉树 / Binary Tree
 ----[#DeepSkyBlue] 前缀树 / 字典树 / Trie
@@ -35,29 +35,55 @@
 
 +++[#Pink] 基础
 
-++++[#DeepSkyBlue] 二分查找
-++++[#MediumSpringGreen] 递归
-++++[#MediumSpringGreen] 双指针
+++++[#DeepSkyBlue] 二分查找 / Binary Search
+++++[#MediumSpringGreen] 递归 / Recursion
+++++[#MediumSpringGreen] 双指针 / Two Pointers
+++++[#MediumSpringGreen] 快慢指针 / Fast & Slow Pointers
 ++++[#MediumSpringGreen] 位运算
-++++[#MediumSpringGreen] 动态规划
+++++[#MediumSpringGreen] 动态规划 / Dynamic Programming
++++++ Recursion
++++++ Top-Down
++++++ Bottom-Up
 ++++[#DeepSkyBlue] 回溯
 ++++[#DeepSkyBlue] 贪心
 ++++[#DeepSkyBlue] 分治
-++++[#DeepSkyBlue] 排序（选择排序，快速排序、归并排序、桶排序、基数排序）
+++++[#DeepSkyBlue] 排序 / Sort（选择排序，快速排序、归并排序、桶排序、基数排序）
 
 +++[#Pink] 提高
 
-++++[#MediumSpringGreen] 深度优先搜索
-++++[#MediumSpringGreen] 广度优先搜索
-++++[#DeepSkyBlue] 拓扑排序
+++++[#MediumSpringGreen] 深度优先搜索 / Depth First Search
+++++[#MediumSpringGreen] 广度优先搜索 / Breath First Search
+++++[#DeepSkyBlue] 滑动窗口 / Sliding Window
+++++[#DeepSkyBlue] 拓扑排序 / Topological Sort
 ++++[#DeepSkyBlue] 并查集
 ++++[#DeepSkyBlue] 记忆化搜索
-++++[#DeepSkyBlue] 滑动窗口
 ++++[#DeepSkyBlue] 前缀和
+++++[#DeepSkyBlue] 枚举
 ++++[#DeepSkyBlue] 多线程
 ++++[#DeepSkyBlue] 扫描线
 ++++[#DeepSkyBlue] 最小生成树
 ++++[#DeepSkyBlue] 最短路
+
+
++++[#Pink] 模式
+
+++++[#DeepSkyBlue] 双堆 / Two Heaps
+++++[#DeepSkyBlue] 合并区间 / Merge Intervals
+++++[#DeepSkyBlue] 子集 / Subsets
+++++[#DeepSkyBlue] 前 K 个 / K’ Elements / 堆 / PriorityQueue
+++++[#DeepSkyBlue] 多路归并 / K-way merge
+++++[#DeepSkyBlue] 背包 / Knapsack
+++++[#DeepSkyBlue] 子序列
+++++[#DeepSkyBlue] 股票
+++++[#DeepSkyBlue] 打家劫舍
+
+
+
+
+'参考链接：
+'1. 大家都是如何刷 LeetCode 的？https://www.zhihu.com/question/280279208/answer/879710574
+
+
 
 
 @endmindmap

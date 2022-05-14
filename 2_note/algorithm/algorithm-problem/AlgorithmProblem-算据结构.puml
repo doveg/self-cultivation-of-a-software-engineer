@@ -1,0 +1,80 @@
+@startmindmap
+scale 2000 width
+
++[#OrangeRed] 算法题
+
+--[#yellow] 数据结构
+
+---[#Pink] 表
+
+----[#AliceBlue] 数组 / Array
+-----[#MediumSpringGreen] 二维数组 / 矩阵
+-----[#MediumSpringGreen] 位图 / BitMap / BitSet
+
+----[#AliceBlue] 哈希表 / HashTable
+-----[#DeepSkyBlue] 哈希函数
+-----[#MediumSpringGreen] 哈希冲突
+------[#GhostWhite] 链表法
+------[#GhostWhite] 开放寻址
+-----[#DeepSkyBlue] 动态扩容
+
+----[#AliceBlue] 链表 / LinkedList
+-----[#MediumSpringGreen] 单链表
+-----[#MediumSpringGreen] 双向链表
+-----[#DeepSkyBlue] 循环链表
+-----[#MediumSpringGreen] 跳表
+-----[#DeepSkyBlue] 压缩表
+
+----[#AliceBlue] 集合 / Set
+-----[#DeepSkyBlue] 有序集合 / SortedSet
+
+----[#AliceBlue] 栈 / Stack
+-----[#DeepSkyBlue] 单调栈
+
+----[#AliceBlue] 队列 / Queue
+-----[#DeepSkyBlue] 单调队列
+-----[#DeepSkyBlue] 双端队列
+
+++[#yellow] 数据结构
+
++++[#Pink] 树 / Tree
+
+++++[#AliceBlue] 二叉树 / Binary Tree
++++++[#MediumSpringGreen] 平衡二叉树
++++++[#MediumSpringGreen] 二叉查找树
++++++[#MediumSpringGreen] 平衡二叉查找树
+++++++[#AliceBlue] AVL 树
+++++++[#AliceBlue] 红黑树
++++++[#MediumSpringGreen] 完全二叉树
++++++[#MediumSpringGreen] 满二叉树
+
+++++[#AliceBlue] 多路查找树
++++++[#MediumSpringGreen] B 树
++++++[#MediumSpringGreen] B+ 树
+++++[#AliceBlue] 前缀树 / 字典树 / Trie
+
+++++[#AliceBlue] 堆 / Heap
++++++[#MediumSpringGreen] 大顶堆
++++++[#MediumSpringGreen] 小顶堆
++++++[#MediumSpringGreen] 优先队列 / PriorityQueue
++++++[#DeepSkyBlue] 二项堆
+
+
++++[#Pink] 其他
+
+++++[#AliceBlue] 字符串 / String
++++++[#MediumSpringGreen] 前缀树
++++++[#MediumSpringGreen] 后缀树
+
+++++[#AliceBlue] 图 / Map
+
+
+
+
+'参考链接：
+'1. 大家都是如何刷 LeetCode 的？https://www.zhihu.com/question/280279208/answer/879710574
+
+
+
+
+@endmindmap

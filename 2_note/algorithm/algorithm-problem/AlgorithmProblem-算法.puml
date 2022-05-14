@@ -1,0 +1,102 @@
+@startmindmap
+scale 2500 height
+
++[#OrangeRed] 算法题
+
+--[#yellow] 算法
+
+---[#Pink] 基本思想
+
+----[#MediumSpringGreen] 递归 / Recursion
+----[#MediumSpringGreen] 回溯
+----[#MediumSpringGreen] 分治
+----[#MediumSpringGreen] 贪心
+----[#DeepSkyBlue] 穷举
+----[#MediumSpringGreen] 双指针 / Two Pointers
+----[#MediumSpringGreen] 快慢指针 / Fast & Slow Pointers
+----[#MediumSpringGreen] 深度优先搜索 / Depth First Search
+----[#MediumSpringGreen] 广度优先搜索 / Breath First Search
+----[#DeepSkyBlue] 位运算
+----[#MediumSpringGreen] 动态规划 / Dynamic Programming
+-----[#GhostWhite] Recursion
+-----[#GhostWhite] Top-Down
+-----[#GhostWhite] Bottom-Up
+
+
+---[#Pink] 算法技巧
+
+----[#MediumSpringGreen] 滑动窗口 / Sliding Window
+----[#DeepSkyBlue] 并查集
+----[#DeepSkyBlue] 记忆化搜索
+----[#DeepSkyBlue] 前缀和
+----[#DeepSkyBlue] 多线程
+----[#DeepSkyBlue] 扫描线
+----[#DeepSkyBlue] 设计模式
+
+
+---[#Pink] 模式
+
+----[#DeepSkyBlue] 双堆 / Two Heaps
+----[#DeepSkyBlue] 合并区间 / Merge Intervals
+----[#DeepSkyBlue] 子集 / Subsets
+----[#MediumSpringGreen] 前 K 个 / K’ Elements / 堆 / PriorityQueue
+----[#DeepSkyBlue] 多路归并 / K-way merge
+----[#DeepSkyBlue] 背包 / Knapsack
+----[#DeepSkyBlue] 子序列
+----[#DeepSkyBlue] 股票
+----[#DeepSkyBlue] 打家劫舍
+
+
+++[#yellow] 算法
+
++++[#Pink] 图算法
+
+++++[#MediumSpringGreen] 深度优先搜索 / Depth First Search
+++++[#MediumSpringGreen] 广度优先搜索 / Breath First Search
+++++[#DeepSkyBlue] 拓扑排序 / Topological Sort
+++++[#DeepSkyBlue] 最小生成树
+++++[#DeepSkyBlue] 邻接矩阵
+++++[#DeepSkyBlue] 邻接表
+++++[#DeepSkyBlue] 最短路径
+++++[#DeepSkyBlue] 关键路径
+
++++[#Pink] 字符串匹配算法
+
+++++[#DeepSkyBlue] BF 算法 / 暴力匹配
+++++[#DeepSkyBlue] BM 算法
+++++[#DeepSkyBlue] KMP 算法
+++++[#DeepSkyBlue] Trie 算法 / 字典树
+
++++[#Pink] 排序算法 / Sort
+
+++++[#AliceBlue] O(n^2)
++++++[#DeepSkyBlue] 冒泡排序
++++++[#DeepSkyBlue] 选择排序
++++++[#MediumSpringGreen] 插入排序
++++++[#DeepSkyBlue] 希尔排序
+++++[#AliceBlue] O(n log n)
++++++[#DeepSkyBlue] 堆排序
++++++[#DeepSkyBlue] 快速排序
++++++[#DeepSkyBlue] 归并排序
+++++[#AliceBlue] O(n + k)
++++++[#DeepSkyBlue] 桶排序
++++++[#DeepSkyBlue] 基数排序
++++++[#DeepSkyBlue] 计数排序
+
++++[#Pink] 查找算法 / Search
+
+++++[#AliceBlue] O(log 2n)
++++++[#DeepSkyBlue] 二分查找 / Binary Search
++++++[#DeepSkyBlue] 二叉查找树
++++++[#DeepSkyBlue] 红黑树
++++++[#DeepSkyBlue] B 树
++++++[#DeepSkyBlue] B+ 树
+++++[#AliceBlue] O(n)
++++++[#DeepSkyBlue] 顺序查找
+++++[#AliceBlue] O(1)
++++++[#DeepSkyBlue] 哈希查找
+
+
+
+
+@endmindmap

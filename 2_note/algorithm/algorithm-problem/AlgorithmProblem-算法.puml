@@ -8,36 +8,61 @@ scale 2500 height
 ---[#Pink] 基本思想
 
 ----[#MediumSpringGreen] 递归 / Recursion
+-----_ 深度优先遍历
+-----_ 结束条件判断
+
 ----[#MediumSpringGreen] 回溯
+-----_ 前置操作
+-----_ 递归
+-----_ 后置操作（撤销前置操作）
+
 ----[#MediumSpringGreen] 分治
-----[#MediumSpringGreen] 贪心
-----[#DeepSkyBlue] 穷举
 ----[#MediumSpringGreen] 双指针 / Two Pointers
 ----[#MediumSpringGreen] 快慢指针 / Fast & Slow Pointers
+
 ----[#MediumSpringGreen] 深度优先搜索 / Depth First Search
+-----_ 递归
+-----_ 未知深度
+
 ----[#MediumSpringGreen] 广度优先搜索 / Breath First Search
+-----_ 数组（多维）
+-----_ 多层循环
+-----_ 可能需要队列
+
+----[#MediumSpringGreen] 贪心
+-----_ 及时舍弃，只要第一
+
 ----[#DeepSkyBlue] 位运算
+----[#DeepSkyBlue] 穷举
+----[#DeepSkyBlue] 模拟
+
 ----[#MediumSpringGreen] 动态规划 / Dynamic Programming
------[#GhostWhite] Recursion
------[#GhostWhite] Top-Down
------[#GhostWhite] Bottom-Up
+-----_ 数组 / 二维数组
+-----_ 数组类型一般是整型或者布尔，用来存储长度或状态
+-----_ Recursion
+-----_ Top-Down
+-----_ Bottom-Up
+
+----[#MediumSpringGreen] 滑动窗口 / Sliding Window
+-----_ 两层循环
+-----_ 右指针遍历滑动，左指针在二层循环（while）中跟随滑动
 
 
 ---[#Pink] 算法技巧
 
-----[#MediumSpringGreen] 滑动窗口 / Sliding Window
-----[#DeepSkyBlue] 并查集
 ----[#DeepSkyBlue] 记忆化搜索
+----[#DeepSkyBlue] 并查集
 ----[#DeepSkyBlue] 前缀和
-----[#DeepSkyBlue] 多线程
 ----[#DeepSkyBlue] 扫描线
+
+----[#DeepSkyBlue] 多线程
 ----[#DeepSkyBlue] 设计模式
 
 
 ---[#Pink] 模式
 
+----[#MediumSpringGreen] 合并区间 / Merge Intervals
 ----[#DeepSkyBlue] 双堆 / Two Heaps
-----[#DeepSkyBlue] 合并区间 / Merge Intervals
 ----[#DeepSkyBlue] 子集 / Subsets
 ----[#MediumSpringGreen] 前 K 个 / K’ Elements / 堆 / PriorityQueue
 ----[#DeepSkyBlue] 多路归并 / K-way merge
@@ -51,8 +76,6 @@ scale 2500 height
 
 +++[#Pink] 图算法
 
-++++[#MediumSpringGreen] 深度优先搜索 / Depth First Search
-++++[#MediumSpringGreen] 广度优先搜索 / Breath First Search
 ++++[#DeepSkyBlue] 拓扑排序 / Topological Sort
 ++++[#DeepSkyBlue] 最小生成树
 ++++[#DeepSkyBlue] 邻接矩阵
@@ -70,8 +93,8 @@ scale 2500 height
 +++[#Pink] 排序算法 / Sort
 
 ++++[#AliceBlue] O(n^2)
-+++++[#DeepSkyBlue] 冒泡排序
-+++++[#DeepSkyBlue] 选择排序
++++++[#MediumSpringGreen] 冒泡排序
++++++[#MediumSpringGreen] 选择排序
 +++++[#MediumSpringGreen] 插入排序
 +++++[#DeepSkyBlue] 希尔排序
 ++++[#AliceBlue] O(n log n)

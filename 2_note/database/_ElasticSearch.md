@@ -121,6 +121,49 @@ Lucene 内部使用的是倒排索引的数据结构， 将词项（term）映�
 
 **segment：段，每个 shard 分片是一个 Lucene 实例，每个分片由多个 segment 组成。每个 segment 占用内存，文件句柄等。**
 
+### ES 读数据的过程
+
+查询，GET 某一条数据，写入了某个 document，这个 document 会自动给你分配一个全局唯一的 id，doc id，
+
+同时也是根据 doc id 进行 hash 路由到对应的 primary shard 上面去。也可以手动指定 doc id，比如用订单 id，用户 id。
+
+你可以通过 doc id 来查询，会根据 doc id 进行 hash，判断出来当时把 doc id 分配到了哪个 shard 上面去，从那个 shard 去查询。
+
+> 客户端发送请求到任意一个 node，成为 coordinate node。
+>
+> coordinate node 对 document 进行路由，将请求转发到对应的 node，
+>
+> 此时会使用 round-robin 随机轮询算法，在 primary shard 以及其所有 replica 中随机选择一个，让读请求负载均衡。
+>
+> 接收请求的 node 返回 document 给 coordinate node。
+>
+> coordinate node 返回 document 给客户端。
+
+### ES 搜索数据的过程
+
+> 客户端发送请求到一个 coordinate node。
+>
+> 协调节点将搜索请求转发到所有的 shard 对应的 primary shard 或 replica shard 也可以。
+>
+> query phase：每个 shard 将自己的搜索结果（其实就是一些 doc id），返回给协调节点，由协调节点进行数据的合并、排序、分页等操作，产出最终结果。
+>
+> fetch phase：接着由协调节点，根据 doc id 去各个节点上拉取实际的 document 数据，最终返回给客户端。
+
+
+---
+
+## ES 集群
+
+---
+
+### ES 生产集群的部署架构
+
+- es 生产集群我们部署了 5 台机器，每台机器是 6 核 64G 的，集群总内存是 320G。
+- 我们 es 集群的日增量数据大概是 2000 万条，每天日增量数据大概是 500MB，每月增量数据大概是 6 亿，15G。
+- 目前系统已经运行了几个月，现在 es 集群里数据总量大概是 100G 左右。
+- 目前线上有 5 个索引（这个结合你们自己业务来，看看自己有哪些数据可以放 es 的），每个索引的数据量大概是 20G，所以这个数据量之内，我们每个索引分配的是 8 个 shard，比默认的 5 个
+  shard 多了 3 个 shard。
+
 ### ES 副本写数据的过程
 
 > 客户端随机选择一个 node 发送请求过去，这个 node 就是 coordinating node（协调节点）。
@@ -209,41 +252,59 @@ ES 里的写流程，有 4 个底层的核心概念，refresh、flush、translog
 
 当 segment file 多到一定程度的时候，ES 就会自动触发 merge 操作，将多个 segment file 给 merge 成一个 segment file。
 
-### ES 读数据的过程
+###
 
-查询，GET 某一条数据，写入了某个 document，这个 document 会自动给你分配一个全局唯一的 id，doc id，
+###
 
-同时也是根据 doc id 进行 hash 路由到对应的 primary shard 上面去。也可以手动指定 doc id，比如用订单 id，用户 id。
+###
 
-你可以通过 doc id 来查询，会根据 doc id 进行 hash，判断出来当时把 doc id 分配到了哪个 shard 上面去，从那个 shard 去查询。
+---
 
-> 客户端发送请求到任意一个 node，成为 coordinate node。
->
-> coordinate node 对 document 进行路由，将请求转发到对应的 node，
->
-> 此时会使用 round-robin 随机轮询算法，在 primary shard 以及其所有 replica 中随机选择一个，让读请求负载均衡。
->
-> 接收请求的 node 返回 document 给 coordinate node。
->
-> coordinate node 返回 document 给客户端。
+## ES 运维
 
-### ES 搜索数据的过程
+---
 
-> 客户端发送请求到一个 coordinate node。
->
-> 协调节点将搜索请求转发到所有的 shard 对应的 primary shard 或 replica shard 也可以。
->
-> query phase：每个 shard 将自己的搜索结果（其实就是一些 doc id），返回给协调节点，由协调节点进行数据的合并、排序、分页等操作，产出最终结果。
->
-> fetch phase：接着由协调节点，根据 doc id 去各个节点上拉取实际的 document 数据，最终返回给客户端。
+### ES 跨集群数据迁移
 
-### ES 生产集群的部署架构
+Reindex 可用于 Elasticsearch 跨集群数据迁移，并且不会复制原索引的 mapping（映射）、shard（分片）、replicas（副本）等配置信息。
 
-- es 生产集群我们部署了 5 台机器，每台机器是 6 核 64G 的，集群总内存是 320G。
-- 我们 es 集群的日增量数据大概是 2000 万条，每天日增量数据大概是 500MB，每月增量数据大概是 6 亿，15G。目前系统已经运行了几个月，现在 es 集群里数据总量大概是 100G
-  左右。
-- 目前线上有 5 个索引（这个结合你们自己业务来，看看自己有哪些数据可以放 es 的），每个索引的数据量大概是 20G，所以这个数据量之内，我们每个索引分配的是 8 个 shard，比默认的 5 个
-  shard 多了 3 个 shard。
+1、在目标ES的elasticsearch.yml文件中添加如下配置
+
+```
+# reindex操作远程列表
+reindex.remote.whitelist: ["192.168.101.101:9200"]
+```
+
+2、在目标集群执行如下命令（kibana执行）
+
+```
+POST _reindex?wait_for_completion=false
+{
+"conflicts": "proceed",#有异常时，继续执行
+"source": {
+"index": "test_index_db",#源索引
+"size": 4000, #速度控制
+"query": {
+"bool": {
+##查询条件
+}
+},
+"_source": {
+"excludes": ["字段1","字段2"]  #排除字段
+},
+"remote": {
+"host": "192.168.101.101:9200",
+"socket_timeout": "1m",
+"connect_timeout": "10s"  
+}
+},
+"dest": {
+"index": "test_index_db",#目标索引
+}
+}
+```
+
+3、GET _tasks?detailed=true&actions=*reindex 查看任务执行情况
 
 ###
 

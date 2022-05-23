@@ -1,5 +1,4 @@
 @startmindmap
-scale 2500 height
 
 +[#OrangeRed] 算法题
 
@@ -8,13 +7,16 @@ scale 2500 height
 ---[#Pink] 基本思想
 
 ----[#MediumSpringGreen] 递归 / Recursion
------_ 深度优先遍历
------_ 结束条件判断
+-----_ 深度优先
+-----_ 判断结束条件
 
 ----[#MediumSpringGreen] 回溯
 -----_ 前置操作
------_ 递归
+-----_ 递归（在递归中循环）
 -----_ 后置操作（撤销前置操作）
+
+----[#MediumSpringGreen] 贪心
+-----_ 及时舍弃，只要第一
 
 ----[#MediumSpringGreen] 分治
 ----[#MediumSpringGreen] 双指针 / Two Pointers
@@ -29,19 +31,23 @@ scale 2500 height
 -----_ 多层循环
 -----_ 可能需要队列
 
-----[#MediumSpringGreen] 贪心
------_ 及时舍弃，只要第一
 
 ----[#DeepSkyBlue] 位运算
 ----[#DeepSkyBlue] 穷举
 ----[#DeepSkyBlue] 模拟
 
 ----[#MediumSpringGreen] 动态规划 / Dynamic Programming
------_ 数组 / 二维数组
------_ 数组类型一般是整型或者布尔，用来存储长度或状态
------_ Recursion
------_ Top-Down
------_ Bottom-Up
+----- 套路
+------_ 数组 / 二维数组
+------_ 数组类型一般是整型或者布尔，用来存储长度或状态
+----- 题型
+------_ 背包问题
+------_ 最长子序列
+------_ 计数问题
+----- 分类
+------_ Recursion
+------_ Top-Down
+------_ Bottom-Up
 
 ----[#MediumSpringGreen] 滑动窗口 / Sliding Window
 -----_ 两层循环
@@ -76,19 +82,19 @@ scale 2500 height
 
 +++[#Pink] 图算法
 
+++++[#MediumSpringGreen] 最小生成树
+++++[#MediumSpringGreen] 最短路径
 ++++[#DeepSkyBlue] 拓扑排序 / Topological Sort
-++++[#DeepSkyBlue] 最小生成树
+++++[#DeepSkyBlue] 关键路径
 ++++[#DeepSkyBlue] 邻接矩阵
 ++++[#DeepSkyBlue] 邻接表
-++++[#DeepSkyBlue] 最短路径
-++++[#DeepSkyBlue] 关键路径
 
 +++[#Pink] 字符串匹配算法
 
+++++[#MediumSpringGreen] Trie 算法 / 字典树
 ++++[#DeepSkyBlue] BF 算法 / 暴力匹配
 ++++[#DeepSkyBlue] BM 算法
 ++++[#DeepSkyBlue] KMP 算法
-++++[#DeepSkyBlue] Trie 算法 / 字典树
 
 +++[#Pink] 排序算法 / Sort
 
@@ -98,9 +104,9 @@ scale 2500 height
 +++++[#MediumSpringGreen] 插入排序
 +++++[#DeepSkyBlue] 希尔排序
 ++++[#AliceBlue] O(n log n)
-+++++[#DeepSkyBlue] 堆排序
++++++[#MediumSpringGreen] 归并排序
++++++[#MediumSpringGreen] 堆排序
 +++++[#DeepSkyBlue] 快速排序
-+++++[#DeepSkyBlue] 归并排序
 ++++[#AliceBlue] O(n + k)
 +++++[#DeepSkyBlue] 桶排序
 +++++[#DeepSkyBlue] 基数排序
@@ -109,11 +115,11 @@ scale 2500 height
 +++[#Pink] 查找算法 / Search
 
 ++++[#AliceBlue] O(log 2n)
-+++++[#DeepSkyBlue] 二分查找 / Binary Search
++++++[#MediumSpringGreen] 二分查找 / Binary Search
 +++++[#DeepSkyBlue] 二叉查找树
-+++++[#DeepSkyBlue] 红黑树
++++++[#MediumSpringGreen] 红黑树
 +++++[#DeepSkyBlue] B 树
-+++++[#DeepSkyBlue] B+ 树
++++++[#MediumSpringGreen] B+ 树
 ++++[#AliceBlue] O(n)
 +++++[#DeepSkyBlue] 顺序查找
 ++++[#AliceBlue] O(1)

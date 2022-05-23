@@ -1,5 +1,4 @@
 @startmindmap
-scale 2000 width
 
 +[#OrangeRed] 算法题
 
@@ -19,9 +18,9 @@ scale 2000 width
 -----[#DeepSkyBlue] 动态扩容
 
 ----[#AliceBlue] 链表 / LinkedList
------[#MediumSpringGreen] 单链表
+-----[#MediumSpringGreen] 单向链表
 -----[#MediumSpringGreen] 双向链表
------[#DeepSkyBlue] 循环链表
+-----[#MediumSpringGreen] 循环链表
 -----[#MediumSpringGreen] 跳表
 -----[#DeepSkyBlue] 压缩表
 
@@ -40,13 +39,13 @@ scale 2000 width
 +++[#Pink] 树 / Tree
 
 ++++[#AliceBlue] 二叉树 / Binary Tree
-+++++[#MediumSpringGreen] 平衡二叉树
-+++++[#MediumSpringGreen] 二叉查找树
++++++[#DeepSkyBlue] 平衡二叉树
++++++[#DeepSkyBlue] 二叉查找树
 +++++[#MediumSpringGreen] 平衡二叉查找树
 ++++++[#AliceBlue] AVL 树
 ++++++[#AliceBlue] 红黑树
 +++++[#MediumSpringGreen] 完全二叉树
-+++++[#MediumSpringGreen] 满二叉树
++++++[#DeepSkyBlue] 满二叉树
 
 ++++[#AliceBlue] 多路查找树
 +++++[#MediumSpringGreen] B 树
@@ -63,11 +62,12 @@ scale 2000 width
 +++[#Pink] 其他
 
 ++++[#AliceBlue] 字符串 / String
-+++++[#MediumSpringGreen] 前缀树
++++++[#MediumSpringGreen] 前缀树 / 字典树 / Trie
 +++++[#MediumSpringGreen] 后缀树
 
 ++++[#AliceBlue] 图 / Map
-
++++++[#DeepSkyBlue] 并查集
++++++[#DeepSkyBlue] 最近公共祖先
 
 
 

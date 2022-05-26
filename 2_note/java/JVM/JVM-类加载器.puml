@@ -1,0 +1,43 @@
+@startmindmap
+
++[#OrangeRed] JVM
+
+++[#yellow] ClassLoader
+
++++[#Pink] 类加载的过程
+++++[#AliceBlue] 加载
+++++[#MediumSpringGreen] 链接
++++++[#AliceBlue]_ 验证
++++++[#AliceBlue]_ 准备
++++++[#AliceBlue]_ 解析
+++++[#AliceBlue] 初始化
+
+
+***[#Pink]:类的生命周期
+（执行字节码的过程）;
+++++[#AliceBlue] 加载
+++++[#MediumSpringGreen] 链接
++++++[#AliceBlue]_ 验证
++++++[#AliceBlue]_ 准备
++++++[#AliceBlue]_ 解析
+++++[#AliceBlue] 初始化
+++++[#MediumSpringGreen] 使用
+++++[#MediumSpringGreen] 卸载
+
+
++++[#Pink]  加载器的等级
+++++[#AliceBlue] BootStrap ClassLoader / 启动类加载器
++++++[#AliceBlue]_ 负责加载 JDK 中的核心类库
+++++[#AliceBlue] Extension ClassLoader / 扩展类加载器
++++++[#AliceBlue]_ 负责加载 Java 的扩展类库
+++++[#AliceBlue] App ClassLoader / 系统类加载器
++++++[#AliceBlue]_ 负责加载 classpath 目录下的所有 jar 和 class 文件
+
+
++++[#Pink]  类加载的原理
+++++[#AliceBlue] 双亲委派机制
++++++[#AliceBlue]_ 可以避免重复加载
++++++[#AliceBlue]_ 可以防止核心 class 被篡改
+
+
+@endmindmap

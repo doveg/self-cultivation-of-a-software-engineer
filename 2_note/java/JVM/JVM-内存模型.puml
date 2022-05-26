@@ -1,0 +1,44 @@
+@startmindmap
+
++[#OrangeRed] JVM
+
+++[#yellow] 内存模型
+
++++[#Pink] 线程共享
+
+
+++++[#MediumSpringGreen] 堆
+
++++++[#GhostWhite] 字符串常量池
+++++++_ 由于字符串不可变，常量池可以节约堆空间
+
++++++[#GhostWhite] 对象
+
+
+++++[#MediumSpringGreen] 元空间 / 方法区
+
++++++[#GhostWhite] *运行时常量池
++++++[#GhostWhite] *静态常量池
++++++[#GhostWhite] *静态变量
++++++[#GhostWhite] 类信息
+++++++[#MediumSpringGreen]_ 被虚拟机加载的类信息
++++++[#GhostWhite] 方法
+
+
++++[#Pink] 线程私有
+
+++++[#MediumSpringGreen] 虚拟机栈
++++++[#GhostWhite] *局部变量表
+++++++[#MediumSpringGreen]_ 存的是地址，实际指向的是堆里面的对象
++++++[#GhostWhite] *方法出口
++++++[#GhostWhite] *操作数栈
++++++[#GhostWhite] 动态链接
+
+++++[#MediumSpringGreen] 本地方法栈
++++++[#GhostWhite] 由 native 修饰，由 C 语言实现
+
+++++[#MediumSpringGreen] 程序计数器
++++++[#GhostWhite] 记录各个线程执行的字节码的地址
+
+
+@endmindmap

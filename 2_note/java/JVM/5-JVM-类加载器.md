@@ -6,6 +6,26 @@
 
 ---
 
+### Java 默认的三个类加载器
+
+**BootStrap ClassLoader：**
+
+称为启动类加载器，是 Java 类加载层次中最顶层的类加载器， 负责加载 JDK 中的核心类库，
+
+如：rt.jar、resources.jar、charsets.jar 等，
+
+**Extension ClassLoader：**
+
+称为扩展类加载器，负责加载 Java 的扩展类库，Java 虚拟机的实现会提供一个扩展库目录。
+
+该类加载器在此目录里面查找并加载 Java 类。默认加载 JAVA_HOME/jre/lib/ext/ 目下的所有 jar。
+
+**App ClassLoader：**
+
+称为系统类加载器，负责加载应用程序 classpath 目录下的所有 jar 和 class 文件。一般来说，Java 应用的类都是由它来完成加载的。
+
+可以通过 ClassLoader.getSystemClassLoader() 来获取它。
+
 ### 类加载
 
 JVM 虚拟机执行 class 字节码的过程可以分为七个阶段：加载、验证、准备、解析、初始化、使用、卸载。
@@ -33,3 +53,12 @@ JVM 虚拟机执行 class 字节码的过程可以分为七个阶段：加载、
     通过委托方式，不会去篡改核心.class，即使篡改也不会去加载，即使加载也不会是同一个.class 对象了。
     不同的加载器加载同一个.class 也不是同一个 Class 对象。这样保证了 Class 执行安全。
 
+---
+
+参考链接：
+
+- [详细深入分析 Java ClassLoader 工作机制](https://segmentfault.com/a/1190000008491597)
+- [jvm 类加载器，类加载机制详解，看这一篇就够了](https://segmentfault.com/a/1190000037574626)
+- []()
+- []()
+- []()

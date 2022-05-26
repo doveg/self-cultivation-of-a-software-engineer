@@ -1,0 +1,102 @@
+@startmindmap
+
++[#OrangeRed] 设计模式
+
+++[#yellow] 常用的
+
++++[#Pink] 工厂模式
+++++[#AliceBlue] 工厂类
+
++++[#Pink] 代理模式
+++++[#AliceBlue] 代理类
++++[#Pink] 适配器模式
+
+
+'++++[#AliceBlue] 加载
+'++++[#MediumSpringGreen] 链接
+'+++++[#AliceBlue]_ 验证
+'+++++[#AliceBlue]_ 准备
+'+++++[#AliceBlue]_ 解析
+'++++[#AliceBlue] 初始化
+
+
+++[#yellow] 简单的
+
++++[#Pink] 单例模式
+++++[#AliceBlue] 懒汉
+++++[#AliceBlue] 饿汉
+++++[#AliceBlue] 双重检查锁 + volatile
+
++++[#Pink] 策略模式
+++++[#AliceBlue] 接口
+
++++[#Pink] 观察者
+++++[#AliceBlue] 生产者
+++++[#AliceBlue] 消费者
+++++[#AliceBlue] 观察者
+
+
+'++++[#AliceBlue] 加载
+'++++[#MediumSpringGreen] 链接
+'+++++[#AliceBlue]_ 验证
+'+++++[#AliceBlue]_ 准备
+'+++++[#AliceBlue]_ 解析
+'++++[#AliceBlue] 初始化
+
+
+++[#yellow] 讨巧的
+
++++[#Pink] 装饰器模式
++++[#Pink] 责任链模式
++++[#Pink] 原型模式
+++++[#AliceBlue] 复制对象
+
+
+'+++++[#AliceBlue]_ 负责加载 JDK 中的核心类库
+'++++[#AliceBlue] Extension ClassLoader / 扩展类加载器
+'+++++[#AliceBlue]_ 负责加载 Java 的扩展类库
+'++++[#AliceBlue] App ClassLoader / 系统类加载器
+'+++++[#AliceBlue]_ 负责加载 classpath 目录下的所有 jar 和 class 文件
+
+
+
+--[#yellow] 创建型
+
+---[#MediumSpringGreen] 简单工厂
+---[#Pink] 工厂方法
+---[#Pink] 抽象工厂
+---[#MediumSpringGreen] 单例模式
+---[#MediumSpringGreen] 原型模式
+---[#Pink] 生成器模式
+
+
+--[#yellow] 结构型
+
+---[#MediumSpringGreen] 代理模式 / Proxy
+---[#MediumSpringGreen] 适配器模式 / Adapter
+---[#MediumSpringGreen] 装饰模式 / Decorator
+---[#Pink] 享元模式 / 蝇量模式 / Flyweight
+---[#Pink] 外观模式 / Facade
+---[#Pink] 桥接模式 / Bridge
+---[#Pink] 组合模式 / Composite
+'----[#AliceBlue] 双亲委派机制
+'-----[#AliceBlue]_ 可以避免重复加载
+'-----[#AliceBlue]_ 可以防止核心 class 被篡改
+
+
+--[#yellow] 行为型
+
+---[#MediumSpringGreen] 策略模式
+---[#MediumSpringGreen] 观察者模式
+---[#Pink] 责任链
+---[#Pink] 模板模式
+---[#Pink] 命令模式
+---[#Pink] 迭代器
+---[#Pink] 中介者模式
+---[#Pink] 解释器模式
+---[#Pink] 状态模式
+---[#Pink] 备忘录模式
+---[#Pink] 访问者模式
+
+
+@endmindmap

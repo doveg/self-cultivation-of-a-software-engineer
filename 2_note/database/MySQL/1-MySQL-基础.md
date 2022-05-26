@@ -103,7 +103,7 @@ select * from Awhere id in(select id from B)
 
 二者作用的对象不同，where 子句作用于表和视图，having 作用于组。
 
-where 在数据分组前进行过滤，having 在数据分组后进行过滤。
+**where 在数据分组前进行过滤，having 在数据分组后进行过滤。**
 
 
 
@@ -115,6 +115,10 @@ where 在数据分组前进行过滤，having 在数据分组后进行过滤。
 ## 语句执行流程
 
 ---
+
+### 语句执行流程
+
+视频讲解：[MySQL 执行过程（一条 SQL 从 Java 到数据库都经历了什么）](https://www.bilibili.com/video/BV1Sq4y1377k)
 
 ### 查询语句执行流程
 

@@ -1,0 +1,49 @@
+@startmindmap
+
++[#OrangeRed] MySQL
+
+++[#yellow] 执行计划
+
++++[#Pink] 参数
+++++[#AliceBlue] id / 自增 id
+++++[#AliceBlue] select_type
++++++_ SIMPLE
+++++[#AliceBlue] table
+++++[#AliceBlue] partitions / 分区
+
+++++[#MediumSpringGreen] type / 扫描类型
++++++_ ALL / 全表扫描
++++++_ range / 范围扫描
++++++_ ref / 索引等值匹配
+
+++++[#AliceBlue] possible_keys
+
+++++[#MediumSpringGreen] key / 实际使用到的索引字段
+
+++++[#AliceBlue] key_len
+
+++++[#MediumSpringGreen] ref / 关联查询时，和 key 一起使用的列
++++++_ const / 常数，只扫描唯一一条
++++++_ const_const
+
+++++[#AliceBlue] rows / 行数
+++++[#AliceBlue] filtered
+
+++++[#MediumSpringGreen] Extra / 扩展条件的详细信息
++++++_ Using index condition / 使用索引
++++++_ Using where / 直接扫描数据
++++++_ Using filesort / 使用文件排序，效率超低
++++++_ Using MRR / 让主键升序排列，采用并发分段升序，效率较高
++++++_ Backward index scan / 反向索引扫描
+
+
+'+++[#Pink] 架构.md
+'++++[#AliceBlue] BootStrap ClassLoader / 启动类加载器
+'+++++[#AliceBlue]_ 负责加载 JDK 中的核心类库
+'++++[#AliceBlue] Extension ClassLoader / 扩展类加载器
+'+++++[#AliceBlue]_ 负责加载 Java 的扩展类库
+'++++[#AliceBlue] App ClassLoader / 系统类加载器
+'+++++[#AliceBlue]_ 负责加载 classpath 目录下的所有 jar 和 class 文件
+
+
+@endmindmap

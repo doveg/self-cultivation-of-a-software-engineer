@@ -4,22 +4,17 @@
 
 ++[#yellow] ClassLoader
 
-+++[#Pink] 类加载的过程
-++++[#AliceBlue] 加载
-++++[#MediumSpringGreen] 链接
-+++++[#AliceBlue]_ 验证
-+++++[#AliceBlue]_ 准备
-+++++[#AliceBlue]_ 解析
-++++[#AliceBlue] 初始化
-
-
 ***[#Pink]:类的生命周期
-（执行字节码的过程）;
+/ 执行字节码的过程
+/ 类加载的过程;
 ++++[#AliceBlue] 加载
 ++++[#MediumSpringGreen] 链接
-+++++[#AliceBlue]_ 验证
-+++++[#AliceBlue]_ 准备
-+++++[#AliceBlue]_ 解析
++++++ 验证
+++++++_ 字节码验证，格式和行为合法
++++++ 准备
+++++++_ 类装备，准备必须的数据结构
++++++ 解析
+++++++_ 装入器装入类中引用的其他类
 ++++[#AliceBlue] 初始化
 ++++[#MediumSpringGreen] 使用
 ++++[#MediumSpringGreen] 卸载

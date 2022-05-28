@@ -1,0 +1,60 @@
+@startmindmap
+
++[#OrangeRed] RocketMQ
+
+++[#yellow] 基础部分
+
++++[#Pink] 核心概念
+++++[#MediumSpringGreen] NameServer / 命名服务器
++++++[#GhostWhite]_ 注册中心
+++++[#MediumSpringGreen] Broker / 经纪人 / 代理服务器
++++++[#GhostWhite]_ 消息中转角色
+++++[#MediumSpringGreen] Producer / 消息生产者
+++++[#MediumSpringGreen] Consumer / 消息消费者
+++++[#MediumSpringGreen] Topic / 主题
+++++[#MediumSpringGreen] Message / 消息
+++++[#AliceBlue] Key / 键
+++++[#AliceBlue] Tag / 标签
+++++[#AliceBlue] Group / 分组
+++++[#AliceBlue] Queue / 队列
+++++[#AliceBlue] Offset / 下标
+
+
++++[#Pink] 特性
+++++[#MediumSpringGreen] 消息队列
+++++[#MediumSpringGreen] 定时消息
+++++[#MediumSpringGreen] 事务消息
+++++[#MediumSpringGreen] 顺序消息
+++++[#MediumSpringGreen] 消息重试
+++++[#MediumSpringGreen] 流量控制
+++++[#MediumSpringGreen] 死信队列
+
++++[#Pink] 提高
+++++[#AliceBlue] 消息过滤
+++++[#MediumSpringGreen] 高可用机制
+++++[#AliceBlue] 负载均衡
+++++[#AliceBlue] 高速读写
+++++[#AliceBlue] 刷盘机制
+
+
++++[#Pink] 消息问题
+++++[#MediumSpringGreen] 消息堆积
+++++[#MediumSpringGreen] 消息丢失
+++++[#MediumSpringGreen] 消息重复
+++++[#MediumSpringGreen] 消息去重
+++++[#AliceBlue] 幂等性
+++++[#AliceBlue] 消息优先级
+
+
++++[#Pink] 消费问题
+++++[#MediumSpringGreen] 重复消费
+++++[#MediumSpringGreen] 消费的流程
+++++[#MediumSpringGreen] 消费的可靠性
+
++++[#Pink] 分布式事务
+++++[#MediumSpringGreen] 半消息
+++++[#MediumSpringGreen] 消息回查
+++++[#MediumSpringGreen] 事务消息
+
+
+@endmindmap

@@ -40,9 +40,9 @@
 +++++_ 分片下的索引文件被拆分成的多个子文件
 ++++[#AliceBlue] document / 文档
 ++++[#AliceBlue] field / 字段
-++++[#AliceBlue] term / 词项
+++++[#MediumSpringGreen] term / 词项
 +++++_ 文本中词
-++++[#AliceBlue] token / 词条
+++++[#MediumSpringGreen] token / 词条
 +++++_ 词项在字段中的一次出现，包括词项的文本、开始和结束的位移、类型等信息
 
 

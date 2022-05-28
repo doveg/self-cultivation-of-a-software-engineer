@@ -1,65 +1,40 @@
-
 @startmindmap
-
 
 +[#OrangeRed] JVM
 
 ++[#yellow] 字节码
 
 +++[#MediumSpringGreen] Class文件结构
++++[#GhostWhite] 字段方法名长度
++++[#GhostWhite] 常量池计数器
++++[#GhostWhite] 类索引查找全限定类名过程
++++[#GhostWhite] 类中常量（final static String）在字节码中的存储方式
++++[#GhostWhite] 方法中代码在字节码中的存储方式（方法表 Code 属性，JVM 字节码指令）
 
-+++[#DeepSkyBlue] 字段方法名长度
-
-+++[#DeepSkyBlue] 常量池计数器
-
-+++[#DeepSkyBlue] 类索引查找全限定类名过程
-
-+++[#DeepSkyBlue] 类中常量（final static String）在字节码中的存储方式
-
-+++[#DeepSkyBlue] 方法中代码在字节码中的存储方式（方法表 Code 属性，JVM 字节码指令）
-
-+[#OrangeRed] JVM
 
 ++[#yellow] 类的加载
 
-+++[#DeepSkyBlue] 类加载子系统
-
++++[#GhostWhite] 类加载子系统
 +++[#MediumSpringGreen] JVM 类加载流程
-
 +++[#MediumSpringGreen] 双亲委派模型
++++[#GhostWhite] 双亲委派模型的优点
++++[#GhostWhite] 数组加载
++++[#GhostWhite] 链接阶段
++++[#GhostWhite] 初始化阶段
++++[#GhostWhite] JVM 执行类初始化的场景（有且只有 6 类）
 
-+++[#DeepSkyBlue] 双亲委派模型的优点
-
-+++[#DeepSkyBlue] 数组加载
-
-+++[#DeepSkyBlue] 链接阶段
-
-+++[#DeepSkyBlue] 初始化阶段
-
-+++[#DeepSkyBlue] JVM 执行类初始化的场景（有且只有 6 类）
-
-+[#OrangeRed] JVM
 
 ++[#yellow] 内存模型
 
-+++[#DeepSkyBlue] 运行时数据区
-
-+++[#DeepSkyBlue] 运行时数据区包括什么
-
-+++[#DeepSkyBlue] 程序计数器
-
++++[#GhostWhite] 运行时数据区
++++[#GhostWhite] 运行时数据区包括什么
++++[#GhostWhite] 程序计数器
 +++[#MediumSpringGreen] 方法区
-
-+++[#DeepSkyBlue] 运行时常量池与 Class 文件中的常量池有何区别
-
++++[#GhostWhite] 运行时常量池与 Class 文件中的常量池有何区别
 +++[#MediumSpringGreen] 堆
-
-+++[#DeepSkyBlue] 64 位 JVM 在 new Object() 操作时，对象实例占多少个字节
-
-+++[#DeepSkyBlue] 对象如何被线程访问定位
-
-+++[#DeepSkyBlue] 虚拟机栈与本地方法栈
-
++++[#GhostWhite] 64 位 JVM 在 new Object() 操作时，对象实例占多少个字节
++++[#GhostWhite] 对象如何被线程访问定位
++++[#GhostWhite] 虚拟机栈与本地方法栈
 +++[#MediumSpringGreen] 栈帧（结构，作用）
 
 

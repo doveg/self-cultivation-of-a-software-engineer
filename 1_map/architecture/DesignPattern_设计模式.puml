@@ -1,0 +1,75 @@
+@startmindmap
+
++[#OrangeRed] 设计模式
+
+++[#yellow] 常用的
+
++++[#MediumSpringGreen] 工厂模式
+++++[#GhostWhite] 工厂类
+
++++[#MediumSpringGreen] 代理模式
+++++[#GhostWhite] 代理类
++++[#AliceBlue] 适配器模式
+
+
+++[#yellow] 简单的
+
++++[#MediumSpringGreen] 单例模式
+++++[#GhostWhite] 懒汉
+++++[#GhostWhite] 饿汉
+++++[#LightGreen] 双重检查锁 + volatile
+
++++[#MediumSpringGreen] 策略模式
+++++[#GhostWhite] 接口
+
++++[#MediumSpringGreen] 观察者
+++++[#GhostWhite]_ 生产者
+++++[#GhostWhite]_ 消费者
+++++[#GhostWhite]_ 观察者
+
+
+++[#yellow] 讨巧的
+
++++[#AliceBlue] 装饰器模式
++++[#AliceBlue] 责任链模式
++++[#MediumSpringGreen] 原型模式
+++++[#GhostWhite] 对象复制
+
+
+--[#yellow] 创建型
+
+---[#MediumSpringGreen] 简单工厂
+---[#AliceBlue] 工厂方法
+---[#AliceBlue] 抽象工厂
+---[#MediumSpringGreen] 单例模式
+---[#MediumSpringGreen] 原型模式
+---[#AliceBlue] 生成器模式
+
+
+--[#yellow] 结构型
+
+---[#MediumSpringGreen] 代理模式 / Proxy
+---[#MediumSpringGreen] 适配器模式 / Adapter
+---[#MediumSpringGreen] 装饰模式 / Decorator
+---[#AliceBlue] 享元模式 / 蝇量模式 / Flyweight
+---[#AliceBlue] 外观模式 / Facade
+---[#AliceBlue] 桥接模式 / Bridge
+---[#AliceBlue] 组合模式 / Composite
+
+
+--[#yellow] 行为型
+
+---[#MediumSpringGreen] 策略模式
+---[#MediumSpringGreen] 观察者模式
+---[#AliceBlue] 责任链
+---[#AliceBlue] 模板模式
+---[#AliceBlue] 命令模式
+---[#AliceBlue] 迭代器
+---[#AliceBlue] 中介者模式
+---[#AliceBlue] 解释器模式
+---[#AliceBlue] 状态模式
+---[#AliceBlue] 备忘录模式
+---[#AliceBlue] 访问者模式
+
+
+@endmindmap

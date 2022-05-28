@@ -9,7 +9,7 @@
 +++++_ 读写操作
 ++++[#AliceBlue] BIO / Blocking io / 同步阻塞
 +++++_ 线程必须等待 io 执行完成
-++++[#AliceBlue] NIO / Non-blocking IO / 同步非阻塞
+++++[#MediumSpringGreen] NIO / Non-blocking IO / 同步非阻塞
 +++++_ 线程无需等待，但是需要轮询 io 的执行结果
 ++++[#AliceBlue] AIO / Asynchronous IO / 异步非阻塞
 +++++_ 线程无需等待，io 执行完之后会收到系统通知
@@ -17,17 +17,17 @@
 +++[#Pink] IO 多路复用
 
 ++++[#AliceBlue] select
-+++++_ 睡眠队列
-+++++_ 遍历慢
-+++++_ fd 数量有限
++++++[#Aquamarine] 睡眠队列
++++++[#Aquamarine]_ 遍历慢
++++++[#Aquamarine]_ fd 数量有限（1024）
 
 ++++[#AliceBlue] poll
-+++++_ 遍历慢
++++++[#Aquamarine]_ 遍历慢
 
 ++++[#MediumSpringGreen] epoll
-+++++ 数据结构
-++++++_ 红黑树
-++++++_ 就绪列表
++++++[#LightGreen] 数据结构
+++++++[#Aquamarine] 红黑树
+++++++[#Aquamarine] 就绪列表
 
 
 @endmindmap

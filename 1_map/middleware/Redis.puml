@@ -6,25 +6,25 @@
 
 +++[#Pink] 五大类型
 ++++[#MediumSpringGreen] String / 字符串
-+++++[#SkyBlue] 分布式 Session
-+++++[#SkyBlue] 分布式锁
-+++++[#SkyBlue] 访问量统计
++++++[#LightGreen]_ 分布式 Session
++++++[#GhostWhite]_ 分布式锁
++++++[#GhostWhite]_ 访问量统计
 
 ++++[#AliceBlue] List / 队列
-+++++[#SkyBlue] 时间轴列表
-+++++[#SkyBlue] 最新新闻
++++++[#GhostWhite]_ 时间轴列表
++++++[#GhostWhite]_ 最新新闻
 
 ++++[#AliceBlue] Set / 集合
-+++++[#SkyBlue] 好友推荐
-+++++[#SkyBlue] 好友关系
-+++++[#SkyBlue] 点赞
++++++[#GhostWhite]_ 好友推荐
++++++[#GhostWhite]_ 好友关系
++++++[#GhostWhite]_ 点赞
 
 ++++[#AliceBlue] Hash / 哈希
 
 ++++[#MediumSpringGreen] ZSet / 有序集合
-+++++[#SkyBlue] 排行榜
-+++++[#SkyBlue] skip list / 跳表
-+++++[#SkyBlue] zip list / 压缩表
++++++[#GhostWhite]_ 排行榜
++++++[#LightGreen] Skip List / 跳表
++++++[#LightGreen] Zip List / 压缩表
 
 
 ++[#yellow] 常见问题
@@ -62,7 +62,7 @@
 +++++[#MediumSpringGreen]_ 删除大 key（如果不是热 key）
 +++++[#MediumSpringGreen]_ 压缩和拆分 key（集合类型可以分片）
 
-++++[#MediumSpringGreen] 内存不够用的优化
+++++[#AliceBlue] 内存不够用的优化
 +++++[#MediumSpringGreen]_ 有条件先增加内存
 +++++[#MediumSpringGreen]_ 内存淘汰策略，删除过期数据，再使用 LRU 算法进行淘汰，酌情使用 LFU 算法
 +++++[#MediumSpringGreen]_ 转码压缩
@@ -83,12 +83,12 @@
 
 
 +++[#Pink] 持久性
-++++[#AliceBlue] 如何实现数据不丢失的（持久化）
-+++++[#SkyBlue] AOF 日志（Append Only File）
+++++[#MediumSpringGreen] 如何实现数据不丢失的（持久化）
++++++[#LightGreen] AOF 日志（Append Only File）
 ++++++[#AliceBlue]_ 文件追加方式，数据完整，但是需要把命令全部重写执行一遍
-+++++[#SkyBlue] RDB 快照（Redis DataBase）
++++++[#LightGreen] RDB 快照（Redis DataBase）
 ++++++[#AliceBlue]_ 可快速恢复，数据可能不完整
-+++++[#SkyBlue] 混合持久化方式
++++++[#LightGreen] 混合持久化方式
 ++++++[#AliceBlue]_ 集成了 RDB 和 AOF 的优点
 
 
@@ -103,12 +103,12 @@
 +++++[#AliceBlue]_ 去中心化，数据分布在不同的服务器
 +++++[#AliceBlue]_ 采用类一致性哈希算法实现存储节点选择
 
-++++[#MediumSpringGreen] 主从复制原理（五步）
-+++++[#AliceBlue]_ 从节点发出同步请求
-+++++[#AliceBlue]_ 主节点后台生成快照（第一次同步会触发全量）
-+++++[#AliceBlue]_ 主节点将新命令缓存在内存
-+++++[#AliceBlue]_ 主节点把快照发送给从节点，从节点写入磁盘后加载到内存
-+++++[#AliceBlue]_ 主节点把缓存的新命令发给从节点，从节点同步快照中缺失的数据
+++++[#MediumSpringGreen] 主从复制原理（五）
++++++[#LightGreen]_ 从节点发出同步请求
++++++[#LightGreen]_ 主节点后台生成快照（第一次同步会触发全量）
++++++[#LightGreen]_ 主节点将新命令缓存在内存
++++++[#LightGreen]_ 主节点把快照发送给从节点，从节点写入磁盘后加载到内存
++++++[#LightGreen]_ 主节点把缓存的新命令发给从节点，从节点同步快照中缺失的数据
 
 
 ++[#yellow] 其他
@@ -116,19 +116,19 @@
 +++[#Pink] 分布式锁
 
 ++++[#MediumSpringGreen] CAP
-+++++[#SkyBlue] Consistency / 一致性
-+++++[#SkyBlue] Availability / 可用性
-+++++[#SkyBlue] Partition Tolerance / 分区容错性
++++++[#LightGreen] Consistency / 一致性
++++++[#GhostWhite] Availability / 可用性
++++++[#LightGreen] Partition Tolerance / 分区容错性
 
 ++++[#AliceBlue] Redis 实现
-+++++[#SkyBlue] 使用 redisson
++++++[#LightGreen] 使用 redisson
 
 +++[#Pink] 集成 SpringBoot
 ++++[#AliceBlue] 依赖 spring-boot-starter-data-redis
 ++++[#AliceBlue] 配置 RedisTemplate
 
 +++[#Pink] 和 MySQL 的一致性问题
-++++[#AliceBlue] 延迟双删
+++++[#LightGreen] 延迟双删
 
 
 @endmindmap

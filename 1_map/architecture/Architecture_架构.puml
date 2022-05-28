@@ -4,13 +4,12 @@
 
 ++[#yellow] 面向对象
 
-+++[#Pink] 五个基本原则 / SOLID
++++[#Pink] 基本原则（五） / SOLID
 ++++[#MediumSpringGreen] 单一职责原则 / Single Responsibility Principle
 ++++[#MediumSpringGreen] 开放关闭原则 / Open Closed Principle
 ++++[#MediumSpringGreen] 接口隔离原则 / Interface Segregation Principle / 迪米特法则
 ++++[#AliceBlue] 里氏替代原则 / Liskov Substitution Principle
 ++++[#AliceBlue] 依赖倒置原则 / Dependence Inversion Principle
-
 
 
 

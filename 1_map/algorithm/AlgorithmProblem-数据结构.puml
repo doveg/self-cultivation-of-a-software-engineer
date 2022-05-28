@@ -1,0 +1,77 @@
+@startmindmap
+
++[#OrangeRed] 算法题
+
+++[#yellow] 数据结构
+
++++[#Pink] 表
+
+++++[#Aquamarine] 数组 / Array
++++++[#MediumSpringGreen] 二维数组 / 矩阵
++++++[#MediumSpringGreen] 位图 / BitMap / BitSet
+
+++++[#Aquamarine] 哈希表 / HashTable
++++++[#AliceBlue] 哈希函数
++++++[#MediumSpringGreen] 哈希冲突
+++++++[#LightGreen] 链表法
+++++++[#LightGreen] 开放寻址
++++++[#AliceBlue] 动态扩容
+
+++++[#Aquamarine] 链表 / LinkedList
++++++[#MediumSpringGreen] 单向链表
++++++[#MediumSpringGreen] 双向链表
++++++[#MediumSpringGreen] 循环链表
++++++[#MediumSpringGreen] 跳表
++++++[#AliceBlue] 压缩表
+
+++++[#Aquamarine] 集合 / Set
++++++[#AliceBlue] 有序集合 / SortedSet
+
+++++[#Aquamarine] 栈 / Stack
++++++[#AliceBlue] 单调栈
+
+++++[#Aquamarine] 队列 / Queue
++++++[#AliceBlue] 单调队列
++++++[#AliceBlue] 双端队列
+
+
++++[#Pink] 树 / Tree
+
+++++[#Aquamarine] 二叉树 / Binary Tree
++++++[#AliceBlue] 平衡二叉树
++++++[#AliceBlue] 二叉查找树
++++++[#MediumSpringGreen] 平衡二叉查找树
+++++++[#LightGreen] AVL 树
+++++++[#LightGreen] 红黑树（五）
++++++++[#Aquamarine]_ 节点是红色或黑色
++++++++[#Aquamarine]_ 根是黑色
++++++++[#Aquamarine]_ 叶子都是黑色
++++++++[#Aquamarine]_ 红色节点必须有两个黑色子节点
++++++++[#Aquamarine]_ 节点到其每个叶子的简单路径，黑色节点的数量相同
++++++[#MediumSpringGreen] 完全二叉树
++++++[#AliceBlue] 满二叉树
+
+++++[#Aquamarine] 多路查找树
++++++[#MediumSpringGreen] B 树
++++++[#MediumSpringGreen] B+ 树
+++++[#Aquamarine] 前缀树 / 字典树 / Trie
+
+++++[#Aquamarine] 堆 / Heap
++++++[#MediumSpringGreen] 大顶堆
++++++[#MediumSpringGreen] 小顶堆
++++++[#MediumSpringGreen] 优先队列 / PriorityQueue
++++++[#AliceBlue] 二项堆
+
+
++++[#Pink] 其他
+
+++++[#Aquamarine] 字符串 / String
++++++[#MediumSpringGreen] 前缀树 / 字典树 / Trie
++++++[#MediumSpringGreen] 后缀树
+
+++++[#Aquamarine] 图 / Map
++++++[#AliceBlue] 并查集
++++++[#AliceBlue] 最近公共祖先
+
+
+@endmindmap

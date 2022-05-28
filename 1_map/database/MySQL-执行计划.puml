@@ -1,0 +1,51 @@
+@startmindmap
+
++[#OrangeRed] MySQL
+
+++[#yellow] 执行计划
+
++++[#Pink] 参数（十二）
+++++[#AliceBlue] id / 自增 id
+++++[#AliceBlue] select_type
++++++_ SIMPLE
+++++[#AliceBlue] table
+++++[#AliceBlue] partitions / 分区
+
+++++[#MediumSpringGreen] type / 扫描类型（八）
++++++[#Aquamarine] const / 命中主键索引或唯一索引
++++++[#Aquamarine] eq_ref / 关联查询，命中主键索引或非空唯一索引
++++++[#Aquamarine] ref / 命中非唯一索引
++++++[#Aquamarine]_ ref_or_null / 子查询联接
++++++[#Aquamarine]_ unique_subquery / IN 子查询
++++++[#Aquamarine] range / 索引上的范围扫描
++++++[#Aquamarine] index / 整个索引扫描
++++++[#Aquamarine] ALL / 全表扫描
+
+++++[#AliceBlue] possible_keys
+
+++++[#MediumSpringGreen] key / 实际使用到的索引字段
+
+++++[#AliceBlue] key_len
+
+++++[#MediumSpringGreen] ref / 关联查询时，和 key 一起使用的列
++++++[#Aquamarine] const / 常数
+++++++[#Aquamarine]_ 走主键索引，只扫描唯一一条
++++++[#Aquamarine] null / 全表扫描
++++++[#Aquamarine]_ const_const
+
+++++[#AliceBlue] rows / 行数
+++++[#AliceBlue] filtered
+
+++++[#MediumSpringGreen] Extra / 扩展条件的详细信息
++++++[#Aquamarine] Using index condition / 使用索引
++++++[#Aquamarine] Using where / 条件筛选扫描数据
++++++[#Aquamarine] Using filesort / 使用文件排序，效率超低
++++++[#Aquamarine] Using temporary / 使用临时表
++++++[#Aquamarine] Using MRR / 让主键升序排列，采用并发分段升序，效率较高
++++++[#Aquamarine] Backward index scan / 反向索引扫描
+
+
+'+++[#Pink] 架构
+
+
+@endmindmap

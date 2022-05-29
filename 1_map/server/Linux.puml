@@ -30,4 +30,20 @@
 ++++++[#Aquamarine] 就绪列表
 
 
+++[#yellow] shell
+
++++[#Pink] 基础
+
+++++[#MediumSpringGreen] 常用命令
++++++[#GhostWhite]_ top
++++++[#GhostWhite]_ pidstat
++++++[#GhostWhite]_ grep
++++++[#GhostWhite]_ cat grep
++++++[#GhostWhite]_ kill
++++++[#GhostWhite]_ ftp
++++++[#GhostWhite]_ telnet
++++++[#GhostWhite]_ ping
+
+
+
 @endmindmap

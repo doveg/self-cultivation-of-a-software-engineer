@@ -32,7 +32,7 @@
 - Referer：
     - 表示这是请求是从哪个 URL 进来的。
 - Cache-Control：
-    - 对缓存进行控制，如一个请求希望响应的内容在客户端缓存一年，或不被缓可以通过这个报文头设置。
+    - 对缓存进行控制，如一个请求希望响应的内容在客户端缓存一年，或不被缓存，可以通过这个报文头设置。
 - Accept-Encoding：
     - 例如: Accept-Encoding: gzip, deflate (这两种都是压缩格式)。
     - 告诉服务器能接受什么编码格式，包括字符编码，压缩形式 (一般都是压缩形式)。
@@ -129,9 +129,9 @@ HTTPS 的整体过程分为：证书验证和数据传输。
 
 ### SSL 层的主要作用是什么
 
-**TLS（Transport Layer Security）：传输层安全性协议**。
+**TLS / Transport Layer Security / 传输层安全性协议**。
 
-**SSL（Secure Sockets Layer）：安全套接层**。
+**SSL / Secure Sockets Layer / 安全套接层**。
 
 - 一种安全协议，目的是为互联网通信提供安全及数据完整性保障。
 - 是 TLS 的前身。

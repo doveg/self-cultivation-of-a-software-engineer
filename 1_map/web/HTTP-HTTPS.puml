@@ -1,0 +1,77 @@
+@startmindmap
+
++[#OrangeRed] HTTP-HTTPS
+
+++[#yellow] 基础部分
+
++++[#Pink] HTTP
+
+++++[#AliceBlue] 报文
+
+++++[#AliceBlue] 请求报文
++++++[#GhostWhite]_ 请求行
++++++[#GhostWhite] 请求头
+++++++[#Aquamarine]_ Accept-Encoding
++++++[#GhostWhite]_ 请求体
+
+++++[#AliceBlue] 响应报文
++++++[#GhostWhite]_ 响应行
++++++[#GhostWhite] 响应头
+++++++[#Aquamarine]_ Set-Cookie
++++++[#GhostWhite]_ 响应体
+
+++++[#MediumSpringGreen] 状态码
+
++++++[#MediumSpringGreen]_ 1XX
+++++++[#GhostWhite]_ 请求已接收
++++++[#LightGreen] 2XX
+++++++[#GhostWhite]_ 200 OK
++++++[#LightGreen] 3XX
+++++++[#GhostWhite]_ 302 Moved Permanently
++++++[#LightGreen] 4XX
+++++++[#GhostWhite]_ 400 Bad Request
+++++++[#GhostWhite]_ 403 Forbidden
++++++[#LightGreen] 5XX
+++++++[#GhostWhite]_ 502 Bad Gateway
+++++++[#GhostWhite]_ 504 Gateway Timeout
+
++++[#Pink] HTTPS
+++++[#AliceBlue] TLS
++++++[#LightGreen] Transport Layer Security / 传输层安全性协议
+++++[#AliceBlue] SSL
++++++[#LightGreen] Secure Sockets Layer / 安全套接层
+
++++[#Pink] 常见
+
+++++[#MediumSpringGreen] 在浏览器地址栏键入 URL
++++++[#LightGreen] DNS 解析
++++++[#LightGreen] TCP 连接
++++++[#LightGreen] 发送 HTTP 请求
++++++[#LightGreen] 服务器处理请求并返回 HTTP 报文
++++++[#LightGreen] 浏览器解析渲染页面
++++++[#GhostWhite] 连接结束
+
+++++[#MediumSpringGreen] HTTP 工作过程
++++++[#LightGreen] 地址解析
++++++[#LightGreen] 封装 HTTP 请求
++++++[#LightGreen] 封装 TCP 包
++++++[#LightGreen] 客户端发送请求命令
++++++[#LightGreen] 服务器端响应
++++++[#GhostWhite] 关闭连接
+
+++++[#AliceBlue] HTTPS 工作过程
++++++[#GhostWhite] 客户端发起 HTTPS 请求
+++++++[#GhostWhite]_ 连接到服务端的 443 端口
++++++[#GhostWhite] 服务端配置数字证书
+++++++[#GhostWhite]_ 公钥和私钥
++++++[#GhostWhite] 传送证书
+++++++[#GhostWhite]_ 公钥
++++++[#GhostWhite]_ 客户端解析证书
++++++[#GhostWhite]_ 传送加密信息
++++++[#GhostWhite]_ 服务端解密信息
++++++[#GhostWhite]_ 传输加密后的信息
++++++[#GhostWhite]_ 客户端解密信息
+
+
+
+@endmindmap

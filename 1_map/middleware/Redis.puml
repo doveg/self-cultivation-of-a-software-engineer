@@ -6,9 +6,31 @@
 
 +++[#Pink] 五大类型
 ++++[#MediumSpringGreen] String / 字符串
-+++++[#LightGreen]_ 分布式 Session
-+++++[#GhostWhite]_ 分布式锁
-+++++[#GhostWhite]_ 访问量统计
++++++[#LightBlue] 使用场景
+++++++[#LightGreen] 分布式 Session
+++++++[#GhostWhite]_ 分布式锁
+++++++[#GhostWhite]_ 访问量统计
+
++++++[#LightBlue] 特点
+++++++[#LightGreen] 支持整数、浮点，支持原子性自增
+++++++[#LightGreen]_ 浮点精度：IEEE 754 标准
+++++++[#LightGreen]_ 字符串大小限制：521 M
+
++++++[#LightBlue] 底层实现
+++++++[#Aquamarine] sds 数据类型
++++++++[#GhostWhite] 封装原因
+++++++++[#LightGreen]_ C 语言原生字符串不能存空格
++++++++[#LightGreen] 属性
+++++++++[#LightGreen]_ free：当前额外可用
+++++++++[#LightGreen]_ length：长度
+++++++++[#LightGreen]_ char buff：字符数组和空格
++++++++[#LightGreen] 空间预分配
+++++++++[#LightGreen]_ 小于 1 M：free 等于 length
+++++++++[#LightGreen]_ 大于 1 M：free 等于 1 M
++++++++[#LightGreen] 惰性删除
+++++++++[#LightGreen]_ 删除字符后，free 保持不变
+++++++++[#LightGreen]_ 可以调 api 主动释放
++++++++[#LightGreen] 支持二进制文件的存储
 
 ++++[#AliceBlue] List / 队列
 +++++[#GhostWhite]_ 时间轴列表
@@ -109,6 +131,10 @@
 +++++[#LightGreen]_ 主节点将新命令缓存在内存
 +++++[#LightGreen]_ 主节点把快照发送给从节点，从节点写入磁盘后加载到内存
 +++++[#LightGreen]_ 主节点把缓存的新命令发给从节点，从节点同步快照中缺失的数据
+
+
++++[#Pink] 分片与备份
+
 
 
 ++[#yellow] 其他

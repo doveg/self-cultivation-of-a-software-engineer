@@ -49,4 +49,20 @@
 +++++[#LightGreen] 器启动时，一次性创建所有的 Bean
 
 
+++[#yellow] 实现
+
++++[#Pink] 模块
+++++[#AliceBlue] spring-core
+++++[#MediumSpringGreen] spring-beans
++++++[#LightGreen] BeanFactory
++++++[#LightGreen] 控制反转和依赖注入
+++++[#MediumSpringGreen] spring-context
++++++[#LightGreen] ApplicationContext
++++++[#LightGreen] 数据验证、国际化、事件传播
+++++[#AliceBlue]_ spring-aop
+++++[#AliceBlue]_ spring-jdbc
+++++[#AliceBlue]_ spring-orm
+++++[#AliceBlue]_ spring-webmvc
+
+
 @endmindmap

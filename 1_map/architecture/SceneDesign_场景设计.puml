@@ -1,0 +1,28 @@
+@startmindmap
+
++[#OrangeRed] 场景设计
+
+++[#yellow] 常见
+
++++[#Pink] 秒杀系统设计
+++++[#MediumSpringGreen] 后端方面
++++++[#LightGreen] 缓存
+++++++[#Aquamarine] 减轻数据库压力
++++++[#LightGreen] 分布式锁
+++++++[#Aquamarine] 防止缓存击穿
++++++[#LightGreen] MQ 异步处理
+++++++[#Aquamarine] 下单和支付异步处理
+++++[#AliceBlue] 前端方面
++++++[#GhostWhite] 页面静态化
+++++++[#Aquamarine] 客户端缓存
++++++[#GhostWhite] CDN 加速
+++++++[#Aquamarine] 内容分发网络 / Content Delivery Network
++++++[#GhostWhite] 限流
+++++++[#Aquamarine] 限制请求频率
+
++++[#Pink] 秒杀系统防止超卖
+++++[#MediumSpringGreen] 使用 redis 原子操作
+++++[#MediumSpringGreen] 利用分布式锁
+
+
+@endmindmap

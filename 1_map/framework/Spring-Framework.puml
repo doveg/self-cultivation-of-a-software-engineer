@@ -1,0 +1,52 @@
+@startmindmap
+
++[#OrangeRed] Spring Framework
+
+++[#yellow] 两剑客
+
++++[#Pink] AOP
+++++[#AliceBlue] 基本概念
++++++[#GhostWhite] 连接点
++++++[#GhostWhite] 切点
++++++[#GhostWhite] 通知
++++++[#GhostWhite] 引入
++++++[#GhostWhite] 目标对象
++++++[#GhostWhite] AOP 代理
++++++[#GhostWhite] 织入
++++++[#GhostWhite] 切面
+'++++++[#Aquamarine] 6
+'+++++++[#Aquamarine]_ 7
+
+++++[#AliceBlue] 代理方式
++++++[#GhostWhite] JDK 动态代理
++++++[#GhostWhite] CGLib / Code Generation Library
+
+
++++[#Pink] IoC
+
+++++[#AliceBlue] BeanDefinition
++++++[#GhostWhite] 是 IoC 容器内部的数据结构
++++++[#GhostWhite] 是 POJO 对象在 IoC 容器中的抽象
+
+++++[#AliceBlue] 容器的初始化
++++++[#GhostWhite] BeanDefinition 定位
++++++[#GhostWhite] BeanDefinition 载入
++++++[#GhostWhite] BeanDefinition 注册
+++++++[#LightGreen]_ 将 BeanDefinition 注入到 HashMap 中
+
+++++[#MediumSpringGreen] BeanFactory
++++++[#LightGreen] Bean 容器的底层接口
++++++[#LightGreen] 实现方式是是懒加载
++++++[#GhostWhite]_ Bean 的定义
++++++[#GhostWhite]_ 读取 Bean 配置文档
++++++[#GhostWhite]_ 管理 Bean 的加载、实例化
++++++[#GhostWhite]_ 控制 Bean 的生命周期
++++++[#GhostWhite]_ 维护 Bean 之间的依赖关系
+
+++++[#MediumSpringGreen] ApplicationContext
++++++[#LightGreen] Spring 的中央接口
++++++[#LightGreen] 继承了 BeanFactory 接口
++++++[#LightGreen] 器启动时，一次性创建所有的 Bean
+
+
+@endmindmap

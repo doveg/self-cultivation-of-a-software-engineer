@@ -8,9 +8,11 @@
 
 ### 三大范式
 
+视频讲解：[数据库三范式，不是你想的那样](https://www.bilibili.com/video/BV1ZS4y1a7jG)
+
 **1. 第一范式 / 1NF：**
 
-**要保证字段的原子性。**
+**字段都具备原子性。表需要有一个主键。**
 
 数据库表中不能出现重复记录，每个字段是原子性的不能再分。
 
@@ -18,7 +20,7 @@
 
 **2. 第二范式 / 2NF：**
 
-**非主键字段完全依赖主键，不能产生部分依赖。**
+**满足第一范式，非主键字段完全依赖主键，不能产生部分依赖。**
 
 第二范式是建立在第一范式基础上的，另外要求所有非主键字段完全依赖主键，不能产生部分依赖。
 
@@ -26,7 +28,7 @@
 
 **3. 第三范式 / 3NF：**
 
-**非主键字段和主键字段之间不能产生传递依赖。**
+**满足第二范式，非主键字段不能依赖于其他非主键字段，非主键字段和主键之间不能产生传递依赖。**
 
 建立在第二范式基础上的，非主键字段不能传递依赖于主键字段。
 
@@ -99,14 +101,13 @@ select * from Awhere id in(select id from B)
 >
 > 一般来说，执行速度: drop > truncate > delete。
 
-### having 和 where 的区别
-
-二者作用的对象不同，where 子句作用于表和视图，having 作用于组。
+### where 和 having 的区别
 
 **where 在数据分组前进行过滤，having 在数据分组后进行过滤。**
 
+where 子句作用于表和视图，having 作用于组。
 
-
+视频讲解：[WHERE 和 HAVING 以及 ON 的区别](https://www.bilibili.com/video/BV1ma411h7PP)
 
 
 
@@ -119,6 +120,15 @@ select * from Awhere id in(select id from B)
 ### 语句执行流程
 
 视频讲解：[MySQL 执行过程（一条 SQL 从 Java 到数据库都经历了什么）](https://www.bilibili.com/video/BV1Sq4y1377k)
+
+视频讲解：[一条查询语句的执行过程](https://www.bilibili.com/video/BV1NP4y1F7G5)
+
+1. 客户端提交 SQL（使用连接池的连接，通过数据库驱动访问服务端）
+2. 服务端获得 SQL
+3. 解析器解析 SQL，生成解析树
+4. 优化器优化 SQL（执行计划缓存）
+5. 执行器从数据库引擎获取数据（数据缓存）
+6. 服务端返回查询结果
 
 ### 查询语句执行流程
 
@@ -194,9 +204,6 @@ update user set name = '条件' where id = 1;
 - [MySQL 经典 36 问](https://mp.weixin.qq.com/s/UYytwy46FZz3HWZmhC_X4g)
 - [B + 树叶子结点到底存储了什么？](https://blog.csdn.net/Alice_8899/article/details/105357902)
 - [五分钟搞懂 MySQL 索引下推](https://juejin.cn/post/7005794550862053412)
-- [Sql 执行计划，优化 sql 必备](https://blog.csdn.net/choath/article/details/80779129)
-- [MySQL EXPLAIN 详解](https://www.cnblogs.com/aspirant/p/16166821.html)
-- [一张图彻底搞懂 MySQL 的 explain](https://segmentfault.com/a/1190000021458117)
 - [mysql 数据库调优](https://blog.csdn.net/weixin_39564831/article/details/113457726)
 - []()
 - []()

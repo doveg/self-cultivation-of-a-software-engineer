@@ -1,0 +1,47 @@
+@startmindmap
+
++[#OrangeRed] MySQL
+
+++[#yellow] 应用架构
+
++++[#Pink] 分库分表
+++++[#LightBlue] 分库
++++++[#AliceBlue] 垂直拆分
+++++++[#Aquamarine]_ 业务细分
+
+++++[#LightBlue] 分表
++++++[#AliceBlue] 垂直拆分
+++++++[#Aquamarine]_ 业务细分
+
++++++[#MediumSpringGreen] 水平拆分
+++++++[#Aquamarine] hash 分 64 张表
+++++++[#Aquamarine] 时间
+
+++++[#LightBlue] 问题
++++++[#AliceBlue]_ 联合查询
++++++[#AliceBlue]_ 事务
++++++[#AliceBlue]_ 结果合并
+
++++[#Pink] 主从同步
+++++[#MediumSpringGreen] 实现
++++++[#LightGreen] 一主多从
+++++++[#LightGreen]_ 数据从主服务器，异步同步到从服务器
+++++[#MediumSpringGreen] 原因
++++++[#GhostWhite]_ 读写分离
++++++[#GhostWhite]_ 数据备份
++++++[#GhostWhite]_ 提高查询性能
+
+
+++[#yellow] 内部架构
+
++++[#Pink] 核心架构
+++++[#AliceBlue] Server
++++++[#GhostWhite] 连接器
++++++[#GhostWhite] 查询缓存
++++++[#GhostWhite] 分析器
++++++[#GhostWhite] 优化器
++++++[#GhostWhite] 执行器
+++++[#AliceBlue] 存储引擎
+
+
+@endmindmap

@@ -1,0 +1,92 @@
+@startmindmap
+
++[#OrangeRed] Java
+
+++[#yellow] 基础部分
+
++++[#Pink] 数据
+
+++++[#MediumSpringGreen] 基本数据类型
+
++++++[#LightGreen]_ byte / 字节
+++++++_ 1 字节
++++++[#LightGreen]_ short / 短整数
+++++++_ 2 字节
++++++[#LightGreen] int / 长整数
+++++++_ 4 字节
+++++++[#LightGreen] int 和 Integer
++++++++_ 类型
++++++++_ 实例化
++++++++_ 默认值
++++++++_ 存储方式
++++++[#LightGreen]_ long / 长整数
+++++++_ 8 字节
++++++[#LightGreen]_ float / 单精度
+++++++_ 4 字节
++++++[#LightGreen]_ double / 双精度
+++++++_ 8 字节
++++++[#LightGreen]_ char / 字符
+++++++_ 2 字节
++++++[#LightGreen]_ boolean / 布尔值
+++++++_ 1/8 字节
+
+++++[#MediumSpringGreen] 数据结构
+
++++++[#LightGreen] Collection
+++++++[#LightBlue] List
++++++++[#MediumSpringGreen] LinkedList
+++++++++[#MediumSpringGreen]_ 底层是链表
++++++++[#MediumSpringGreen] ArrayList
+++++++++[#MediumSpringGreen]_ 底层是数组，动态的 Object []
+++++++++[#MediumSpringGreen]_ CopyOnWriteArrayList 才能保证线程安全（适合多写少读）
+
+++++++[#LightBlue] Set
++++++++[#MediumSpringGreen] HashSet
+++++++++[#MediumSpringGreen]_ 底层是 HashMap，返回 keys
++++++++[#MediumSpringGreen] TreeSet
+
+++++++[#LightBlue] Queue
++++++++[#MediumSpringGreen] PriorityQueue
+++++++++[#MediumSpringGreen]_ 底层是堆
+
++++++[#LightGreen] map
+++++++[#MediumSpringGreen] HashMap
++++++++[#MediumSpringGreen]_ 底层是数组、链表 / 红黑树
+++++++[#MediumSpringGreen] TreeMap
+
+
++++[#Pink] 对象
+
+++++[#MediumSpringGreen] 对象拷贝
++++++[#LightGreen] 深拷贝
++++++[#LightGreen] 浅拷贝
+
+++++[#MediumSpringGreen] 对象初始化
++++++[#LightGreen] 父类实例变量和代码块
++++++[#LightGreen] 父类构造器
++++++[#LightGreen] 子类实例变量和代码块
++++++[#LightGreen] 子类构造器
++++++[#LightGreen]_ 如果类还没有被初始化，应先初始化类，再初始化实例
+
+++++[#MediumSpringGreen] 类初始化
++++++[#LightGreen] 静态的（变量，方法，代码块）会被执行
++++++[#LightGreen]_ 类加载的时候执行一次
+
+++++[#MediumSpringGreen] 引用的类型
++++++[#LightGreen]_ Strong Reference 强引用，直接引用
+++++++[#LightGreen]_ 不会被回收
++++++[#LightGreen]_ Soft Reference 软引用，间接引用
+++++++[#LightGreen]_ 抛出 OutOfMemoryError 之前回收
++++++[#LightGreen]_ Weak Reference 弱引用，间接引用
+++++++[#LightGreen]_ 直接回收
++++++[#LightGreen]_ Phantom Reference 虚引用，几乎无引用
+++++++[#LightGreen]_ 直接回收
+
+
+
+'https://juejin.cn/post/6995088510134779912
+'https://www.jianshu.com/p/562c4c883459
+'https://www.jianshu.com/p/ecc6d3ac100d
+
+
+@endmindmap

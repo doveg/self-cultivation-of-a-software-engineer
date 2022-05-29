@@ -8,9 +8,9 @@
 
 ++++[#MediumSpringGreen] 堆 / Heap
 
++++++[#GhostWhite] 对象
 +++++[#LightGreen] 字符串常量池
 ++++++_ 由于字符串不可变，字符串常量池可以节约堆空间
-+++++[#GhostWhite] 对象
 
 
 ++++[#MediumSpringGreen] 元空间 / 方法区

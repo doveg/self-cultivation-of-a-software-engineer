@@ -6,34 +6,43 @@
 
 +++[#MediumSpringGreen] 工厂模式
 ++++[#GhostWhite] 工厂类
+++++[#GhostWhite] 客户类
 
 +++[#MediumSpringGreen] 代理模式
 ++++[#GhostWhite] 代理类
-+++[#AliceBlue] 适配器模式
+++++[#GhostWhite] 被代理类
 
++++[#AliceBlue] 适配器模式
+++++[#GhostWhite] 适配类根据参数返还一个合适的实例
 
 ++[#yellow] 简单的
 
 +++[#MediumSpringGreen] 单例模式
-++++[#GhostWhite] 懒汉
+++++[#GhostWhite] 枚举
+++++[#GhostWhite] 静态内部类
 ++++[#GhostWhite] 饿汉
-++++[#LightGreen] 双重检查锁 + volatile
-
-+++[#MediumSpringGreen] 策略模式
-++++[#GhostWhite] 接口
+++++[#LightGreen] （懒汉）双重检查锁 + volatile
 
 +++[#MediumSpringGreen] 观察者
 ++++[#GhostWhite]_ 生产者
 ++++[#GhostWhite]_ 消费者
 ++++[#GhostWhite]_ 观察者
 
++++[#MediumSpringGreen] 策略模式
+++++[#GhostWhite] 接口
+++++[#GhostWhite] 将每一个算法封装到具有共同接口的独立的类
 
 ++[#yellow] 讨巧的
 
-+++[#AliceBlue] 装饰器模式
-+++[#AliceBlue] 责任链模式
 +++[#MediumSpringGreen] 原型模式
-++++[#GhostWhite] 对象复制
+++++[#GhostWhite] 对象复制、克隆方法
+
++++[#AliceBlue] 责任链模式
+++++[#GhostWhite] 每一个对象对其下家的引用而连接起来
+
++++[#AliceBlue] 装饰器模式
+++++[#GhostWhite] 扩展对象的功能
+++++[#GhostWhite] 继承关系的一个替代方案
 
 
 --[#yellow] 创建型

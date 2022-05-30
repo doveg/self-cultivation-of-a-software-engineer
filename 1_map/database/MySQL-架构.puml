@@ -13,7 +13,7 @@
 +++++[#AliceBlue] 垂直拆分
 ++++++[#Aquamarine]_ 业务细分
 
-+++++[#MediumSpringGreen] 水平拆分
++++++[#LightGreen] 水平拆分
 ++++++[#Aquamarine] hash 分 64 张表
 ++++++[#Aquamarine] 时间
 
@@ -21,6 +21,11 @@
 +++++[#AliceBlue]_ 联合查询
 +++++[#AliceBlue]_ 事务
 +++++[#AliceBlue]_ 结果合并
+
+++++[#LightBlue] 方案
++++++[#LightGreen] Sharding-JDBC
+++++++[#Aquamarine] 分片算法
+++++++[#Aquamarine] 分片策略
 
 +++[#Pink] 主从同步
 ++++[#MediumSpringGreen] 实现

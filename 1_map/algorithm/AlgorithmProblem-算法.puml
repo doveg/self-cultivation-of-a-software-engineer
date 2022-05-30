@@ -96,31 +96,31 @@
 
 +++[#Pink] 排序算法 / Sort
 
-++++[#Aquamarine] O(n^2)
+++++[#LightBlue] O(n^2)
 +++++[#MediumSpringGreen] 冒泡排序
 +++++[#MediumSpringGreen] 选择排序
 +++++[#MediumSpringGreen] 插入排序
 +++++[#AliceBlue] 希尔排序
-++++[#Aquamarine] O(n log n)
+++++[#LightBlue] O(n log n)
 +++++[#MediumSpringGreen] 归并排序
 +++++[#MediumSpringGreen] 堆排序
 +++++[#AliceBlue] 快速排序
-++++[#Aquamarine] O(n + k)
+++++[#LightBlue] O(n + k)
 +++++[#AliceBlue] 桶排序
 +++++[#AliceBlue] 基数排序
 +++++[#AliceBlue] 计数排序
 
 +++[#Pink] 查找算法 / Search
 
-++++[#Aquamarine] O(log 2n)
+++++[#LightBlue] O(log 2n)
 +++++[#MediumSpringGreen] 二分查找 / Binary Search
 +++++[#AliceBlue] 二叉查找树
 +++++[#MediumSpringGreen] 红黑树
 +++++[#AliceBlue] B 树
 +++++[#MediumSpringGreen] B+ 树
-++++[#Aquamarine] O(n)
+++++[#LightBlue] O(n)
 +++++[#AliceBlue] 顺序查找
-++++[#Aquamarine] O(1)
+++++[#LightBlue] O(1)
 +++++[#AliceBlue] 哈希查找
 
 

@@ -13,47 +13,86 @@
 ++++[#MediumSpringGreen] Consumer / 消息消费者
 ++++[#MediumSpringGreen] Topic / 主题
 ++++[#MediumSpringGreen] Message / 消息
-++++[#AliceBlue] Key / 键
-++++[#AliceBlue] Tag / 标签
-++++[#AliceBlue] Group / 分组
-++++[#AliceBlue] Queue / 队列
-++++[#AliceBlue] Offset / 下标
+++++[#AliceBlue]_ Key / 键
+++++[#AliceBlue]_ Tag / 标签
+++++[#AliceBlue]_ Group / 分组
+++++[#AliceBlue]_ Queue / 队列
+++++[#AliceBlue]_ Offset / 下标
 
 
 +++[#Pink] 特性
-++++[#MediumSpringGreen] 消息队列
 ++++[#MediumSpringGreen] 定时消息
-++++[#MediumSpringGreen] 事务消息
++++++[#GhostWhite]_ 不支持任意时间精度，支持特定的 level
 ++++[#MediumSpringGreen] 顺序消息
++++++[#GhostWhite]_ SelectMessageQueueByHash
 ++++[#MediumSpringGreen] 消息重试
-++++[#MediumSpringGreen] 流量控制
 ++++[#MediumSpringGreen] 死信队列
++++++[#GhostWhite]_ 不会立刻将有问题的消息丢弃
+++++[#MediumSpringGreen] 事务消息
+++++[#AliceBlue] 流量控制
+
 
 +++[#Pink] 提高
+
 ++++[#AliceBlue] 消息过滤
++++++[#GhostWhite]_ Broker 端
++++++[#GhostWhite]_ Consumer 端
 ++++[#MediumSpringGreen] 高可用机制
++++++[#GhostWhite]_ 主从复制，同步和异步
 ++++[#AliceBlue] 负载均衡
++++++[#GhostWhite]_ Producer 端
++++++[#GhostWhite]_ Consumer 端
 ++++[#AliceBlue] 高速读写
++++++[#GhostWhite]_ 写入方式
+++++++[#LightBlue]_ 随机写
+++++++[#LightBlue]_ 顺序写
++++++[#GhostWhite]_ 读取过程
+++++++[#LightBlue]_ 零拷贝
 ++++[#AliceBlue] 刷盘机制
++++++[#GhostWhite]_ 同步刷盘
++++++[#GhostWhite]_ 异步刷盘
+++++[#AliceBlue] 数据存储
++++++[#GhostWhite]_ 刷盘持久化，保存至 CommitLog 中
 
 
 +++[#Pink] 消息问题
-++++[#MediumSpringGreen] 消息堆积
-++++[#MediumSpringGreen] 消息丢失
-++++[#MediumSpringGreen] 消息重复
-++++[#MediumSpringGreen] 消息去重
-++++[#AliceBlue] 幂等性
-++++[#AliceBlue] 消息优先级
 
+++++[#MediumSpringGreen] 消息堆积
++++++[#GhostWhite]_ 消息堆积在内存 Buffer，丢弃策略
++++++[#GhostWhite]_ 消息堆积到持久化存储系统中，看读 IO 的吞吐量
++++++[#GhostWhite]_ 解决
+++++++[#Aquamarine]_ 将现有 consumer 都停掉
+++++++[#Aquamarine]_ 新建 topic，partition 是原来的 10 倍，临时建立原先 10 倍的 queue
+++++++[#Aquamarine]_ 写一个临时的 consumer 消费积压的数据，临时征用 10 倍的机器来部署 consumer
+++++++[#Aquamarine]_ 消费完积压数据之后，恢复原先部署的架构
+++++[#MediumSpringGreen] 消息丢失
++++++[#GhostWhite]_ 原因
+++++++[#Aquamarine]_ 发消息、消息主从同步、消费消息
++++++[#GhostWhite]_ 解决
+++++++[#Aquamarine]_ 同步发送
+++++++[#Aquamarine]_ 使用同步刷盘机制、使用同步复制机制
+++++++[#Aquamarine]_ 消费端尽量不要使用异步消费机制
+++++[#AliceBlue] 消息优先级
++++++[#GhostWhite]_ 单独配置一个优先级高的队列
 
 +++[#Pink] 消费问题
-++++[#MediumSpringGreen] 重复消费
+
+++++[#MediumSpringGreen] 消息重复
++++++[#GhostWhite]_ 至少一次，那避免不了消息重复
+++++[#MediumSpringGreen] 消息去重 / 重复消费
++++++[#GhostWhite]_ 使用业务端逻辑保持幂等性
++++++[#GhostWhite]_ 策略：保证每条消息都有唯一编号
 ++++[#MediumSpringGreen] 消费的流程
-++++[#MediumSpringGreen] 消费的可靠性
++++++[#GhostWhite]_ Producer 与 NameServer 集群中的其中一个节点（随机选择）建立长连接
++++++[#GhostWhite]_ Consumer 和提供 Topic 服务的 Master 和 Slave 建立长连接
+++++[#AliceBlue] 消费的可靠性
 
 +++[#Pink] 分布式事务
+
 ++++[#MediumSpringGreen] 半消息
++++++[#GhostWhite]_ 暂不能被 Consumer 消费的消息
 ++++[#MediumSpringGreen] 消息回查
++++++[#GhostWhite]_ Producer 端一直没有对半消息进行二次确认
 ++++[#MediumSpringGreen] 事务消息
 
 

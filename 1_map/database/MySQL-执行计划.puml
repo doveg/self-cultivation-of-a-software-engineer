@@ -8,6 +8,8 @@
 ++++[#AliceBlue] id / 自增 id
 ++++[#AliceBlue] select_type
 +++++_ SIMPLE
++++++_ primary
++++++_ union
 ++++[#AliceBlue] table
 ++++[#AliceBlue] partitions / 分区
 

@@ -5,13 +5,15 @@
 ++[#yellow] 常见
 
 +++[#Pink] 秒杀系统设计
+
 ++++[#MediumSpringGreen] 后端方面
 +++++[#LightGreen] 缓存
 ++++++[#Aquamarine] 减轻数据库压力
 +++++[#LightGreen] 分布式锁
-++++++[#Aquamarine] 防止缓存击穿
-+++++[#LightGreen] MQ 异步处理
-++++++[#Aquamarine] 下单和支付异步处理
+++++++[#Aquamarine] 防止缓存穿透
++++++[#LightGreen] 消息队列
+++++++[#Aquamarine] 异步处理下单和支付
+
 ++++[#AliceBlue] 前端方面
 +++++[#GhostWhite] 页面静态化
 ++++++[#Aquamarine] 客户端缓存

@@ -1,0 +1,40 @@
+@startmindmap
+
++[#OrangeRed] MySQL
+
+++[#yellow] 提高
+
++++[#Pink] 性能优化
+
+++++[#MediumSpringGreen] SQL 优化
+
++++++[#LightGreen] 索引
+++++++[#Aquamarine] EXPLAIN 分析查询的执行计划
++++++++[#Aquamarine]_ type
++++++++[#Aquamarine]_ Extra
++++++++[#Aquamarine]_ key
++++++++[#Aquamarine]_ rows
+
++++++[#GhostWhite] 语句
+++++++[#LightBlue]_ where 字段加索引
+++++++[#LightBlue]_ 分页的参数不应过大
+++++++[#LightBlue]_ 不要使用 select *
+
++++++[#LightGreen] 系统资源
+++++++[#Aquamarine] show profile 分析
+++++++[#Aquamarine] show 命令查询系统状态及系统变量
+
+++++[#MediumSpringGreen] 架构优化
+
++++++[#LightGreen] 读写分离
+++++++[#Aquamarine]_ 主库负责写
+++++++[#Aquamarine]_ 从库负责读
+
++++++[#LightGreen] 分库分表
+++++++[#Aquamarine]_ 垂直拆分
+++++++[#Aquamarine]_ 水平拆分
+
+
+
+
+@endmindmap

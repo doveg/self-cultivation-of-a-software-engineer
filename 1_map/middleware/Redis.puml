@@ -103,7 +103,6 @@
 ++++[#MediumSpringGreen] Durability / 持久性
 +++++[#AliceBlue]_ 开启持久化之后才支持
 
-
 +++[#Pink] 持久性
 ++++[#MediumSpringGreen] 如何实现数据不丢失的（持久化）
 +++++[#LightGreen] AOF 日志（Append Only File）
@@ -112,6 +111,13 @@
 ++++++[#AliceBlue]_ 可快速恢复，数据可能不完整
 +++++[#LightGreen] 混合持久化方式
 ++++++[#AliceBlue]_ 集成了 RDB 和 AOF 的优点
+
++++[#Pink] 一致性
+++++[#MediumSpringGreen] 集群一致性
++++++[#LightGreen] Redis 并不能保证数据的强一致性
++++++[#LightGreen] Redis 保证最终一致性
++++++[#LightGreen] 主节点挂了的时候，如果数据没有同步到备节点，是会出现数据丢失的情况
++++++[#LightGreen] 发生网络分区的时候也可能会丢数据，这个时候有个 node timeout 时间概念
 
 
 ++[#yellow] 集群
@@ -132,9 +138,12 @@
 +++++[#LightGreen]_ 主节点把快照发送给从节点，从节点写入磁盘后加载到内存
 +++++[#LightGreen]_ 主节点把缓存的新命令发给从节点，从节点同步快照中缺失的数据
 
++++[#Pink] 节点增删
 
-+++[#Pink] 分片与备份
-
+++++[#MediumSpringGreen] 哈希槽
++++++[#LightGreen] Redis 集群始终包含 16384 个哈希槽，容易添加或者删除节点
++++++[#LightGreen] 添加、删除或者改变某个节点的哈希槽数量，不影响集群的可用状态
++++++[#LightGreen] 为降低由于消息过大而造成的通信阻塞影响，Redis 的节点数限制在 1000，哈希槽数限制在 16384
 
 
 ++[#yellow] 其他

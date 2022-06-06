@@ -1,0 +1,17 @@
+@startmindmap
+
++[#OrangeRed] 1
+
+++[#yellow] 2
+
++++[#Pink] 3
+++++[#AliceBlue] 4
+++++[#MediumSpringGreen] 4
++++++[#GhostWhite] 5
++++++[#LightGreen] 5
+++++++[#LightBlue] 6
+++++++[#Aquamarine] 6
++++++++[#Aquamarine]_ 7
+
+
+@endmindmap

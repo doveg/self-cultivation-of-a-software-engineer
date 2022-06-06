@@ -30,6 +30,16 @@
 +++++[#LightGreen]_ boolean / 布尔值
 ++++++_ 1/8 字节
 
+++++[#MediumSpringGreen] 数组
+
++++++[#LightGreen] 原理
+++++++[#LightBlue]_ 一种特殊类型，不同于普通对象。不是类，没有对应的 Class 文件
+++++++[#LightBlue]_ 由 JVM 从元素类型合成出来的
+
++++++[#LightGreen] 实现
+++++++[#LightBlue]_ 编译器识别出对数组类型的 length 的访问，生成对应的字节码
+++++++[#LightBlue]_ 获取数组长度是 JVM 用 arraylength 这个专用字节码指令
+
 ++++[#MediumSpringGreen] 数据结构
 
 +++++[#LightGreen] Collection

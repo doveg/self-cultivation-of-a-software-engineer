@@ -62,12 +62,12 @@
 +++++[#GhostWhite]_ 消息堆积到持久化存储系统中，看读 IO 的吞吐量
 +++++[#GhostWhite]_ 解决
 ++++++[#Aquamarine]_ 将现有 consumer 都停掉
-++++++[#Aquamarine]_ 新建 topic，partition 是原来的 10 倍，临时建立原先 10 倍的 queue
-++++++[#Aquamarine]_ 写一个临时的 consumer 消费积压的数据，临时征用 10 倍的机器来部署 consumer
-++++++[#Aquamarine]_ 消费完积压数据之后，恢复原先部署的架构
+++++++[#Aquamarine]_ 新建 topic，原先 10 倍的 partition，临时建立原先 10 倍的 queue
+++++++[#Aquamarine]_ 写一个临时的 consumer 消费积压的数据，临时征用 10 倍的机器部署 consumer
+++++++[#Aquamarine]_ 消费积压数据之后，恢复原先部署的架构
 ++++[#MediumSpringGreen] 消息丢失
 +++++[#GhostWhite]_ 原因
-++++++[#Aquamarine]_ 发消息、消息主从同步、消费消息
+++++++[#Aquamarine]_ 消息发送、消息主从同步、消费消息
 +++++[#GhostWhite]_ 解决
 ++++++[#Aquamarine]_ 同步发送
 ++++++[#Aquamarine]_ 使用同步刷盘机制、使用同步复制机制
@@ -83,7 +83,7 @@
 +++++[#GhostWhite]_ 使用业务端逻辑保持幂等性
 +++++[#GhostWhite]_ 策略：保证每条消息都有唯一编号
 ++++[#MediumSpringGreen] 消费的流程
-+++++[#GhostWhite]_ Producer 与 NameServer 集群中的其中一个节点（随机选择）建立长连接
++++++[#GhostWhite]_ Producer 与 NameServer 集群中的任一个节点（随机选择）建立长连接
 +++++[#GhostWhite]_ Consumer 和提供 Topic 服务的 Master 和 Slave 建立长连接
 ++++[#AliceBlue] 消费的可靠性
 

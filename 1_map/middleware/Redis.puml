@@ -56,7 +56,7 @@
 +++++[#MediumSpringGreen]_ 内存没有磁盘 IO 开销
 +++++[#MediumSpringGreen]_ 单线程，没有锁竞争开销，不需要考虑线程安全问题
 +++++[#MediumSpringGreen]_ 数据结构的底层优化，比如编码、跳表、压缩表
-+++++[#MediumSpringGreen]_ IO 多路复用，实现零拷贝
++++++[#MediumSpringGreen]_ 零拷贝：IO 多路复用
 
 ++++[#AliceBlue] 为什么使用单线程
 +++++[#AliceBlue]_ 单线程，没有锁竞争开销，不需要考虑线程安全问题

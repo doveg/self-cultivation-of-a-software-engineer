@@ -43,7 +43,7 @@
 ++++[#AliceBlue] Server
 +++++[#GhostWhite] 连接器
 +++++[#GhostWhite] 查询缓存
-+++++[#GhostWhite] 分析器
++++++[#GhostWhite] 解析器
 +++++[#GhostWhite] 优化器
 +++++[#GhostWhite] 执行器
 ++++[#AliceBlue] 存储引擎

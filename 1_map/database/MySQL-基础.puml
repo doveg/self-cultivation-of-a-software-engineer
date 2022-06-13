@@ -5,9 +5,9 @@
 ++[#yellow] 基础
 
 +++[#Pink] 三大范式
-++++[#MediumSpringGreen] 字段都具备原子性。表需要有一个主键。
-++++[#MediumSpringGreen] 非主键字段完全依赖主键，不能产生部分依赖。
-++++[#MediumSpringGreen] 非主键字段不能依赖于其他非主键字段，非主键字段和主键之间不能产生传递依赖。
+++++[#MediumSpringGreen] 字段都具备原子性；表需要有一个主键
+++++[#MediumSpringGreen] 非主键字段完全依赖主键，不能产生部分依赖
+++++[#MediumSpringGreen] 非主键字段不能依赖于其他非主键字段，非主键字段和主键之间不能产生传递依赖
 ++++[#AliceBlue] 通过增加冗余或重复的数据来提高数据库的读性能
 
 +++[#Pink] 语句执行流程

@@ -5,6 +5,7 @@
 ++[#yellow] 两剑客
 
 +++[#Pink] AOP
+
 ++++[#AliceBlue] 基本概念
 +++++[#GhostWhite] 连接点
 +++++[#GhostWhite] 切点
@@ -14,8 +15,6 @@
 +++++[#GhostWhite] AOP 代理
 +++++[#GhostWhite] 织入
 +++++[#GhostWhite] 切面
-'++++++[#Aquamarine] 6
-'+++++++[#Aquamarine]_ 7
 
 ++++[#AliceBlue] 代理方式
 +++++[#GhostWhite] JDK 动态代理
@@ -24,15 +23,15 @@
 
 +++[#Pink] IoC
 
-++++[#AliceBlue] BeanDefinition
-+++++[#GhostWhite] 是 IoC 容器内部的数据结构
-+++++[#GhostWhite] 是 POJO 对象在 IoC 容器中的抽象
-
 ++++[#AliceBlue] 容器的初始化
 +++++[#GhostWhite] BeanDefinition 定位
 +++++[#GhostWhite] BeanDefinition 载入
 +++++[#GhostWhite] BeanDefinition 注册
 ++++++[#LightGreen]_ 将 BeanDefinition 注入到 HashMap 中
+
+++++[#MediumSpringGreen] BeanDefinition
++++++[#GhostWhite] 是 IoC 容器内部的数据结构
++++++[#GhostWhite] 是 POJO 对象在 IoC 容器中的抽象
 
 ++++[#MediumSpringGreen] BeanFactory
 +++++[#LightGreen] Bean 容器的底层接口
@@ -46,7 +45,7 @@
 ++++[#MediumSpringGreen] ApplicationContext
 +++++[#LightGreen] Spring 的中央接口
 +++++[#LightGreen] 继承了 BeanFactory 接口
-+++++[#LightGreen] 器启动时，一次性创建所有的 Bean
++++++[#LightGreen] 容器启动时，一次性创建所有的 Bean
 
 
 ++[#yellow] 实现

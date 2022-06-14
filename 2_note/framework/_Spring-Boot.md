@@ -63,10 +63,6 @@ spring-boot-starter-parent 主要有如下作用：
         例如： java 如关闭数据源自动配置功能： @SpringBootApplication (exclude = { DataSourceAutoConfiguration.class})。 
     @ComponentScan：Spring 组件扫描。
 
-###
-
-###
-
 ---
 
 ## 注解

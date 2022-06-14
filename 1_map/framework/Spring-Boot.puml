@@ -1,0 +1,14 @@
+@startmindmap
+
++[#OrangeRed] Spring-Boot
+
+++[#yellow] 基础
+
++++[#Pink] 注解
+++++[#AliceBlue] @Transaction 注解的失效场景
++++++[#LightGreen] 用在非 public 的方法上
++++++[#LightGreen] 被同一个类中方法调用
++++++[#LightGreen] 数据库引擎不支持事务
+
+
+@endmindmap

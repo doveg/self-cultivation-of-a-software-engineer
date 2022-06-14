@@ -113,7 +113,7 @@
 ++++++[#AliceBlue]_ 集成了 RDB 和 AOF 的优点
 
 +++[#Pink] 一致性
-++++[#MediumSpringGreen] 集群一致性
+++++[#MediumSpringGreen] Gossip 算法
 +++++[#LightGreen] Redis 并不能保证数据的强一致性
 +++++[#LightGreen] Redis 保证最终一致性
 +++++[#LightGreen] 主节点挂了的时候，如果数据没有同步到备节点，是会出现数据丢失的情况

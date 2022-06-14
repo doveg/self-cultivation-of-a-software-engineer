@@ -8,12 +8,17 @@
 
 ++++[#MediumSpringGreen] SQL 优化
 
-+++++[#LightGreen] 索引
++++++[#LightGreen] 执行计划
 ++++++[#Aquamarine] EXPLAIN 分析查询的执行计划
 +++++++[#Aquamarine]_ type
 +++++++[#Aquamarine]_ Extra
 +++++++[#Aquamarine]_ key
 +++++++[#Aquamarine]_ rows
+
++++++[#LightGreen] 建索引
+++++++[#Aquamarine] 经常用于 where 查询的字段要建索引
+++++++[#Aquamarine] 经常用于 join on 的字段要建索引
+++++++[#Aquamarine] 经常用于 order by 的字段要建索引
 
 +++++[#GhostWhite] 语句
 ++++++[#LightBlue]_ where 字段加索引
@@ -33,8 +38,6 @@
 +++++[#LightGreen] 分库分表
 ++++++[#Aquamarine]_ 垂直拆分
 ++++++[#Aquamarine]_ 水平拆分
-
-
 
 
 @endmindmap

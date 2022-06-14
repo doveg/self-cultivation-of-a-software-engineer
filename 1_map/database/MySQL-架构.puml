@@ -7,7 +7,7 @@
 +++[#Pink] 分库分表
 ++++[#LightBlue] 分库
 +++++[#AliceBlue] 垂直拆分
-++++++[#Aquamarine]_ 业务细分
+++++++[#Aquamarine]_ 业务细分、领域拆分
 
 ++++[#LightBlue] 分表
 +++++[#AliceBlue] 垂直拆分

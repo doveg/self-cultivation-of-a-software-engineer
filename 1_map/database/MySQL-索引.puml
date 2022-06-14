@@ -1,0 +1,81 @@
+@startmindmap
+
++[#OrangeRed] MySQL
+
+++[#yellow] 索引
+
++++[#Pink] 基础
+
+++++[#AliceBlue] 索引的分类
++++++[#GhostWhite]_ 主键索引 / 主索引
++++++[#GhostWhite]_ 普通索引
++++++[#GhostWhite]_ 唯一索引
++++++[#GhostWhite]_ 全文索引
++++++[#GhostWhite]_ 联合索引
++++++[#GhostWhite]_ 前缀索引
+
+++++[#MediumSpringGreen] 联合索引 / 组合索引 / 复合索引
++++++[#LightGreen] 最左前缀原则
++++++[#LightGreen] 覆盖索引
+
+++++[#MediumSpringGreen] 索引下推
++++++[#LightGreen]_ 减少回表次数
++++++[#LightGreen]_ index_condition_pushdown 不关
++++++[#LightGreen]_ 查询条件中的字段必须都在二级索引中
+
+++++[#MediumSpringGreen] 聚簇索引、非聚簇索引的区别
+
+++++[#MediumSpringGreen] 主键索引、非主键索引的区别
+
+
++++[#Pink] 提高
+
+++++[#MediumSpringGreen] 索引优化
++++++[#LightGreen]_ 选择唯一性索引
++++++[#LightGreen]_ 为经常需要排序、分组和联合操作的字段建立索引
++++++[#LightGreen]_ 为常作为查询条件的字段建立索引
++++++[#LightGreen]_ 为常作为连接字段的字段建立索引
++++++[#LightGreen]_ 建立组合索引
++++++[#LightGreen]_ 限制索引的数目
++++++[#LightGreen]_ 尽量使用前缀来索引
++++++[#LightGreen]_ 删除不再使用或者很少使用的索引
+
+++++[#MediumSpringGreen] 索引的设计原则
++++++[#LightGreen]_ 索引列的区分度越高越好
++++++[#LightGreen]_ 尽量使用短索引
++++++[#LightGreen]_ 索引不是越多越好
++++++[#LightGreen]_ 利用联合索引和最左前缀原则
+
+
++++[#Pink] 索引数据结构
+
+++++[#AliceBlue] B+ Tree 索引
++++++[#GhostWhite] 通过顺序访问指针来提高区间查询的性能
+
+++++[#MediumSpringGreen] B+ Tree 特点
++++++[#LightGreen] 扫表能力更强：叶子节点形成了链表
++++++[#LightGreen] 效率更加稳定：key 和 数据都存在叶子节点
++++++[#LightGreen] IO 次数更少：节点不存数据，所以可以存储更多的元素，查询的 IO 次数更少
++++++[#LightGreen] 排序能力更强
+
+++++[#MediumSpringGreen] B 树、B+ 树的区别
++++++[#LightGreen] B 树的叶子节点是不相连的。B+ 树的叶子节点是通过链表串联的
++++++[#LightGreen] B 树因为节点存的是主键的地址，查找的过程过，在非叶子节点查到匹配的数据，不会继续查子节点。B+ 树的非叶子节点不存数据，只存值。
++++++[#LightGreen] B 树的叶子节点存的全是地址。B+ 树的叶子节点存有字段和值，叶子节点的 key 还存了数据的物理地址。
+
+
++++[#Pink] 存储引擎
+
+++++[#AliceBlue] 常见的存储引擎
++++++[#LightGreen] InnoDB
++++++[#LightGreen] MyISAM
+
+++++[#AliceBlue] MyISAM 和 InnoDB 的区别
++++++[#GhostWhite]_ 是否支持行级锁
++++++[#GhostWhite]_ 是否支持事务和崩溃后的安全恢复
++++++[#GhostWhite]_ 是否支持外键
++++++[#GhostWhite]_ 是否支持 MVCC
++++++[#GhostWhite]_ 是否支持聚集索引
+
+
+@endmindmap

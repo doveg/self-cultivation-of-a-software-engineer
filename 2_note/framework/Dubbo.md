@@ -14,14 +14,14 @@
 
     1、Webservice：效率不高基于 soap 协议。项目中不推荐使用。
     2、Restful 形式的服务：http+json。如果服务太多，服务之间调用关系混乱，需要治疗服务。
-    3、Dubbo。使用 rpc 协议进行远程调用，直接使用 socket (TCP 长连接)通信。
+    3、Dubbo。使用 rpc 协议进行远程调用，直接使用 socket（TCP 长连接)通信。
 
 使用 Dubbo 进行通信
 
-    1) 服务提供者；Provider
-    2) 服务消费者；Consumer
-    3) 注册中心；Registry
-    4) 监控中心；Monitor
+    1）服务提供者；Provider
+    2）服务消费者；Consumer
+    3）注册中心；Registry
+    4）监控中心；Monitor
 
 ### Dubbo 的核心功能
 
@@ -39,11 +39,11 @@ Registry：服务注册，基于注册中心目录服务，使服务消费方能
 
 流程说明：
 
-    Provider (提供者) 绑定指定端口并启动服务
+    Provider（提供者）绑定指定端口并启动服务
     提供者连接注册中心，并将本机 IP、端口、应用信息和提供服务信息发送至注册中心存储
-    Consumer (消费者），连接注册中心 ，并发送应用信息、所求服务信息至注册中心
-    注册中心根据 消费 者所求服务信息匹配对应的提供者列表发送至 Consumer 应用缓存。
-    Consumer 在发起远程调用时基于缓存的消费者列表择其一发起调用。
+    Consumer（消费者），连接注册中心 ，并发送应用信息、所求服务信息至注册中心
+    注册中心根据消费者所求服务信息匹配对应的提供者列表发送至 Consumer 应用缓存
+    Consumer 在发起远程调用时基于缓存的消费者列表择其一发起调用
     Provider 状态变更会实时通知注册中心、在由注册中心实时推送至 Consumer
 
 设计的原因：
@@ -66,7 +66,7 @@ Registry：服务注册，基于注册中心目录服务，使服务消费方能
     远程调用层（Protocol）：封将 RPC 调用，以 Invocation 和 Result 为中心，扩展接口为 Protocol、Invoker 和 Exporter。
     信息交换层（Exchange）：封装请求响应模式，同步转异步，以 Request 和 Response 为中心。
     网络传输层（Transport）：抽象 mina 和 netty 为统一接口，以 Message 为中心。
-    同步序列化 (serialize)
+    同步序列化（serialize)
 
 ### Dubbo 集群的负载均衡策略
 
@@ -84,7 +84,7 @@ Dubbo 提供了常见的集群策略实现，并预扩展点予以自行实现�
     Failsafe Cluster：失败安全，出现异常时，直接忽略。通常用于写入审计日志等操作。
     Failback Cluster：失败自动恢复，后台记录失败请求，定时重发。通常用于消息通知操作。
     Forking Cluster：并行调用多个服务器，只要一个成功即返回。通常用于实时性要求较高的读操作，但需要浪费更多服务资源。可通过 forks=“2” 来设置最大并行数。
-    Broadcast Cluster：广播调用所有提供者，逐个调用，任意一台报错则报错 。通常用于通知所有提供者更新缓存或日志等本地资源信息。
+    Broadcast Cluster：广播调用所有提供者，逐个调用，任意一台报错则报错。通常用于通知所有提供者更新缓存或日志等本地资源信息。
 
 ### Dubbo Monitor 的实现原理
 
@@ -99,7 +99,7 @@ provider 的 fifilter 链中都会 Monitorfifilter。
 
 ### Dubbo 支持哪些序列化方式
 
-默认使用 Hessian 序列化，还有 Duddo、FastJson、Java 自带序列化。
+默认使用 Hessian 序列化，还有 Dubbo、FastJson、Java 自带序列化。
 
 ### Dubbo 的安全机制
 
@@ -107,14 +107,20 @@ Dubbo 通过 Token 令牌防止用户绕过注册中心直连，然后在注册�
 
 ### Dubbo 通信协议为什么要消费者比提供者个数多
 
-dubbo 协议采用单一长连接，假设网络为千兆网卡 (1024Mbit=128MByte)，根据测试经验数据每条连接最多只能压满 7MByte (不同的环境可能不一样，供参考)，理论上 1
-个服务提供者需要 20 个服务消费者才能压满网卡。
+Dubbo 协议采用单一长连接，假设网络为千兆网卡（1024Mbit=128MByte)，根据测试经验数据每条连接最多只能压满 7MByte（不同的环境可能不一样，供参考)，
+
+理论上 1 个服务提供者需要 20 个服务消费者才能压满网卡。
 
 ### Dubbo 通信协议为什么不能传大包
 
-dubbo 协议采用单一长连接，如果每次请求的数据包大小为 500KByte，假设网络为千兆网卡 (1024Mbit=128MByte)，每条连接最大 7MByte (不同的环境可能不一样，供参考)
-，单个服务提供者的 TPS (每秒处理事务数) 最大为：128MByte / 500KByte = 262。单个消费者调用单个服务提供者的 TPS (每秒处理事务数) 最大为：7MByte /
-500KByte = 14。如果能接受，可以考虑使用，否则网络将成为瓶颈。
+Dubbo 协议采用单一长连接，如果每次请求的数据包大小为 500KByte，
+
+假设网络为千兆网卡（1024Mbit=128MByte)，每条连接最大 7MByte（不同的环境可能不一样，供参考)
+，单个服务提供者的 TPS（每秒处理事务数）最大为：128MByte / 500KByte = 262。
+
+单个消费者调用单个服务提供者的 TPS（每秒处理事务数）最大为：7MByte / 500KByte = 14。
+
+如果能接受，可以考虑使用，否则网络将成为瓶颈。
 
 ### Dubbo 通信协议为什么采用异步单一长连接
 
@@ -180,6 +186,7 @@ Java SPI 约定在 Classpath 下的 META-INF/services/ 目录里创建一个以�
 
 参考链接：
 
+- [Dubbo 协议及序列化](https://www.cnblogs.com/jameszheng/p/10271341.html)
 - []()
 - []()
 - []()

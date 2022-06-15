@@ -1,0 +1,33 @@
+@startmindmap
+
++[#OrangeRed] MySQL
+
+++[#yellow] 日志
+
++++[#Pink] 基础
+
+++++[#AliceBlue] 日志种类
++++++[#GhostWhite] binlog
++++++[#LightGreen] redo log
++++++[#LightGreen] undo log
++++++[#GhostWhite] error log
++++++[#GhostWhite] 查询日志
++++++[#GhostWhite] 慢查询日志
+
+++++[#MediumSpringGreen] redo log 与 binlog 的区别
++++++[#LightGreen] 作用不同
+++++++[#Aquamarine] redo log 是用于 crash recovery 的，保证 MySQL 宕机也不会影响持久性
+++++++[#Aquamarine] binlog 是用于 point-in-time recovery 的，基于时间点恢复数据
++++++[#LightGreen] 层次不同
+++++++[#Aquamarine] redo log 是 InnoDB 存储引擎实现的
+++++++[#Aquamarine] binlog 是 MySQL 的服务器层
++++++[#LightGreen] 内容不同
+++++++[#Aquamarine] redo log 是物理日志，内容基于磁盘的 Page
+++++++[#Aquamarine]_ binlog 的内容是二进制的
++++++[#LightGreen] 写入时机不同
+++++++[#Aquamarine]_ 事务提交时会调用 fsync 对 redo log 进行刷盘
+++++++[#Aquamarine]_ master thread 每秒刷盘一次 redo log 等
+++++++[#Aquamarine] binlog 在事务提交时写入
+
+
+@endmindmap

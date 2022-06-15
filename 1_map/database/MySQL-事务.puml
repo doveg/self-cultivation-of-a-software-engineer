@@ -1,0 +1,71 @@
+@startmindmap
+
++[#OrangeRed] MySQL
+
+++[#yellow] 事务
+
++++[#Pink] ACID
+
+++++[#MediumSpringGreen] 原子性 / Atomicity
++++++[#LightGreen]_ 要么全部执行成功，要么全部不执行
+++++[#MediumSpringGreen] 一致性 / Consistency
++++++[#LightGreen]_ 事务执行的前后都是合法的数据状态
+++++[#MediumSpringGreen] 隔离性 / Isolation
++++++[#LightGreen]_ 并发执行的各个事务之间不能互相干扰
+++++[#MediumSpringGreen] 持久性 / Durability
++++++[#LightGreen]_ 对数据库的改变就应该是永久性的
+
+
++++[#Pink] 隔离级别
+
+++++[#MediumSpringGreen] 四种级别
++++++[#LightGreen] 读未提交 / Read Uncommitted
++++++[#LightGreen] 读已提交 / Read Committed（RC）
++++++[#LightGreen] 可重复读 / Repeated Read（RR）
++++++[#LightGreen] 串行化 / Serializable
+
+++++[#MediumSpringGreen] 三剑客
++++++[#LightGreen] 脏读
++++++[#LightGreen] 不可重复读
++++++[#LightGreen] 幻读
+
+++++++[#LightBlue] 原因
++++++++[#Aquamarine]_ 快照读和当前读一起使用
+
+++++++[#LightBlue] 解决
++++++++[#Aquamarine]_ 临键锁 / Next-Key Lock（行锁加间隙锁）
+
+++++[#MediumSpringGreen] 快照读和当前读
++++++[#GhostWhite] 快照读：读取开启事务时的版本数据
++++++[#LightGreen] 当前读：读取数据库当前版本数据
+++++++[#Aquamarine] 共享锁读取的查询语句：select...lock in share mode
+++++++[#Aquamarine]_ 排它锁读取的查询语句：select...for update
+
+
++++[#Pink] MVCC
+
+++++[#AliceBlue] 为什么用 MVCC
++++++[#LightGreen] MVCC / Multi-version concurrency control / 多版本并发控制
++++++[#LightGreen] 每行记录都需要额外的存储空间，更多的行检查工作以及一些额外的维护工作，但可以减少锁的使用
++++++[#LightGreen] 提升并发性能，对于高并发场景，MVCC 比行级锁开销更小
+
+++++[#MediumSpringGreen] 实现原理
++++++[#LightGreen] 同一份数据保留多版本的一种方式，进而实现并发控制
++++++[#LightGreen] 通过 read view 和版本链实现的，版本链保存有历史版本记录
++++++[#LightGreen] 每开启一个新事务，事务的版本号就会递增
+
+
++++[#Pink] 事务特性的实现
+
+++++[#MediumSpringGreen] MySQL 如何实现原子性
++++++[#LightGreen] 回滚日志 / undo log
+++++[#MediumSpringGreen] MySQL 如何实现持久性
++++++[#LightGreen] redo log
+++++[#MediumSpringGreen] MySQL 如何实现隔离性
++++++[#LightGreen] 锁机制
+++++[#MediumSpringGreen] MySQL 如何实现一致性
++++++[#LightGreen]_ 数据库本身提供保障
++++++[#LightGreen]_ 应用层面进行保障
+
+
+@endmindmap

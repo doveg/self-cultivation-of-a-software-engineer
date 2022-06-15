@@ -1,0 +1,48 @@
+@startmindmap
+
++[#OrangeRed] MySQL
+
+++[#yellow] 锁
+
++++[#Pink] 基础
+
+++++[#AliceBlue] 作用范围分类
++++++[#GhostWhite] 全局锁
++++++[#GhostWhite] 表锁
++++++[#GhostWhite] 行锁
+
+++++[#AliceBlue] 模式分类
++++++[#GhostWhite] 读锁 / 共享锁
++++++[#GhostWhite] 写锁 / 排他锁
++++++[#LightGreen] 共享锁和排他锁
+++++++[#LightBlue] lock in share mode
++++++++[#Aquamarine]_ 多个事务同时更新同一个表单时很容易造成死锁
+++++++[#LightBlue] for update
+
+++++[#MediumSpringGreen] InnoDB 中的行锁
++++++[#LightGreen] Record Lock / 记录锁
+++++++[#Aquamarine] 单行记录上的锁，作用于索引记录
++++++[#LightGreen] Gap Lock / 间隙锁
+++++++[#Aquamarine] 锁定一个范围，但不包括记录本身
++++++[#LightGreen] Next-Key Lock / 临键锁
+++++++[#Aquamarine] 不仅会锁定记录本身，还会锁定一个范围
++++++[#LightGreen] Insert Intention / 插入意向锁
+++++++[#Aquamarine] 多个事务在相同的索引间隙插入时，如果不是插入间隙中相同的位置就不需要互相等待
+
+
++++[#Pink] 常见问题
+
+++++[#MediumSpringGreen] 间隙锁产生的条件
++++++[#LightGreen] 只有在事务隔离级别 RR 中才会产生
++++++[#LightGreen] 唯一索引只有锁住多条记录或者一条不存在的记录的时候，才会产生
++++++[#LightGreen] 普通索引不管是锁住单条，还是多条记录，都会产生间隙锁
+
+++++[#MediumSpringGreen] 临键锁产生的条件
++++++[#LightGreen] 为了避免幻读（Phantom Read），如果把事务的隔离级别降级为RC，临键锁则也会失效
+
+++++[#MediumSpringGreen] 悲观锁和乐观锁
++++++[#LightGreen] 悲观锁：读取数据时给加锁
++++++[#LightGreen] 乐观锁：大多是基于数据版本（Version）记录机制实现
+
+
+@endmindmap

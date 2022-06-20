@@ -1,0 +1,75 @@
+@startmindmap
+
++[#OrangeRed] 算法题
+
+++[#yellow] 算法
+
++++[#Pink] 题目分类
+
+++++[#MediumSpringGreen] 动态规划
++++++[#LightGreen] 斐波拉契数列
++++++[#LightGreen] 背包问题
+++++++[#Aquamarine] HJ16_购物单
++++++[#LightGreen] 计数问题
+++++++[#Aquamarine] HJ52_计算字符串的编辑距离
++++++[#LightGreen] 最长递增子序列
+
+++++[#MediumSpringGreen] 树
++++++[#LightGreen] 二叉树
++++++[#LightGreen] 红黑树
+
+++++[#MediumSpringGreen] 回溯
+
+++++[#MediumSpringGreen] 双指针
+
+++++[#MediumSpringGreen] 快慢指针
+
+++++[#MediumSpringGreen] 滑动窗口
+
+++++[#MediumSpringGreen] 哈希
++++++[#LightGreen] 去重
++++++[#LightGreen] 去重加排序
++++++[#LightGreen] 计数
+++++++[#Aquamarine] BM51_数组中出现次数超过一半的数字
++++++[#LightGreen] 记忆化
+++++++[#Aquamarine] BM50_两数之和
+
+++++[#MediumSpringGreen] 贪心
++++++[#LightGreen] HJ45_名字的漂亮度
++++++[#LightGreen] HJ86_求最大连续bit数
+
+++++[#MediumSpringGreen] 深度优先
++++++[#LightGreen] 岛屿数量问题
+
+++++[#MediumSpringGreen] 并查集
+++++[#MediumSpringGreen] 进制
++++++[#LightGreen] HJ5_进制转换
++++++[#LightGreen] HJ15_求int型正整数在内存中存储时1的个数
+
+++++[#MediumSpringGreen] 数学
++++++[#LightGreen]_ HJ6_质数因子
++++++[#LightGreen]_ HJ22_汽水瓶
++++++[#LightGreen]_ HJ107_求解立方根
++++++[#LightGreen]_ HJ108_求最小公倍数
++++++[#LightGreen]_ JZ69_跳台阶
++++++[#LightGreen]_ JZ71_跳台阶扩展问题
+
+
++++[#Pink] 题目分类
+
+++++[#MediumSpringGreen] 字符串
++++++[#LightGreen]_ HJ20_密码验证合格程序
++++++[#LightGreen]_ HJ30_字符串合并处理
++++++[#LightGreen]_ HJ88_扑克牌大小
++++++[#LightGreen]_ HJ90_合法IP
+
+++++[#MediumSpringGreen] 链表
++++++[#LightGreen] HJ48_从单向链表中删除指定值的节点
++++++[#LightGreen] HJ51_输出单向链表中倒数第k个结点
+
+++++[#MediumSpringGreen] 栈
++++++[#LightGreen] NC76_用两个栈实现队列
+
+
+
+@endmindmap

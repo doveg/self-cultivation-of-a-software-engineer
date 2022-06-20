@@ -47,6 +47,13 @@
 
 ## Introduction of context
 
+- [map](https://github.com/bourneo/self-cultivation-of-a-software-engineer/blob/master/2_note/java)
+    - Mindmap for understand the key points of essential development skills
+
+Mindmap example:
+
+![Mindmap example](7_image/algorithm/AlgorithmProblem-算法.png)
+
 - [note](https://github.com/bourneo/self-cultivation-of-a-software-engineer/blob/master/2_note/java)
     - The memo in finding the solution and solving the problem in study or work
 

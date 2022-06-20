@@ -6,13 +6,14 @@
 
 +++[#Pink] 3
 
-++++[#AliceBlue] 4
 ++++[#MediumSpringGreen] 4
-+++++[#GhostWhite] 5
+++++[#AliceBlue] 4
 +++++[#LightGreen] 5
-++++++[#PowderBlue] 6
++++++[#GhostWhite] 5
 ++++++[#Aquamarine] 6
 +++++++[#Aquamarine]_ 7
+++++++[#PowderBlue] 6
++++++++[#PowderBlue]_ 7
 
 
 @endmindmap

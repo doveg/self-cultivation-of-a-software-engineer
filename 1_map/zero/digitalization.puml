@@ -1,0 +1,59 @@
+@startmindmap
+
++[#OrangeRed] 数字化
+
+++[#yellow] 业务
+
++++[#Pink] 数据
+
+++++[#LightYellow] 基本数据
++++++[#LightGreen] 国家
++++++[#LightGreen] 地区
+
+++++[#LightYellow] 行业数据
++++++[#LightGreen] 通信行业数据
++++++[#LightGreen] 互联网行业数据
+
+++++[#MediumSpringGreen] 产品数据
++++++[#GhostWhite] 可以用来交付的方案
+
+
++++[#Pink] 应用
+
+++++[#MediumSpringGreen] 使用型
++++++[#GhostWhite] 数据引用
+
+++++[#MediumSpringGreen] 报告型
++++++[#GhostWhite] 数据报告
+
+
++++[#Pink] 解决方案
+
+++++[#LightYellow] 大型项目
+++++[#LightYellow] 成功案例
++++++[#GhostWhite] 可以用来交付的方案
+
+++++[#MediumSpringGreen] 内容
++++++[#GhostWhite] 多级菜单
++++++[#GhostWhite] 应用引用
++++++[#GhostWhite] 多种数据格式：地图、视频、图片、胶片、文档、原始数据库文件
+
+
+++[#yellow] 技术
+
++++[#Pink] 架构
+
+++++[#LightYellow] Nginx
+++++[#MediumSpringGreen] Zookeeper
+++++[#MediumSpringGreen] Spring Cloud
+++++[#MediumSpringGreen] Dubbo
+++++[#MediumSpringGreen] RocketMQ
+++++[#MediumSpringGreen] 数据库
++++++[#LightGreen] Oracle
++++++[#LightGreen] MySQL
+++++[#MediumSpringGreen] 缓存
++++++[#LightGreen] ElasticSearch
++++++[#LightGreen] Redis
+
+
+@endmindmap

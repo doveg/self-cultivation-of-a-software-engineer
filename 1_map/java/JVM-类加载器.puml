@@ -5,33 +5,46 @@
 ++[#yellow] ClassLoader / 类加载器
 
 ***[#Pink]: 类的生命周期（五）
-/ 执行字节码的过程
-/ 类加载的过程;
+/ 类加载的过程（三）;
 ++++[#AliceBlue] 加载
++++++[#Aquamarine]_ 通过一个类的全限定名来获取定义此类的二进制字节流
++++++[#Aquamarine]_ 将这个字节流所代表的静态存储结构转化为方法区的运行时数据结构
+
 ++++[#MediumSpringGreen] 链接（三）
-+++++[#LightGreen] 验证
-++++++_ 字节码验证，格式和行为合法
++++++[#LightGreen] 验证（四）
+++++++[#Aquamarine]_ 文件格式验证
+++++++[#Aquamarine]_ 元数据验证
+++++++[#Aquamarine]_ 字节码验证
+++++++[#Aquamarine]_ 符号引用验证
+
 +++++[#LightGreen] 准备
-++++++_ 类装备，准备必须的数据结构
+++++++[#Aquamarine]_ 为类中的变量（即静态变量，被 static 修饰的变量）分配内存，并设置类变量初始值
+
 +++++[#LightGreen] 解析
-++++++_ 装入器装入类中引用的其他类
+++++++[#Aquamarine]_ JVM 将常量池内的符号引用替换为直接引用的过程
+
 ++++[#MediumSpringGreen] 初始化
++++++[#Aquamarine]_ 初始化阶段就是执行类构造器<clinit>()方法的过程
++++++[#Aquamarine]_ 根据程序员通过程序编码制定的主观计划去初始化类变量和其他资源
 +++++[#LightGreen] 初始化的顺序
+++++++[#Aquamarine]_ 静态的（变量，方法，代码块）会被执行
+
 ++++[#AliceBlue] 使用
 ++++[#AliceBlue] 卸载
 
 
 +++[#Pink]  加载器的等级（三）
-++++[#MediumSpringGreen] BootStrap ClassLoader / 启动类加载器
+++++[#MediumSpringGreen] 启动类加载器 / BootStrap ClassLoader
 +++++[#AliceBlue]_ 负责加载 JDK 中的核心类库
-++++[#MediumSpringGreen] Extension ClassLoader / 扩展类加载器
+++++[#MediumSpringGreen] 扩展类加载器 / Extension ClassLoader
 +++++[#AliceBlue]_ 负责加载 Java 的扩展类库
-++++[#MediumSpringGreen] App ClassLoader / 系统类加载器
+++++[#MediumSpringGreen] 应用程序类加载器 / App ClassLoader
 +++++[#AliceBlue]_ 负责加载 classpath 目录下的所有 jar 和 class 文件
 
 
 +++[#Pink]  类加载的原理
 ++++[#MediumSpringGreen] 双亲委派机制
++++++[#AliceBlue]_ Java 中的类随着它的类加载器一起，具备了一种带有优先级的层次关系
 +++++[#AliceBlue]_ 可以避免重复加载
 +++++[#AliceBlue]_ 可以防止核心 class 被篡改
 

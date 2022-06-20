@@ -1,0 +1,22 @@
+@startmindmap
+
++[#OrangeRed] JVM
+
+++[#yellow] 字节码
+
++++[#Pink] 基础
+
+++++[#MediumSpringGreen] Class 文件结构
+++++[#MediumSpringGreen] 魔数
+++++[#MediumSpringGreen] 主次版本号
+++++[#MediumSpringGreen] 常量池计数器
+++++[#MediumSpringGreen] 常量池
+++++[#MediumSpringGreen] 字段名和方法名
+++++[#MediumSpringGreen] 访问标志作用
+++++[#MediumSpringGreen] 类索引，父类索引和接口索引集合的作用
+++++[#MediumSpringGreen] 字段表
+++++[#MediumSpringGreen] 属性表
+
+
+
+@endmindmap

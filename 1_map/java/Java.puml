@@ -34,7 +34,7 @@
 
 +++++[#LightGreen] 原理
 ++++++[#LightBlue]_ 一种特殊类型，不同于普通对象。不是类，没有对应的 Class 文件
-++++++[#LightBlue]_ 由 JVM 从元素类型合成出来的
+++++++[#LightBlue]_ 不是通过类加载器创建，而是由 JVM 直接在内存中动态构造出来
 
 +++++[#LightGreen] 实现
 ++++++[#LightBlue]_ 编译器识别出对数组类型的 length 的访问，生成对应的字节码
@@ -82,15 +82,6 @@
 +++++[#LightGreen] 静态的（变量，方法，代码块）会被执行
 +++++[#LightGreen]_ 类加载的时候执行一次
 
-++++[#MediumSpringGreen] 引用的类型
-+++++[#LightGreen]_ Strong Reference 强引用，直接引用
-++++++[#LightGreen]_ 不会被回收
-+++++[#LightGreen]_ Soft Reference 软引用，间接引用
-++++++[#LightGreen]_ 抛出 OutOfMemoryError 之前回收
-+++++[#LightGreen]_ Weak Reference 弱引用，间接引用
-++++++[#LightGreen]_ 直接回收
-+++++[#LightGreen]_ Phantom Reference 虚引用，几乎无引用
-++++++[#LightGreen]_ 直接回收
 
 
 

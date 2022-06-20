@@ -8,63 +8,115 @@
 
 ++++[#MediumSpringGreen] 堆 / Heap
 
-+++++[#LightGreen] 年轻代
-++++++[#Aquamarine] 伊甸区
++++++[#LightGreen] 年轻代 / Young Generation
+++++++[#Aquamarine] 伊甸区 / Eden
 +++++++[#Aquamarine]_ 伊甸区约是存活区的八倍，因为产生的多幸存的少
-++++++[#Aquamarine] 存活区
-+++++++[#Aquamarine]_ 存活 0 区别名 from 区，存活 1 区别名 to 区
+++++++[#Aquamarine] 存活区 / Survivor
+++++++[#Aquamarine] 标记复制算法
 ++++++[#Aquamarine] Minor GC
-++++++[#GhostWhite] 复制清理算法
++++++++[#Aquamarine]_ 存活 0 区别名 from 区，存活 1 区别名 to 区
 
-+++++[#LightGreen] 老年代
++++++[#LightGreen] 老年代 / Tenured Generation
+++++++[#Aquamarine] 标记整理算法
 ++++++[#Aquamarine] Major GC
-++++++[#GhostWhite] 标记清理算法
-++++++[#GhostWhite] 老年代空间分配担保
+++++++[#GhostWhite] 老年代空间分配担保机制
 
 +++++[#LightGreen] FullGC
 ++++++_ 同时 GC 年轻代和老年代
 
-+++++[#LightGreen] GCRoot
-++++++_ 没被 GCRoot 直接（强引用）或间接引用即视为垃圾
+++++[#MediumSpringGreen] 跨代引用
++++++[#LightGreen] 记忆集
+++++++[#Aquamarine] 抽象数据结构：记录从非收集区域指向收集区域的指针集合
 
+++++[#MediumSpringGreen] 三色标记理论
++++++[#LightGreen] 白色
+++++++[#Aquamarine] 尚未被垃圾收集器访问过
++++++[#LightGreen] 黑色
+++++++[#Aquamarine] 已经被垃圾收集器访问过，且这个对象的所有引用都已经扫描过
++++++[#LightGreen] 灰色
+++++++[#Aquamarine] 已经被垃圾收集器访问过，但这个对象上至少存在一个引用还没有被扫描过
 
 +++[#Pink] 垃圾回收算法（四）
 
-++++[#MediumSpringGreen] 复制算法
-+++++_ 两倍内存空间
-++++[#MediumSpringGreen] 分代回收算法
+++++[#MediumSpringGreen] 标记复制算法
++++++_ 需要两倍内存，比较浪费空间
++++++_ 内存间复制的开销大
+
 ++++[#MediumSpringGreen] 标记清理算法
-+++++_ 有碎片
++++++_ 空间碎片太多，可能导致当以后在程序运行过程中需要分配较大对象时无法找到足够的连续内存
+
 ++++[#MediumSpringGreen] 标记整理算法
-+++++_ 代价大
++++++_ 代价比较大：让所有存活的对象都向内存空间一端移动，然后直接清理掉边界以外的内存
++++++_ 比标记复制节省一半的空间
+
+++++[#MediumSpringGreen] 分代回收算法
 
 
 +++[#Pink] 垃圾回收器（四）
 
 ++++[#DeepSkyBlue] 1
 +++++[#AliceBlue] Serial
-++++++_ 单线程
+++++++[#AliceBlue]_ 单线程
+++++++[#AliceBlue]_ 对于运行在客户端模式下的虚拟机来说是一个很好的选择
 +++++[#AliceBlue] Serial Old
-++++++_ 单线程
+++++++[#AliceBlue]_ 单线程
 
 ++++[#DeepSkyBlue] 2
-+++++[#AliceBlue] ParNew
-+++++[#AliceBlue] CMS
-++++++_ 最短回收停顿时间
++++++[#LightGreen] ParNew
+++++++[#LightGreen]_ Serial 收集器的多线程并行版本
++++++[#LightGreen] CMS
+++++++[#LightGreen]_ 尽可能地缩用户线程的停顿时间
+++++++[#LightGreen]_ Concurrent Mark Sweep
+++++++[#LightGreen]_ 第一款真正意义上支持并发的垃圾收集器
+++++++[#LightGreen]_ 首次实现了让垃圾收集线程与用户线程（基本上）同时工作
 
 ++++[#DeepSkyBlue] 3
 +++++[#LightGreen] Parallel Scavenge
-++++++_ 吞吐量优先
+++++++[#LightGreen]_ 目标是达到一个可控制的吞吐量
 +++++[#LightGreen] Parallel Old
-++++++_ 注重吞吐量
+++++++[#LightGreen]_ 吞吐量优先
 
 ++++[#DeepSkyBlue] 4
 +++++[#LightGreen] G1
-++++++[#GhostWhite] 新生代和老年代收集器
-+++++++_ 不需要与其他收集器进行合作
-++++++[#Aquamarine] 特点
-+++++++_ 并行与并发好，充分利用多 CPU，多核环境下的硬件优势
-+++++++_ 空间碎片少，整体上基于标记整理算法，局部上基于复制算法
+
+++++++[#Aquamarine] Garbage First
++++++++[#Aquamarine]_ 新生代和老年代收集器，不需要与其他收集器进行合作
++++++++[#Aquamarine]_ 并行与并发好，充分利用多 CPU，多核环境下的硬件优势
++++++++[#Aquamarine]_ 空间碎片少，整体上基于标记整理算法，局部上基于标记复制算法
+
+++++++[#Aquamarine] Mixed GC 模式
+
+++++++[#Aquamarine] Region 堆内存布局
++++++++[#Aquamarine]_ 把连续的 Java 堆划分为多个大小相等的独立区域 / Region
++++++++[#Aquamarine]_ 新生代和老年代不再是固定的
+
+++++++[#Aquamarine] 可预测的停顿时间模型
++++++++[#Aquamarine]_ 使用 Region 划分内存空间，加上具有优先级的区域回收方式，在有限的时间内获取尽可能高的收集效率
+
+
++++[#Pink] 可达性分析算法
+
+++++[#MediumSpringGreen] GC Roots
++++++[#LightGreen] 从根对象节点开始，根据引用关系向下搜索
+++++[#MediumSpringGreen] 引用链
++++++[#LightGreen] 搜索过程所走过的路径
+
+++++[#MediumSpringGreen] 引用的类型
++++++[#LightGreen] Strong Reference / 强引用
+++++++[#LightGreen]_ 普遍存在的引用赋值
+++++++[#LightGreen]_ 不会被垃圾收集器回收
+
++++++[#LightGreen] Soft Reference / 软引用
+++++++[#LightGreen]_ 一些还有用，但非必须的对象
+++++++[#LightGreen]_ 抛出 OutOfMemoryError 之前回收
+
++++++[#LightGreen] Weak Reference / 弱引用
+++++++[#LightGreen]_ 非必须对象
+++++++[#LightGreen]_ 垃圾收集器工作时直接回收
+
++++++[#LightGreen] Phantom Reference / 虚引用
+++++++[#LightGreen]_ 幽灵引用 / 幻影引用
+++++++[#LightGreen]_ 垃圾收集器工作时直接回收
 
 
 @endmindmap

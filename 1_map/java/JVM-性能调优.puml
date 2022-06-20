@@ -1,0 +1,20 @@
+@startmindmap
+
++[#OrangeRed] JVM
+
+++[#yellow] 性能调优
+
++++[#Pink] 基本实践
+
+++++[#MediumSpringGreen] 分析 heap dump 文件
+
++++++[#LightGreen] JVM 启动参数
+++++++[#Aquamarine] HeapDumpOnOutOfMemoryError
+++++++[#Aquamarine] HeapDumpPath
+
++++++[#LightGreen] 每个类的实例的数量和大小
+
++++++[#LightGreen] Thread Overview
+
+
+@endmindmap

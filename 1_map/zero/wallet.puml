@@ -4,41 +4,48 @@
 
 ++[#yellow] 业务
 
-+++[#Pink] 授信
++++[#Pink] 申请
 
-+++[#Pink] 申请贷款流程
+++++[#MediumSpringGreen] 申请授信
 
-++++[#AliceBlue] 申请贷款
-++++[#AliceBlue] 申请单
-++++[#MediumSpringGreen] 异步筛查
-+++++[#LightGreen] 项目状态、产品状态
-+++++[#LightGreen] 黑名单
-+++++[#LightGreen] 金额、期限、利率、还款方式
-++++[#MediumSpringGreen] 风控评分
-++++[#MediumSpringGreen] 人工审批
-++++[#MediumSpringGreen] 电子签章
-++++[#AliceBlue] 借据生成
-++++[#AliceBlue] 保存借据
-++++[#MediumSpringGreen] 放款申请
-++++[#AliceBlue] 保存放款记录
-++++[#AliceBlue] 放款成功
-++++[#MediumSpringGreen] 生成还款计划
-++++[#AliceBlue] 保存还款计划
+++++[#MediumSpringGreen] 申请贷款
 
-+++[#Pink] 还款流程
++++++[#GhostWhite] 申请单
++++++[#LightGreen] 异步筛查
+++++++[#Aquamarine] 项目状态、产品状态
+++++++[#Aquamarine] 黑名单
+++++++[#Aquamarine] 金额、期限、利率、还款方式
++++++[#LightGreen] 风控评分
+++++++[#Aquamarine] 人工审批
++++++[#LightGreen] 电子签章
++++++[#GhostWhite] 借据生成
+++++++[#Aquamarine] 保存借据
 
-++++[#MediumSpringGreen] 线上还款
-++++[#MediumSpringGreen] 登记线下还款
+++++[#MediumSpringGreen] 放款流程
 
-+++[#Pink] 贷后变更
++++++[#LightGreen] 放款申请
++++++[#GhostWhite] 保存放款记录
++++++[#GhostWhite] 放款成功
++++++[#LightGreen] 生成还款计划
++++++[#GhostWhite] 保存还款计划
 
-++++[#MediumSpringGreen] 变更扣款日
-++++[#MediumSpringGreen] 变更还款账户
-++++[#MediumSpringGreen] 减免息费
+++++[#MediumSpringGreen] 还款流程
 
-+++[#Pink] 代偿
-+++[#Pink] 回购
-+++[#Pink] 登记催收
++++++[#LightGreen] 线上还款
++++++[#LightGreen] 登记线下还款
+
+
++++[#Pink] 贷后
+
+++++[#MediumSpringGreen] 贷后变更
+
++++++[#LightGreen] 变更扣款日
++++++[#LightGreen] 变更还款账户
++++++[#LightGreen] 减免息费
+
+++++[#MediumSpringGreen] 代偿
+++++[#MediumSpringGreen] 回购
+++++[#MediumSpringGreen] 登记催收
 
 
 @endmindmap

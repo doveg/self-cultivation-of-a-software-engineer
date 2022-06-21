@@ -44,9 +44,9 @@
 ++++[#AliceBlue] Hash / 哈希
 
 ++++[#MediumSpringGreen] ZSet / 有序集合
-+++++[#GhostWhite]_ 排行榜
 +++++[#LightGreen] Skip List / 跳表
 +++++[#LightGreen] Zip List / 压缩表
++++++[#GhostWhite]_ 排行榜
 
 
 ++[#yellow] 常见问题
@@ -58,9 +58,9 @@
 +++++[#MediumSpringGreen]_ 数据结构的底层优化，比如编码、跳表、压缩表
 +++++[#MediumSpringGreen]_ 零拷贝：IO 多路复用
 
-++++[#AliceBlue] 为什么使用单线程
+++++[#MediumSpringGreen] 为什么使用单线程
++++++[#AliceBlue]_ CPU 不是瓶颈，Redis 的瓶颈最有可能是机器内存的大小或者网络带宽
 +++++[#AliceBlue]_ 单线程，没有锁竞争开销，不需要考虑线程安全问题
-+++++[#AliceBlue]_ 同时，单线程不能完全发挥多核 CPU 的性能
 
 +++[#Pink] 三剑客
 ++++[#AliceBlue] 缓存雪崩
@@ -84,9 +84,8 @@
 +++++[#MediumSpringGreen]_ 删除大 key（如果不是热 key）
 +++++[#MediumSpringGreen]_ 压缩和拆分 key（集合类型可以分片）
 
-++++[#AliceBlue] 内存不够用的优化
-+++++[#MediumSpringGreen]_ 有条件先增加内存
-+++++[#MediumSpringGreen]_ 内存淘汰策略，删除过期数据，再使用 LRU 算法进行淘汰，酌情使用 LFU 算法
+++++[#AliceBlue] 场景优化：内存不够用
++++++[#MediumSpringGreen]_ 内存淘汰策略：删除过期数据，再使用 LRU 算法进行淘汰，酌情使用 LFU 算法
 +++++[#MediumSpringGreen]_ 转码压缩
 
 
@@ -114,10 +113,9 @@
 
 +++[#Pink] 一致性
 ++++[#MediumSpringGreen] Gossip 算法
-+++++[#LightGreen] Redis 并不能保证数据的强一致性
-+++++[#LightGreen] Redis 保证最终一致性
-+++++[#LightGreen] 主节点挂了的时候，如果数据没有同步到备节点，是会出现数据丢失的情况
-+++++[#LightGreen] 发生网络分区的时候也可能会丢数据，这个时候有个 node timeout 时间概念
++++++[#LightGreen]_ 保证最终一致性，不保证数据的强一致性
++++++[#LightGreen]_ 主节点挂了的时候，如果数据没有同步到备节点，是会出现数据丢失的情况
++++++[#LightGreen]_ 发生网络分区的时候也可能会丢数据，这个时候有个 node timeout 时间概念
 
 
 ++[#yellow] 集群

@@ -17,17 +17,16 @@
 +++[#Pink] IO 多路复用
 
 ++++[#AliceBlue] select
-+++++[#Aquamarine] 睡眠队列
-+++++[#Aquamarine]_ 遍历慢
-+++++[#Aquamarine]_ fd 数量有限（1024）
++++++[#LightGreen] 睡眠队列
++++++[#LightGreen]_ 遍历慢
++++++[#LightGreen]_ fd 数量有限（1024）
 
 ++++[#AliceBlue] poll
 +++++[#Aquamarine]_ 遍历慢
 
 ++++[#MediumSpringGreen] epoll
-+++++[#LightGreen] 数据结构
-++++++[#Aquamarine] 红黑树
-++++++[#Aquamarine] 就绪列表
++++++[#LightGreen] 红黑树
++++++[#LightGreen] 就绪列表
 
 
 ++[#yellow] shell
@@ -35,7 +34,7 @@
 +++[#Pink] 基础
 
 ++++[#MediumSpringGreen] 常用命令
-+++++[#GhostWhite]_ top
++++++[#LightGreen] top
 ++++++[#Aquamarine]_ 当前时间、上一次开机的时间、当前在线用户数、CPU 负载信息
 ++++++[#Aquamarine]_ 任务数量，运行的数量、睡眠的数量、停止的数量、僵死的数量
 ++++++[#Aquamarine]_ CPU 总体信息

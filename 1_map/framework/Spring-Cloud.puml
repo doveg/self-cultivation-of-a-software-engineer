@@ -2,7 +2,7 @@
 
 +[#OrangeRed] Spring-Cloud
 
-++[#yellow] 实现
+++[#yellow] 实现方式
 
 +++[#Pink] Spring Cloud Alibaba
 ++++[#MediumSpringGreen] 注册中心
@@ -22,24 +22,27 @@
 ++++[#AliceBlue] 分布式事务
 +++++[#GhostWhite] Seata
 
++++[#Pink] Spring Cloud Netflix
+
+
 ++[#yellow] 常见问题
 
 +++[#Pink] 三剑客
-++++[#MediumSpringGreen] 熔断
-+++++[#GhostWhite] 自动熔断时机
-+++++[#GhostWhite] 熔断恢复的条件
-+++++[#GhostWhite] 区分核心和非核心功能
-
-++++[#MediumSpringGreen] 降级
-+++++[#GhostWhite] 超时降级
-+++++[#GhostWhite] 失败次数降级
-+++++[#GhostWhite] 故障降级
 
 ++++[#MediumSpringGreen] 负载均衡
 +++++[#GhostWhite] RandomRule：随机
 +++++[#GhostWhite] RoundRobinRule：轮询
 +++++[#GhostWhite] WeightedResponseTimeRule：权重
 
+++++[#MediumSpringGreen] 服务降级
++++++[#GhostWhite] 超时降级
++++++[#GhostWhite] 失败次数降级
++++++[#GhostWhite] 故障降级
+
+++++[#MediumSpringGreen] 服务熔断
++++++[#GhostWhite] 自动熔断时机
++++++[#GhostWhite] 熔断恢复的条件
++++++[#GhostWhite] 区分核心和非核心功能
 
 
 

@@ -12,9 +12,9 @@
 ++++++_ 1 字节
 +++++[#LightGreen]_ short / 短整数
 ++++++_ 2 字节
-+++++[#LightGreen] int / 长整数
++++++[#LightGreen]_ int / 长整数
 ++++++_ 4 字节
-++++++[#LightGreen] int 和 Integer
+++++++[#LightGreen]_ int 和 Integer
 +++++++_ 类型
 +++++++_ 实例化
 +++++++_ 默认值

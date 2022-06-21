@@ -31,20 +31,23 @@
 +++[#Pink] 提高
 
 ++++[#MediumSpringGreen] 索引优化
-+++++[#LightGreen]_ 选择唯一性索引
-+++++[#LightGreen]_ 为经常需要排序、分组和联合操作的字段建立索引
-+++++[#LightGreen]_ 为常作为查询条件的字段建立索引
-+++++[#LightGreen]_ 为常作为连接字段的字段建立索引
-+++++[#LightGreen]_ 建立组合索引
-+++++[#LightGreen]_ 限制索引的数目
-+++++[#LightGreen]_ 尽量使用前缀来索引
-+++++[#LightGreen]_ 删除不再使用或者很少使用的索引
++++++[#LightGreen] 建索引
+++++++[#Aquamarine]_ 经常用于 where 查询的字段要建索引
+++++++[#Aquamarine]_ 经常用于 join on 的字段要建索引
+++++++[#Aquamarine]_ 经常用于 order by 的字段要建索引
++++++[#LightGreen] 选择索引
+++++++[#Aquamarine]_ 选择唯一性索引
+++++++[#Aquamarine]_ 尽量使用组合索引
+++++++[#Aquamarine]_ 尽量使用前缀来索引
++++++[#LightGreen] 限制索引
+++++++[#Aquamarine]_ 限制索引的数目
+++++++[#Aquamarine]_ 删除不再使用或者很少使用的索引
 
 ++++[#MediumSpringGreen] 索引的设计原则
 +++++[#LightGreen]_ 索引列的区分度越高越好
++++++[#LightGreen]_ 利用联合索引和最左前缀原则
 +++++[#LightGreen]_ 尽量使用短索引
 +++++[#LightGreen]_ 索引不是越多越好
-+++++[#LightGreen]_ 利用联合索引和最左前缀原则
 
 
 +++[#Pink] 索引数据结构
@@ -59,16 +62,22 @@
 +++++[#LightGreen] 排序能力更强
 
 ++++[#MediumSpringGreen] B 树、B+ 树的区别
-+++++[#LightGreen] B 树的叶子节点是不相连的。B+ 树的叶子节点是通过链表串联的
-+++++[#LightGreen] B 树因为节点存的是主键的地址，查找的过程过，在非叶子节点查到匹配的数据，不会继续查子节点。B+ 树的非叶子节点不存数据，只存值。
-+++++[#LightGreen] B 树的叶子节点存的全是地址。B+ 树的叶子节点存有字段和值，叶子节点的 key 还存了数据的物理地址。
++++++[#LightGreen] 叶子节点
+++++++[#Aquamarine] B 树的叶子节点是不相连的
+++++++[#Aquamarine] B+ 树的叶子节点是通过链表串联的
++++++[#LightGreen] 叶子节点
+++++++[#Aquamarine] B 树的叶子节点存的全是地址
+++++++[#Aquamarine] B+ 树的叶子节点存有字段和值，叶子节点的 key 还存了数据的物理地址
++++++[#LightGreen] 非叶子节点
+++++++[#Aquamarine] B 树因为节点存的是主键的地址，查找的过程过，在非叶子节点查到匹配的数据，不会继续查子节点
+++++++[#Aquamarine] B+ 树的非叶子节点不存数据，只存值
 
 
 +++[#Pink] 存储引擎
 
 ++++[#AliceBlue] 常见的存储引擎
 +++++[#LightGreen] InnoDB
-+++++[#LightGreen] MyISAM
++++++[#GhostWhite] MyISAM
 
 ++++[#AliceBlue] MyISAM 和 InnoDB 的区别
 +++++[#GhostWhite]_ 是否支持行级锁

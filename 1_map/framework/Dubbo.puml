@@ -6,30 +6,30 @@
 
 +++[#Pink] 核心功能（三）
 
-++++[#MediumSpringGreen] 服务注册
+++++[#MediumSpringGreen] 发现
 
 +++++[#LightGreen] 流程
-++++++[#Aquamarine]_ Provider（提供者）绑定指定端口并启动服务
+++++++[#Aquamarine]_ 提供者 Provider 绑定指定端口并启动服务
 ++++++[#Aquamarine]_ 提供者连接注册中心，并将本机 IP、端口、应用信息和提供服务信息发送至注册中心存储
-++++++[#Aquamarine]_ Consumer（消费者），连接注册中心 ，并发送应用信息、所求服务信息至注册中心
+++++++[#Aquamarine]_ 消费者 Consumer 连接注册中心 ，并发送应用信息、所求服务信息至注册中心
 ++++++[#Aquamarine]_ 注册中心根据消费者所求服务信息匹配对应的提供者列表发送至 Consumer 应用缓存
 ++++++[#Aquamarine]_ Consumer 在发起远程调用时基于缓存的消费者列表择其一发起调用
 ++++++[#Aquamarine]_ Provider 状态变更会实时通知注册中心、在由注册中心实时推送至 Consumer
 
-++++[#MediumSpringGreen] 服务调用
+++++[#MediumSpringGreen] 调用
 
 +++++[#LightGreen] 协议与序列化
-++++++[#Aquamarine]_ Dubbo 协议（Hessian 二进制序列化）
-++++++[#Aquamarine]_ Rmi 协议（Java 标准二进制序列化 ）
-++++++[#Aquamarine]_ Hessian 协议（表单序列化）
-++++++[#Aquamarine]_ http 协议（表单序列化）
-++++++[#Aquamarine]_ webservice 协议（SOAP 文本序列化）
+++++++[#Aquamarine]_ Dubbo 协议：Hessian 二进制序列化
+++++++[#Aquamarine]_ Rmi 协议：Java 标准二进制序列化
+++++++[#Aquamarine]_ Hessian 协议：表单序列化
+++++++[#Aquamarine]_ http 协议：表单序列化
+++++++[#Aquamarine]_ webservice 协议：SOAP 文本序列化
 
 +++++[#LightGreen] 负载均衡策略
-++++++[#Aquamarine]_ Random LoadBalance: 随机选取提供者策略
-++++++[#Aquamarine]_ RoundRobin LoadBalance: 轮循选取提供者策略
-++++++[#Aquamarine]_ LeastActive LoadBalance: 最少活跃调用策略
-++++++[#Aquamarine]_ ConstantHash LoadBalance: 一致性 Hash 策略
+++++++[#Aquamarine]_ 一致性 Hash 策略 / ConstantHash LoadBalance
+++++++[#Aquamarine]_ 最少活跃调用策略 / LeastActive LoadBalance
+++++++[#Aquamarine]_ 随机选取提供者策略 / Random LoadBalance
+++++++[#Aquamarine]_ 轮循选取提供者策略 / RoundRobin LoadBalance
 
 +++++[#LightGreen] Dubbo 和 Feign 区别
 ++++++[#Aquamarine]_ Feign 是 Spring Cloud 提供的一个声明式的伪 Http 客户端，使用起来更方便
@@ -37,17 +37,37 @@
 ++++++[#Aquamarine]_ Dubbo 小而专一，专注于远程调用，注册中心需要进行整合
 ++++++[#Aquamarine]_ Dubbo 通过 TCP 长连接的方式进行通信，服务粒度是方法级的
 
-++++[#MediumSpringGreen] 服务治理
+++++[#MediumSpringGreen] 治理
 
 +++++[#LightGreen] 集群容错
-++++++[#Aquamarine]_ Failover Cluster：失败自动切换，当出现失败，重试其它服务器
-++++++[#Aquamarine]_ Failfast Cluster：快速失败，只发起一次调用，失败立即报错
-++++++[#Aquamarine]_ Failsafe Cluster：失败安全，出现异常时，直接忽略
-++++++[#Aquamarine]_ Failback Cluster：失败自动恢复，后台记录失败请求，定时重发
-++++++[#Aquamarine]_ Forking Cluster：并行调用多个服务器，只要一个成功即返回
-++++++[#Aquamarine]_ Broadcast Cluster：广播调用所有提供者，逐个调用，任意一台报错则报错
+++++++[#Aquamarine]_ 失败自动切换 / Failover Cluster：当出现失败，重试其它服务器
+++++++[#Aquamarine]_ 快速失败 / Failfast Cluster：只发起一次调用，失败立即报错
+++++++[#Aquamarine]_ 失败安全 / Failsafe Cluster：出现异常时，直接忽略
+++++++[#Aquamarine]_ 失败自动恢复 / Failback Cluster：后台记录失败请求，定时重发
+++++++[#Aquamarine]_ 并行调用多个服务器 / Forking Cluster：只要一个成功即返回
+++++++[#Aquamarine]_ 广播调用所有提供者 / Broadcast Cluster：逐个调用，任意一台报错则报错
 
-+++[#Pink] 通信协议
+
+++[#yellow] 提高
+
++++[#Pink] 设计
+
+++++[#MediumSpringGreen] Dubbo SPI
++++++[#LightGreen]_ Service Provider Interface
++++++[#LightGreen]_ 框架定义好接口，不同的使用者有不同的需求，因此需要有不同的实现
+
+++++[#MediumSpringGreen] 框架设计分层（九）
++++++[#LightGreen]_ 服务接口层 / Service
++++++[#LightGreen]_ 配置层 / Config
++++++[#LightGreen]_ 服务代理层 / Proxy
++++++[#LightGreen]_ 服务注册层 / Registry
++++++[#LightGreen]_ 集群层 / Cluster
++++++[#LightGreen]_ 监控层 / Monitor
++++++[#LightGreen]_ 远程调用层 / Protocol
++++++[#LightGreen]_ 信息交换层 / Exchange
++++++[#LightGreen]_ 网络传输层 / Transport
+
++++[#Pink] 常见问题
 
 ++++[#MediumSpringGreen] 为什么不能传大包
 +++++[#LightGreen]_ Dubbo 协议采用单一长连接
@@ -57,26 +77,29 @@
 +++++[#LightGreen]_ 通过单一连接，保证单一消费者不会压死提供者，长连接，减少连接握手验证等，并使用异步 IO，复用线程池，防止 C10K 问题
 
 ++++[#MediumSpringGreen] 安全机制
-+++++[#LightGreen] 通过 Token 令牌防止用户绕过注册中心直连
-+++++[#LightGreen] 提供服务黑白名单，来控制服务所允许的调用方
++++++[#LightGreen]_ 通过 Token 令牌防止用户绕过注册中心直连
++++++[#LightGreen]_ 提供服务黑白名单，来控制服务所允许的调用方
 
 
-+++[#Pink] 提高
+++[#yellow] 实践
 
-++++[#MediumSpringGreen] Dubbo SPI
-+++++[#LightGreen]_ Service Provider Interface
-+++++[#LightGreen]_ 框架定义好接口，不同的使用者有不同的需求，因此需要有不同的实现
++++[#Pink] SpringBoot 集成
 
-++++[#MediumSpringGreen] 框架设计分层
-+++++[#LightGreen]_ 服务接口层（Service）
-+++++[#LightGreen]_ 配置层（Config）
-+++++[#LightGreen]_ 服务代理层（Proxy）
-+++++[#LightGreen]_ 服务注册层（Registry）
-+++++[#LightGreen]_ 集群层（Cluster）
-+++++[#LightGreen]_ 监控层（Monitor）
-+++++[#LightGreen]_ 远程调用层（Protocol）
-+++++[#LightGreen]_ 信息交换层（Exchange）
-+++++[#LightGreen]_ 网络传输层（Transport）
+++++[#MediumSpringGreen] 提供者
++++++[#LightGreen] @Service
++++++[#LightGreen] 配置
+++++++[#Aquamarine]_ 注册中心地址和端口
+++++++[#Aquamarine]_ 当前服务的名称
+++++++[#Aquamarine]_ 服务实现类的路径
+++++++[#Aquamarine]_ 暴露服务的端口号
+++++++[#Aquamarine]_ RPC 通信协议
+
+++++[#MediumSpringGreen] 消费者
++++++[#LightGreen] @Reference
++++++[#LightGreen] 配置
+++++++[#Aquamarine]_ 注册中心地址和端口
+++++++[#Aquamarine]_ 当前服务的名称
+++++++[#Aquamarine]_ 引用服务的路径
 
 
 @endmindmap

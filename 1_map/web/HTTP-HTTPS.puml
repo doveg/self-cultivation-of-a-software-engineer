@@ -36,12 +36,12 @@
 ++++++[#GhostWhite]_ 504 Gateway Timeout
 
 +++[#Pink] HTTPS
-++++[#AliceBlue] TLS
-+++++[#LightGreen] Transport Layer Security / 传输层安全性协议
 ++++[#AliceBlue] SSL
 +++++[#LightGreen] Secure Sockets Layer / 安全套接层
+++++[#LightGreen] TLS
++++++[#LightGreen] Transport Layer Security / 传输层安全性协议
 
-+++[#Pink] 常见
++++[#Pink] 常见问题
 
 ++++[#MediumSpringGreen] 在浏览器地址栏键入 URL
 +++++[#LightGreen] DNS 解析

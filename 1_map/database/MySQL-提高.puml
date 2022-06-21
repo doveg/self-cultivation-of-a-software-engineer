@@ -15,19 +15,28 @@
 +++++++[#Aquamarine]_ key
 +++++++[#Aquamarine]_ rows
 
-+++++[#LightGreen] 建索引
-++++++[#Aquamarine] 经常用于 where 查询的字段要建索引
-++++++[#Aquamarine] 经常用于 join on 的字段要建索引
-++++++[#Aquamarine] 经常用于 order by 的字段要建索引
-
-+++++[#GhostWhite] 语句
-++++++[#LightBlue]_ where 字段加索引
-++++++[#LightBlue]_ 分页的参数不应过大
++++++[#LightGreen] 语句优化
 ++++++[#LightBlue]_ 不要使用 select *
+++++++[#LightBlue]_ where 字段加索引
+++++++[#LightBlue]_ limit 分页的参数不应过大
 
 +++++[#LightGreen] 系统资源
 ++++++[#Aquamarine] show profile 分析
 ++++++[#Aquamarine] show 命令查询系统状态及系统变量
+
+++++[#MediumSpringGreen] 索引优化
++++++[#LightGreen] 建索引
+++++++[#Aquamarine]_ 经常用于 where 查询的字段要建索引
+++++++[#Aquamarine]_ 经常用于 join on 的字段要建索引
+++++++[#Aquamarine]_ 经常用于 order by 的字段要建索引
++++++[#LightGreen] 选择索引
+++++++[#Aquamarine]_ 选择唯一性索引
+++++++[#Aquamarine]_ 尽量使用组合索引
+++++++[#Aquamarine]_ 尽量使用前缀来索引
++++++[#LightGreen] 限制索引
+++++++[#Aquamarine]_ 限制索引的数目
+++++++[#Aquamarine]_ 删除不再使用或者很少使用的索引
+
 
 ++++[#MediumSpringGreen] 架构优化
 

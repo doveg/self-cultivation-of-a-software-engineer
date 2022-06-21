@@ -10,5 +10,8 @@
 +++++[#LightGreen] 被同一个类中方法调用
 +++++[#LightGreen] 数据库引擎不支持事务
 
++++[#Pink] 自动装配
+
+
 
 @endmindmap

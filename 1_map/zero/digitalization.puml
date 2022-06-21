@@ -20,11 +20,11 @@
 
 +++[#Pink] 应用
 
-++++[#MediumSpringGreen] 使用型
-+++++[#GhostWhite] 数据引用
-
 ++++[#MediumSpringGreen] 报告型
 +++++[#GhostWhite] 数据报告
+
+++++[#MediumSpringGreen] 使用型
++++++[#GhostWhite] 数据引用
 
 
 +++[#Pink] 解决方案
@@ -48,12 +48,12 @@
 ++++[#MediumSpringGreen] Spring Cloud
 ++++[#MediumSpringGreen] Dubbo
 ++++[#MediumSpringGreen] RocketMQ
+++++[#MediumSpringGreen] 缓存
++++++[#LightGreen] Redis
++++++[#LightGreen] ElasticSearch
 ++++[#MediumSpringGreen] 数据库
 +++++[#LightGreen] Oracle
 +++++[#LightGreen] MySQL
-++++[#MediumSpringGreen] 缓存
-+++++[#LightGreen] ElasticSearch
-+++++[#LightGreen] Redis
 
 
 @endmindmap

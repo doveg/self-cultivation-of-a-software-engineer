@@ -5,10 +5,13 @@
 ++[#yellow] 基础
 
 +++[#Pink] 核心功能
+
 ++++[#AliceBlue] 数据发布和订阅
 ++++[#AliceBlue] 命名服务
 
+
 +++[#Pink] 节点类型
+
 ++++[#AliceBlue] 持久节点
 +++++[#GhostWhite]_ 删除持久节点需要显式的调用 delete
 ++++[#AliceBlue] 临时节点
@@ -17,11 +20,13 @@
 
 
 +++[#Pink] 集群的角色
+
 ++++[#MediumSpringGreen] Leader
 ++++[#MediumSpringGreen] Follow
 +++++[#LightGreen]_ 可以发起投票
 ++++[#MediumSpringGreen] Observer
 +++++[#LightGreen]_ 不參与投票，只接收投票结果
+
 
 +++[#Pink] 分布式共识算法
 
@@ -30,18 +35,19 @@
 +++++[#LightGreen] ZAB 原子广播协议
 ++++++[#LightBlue] Zookeeper Atomic Broadcast
 +++++++[#Aquamarine]_ 用于构建高可用的分布式的数据主备系统
++++++++[#Aquamarine]_ 当接收到来自客户端的事务性会话请求后，系统集群采用主服务器来处理该条会话请求，经过主服务器处理的结果会通过网络发送给集群中其他从节点服务器进行数据同步操作
 
-++++++[#LightBlue] 广播-两阶段提交的流程
+++++++[#Aquamarine] 广播-两阶段提交的流程
 +++++++[#Aquamarine]_ Leader 发起提案
 +++++++[#Aquamarine]_ Follow 响应提案
 +++++++[#Aquamarine]_ 响应过半数，Leader 提交议案
 
-++++++[#LightBlue] 快速选举的流程
+++++++[#Aquamarine] 快速选举的流程
 +++++++[#Aquamarine]_ 投票给自己，把投票消息发给其它机器
 +++++++[#Aquamarine]_ 同时也在接受其他节点的投票
-+++++++[#Aquamarine]_ 按照投票的优先级比较收到的选票和自己投出去的选票
-+++++++[#Aquamarine]_ 每收集到一个投票后，查看已经收到的投票结果记录列表，看是否有节点能够达到一半以上的投票数。
-+++++++[#Aquamarine]_ 如果有达到，则终止投票，宣布选举结束，更新自身状态。然后进行发现和同步阶段。否则继续收集投票
++++++++[#Aquamarine]_ 按照投票的优先级，比较收到的选票和自己投出去的选票
++++++++[#Aquamarine]_ 每收集到一个投票后，查看已经收到的投票结果记录列表，看是否有节点能够达到一半以上的投票数
++++++++[#Aquamarine]_ 如果有达到，则终止投票，宣布选举结束，更新自身状态；然后进行发现和同步阶段，否则继续收集投票
 
 +++++[#LightGreen] Raft 协议
 ++++++[#LightBlue]_ 如果 Follow 内没有收到来自 Leader 的心跳，则会转化为 Candidate，主动发起选举
@@ -52,14 +58,22 @@
 +++++[#GhostWhite] Paxos 协议
 ++++++[#LightBlue]_ 太复杂
 
-++++[#MediumSpringGreen] Zab 和 Raft 的区别
-+++++[#LightGreen]_ 角色不同：Zk 引入了 Observer 的角色来提升性能
-+++++[#LightGreen]_ 选举的时间不同：Zab 每个节点允许多次投票，只需要一轮
-+++++[#LightGreen]_ 请求处理方式不同：Raft 直接和 Leader 交互
+++++[#MediumSpringGreen] Zab 和 Raft
 
-++++[#MediumSpringGreen] Zab 和 Raft 的联系
-+++++[#LightGreen]_ 日志模型很像，都是超过半数节点完成复制之后，该命令才会被提交
-+++++[#LightGreen]_ 主节点选举方面，半数节点确认之后的节点，才有可能成为新 Leader
++++++[#LightGreen] 区别
+++++++[#Aquamarine]_ 角色
++++++++[#Aquamarine]_ Zookeeper 引入了 Observer 的角色来提升性能
+++++++[#Aquamarine]_ 选举方式
++++++++[#Aquamarine]_ Zab 每个节点允许多次投票，只需要一轮
+++++++[#Aquamarine]_ 请求处理方式
++++++++[#Aquamarine]_ Raft 直接和 Leader 交互
+
++++++[#LightGreen] 联系
+++++++[#Aquamarine]_ 日志模型
++++++++[#Aquamarine]_ 都是超过半数节点完成复制之后，该命令才会被提交
+++++++[#Aquamarine]_ 主节点选举
++++++++[#Aquamarine]_ 半数节点确认之后的节点，才有可能成为新 Leader
+
 
 +++[#Pink] 负载均衡算法
 
@@ -69,7 +83,9 @@
 ++++[#AliceBlue]_ 随机法
 ++++[#AliceBlue]_ 加权随机法
 
+
 +++[#Pink] 应用
+
 ++++[#AliceBlue] 分布式 ID
 ++++[#MediumSpringGreen] 分布式锁
 

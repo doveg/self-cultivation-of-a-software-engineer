@@ -32,19 +32,19 @@
 ++++[#MediumSpringGreen] ref / 关联查询时，和 key 一起使用的列
 +++++[#Aquamarine] const / 常数
 ++++++[#Aquamarine]_ 走主键索引，只扫描唯一一条
-+++++[#Aquamarine] null / 全表扫描
++++++[#Aquamarine]_ null / 全表扫描
 +++++[#Aquamarine]_ const_const
 
-++++[#AliceBlue] rows / 行数
+++++[#MediumSpringGreen] rows / 行数
 ++++[#AliceBlue] filtered
 
 ++++[#MediumSpringGreen] Extra / 扩展条件的详细信息
 +++++[#Aquamarine] Using index condition / 使用索引
 +++++[#Aquamarine] Using where / 条件筛选扫描数据
 +++++[#Aquamarine] Using filesort / 使用文件排序，效率超低
-+++++[#Aquamarine] Using temporary / 使用临时表
-+++++[#Aquamarine] Using MRR / 让主键升序排列，采用并发分段升序，效率较高
-+++++[#Aquamarine] Backward index scan / 反向索引扫描
++++++[#Aquamarine]_ Using temporary / 使用临时表
++++++[#Aquamarine]_ Using MRR / 让主键升序排列，采用并发分段升序，效率较高
++++++[#Aquamarine]_ Backward index scan / 反向索引扫描
 
 
 @endmindmap

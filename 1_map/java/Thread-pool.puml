@@ -4,7 +4,7 @@
 
 ++[#yellow] 线程
 
-+++[#Pink] 线程的状态
++++[#Pink] 线程的状态（六）
 ++++[#AliceBlue] 初始 / new
 +++++[#GhostWhite]_ 线程被构建
 ++++[#AliceBlue] 运行 / runnable
@@ -18,7 +18,7 @@
 ++++[#AliceBlue] 终止 / terminated
 +++++[#GhostWhite]_ 当前线程执行完毕
 
-+++[#Pink] 创建线程的方式
++++[#Pink] 创建线程的方式（四）
 ++++[#MediumSpringGreen] 继承 Thread
 +++++[#GhostWhite]_ 继承 Thread 类，并重写 run () 方法
 ++++[#MediumSpringGreen] 实现 Runnable
@@ -31,7 +31,7 @@
 
 ++[#yellow] 线程池
 
-+++[#Pink] 线程池的核心配置参数
++++[#Pink] 线程池的核心配置参数（六）
 ++++[#MediumSpringGreen] 核心线程数
 ++++[#MediumSpringGreen] 等待队列的容量
 ++++[#MediumSpringGreen] 最大线程数
@@ -39,20 +39,20 @@
 ++++[#AliceBlue] 线程的最大存活时间
 ++++[#AliceBlue] 线程池线程名的前缀
 
-+++[#Pink] 线程池的处理流程
++++[#Pink] 线程池的处理流程（三）
 ++++[#MediumSpringGreen] 判断核心线程池是否已满
 +++++[#GhostWhite] 没满则创建线程执行任务
-+++++[#Aquamarine] 判断等待队列是否已满
++++++[#LightGreen] 判断等待队列是否已满
 ++++++[#GhostWhite] 没满则把任务存储在队列
 ++++++[#LightBlue] 判断整个线程池是否已满
 +++++++[#GhostWhite] 没满则创建线程执行任务
-+++++++[#LightGreen] 执行拒绝策略
++++++++[#Aquamarine] 执行拒绝策略
 
-+++[#Pink] 拒绝策略
-++++[#AliceBlue] AbortPolicy / 抛异常
++++[#Pink] 拒绝策略（四）
 ++++[#MediumSpringGreen] CallerRunsPolicy / 调用者自己执行
 ++++[#MediumSpringGreen] DiscardOldestPolicy / 丢弃最老的
 ++++[#AliceBlue] DiscardPolicy / 丢弃
+++++[#AliceBlue] AbortPolicy / 抛异常
 
 
 @endmindmap

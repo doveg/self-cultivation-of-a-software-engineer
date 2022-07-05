@@ -20,7 +20,7 @@
 
 6、**ViewResolver** 会根据逻辑 View 查找实际的 View。
 
-7、**DispaterServlet** 把返回的 Model 传给 View（视图渲染）。
+7、**DispatcherServlet** 把返回的 Model 传给 View（视图渲染）。
 
 8、把 View 返回给请求者（浏览器）
 

@@ -1,0 +1,21 @@
+@startmindmap
+
++[#OrangeRed] SpringMVC
+
+++[#yellow] 基础
+
++++[#Pink] 常见
+
+++++[#MediumSpringGreen] 工作原理
++++++[#LightGreen] 调用
+++++++[#Aquamarine] DispatcherServlet 收到请求
+++++++[#Aquamarine] HandlerMapping 请求对应的 Handler
+++++++[#Aquamarine] Handler 交给 HandlerAdapter 处理
+++++++[#Aquamarine] HandlerAdapter 调用真正的处理器
++++++[#LightGreen] 返回
+++++++[#Aquamarine] 返回 ModelAndView
+++++++[#Aquamarine] ViewResolver 查找实际的 View
+++++++[#Aquamarine] DispatcherServlet 视图渲染后，返回 View
+
+
+@endmindmap

@@ -27,7 +27,7 @@
 +++++[#GhostWhite]_ SelectMessageQueueByHash
 ++++[#MediumSpringGreen] 消息重试
 ++++[#MediumSpringGreen] 死信队列
-+++++[#GhostWhite]_ 不会立刻将有问题的消息丢弃
++++++[#GhostWhite]_ 不会将有问题的消息立刻丢弃
 ++++[#MediumSpringGreen] 事务消息
 ++++[#AliceBlue] 流量控制
 
@@ -89,11 +89,11 @@
 
 +++[#Pink] 分布式事务
 
+++++[#MediumSpringGreen] 事务消息
 ++++[#MediumSpringGreen] 半消息
-+++++[#GhostWhite]_ 暂不能被 Consumer 消费的消息
++++++[#GhostWhite]_ 暂时不能被 Consumer 消费的消息
 ++++[#MediumSpringGreen] 消息回查
 +++++[#GhostWhite]_ Producer 端一直没有对半消息进行二次确认
-++++[#MediumSpringGreen] 事务消息
 
 
 @endmindmap

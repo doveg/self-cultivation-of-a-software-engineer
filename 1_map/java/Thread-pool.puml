@@ -9,14 +9,14 @@
 +++++[#GhostWhite]_ 线程被构建
 ++++[#AliceBlue] 运行 / runnable
 +++++[#GhostWhite]_ 操作系统中的就绪和运行两种状态
+++++[#AliceBlue] 终止 / terminated
++++++[#GhostWhite]_ 当前线程执行完毕
 ++++[#AliceBlue] 阻塞 / blocked
 +++++[#GhostWhite]_ 线程阻塞于锁
 ++++[#AliceBlue] 等待 / waiting
 +++++[#GhostWhite]_ 当前线程需要其他线程通知
 ++++[#AliceBlue] 定时等待 / timed_waiting
 +++++[#GhostWhite]_ 指定等待时间自己返回
-++++[#AliceBlue] 终止 / terminated
-+++++[#GhostWhite]_ 当前线程执行完毕
 
 +++[#Pink] 创建线程的方式（四）
 ++++[#MediumSpringGreen] 继承 Thread

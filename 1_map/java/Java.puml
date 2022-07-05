@@ -59,9 +59,11 @@
 +++++++[#MediumSpringGreen] PriorityQueue
 ++++++++[#MediumSpringGreen]_ 底层是堆
 
-+++++[#LightGreen] map
++++++[#LightGreen] Map
 ++++++[#MediumSpringGreen] HashMap
 +++++++[#MediumSpringGreen]_ 底层是数组、链表 / 红黑树
+++++++[#MediumSpringGreen] ConcurrentHashMap
++++++++[#MediumSpringGreen]_ 在 HashMap 的基础上，加入分段锁，解决线程安全和性能问题
 ++++++[#MediumSpringGreen] TreeMap
 
 

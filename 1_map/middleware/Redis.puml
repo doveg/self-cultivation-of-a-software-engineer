@@ -53,14 +53,14 @@
 
 +++[#Pink] 特性
 ++++[#MediumSpringGreen] Redis 为什么这么快
-+++++[#MediumSpringGreen]_ 内存没有磁盘 IO 开销
-+++++[#MediumSpringGreen]_ 单线程，没有锁竞争开销，不需要考虑线程安全问题
-+++++[#MediumSpringGreen]_ 数据结构的底层优化，比如编码、跳表、压缩表
++++++[#MediumSpringGreen]_ 内存：没有磁盘 IO 开销
 +++++[#MediumSpringGreen]_ 零拷贝：IO 多路复用
++++++[#MediumSpringGreen]_ 单线程：没有锁竞争开销，不需要考虑线程安全问题
++++++[#MediumSpringGreen]_ 数据结构的底层优化：比如编码、跳表、压缩表
 
 ++++[#MediumSpringGreen] 为什么使用单线程
-+++++[#AliceBlue]_ CPU 不是瓶颈，Redis 的瓶颈最有可能是机器内存的大小或者网络带宽
-+++++[#AliceBlue]_ 单线程，没有锁竞争开销，不需要考虑线程安全问题
++++++[#AliceBlue]_ CPU 不是瓶颈，Redis 的瓶颈最有可能是机器内存的大小，或者网络带宽
++++++[#AliceBlue]_ 单线程没有锁竞争开销，不需要考虑线程安全问题
 
 +++[#Pink] 三剑客
 ++++[#AliceBlue] 缓存雪崩
@@ -104,12 +104,20 @@
 
 +++[#Pink] 持久性
 ++++[#MediumSpringGreen] 如何实现数据不丢失的（持久化）
+
 +++++[#LightGreen] AOF 日志（Append Only File）
-++++++[#AliceBlue]_ 文件追加方式，数据完整，但是需要把命令全部重写执行一遍
+++++++[#AliceBlue]_ 文件追加方式，数据比较全（取决于策略）
+++++++[#AliceBlue]_ 数据恢复比较慢，需要把命令全部重写执行一遍
+++++++[#AliceBlue]_ 文件体积很大（AOF 重写后仍然很大）
+
 +++++[#LightGreen] RDB 快照（Redis DataBase）
-++++++[#AliceBlue]_ 可快速恢复，数据可能不完整
+++++++[#AliceBlue]_ 每五分钟同步一次，会丢数据
+++++++[#AliceBlue]_ 可快速恢复
+++++++[#AliceBlue]_ 文件体积小
 +++++[#LightGreen] 混合持久化方式
+
 ++++++[#AliceBlue]_ 集成了 RDB 和 AOF 的优点
+
 
 +++[#Pink] 一致性
 ++++[#MediumSpringGreen] Gossip 算法
@@ -162,6 +170,9 @@
 
 +++[#Pink] 和 MySQL 的一致性问题
 ++++[#LightGreen] 延迟双删
+
+
+'https://www.cnblogs.com/qdhxhz/p/15684650.html
 
 
 @endmindmap

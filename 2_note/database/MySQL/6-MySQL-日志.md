@@ -20,7 +20,7 @@ bin log 是 MySQL 数据库级别的文件，记录对 MySQL 数据库执行修�
 
 redo log：
 
-redo log 是 innodb 引擎级别，用来记录 innodb 存储引擎的事务日志，不管事务是否提交都会记录下来，用于数据恢复。当数据库发生故障，innoDB 存储引擎会使用 redo log
+redo log 是 InnoDB 引擎级别，用来记录 InnoDB 存储引擎的事务日志，不管事务是否提交都会记录下来，用于数据恢复。当数据库发生故障，InnoDB 存储引擎会使用 redo log
 恢复到发生故障前的时刻，以此来保证数据的完整性。将参数 innodb_flush_log_at_tx_commit 设置为 1，那么在执行 commit 时会将 redo log 同步写到磁盘。
 
 undo log：

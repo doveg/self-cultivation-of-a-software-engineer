@@ -54,7 +54,9 @@
 
 ++++[#MediumSpringGreen] Dubbo SPI
 +++++[#LightGreen]_ Service Provider Interface
-+++++[#LightGreen]_ 框架定义好接口，不同的使用者有不同的需求，因此需要有不同的实现
++++++[#LightGreen] 本质：将接口实现类的全限定名，配置在文件中；服务加载器读取配置文件，加载实现类
++++++[#LightGreen] 目的：动态替换接口的实现类
++++++[#LightGreen] 优点：很容易的对 Dubbo 进行拓展
 
 ++++[#MediumSpringGreen] 框架设计分层（九）
 +++++[#LightGreen]_ 服务接口层 / Service
@@ -99,7 +101,7 @@
 +++++[#LightGreen] 配置
 ++++++[#Aquamarine]_ 注册中心地址和端口
 ++++++[#Aquamarine]_ 当前服务的名称
-++++++[#Aquamarine]_ 引用服务的路径
+++++++[#Aquamarine]_ 引用服务的实现类路径
 
 
 @endmindmap

@@ -44,7 +44,7 @@ MySQL 中不同的存储引擎支持的锁是不一样的，例如 MyIsam 只支
 
 InnoDB 支持行级别锁，锁粒度小并发度高，但是加锁开销大也很可能会出现死锁
 
-innodb 行锁住的是索引项，注意当回表时，主键的聚簇索引也会加上锁。
+InnoDB 行锁住的是索引项，注意当回表时，主键的聚簇索引也会加上锁。
 
 - 加锁方式：
 
@@ -127,7 +127,7 @@ select * from table where id<6 **for update**;
 
 SELECT... FOR UPDATE 使用注意事项：
 
-> for update 仅适用于 innodb，且必须在事务范围内才能生效。
+> for update 仅适用于 InnoDB，且必须在事务范围内才能生效。
 >
 > 根据主键进行查询，查询条件为 like 或者不等于，主键字段产生表锁。
 >

@@ -7,6 +7,10 @@
 +++[#Pink] 性能优化
 
 ++++[#MediumSpringGreen] SQL 优化
++++++[#LightGreen] 语句优化
+++++++[#LightBlue]_ 不要使用 select *
+++++++[#LightBlue]_ where 字段加索引
+++++++[#LightBlue]_ limit 分页的参数不应过大
 
 +++++[#LightGreen] 执行计划
 ++++++[#Aquamarine] EXPLAIN 分析查询的执行计划
@@ -15,26 +19,25 @@
 +++++++[#Aquamarine]_ key
 +++++++[#Aquamarine]_ rows
 
-+++++[#LightGreen] 语句优化
-++++++[#LightBlue]_ 不要使用 select *
-++++++[#LightBlue]_ where 字段加索引
-++++++[#LightBlue]_ limit 分页的参数不应过大
-
 +++++[#LightGreen] 系统资源
 ++++++[#Aquamarine] show profile 分析
-++++++[#Aquamarine] show 命令查询系统状态及系统变量
+++++++[#Aquamarine]_ show 命令查询系统状态及系统变量
+
 
 ++++[#MediumSpringGreen] 索引优化
+
 +++++[#LightGreen] 建索引
 ++++++[#Aquamarine]_ 经常用于 where 查询的字段要建索引
 ++++++[#Aquamarine]_ 经常用于 join on 的字段要建索引
 ++++++[#Aquamarine]_ 经常用于 order by 的字段要建索引
+
 +++++[#LightGreen] 选择索引
 ++++++[#Aquamarine]_ 选择唯一性索引
 ++++++[#Aquamarine]_ 尽量使用组合索引
 ++++++[#Aquamarine]_ 尽量使用前缀来索引
+
 +++++[#LightGreen] 限制索引
-++++++[#Aquamarine]_ 限制索引的数目
+++++++[#Aquamarine]_ 限制索引的数目（增删改要更新索引，索引树多了占空间）
 ++++++[#Aquamarine]_ 删除不再使用或者很少使用的索引
 
 
@@ -45,8 +48,8 @@
 ++++++[#Aquamarine]_ 从库负责读
 
 +++++[#LightGreen] 分库分表
-++++++[#Aquamarine]_ 垂直拆分
-++++++[#Aquamarine]_ 水平拆分
+++++++[#Aquamarine]_ 垂直拆分（按业务拆分）
+++++++[#Aquamarine]_ 水平拆分（按主键哈希值取模、时间维度拆分）
 
 
 @endmindmap

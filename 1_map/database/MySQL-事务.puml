@@ -45,8 +45,9 @@
 +++[#Pink] MVCC
 
 ++++[#MediumSpringGreen] 为什么用 MVCC
-+++++[#LightGreen] Multi-version concurrency control / 多版本并发控制
-+++++[#LightGreen] 每行记录都需要额外的存储空间，更多的行检查工作以及一些额外的维护工作，但可以减少锁的使用
++++++[#LightGreen]_ Multi-version concurrency control / 多版本并发控制
++++++[#LightGreen] 每行记录都需要额外的存储空间，更多的行检查工作以及一些额外的维护工作
++++++[#LightGreen] 可以减少锁的使用
 +++++[#LightGreen] 提升并发性能，对于高并发场景，MVCC 比行级锁开销更小
 
 ++++[#MediumSpringGreen] 实现原理

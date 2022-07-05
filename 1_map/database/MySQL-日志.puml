@@ -7,6 +7,7 @@
 +++[#Pink] 基础
 
 ++++[#AliceBlue] 日志种类
+
 +++++[#LightGreen] undo log
 +++++[#LightGreen] redo log
 +++++[#GhostWhite] binlog
@@ -15,6 +16,7 @@
 +++++[#GhostWhite] 慢查询日志
 
 ++++[#MediumSpringGreen] redo log 与 binlog 的区别
+
 +++++[#LightGreen] 作用不同
 ++++++[#Aquamarine] redo log 是用于 crash recovery 的，保证 MySQL 宕机也不会影响持久性
 ++++++[#Aquamarine] binlog 是用于 point-in-time recovery 的，基于时间点恢复数据

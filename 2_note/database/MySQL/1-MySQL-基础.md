@@ -158,7 +158,7 @@ update user set name = '条件' where id = 1;
 
 1、先查询到 id 为 1 的记录，有缓存会使用缓存。
 
-2、拿到查询结果，将 name 更新为条件，然后调用引擎接口，写入更新数据，innodb 引擎将数据保存在内存中，同时记录 redo log，此时 redo log 进入 prepare 状态。
+2、拿到查询结果，将 name 更新为条件，然后调用引擎接口，写入更新数据，InnoDB 引擎将数据保存在内存中，同时记录 redo log，此时 redo log 进入 prepare 状态。
 
 3、执行器收到通知后记录 binlog，然后调用引擎接口，提交 redo log 为 commit 状态。
 

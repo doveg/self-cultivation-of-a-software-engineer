@@ -1,0 +1,27 @@
+@startmindmap
+
++[#OrangeRed] 分布式系统
+
+++[#yellow] 微服务
+
++++[#Pink] 常见问题
+
+++++[#MediumSpringGreen] 分布式锁
+
++++++[#LightGreen] redis
+++++++[#Aquamarine] 以商品 id 为分布式锁的 key，锁一个商品
+++++++[#Aquamarine]_ 场景：保证扣库存数量准确，点击结算时，后端逻辑会查询库存和扣库存的 update 语句同时只有一条线程能够执行
+
++++++[#LightGreen] Zookeeper
+++++++[#Aquamarine] 有序的临时子节点
+
+++++[#MediumSpringGreen] 分布式事务
++++++[#LightGreen] RocketMQ
+++++++[#Aquamarine] 事务消息
+
++++++[#LightGreen] Seata
+++++++[#Aquamarine] 分布式事务框架
+
+
+
+@endmindmap

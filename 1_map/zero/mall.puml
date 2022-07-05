@@ -1,0 +1,47 @@
+@startmindmap
+
++[#OrangeRed] 商城
+
+++[#yellow] 团购
+
++++[#Pink] 模块
+
+++++[#MediumSpringGreen] 商家
+
++++++[#LightGreen] 商品
+++++++[#Aquamarine] 详情
+++++++[#Aquamarine] 标签
+++++++[#Aquamarine] 推荐
+
++++++[#LightGreen] 活动
+++++++[#Aquamarine] 拼团
+++++++[#Aquamarine] 抢购
+
++++++[#LightGreen] 优惠券
+++++++[#Aquamarine] 全场通用
+++++++[#Aquamarine] 活动专属
+
++++++[#LightGreen] 门店
+++++++[#Aquamarine] 总店
+++++++[#Aquamarine] 分店
+
+++++[#MediumSpringGreen] 用户
+
++++++[#LightGreen] 会员
+++++++[#Aquamarine] 拼团
+++++++[#Aquamarine] 团长
+++++++[#Aquamarine] 团员
+
++++++[#LightGreen] 订单
+++++++[#Aquamarine] 结算
+++++++[#Aquamarine] 物流
+
++++++[#LightGreen] 购物车
+++++++[#Aquamarine] 预计应付
+
++++++[#LightGreen] 返佣
+++++++[#Aquamarine] 返佣规则
+++++++[#Aquamarine] 返佣结算
+
+
+@endmindmap

@@ -46,14 +46,32 @@ explain 有三种参数分别对应结果输出的三部分数据：
 
 explain 是一个非常有用的工具，建议在一个数据量较大的数据库上开发新功能时，一定要用 explain 分析一下自己的语句是否合理、索引是否合理，避免在项目上线之后出现问题。
 
+### MongoDB Shell 和 SQL
 
+| # | SQL 操作 | MongoDB 操作 |
+|:---:|:---|:---|
+| 01 | where | $match |
+| 02 | group by | $group |
+| 03 | having | $match |
+| 04 | select | $project |
+| 05 | order by | $sort |
+| 06 | limit　 | $limit |
+| 07 | sum() | $sum |
+| 08 | count() | $sum |
+| 09 | join | $lookup |
+|<img width=50px/>|<img width=200px/>|<img width=200px/>|<img width=100px/>|
 
+### MongoDB 的分组查询
 
+aggregate
 
+    $group 操作
 
+### MongoDB 的多表联合查询
 
+aggregate
 
-
+    $lookup 操作
 
 ---
 

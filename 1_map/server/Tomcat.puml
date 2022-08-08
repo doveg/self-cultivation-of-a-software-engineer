@@ -1,0 +1,25 @@
+@startmindmap
+
++[#OrangeRed] Tomcat
+
+++[#yellow] 基础
+
++++[#Pink] 常见问题
+
+++++[#MediumSpringGreen] 端口号冲突
+++++[#MediumSpringGreen] 依赖包冲突
+
+
+
+
+++++[#MediumSpringGreen] 4
+++++[#AliceBlue] 4
++++++[#LightGreen] 5
++++++[#GhostWhite] 5
+++++++[#Aquamarine] 6
++++++++[#Aquamarine]_ 7
+++++++[#PowderBlue] 6
++++++++[#PowderBlue]_ 7
+
+
+@endmindmap

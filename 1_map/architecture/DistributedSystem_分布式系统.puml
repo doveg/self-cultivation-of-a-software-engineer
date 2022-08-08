@@ -8,7 +8,7 @@
 
 ++++[#MediumSpringGreen] 分布式锁
 
-+++++[#LightGreen] redis
++++++[#LightGreen] Redis
 ++++++[#Aquamarine] 以商品 id 为分布式锁的 key，锁一个商品
 ++++++[#Aquamarine]_ 场景：保证扣库存数量准确，点击结算时，后端逻辑会查询库存和扣库存的 update 语句同时只有一条线程能够执行
 

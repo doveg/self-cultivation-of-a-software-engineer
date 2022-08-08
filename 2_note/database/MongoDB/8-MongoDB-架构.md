@@ -12,7 +12,9 @@
 
 复制集，mongodb 的架构方式之一 ，通常是三个对等的节点构成一个 “复制集” 集群，有 “primary” 和 secondary 等多中角色（稍后详细介绍），
 
-其中 primary 负责读写请求，secondary 可以负责读请求，这有配置决定，其中 secondary 紧跟 primary 并应用 write 操作；
+**primary 负责读写请求，secondary 可以负责读请求**，
+
+这有配置决定，其中 secondary 紧跟 primary 并应用 write 操作；
 
 如果 primary 失效，则集群进行 “多数派” 选举，选举出新的 primary，即 failover 机制，即 HA 架构。
 
@@ -20,7 +22,7 @@
 
 **Sharding cluster / 分片集群：**
 
-分片集群，数据水平扩展的手段之一；
+**分片集群，数据水平扩展的手段之一**；
 
 replica set 这种架构的缺点就是 “集群数据容量” 受限于单个节点的磁盘大小，如果数据量不断增加，对它进行扩容将时非常苦难的事情，
 

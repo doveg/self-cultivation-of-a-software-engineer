@@ -20,18 +20,20 @@
 +++++++[#Aquamarine]_ rows
 
 +++++[#LightGreen] 系统资源
+++++++[#Aquamarine] performance_schema
+++++++[#Aquamarine]_ 排查死锁，定位慢 SQL
 ++++++[#Aquamarine] show profile 分析
 ++++++[#Aquamarine]_ show 命令查询系统状态及系统变量
 
 
 ++++[#MediumSpringGreen] 索引优化
 
-+++++[#LightGreen] 建索引
++++++[#LightGreen] 字段建索引
 ++++++[#Aquamarine]_ 经常用于 where 查询的字段要建索引
 ++++++[#Aquamarine]_ 经常用于 join on 的字段要建索引
 ++++++[#Aquamarine]_ 经常用于 order by 的字段要建索引
 
-+++++[#LightGreen] 选择索引
++++++[#LightGreen] 选择索引类型
 ++++++[#Aquamarine]_ 选择唯一性索引
 ++++++[#Aquamarine]_ 尽量使用组合索引
 ++++++[#Aquamarine]_ 尽量使用前缀来索引

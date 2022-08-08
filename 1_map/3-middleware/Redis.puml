@@ -78,11 +78,6 @@
 
 +++[#Pink] key
 
-++++[#MediumSpringGreen] 过期 key 的清理策略
-+++++[#MediumSpringGreen]_ 被动删除，访问时顺便删除
-+++++[#MediumSpringGreen]_ 主动删除，定时遍历清理
-+++++[#MediumSpringGreen]_ 内存不够时清理（设置的最大内存）
-
 ++++[#MediumSpringGreen] 热 key 问题
 +++++[#MediumSpringGreen]_ 利用二级缓存（ehcache）
 +++++[#MediumSpringGreen]_ 备份热 key（多台分流）
@@ -95,11 +90,14 @@
 +++++[#MediumSpringGreen]_ 内存淘汰策略：删除过期数据，再使用 LRU 算法进行淘汰，酌情使用 LFU 算法
 +++++[#MediumSpringGreen]_ 转码压缩
 
+++++[#MediumSpringGreen] 过期 key 的清理策略
++++++[#MediumSpringGreen]_ 参考内存淘汰
+
 
 +++[#Pink] 内存淘汰
 
-++++[#MediumSpringGreen] 内存淘汰策略（四）
-+++++[#MediumSpringGreen]_ 内存达到 MaxMemory 上限
+++++[#MediumSpringGreen] 内存淘汰策略（五）
++++++[#MediumSpringGreen]_ 背景：内存达到 MaxMemory 上限
 +++++[#MediumSpringGreen]_ LRU 按时间早晚淘汰
 ++++++[#LightGreen]_ 候选池，根据空闲时间排序
 +++++[#MediumSpringGreen]_ LFU 按访问次数的多少淘汰
@@ -174,9 +172,9 @@
 +++[#Pink] 节点增删
 
 ++++[#MediumSpringGreen] 哈希槽
-+++++[#LightGreen] Redis 集群始终包含 16384 个哈希槽，容易添加或者删除节点
-+++++[#LightGreen] 添加、删除或者改变某个节点的哈希槽数量，不影响集群的可用状态
-+++++[#LightGreen] 为降低由于消息过大而造成的通信阻塞影响，Redis 的节点数限制在 1000，哈希槽数限制在 16384
++++++[#LightGreen]_ Redis 集群始终包含 16384 个哈希槽，容易添加或者删除节点
++++++[#LightGreen]_ 添加、删除或者改变某个节点的哈希槽数量，不影响集群的可用状态
++++++[#LightGreen]_ 为降低由于消息过大而造成的通信阻塞影响，Redis 的节点数限制在 1000，哈希槽数限制在 16384
 
 
 ++[#yellow] 其他

@@ -96,10 +96,21 @@
 +++[#Pink] 分布式事务
 
 ++++[#MediumSpringGreen] 事务消息
-++++[#MediumSpringGreen] 半消息
-+++++[#GhostWhite]_ 暂时不能被 Consumer 消费的消息
-++++[#MediumSpringGreen] 消息回查
-+++++[#GhostWhite]_ Producer 端一直没有对半消息进行二次确认
++++++[#LightGreen] 半消息
+++++++[#Aquamarine]_ 暂时不能被 Consumer 消费的消息
++++++[#LightGreen] 消息回查
+++++++[#Aquamarine]_ Producer 端一直没有对半消息进行二次确认
+
+
+
++++[#Pink] 3
+
+++++[#MediumSpringGreen] 4
++++++[#LightGreen] 5
+++++++[#Aquamarine] 6
++++++++[#Aquamarine]_ 7
+
+
 
 
 @endmindmap

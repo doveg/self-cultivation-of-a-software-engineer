@@ -1,0 +1,51 @@
+@startmindmap
+
++[#OrangeRed] Map
+
+++[#yellow] 2
+
++++[#Pink] 常用实现
+
+++++[#MediumSpringGreen] HashMap
++++++[#LightGreen] 5
+++++++[#Aquamarine] 6
++++++++[#Aquamarine]_ 7
+
+
+
+++++[#MediumSpringGreen] TreeMap
+
+
+
++++[#Pink] 常见问题
+
+++++[#MediumSpringGreen] HashMap 的 Hash 冲突
+
++++++[#LightGreen] 原因
+++++++[#Aquamarine] Hash 算法
+++++++[#Aquamarine] Hash 表
+++++++[#Aquamarine] Hash 算法对不同的数据，输出相同的散列值，导致 Hash 表中 key 冲突
+
++++++[#LightGreen] 解决
+++++++[#Aquamarine] 开放定值寻址，线性探测法
+++++++[#Aquamarine] 链式寻址，加单向链表
+++++++[#Aquamarine] 再 Hash，加 Hash 函数，直到 key 不再冲突
+++++++[#Aquamarine] 公共溢出区，基本表和溢出表
+
+++++++[#Aquamarine]_ HashMap 通过红黑树和链式寻址法解决冲突
+
+
+
++++[#Pink] 3
+
+++++[#MediumSpringGreen] 4
++++++[#LightGreen] 5
+++++++[#Aquamarine] 6
++++++++[#Aquamarine]_ 7
+++++++[#PowderBlue] 6
++++++++[#PowderBlue]_ 7
+++++[#AliceBlue] 4
++++++[#GhostWhite] 5
+
+
+@endmindmap

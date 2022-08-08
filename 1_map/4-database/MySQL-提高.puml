@@ -7,7 +7,7 @@
 +++[#Pink] 性能优化
 
 ++++[#MediumSpringGreen] SQL 优化
-+++++[#LightGreen] 语句优化
++++++[#LightGreen] SQL 优化
 ++++++[#LightBlue]_ 不要使用 select *
 ++++++[#LightBlue]_ where 字段加索引
 ++++++[#LightBlue]_ limit 分页的参数不应过大
@@ -21,8 +21,8 @@
 
 +++++[#LightGreen] 系统资源
 ++++++[#Aquamarine] performance_schema
-++++++[#Aquamarine]_ 排查死锁，定位慢 SQL
-++++++[#Aquamarine] show profile 分析
+++++++[#Aquamarine] show profiles：排查死锁，定位慢 SQL
+++++++[#Aquamarine]_ show processlist
 ++++++[#Aquamarine]_ show 命令查询系统状态及系统变量
 
 
@@ -61,10 +61,11 @@
 +++++++[#Aquamarine]_ 数据迁移的代价更小
 
 
++++[#Pink] 常见问题
+
 ++++[#MediumSpringGreen] 配置优化
 
-+++++[#LightGreen] 读写分离
-++++++[#Aquamarine]_ 主库负责写
++++++[#LightGreen] 5
 
 
 

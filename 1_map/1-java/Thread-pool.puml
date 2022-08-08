@@ -5,20 +5,23 @@
 ++[#yellow] 线程
 
 +++[#Pink] 线程的状态（六）
-++++[#AliceBlue] 初始 / new
+
+++++[#AliceBlue]_ 初始 / new
 +++++[#GhostWhite]_ 线程被构建
-++++[#AliceBlue] 运行 / runnable
+++++[#AliceBlue]_ 运行 / runnable
 +++++[#GhostWhite]_ 操作系统中的就绪和运行两种状态
-++++[#AliceBlue] 终止 / terminated
+++++[#AliceBlue]_ 终止 / terminated
 +++++[#GhostWhite]_ 当前线程执行完毕
-++++[#AliceBlue] 阻塞 / blocked
+++++[#AliceBlue]_ 阻塞 / blocked
 +++++[#GhostWhite]_ 线程阻塞于锁
-++++[#AliceBlue] 等待 / waiting
+++++[#AliceBlue]_ 等待 / waiting
 +++++[#GhostWhite]_ 当前线程需要其他线程通知
-++++[#AliceBlue] 定时等待 / timed_waiting
+++++[#AliceBlue]_ 定时等待 / timed_waiting
 +++++[#GhostWhite]_ 指定等待时间自己返回
 
+
 +++[#Pink] 创建线程的方式（四）
+
 ++++[#MediumSpringGreen] 继承 Thread
 +++++[#GhostWhite]_ 继承 Thread 类，并重写 run () 方法
 ++++[#MediumSpringGreen] 实现 Runnable
@@ -32,14 +35,31 @@
 ++[#yellow] 线程池
 
 +++[#Pink] 线程池的核心配置参数（六）
+
 ++++[#MediumSpringGreen] 核心线程数
-++++[#MediumSpringGreen] 等待队列的容量
++++++[#LightGreen]_ CPU 密集型
+++++++[#Aquamarine]_ CPU 核心数 + 1
++++++[#LightGreen]_ IO 密集型
+++++++[#Aquamarine]_ 2 * CPU 核心数
+
 ++++[#MediumSpringGreen] 最大线程数
-++++[#MediumSpringGreen] 拒绝策略
++++++[#LightGreen]_ IO 密集型
+++++++[#Aquamarine]_ 25 * CPU 核心数
+
+++++[#MediumSpringGreen] 等待队列的容量
+
+++++[#MediumSpringGreen] 拒绝策略（四）
++++++[#LightGreen]_ CallerRunsPolicy / 调用者自己执行
++++++[#LightGreen]_ AbortPolicy / 抛异常
++++++[#LightGreen]_ DiscardOldestPolicy / 丢弃最老的
++++++[#LightGreen]_ DiscardPolicy / 丢弃
+
 ++++[#AliceBlue] 线程的最大存活时间
 ++++[#AliceBlue] 线程池线程名的前缀
 
+
 +++[#Pink] 线程池的处理流程（三）
+
 ++++[#MediumSpringGreen] 判断核心线程池是否已满
 +++++[#GhostWhite] 没满则创建线程执行任务
 +++++[#LightGreen] 判断等待队列是否已满
@@ -48,11 +68,14 @@
 +++++++[#GhostWhite] 没满则创建线程执行任务
 +++++++[#Aquamarine] 执行拒绝策略
 
-+++[#Pink] 拒绝策略（四）
-++++[#MediumSpringGreen] CallerRunsPolicy / 调用者自己执行
-++++[#MediumSpringGreen] DiscardOldestPolicy / 丢弃最老的
-++++[#AliceBlue] DiscardPolicy / 丢弃
-++++[#AliceBlue] AbortPolicy / 抛异常
+
+
++++[#Pink] 3
+
+++++[#MediumSpringGreen] 4
++++++[#LightGreen] 5
+++++++[#Aquamarine] 6
++++++++[#Aquamarine]_ 7
 
 
 @endmindmap

@@ -1,0 +1,194 @@
+@startmindmap
+
++[#OrangeRed] Concurrent
+
+++[#yellow] 并发
+
++++[#Pink] JUC
+
+++++[#MediumSpringGreen] CAS 机制
+
++++++[#LightGreen]_ 背景：CompareAndSwap，CAS 是 Java 中 Unsafe 类中的方法
++++++[#LightGreen]_ Unsafe 类中的 compareAndSwapInt() 方法
++++++[#LightGreen]_ 比较内存地址的偏移量对应的值和传入的预期值是否相等
++++++[#LightGreen]_ 多 CPU 情况下，对 CPU 加 Lock 的汇编指令，对缓存或者总线加锁
+
+
+++++[#MediumSpringGreen] AQS
+
++++++[#LightGreen] 背景
+++++++[#Aquamarine]_ AbstractQueuedSynchronizer / 抽象队列同步器
+++++++[#Aquamarine]_ 并发包组件的底层实现：锁、信号量、倒数计数器
+
++++++[#LightGreen] 排他锁
+++++++[#Aquamarine]_ 竞争同一个共享资源，获得锁来实现独占
+++++++[#Aquamarine]_ 例如：Synchronized
+
++++++[#LightGreen] 共享锁
+++++++[#Aquamarine]_ 允许多个线程同时获得锁
+++++++[#Aquamarine]_ 例如：信号量、倒数计数器
+
++++++[#LightGreen] 实现
+++++++[#Aquamarine] 互斥变量的设计
++++++++[#Aquamarine]_ state 记录锁竞争的状态
++++++++[#Aquamarine]_ CAS 机制保证 state 更新的原子性
+
+++++++[#Aquamarine] 阻塞和释放锁
++++++++[#Aquamarine]_ 未获取到锁的线程，被 Unsafe 类的 park() 方法，阻塞在双向链表
++++++++[#Aquamarine]_ 释放锁的线程，唤醒链表的头部节点去竞争锁
+
+++++++[#Aquamarine] 公平性
++++++++[#Aquamarine]_ 公平锁：判断双向链表中是否有阻塞线程，有则需要排队等待
++++++++[#Aquamarine]_ 非公平锁：直接尝试修改 state 来竞争锁
+
+
+++++[#MediumSpringGreen] ReentrantLock
++++++[#LightGreen] 实现
+++++++[#Aquamarine] AQS
++++++++[#Aquamarine]_ CAS
++++++++[#Aquamarine]_ 非公平锁
+
+
+
+++++[#MediumSpringGreen] Synchronized
+
++++++[#LightGreen] 锁升级
+
+++++++[#Aquamarine] 偏向锁
++++++++[#Aquamarine]_ 默认
++++++++[#Aquamarine]_ markwork 会记录当前线程 ID
+++++++[#Aquamarine] 轻量级锁
++++++++[#Aquamarine]_ 发生偏向锁竞争时，判断 markword 中保存的线程 ID 是否与这个线程 ID 相等
++++++++[#Aquamarine]_ CAS 操作是通过 native 调用 HotSpot 中 bytecodeInterpreter.cpp 实现
+++++++[#Aquamarine] 重量级锁
++++++++[#Aquamarine]_ 需要做内核态到用户态的转换
+
++++++[#LightGreen] 实现
+++++++[#Aquamarine] 通过 JVM 实现
++++++++[#Aquamarine]_ 重量级锁：mutex
++++++++[#Aquamarine]_ 重量级以下：对象头
++++++++[#Aquamarine]_ 非公平锁
+
+
+
+
+++++[#MediumSpringGreen] ConcurrentHashMap
+
++++++[#LightGreen] 数据结构
+++++++[#Aquamarine]_ 数组（初始值 16）
+++++++[#Aquamarine]_ 单向链表（头节点是数组元素）
+++++++[#Aquamarine]_ 红黑树（数组长度大于 64，链表长度大于等于 8 时转化）
+
++++++[#LightGreen] 并发安全
+++++++[#Aquamarine]_ 基于 HashMap
+++++++[#Aquamarine]_ java 8：更新时，对指定的节点 Node 进行加锁
+++++++[#Aquamarine]_ java 7：对分段 Segment 进行加锁
+
++++++[#LightGreen] 性能优化
+++++++[#Aquamarine]_ 锁粒度的一个缩小
+++++++[#Aquamarine]_ 红黑树的引入
+++++++[#Aquamarine]_ 多线程并发扩容
++++++++[#Aquamarine]_ 扩容中使用多线程，各自迁移自己的分片
+++++++[#Aquamarine]_ size() 方法
++++++++[#Aquamarine]_ 线程竞争不激烈，使用 CAS
++++++++[#Aquamarine]_ 线程竞争激烈，使用数组维护元素个数，对并发更新进行负载
+
+
+++++[#MediumSpringGreen] Atomic
++++++[#LightGreen]_ AtomicInteger
++++++[#LightGreen]_ AtomicLong
+
+
+++++[#MediumSpringGreen] ConcurrentLinkedQueue
+
+
++++[#Pink] 线程安全
+
+++++[#MediumSpringGreen] 具体表现
++++++[#LightGreen]_ 原子性
+++++++[#Aquamarine]_ JVM 的 Synchronized
++++++[#LightGreen]_ 有序性
++++++[#LightGreen]_ 可见性
+++++++[#Aquamarine]_ volatile 解决指令重排序
+
+++++[#MediumSpringGreen] 原因
++++++[#LightGreen] CPU 利用率最大化
+++++++[#Aquamarine]_ CPU 三级缓存
+++++++[#Aquamarine]_ StoreBuffer
+++++++[#Aquamarine]_ 缓存行
+++++++[#Aquamarine]_ 操作系统的线程模型
+
+
+++++[#MediumSpringGreen] 线程安全与性能
++++++[#LightGreen]_ CPU 三级缓存
++++++[#LightGreen]_ MySQL 的 buffer_pool
++++++[#LightGreen]_ Synchronized 锁升级
+
+
+
+
++++[#Pink] 常见问题
+
+++++[#MediumSpringGreen] volatile 作用
+
++++++[#LightGreen] 多线程环境下的共享变量内存可见性
+++++++[#Aquamarine]_ 缓存一致性：CPU 的三级高速缓存
+++++++[#Aquamarine]_ JVM 的 Lock 汇编指令
++++++++[#Aquamarine]_ 总线锁：同一时间，只有一个线程使用内存通信
++++++++[#Aquamarine]_ 缓存锁：对三级缓存种的目标数据加锁
+
++++++[#LightGreen] 防止指令重排序导致执行顺序不符合预期
+++++++[#Aquamarine]_ 指令编写和执行的顺序
+++++++[#Aquamarine]_ CPU 三级缓存
+++++++[#Aquamarine]_ CPU 对 MESI 协议的进一步优化
++++++++[#Aquamarine]_ StoreBuffer 机制
++++++++[#Aquamarine]_ CPU 乱序执行
++++++++[#Aquamarine]_ CPU 内存屏障指令
+++++++[#Aquamarine]_ 编译器优化
++++++++[#Aquamarine]_ 避免指令的优化
++++++++[#Aquamarine]_ Happens-before 模型
+
+
+
+++++[#MediumSpringGreen] Synchronized 和 Lock
+
++++++[#LightGreen] 差异
+
+++++++[#Aquamarine] Synchronized 同步关键字
++++++++[#Aquamarine]_ 使用：同步方法、同步代码块
++++++++[#Aquamarine]_ 全局锁：锁对象是类对象、静态对象
++++++++[#Aquamarine]_ 锁粒度：锁对象是普通对象
++++++++[#Aquamarine]_ 被动释放：结束或者异常才释放锁
+
+++++++[#Aquamarine] Lock 是 JUC 包中的接口
++++++++[#Aquamarine]_ 使用：实现类 ReentrantLock
++++++++[#Aquamarine]_ 锁粒度：lock()，unlock() 方法
++++++++[#Aquamarine]_ 加锁解锁的灵活性更高
+
+++++++[#Aquamarine] Lock 特性
++++++++[#Aquamarine]_ 非阻塞竞争锁：tryLock() 方法，返回布尔值
++++++++[#Aquamarine]_ 公平锁和非公平锁：让排队的去竞争锁是公平锁
+
++++++[#LightGreen] 优化
+++++++[#Aquamarine] Synchronized 使用锁升级机制
++++++++[#Aquamarine]_ 轻量锁、重量锁
+++++++[#Aquamarine] Lock 使用自旋锁
+
++++++[#LightGreen] 性能差别不大
+
++++++[#LightGreen] 功能相同，解决线程安全的工具
+
+
+
+
+++++[#MediumSpringGreen] 4
++++++[#LightGreen] 5
+++++++[#Aquamarine] 6
++++++++[#Aquamarine]_ 7
+++++++[#PowderBlue] 6
++++++++[#PowderBlue]_ 7
+++++[#AliceBlue] 4
++++++[#GhostWhite] 5
+
+
+@endmindmap

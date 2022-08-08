@@ -64,9 +64,9 @@
 +++[#Pink] 核心架构
 ++++[#AliceBlue] Server
 +++++[#GhostWhite] 连接器
-+++++[#GhostWhite] 查询缓存
 +++++[#GhostWhite] 解析器
 +++++[#GhostWhite] 优化器
++++++[#GhostWhite] 查询缓存
 +++++[#GhostWhite] 执行器
 ++++[#AliceBlue] 存储引擎
 

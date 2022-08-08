@@ -2,7 +2,7 @@
 
 +[#OrangeRed] Spring Framework
 
-++[#yellow] 三剑客
+++[#yellow] 双剑客
 
 +++[#Pink] AOP
 
@@ -18,18 +18,21 @@
 
 ++++[#AliceBlue] 代理方式
 
-+++++[#GhostWhite] JDK 动态代理
-++++++[#LightGreen]_ 对原始类做拦截，实现功能的增强
++++++[#MediumSpringGreen] JDK 动态代理
 ++++++[#LightGreen]_ Proxy.newProxyInstance() 实现，接收被代理接口
 ++++++[#LightGreen]_ 底层在代理期间生成 $Proxy0
 ++++++[#LightGreen]_ 动态代理类都继承了 java.lang.reflect.Proxy 类
 ++++++[#LightGreen]_ Proxy 类持有 InvocationHandler
 
-+++++[#GhostWhite] CGLib / Code Generation Library
++++++[#MediumSpringGreen] CGLib
+++++++[#LightGreen]_ Code Generation Library
 ++++++[#LightGreen]_ 动态生成被代理类的子类，覆写父类的非 final 方法
 ++++++[#LightGreen]_ 在子类中去拦截所有父类方法的调用
 
-+++++[#GhostWhite] 区别
++++++[#MediumSpringGreen] 比较
+++++++[#LightGreen]_ CGLib 支撑类的代理，JDK 动态代理支持接口
+++++++[#LightGreen]_ CGLib 动态生成被代理类的子类，JDK 动态代理实现目标接口，生成 $Proxy0
+++++++[#LightGreen]_ 都是对原始类做拦截，实现功能的增强
 
 
 +++[#Pink] IoC
@@ -59,6 +62,10 @@
 +++++[#LightGreen] 容器启动时，一次性创建所有的 Bean
 
 
+
+++[#yellow] 常见问题
+
+
 +++[#Pink] 事务传播
 
 ++++[#AliceBlue] 解释
@@ -73,7 +80,7 @@
 +++++++[#Aquamarine]_ 如果当前存在事务，就加入当前事务
 +++++++[#Aquamarine]_ 如果不存在事务，就开启新事务
 
-++++++[#Aquamarine] REQUIRES_NEW（独立）
+++++++[#Aquamarine]_ REQUIRES_NEW（独立）
 +++++++[#Aquamarine]_ 创建新事务，和当前存在的事务相互独立
 
 ++++++[#Aquamarine]_ NESTED（嵌套）
@@ -100,24 +107,53 @@
 
 
 
++++[#Pink] Bean 生命周期
+
+++++[#MediumSpringGreen] 实例化
++++++[#LightGreen]_ 实例化一个 bean 对象
+++++[#MediumSpringGreen] 属性赋值
++++++[#LightGreen]_ 为 bean 设置相关属性和依赖
+++++[#MediumSpringGreen] 初始化
++++++[#LightGreen]_ Aware 接口的依赖注入
++++++[#LightGreen]_ BeanPostProcessor 在初始化前后的处理
++++++[#LightGreen]_ InitializingBean 和 init-method 的初始化操作
+++++[#MediumSpringGreen] 销毁
++++++[#LightGreen]_ 注册相关销毁回调接口
++++++[#LightGreen]_ 最后通过 DisposableBean 和 destory-method 进行销毁
+
+
+'++++[#MediumSpringGreen] IoC 方便管理，通过注解的方式告诉容器
+'
+'++++[#MediumSpringGreen] 作用域：
+'+++++[#LightGreen]_ 单例：容器种只存在一个这样的实例。
+'+++++[#LightGreen]_ 原型：每次获取指定的 Bean，容器都会返回一个新的实例对象。
+'
+'++++[#MediumSpringGreen] web 应用里面的会话，控制 Bean 的三种场景：
+'+++++[#LightGreen]_ request：每次请求创建一个新的。
+'+++++[#LightGreen]_ Session：同一个会话共享一个实例。
+'+++++[#LightGreen]_ globalSession：全局会话共享一个 Bean 实例。
+
+
+
+
+
+
 ++[#yellow] 实现
 
 +++[#Pink] 模块
 ++++[#AliceBlue] spring-core
 ++++[#MediumSpringGreen] spring-beans
-+++++[#LightGreen] BeanFactory
-+++++[#LightGreen] 控制反转和依赖注入
++++++[#LightGreen]_ BeanFactory
++++++[#LightGreen]_ 控制反转和依赖注入
 ++++[#MediumSpringGreen] spring-context
-+++++[#LightGreen] ApplicationContext
-+++++[#LightGreen] 数据验证、国际化、事件传播
++++++[#LightGreen]_ ApplicationContext
++++++[#LightGreen]_ 数据验证、国际化、事件传播
 ++++[#AliceBlue]_ spring-aop
 ++++[#AliceBlue]_ spring-jdbc
 ++++[#AliceBlue]_ spring-orm
 ++++[#AliceBlue]_ spring-webmvc
 
 
-
-++[#yellow] 常见问题
 
 
 
@@ -133,6 +169,11 @@
 +++++++[#Aquamarine]_ 7
 ++++++[#PowderBlue] 6
 +++++++[#PowderBlue]_ 7
+
+
+
+
+
 
 
 @endmindmap

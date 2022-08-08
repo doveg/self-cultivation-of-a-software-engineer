@@ -66,8 +66,8 @@
 +++++[#LightGreen] ParNew
 ++++++[#LightGreen]_ Serial 收集器的多线程并行版本
 +++++[#LightGreen] CMS
-++++++[#LightGreen]_ 尽可能地缩用户线程的停顿时间
 ++++++[#LightGreen]_ Concurrent Mark Sweep
+++++++[#LightGreen]_ 尽可能地缩用户线程的停顿时间
 ++++++[#LightGreen]_ 第一款真正意义上支持并发的垃圾收集器
 ++++++[#LightGreen]_ 首次实现了让垃圾收集线程与用户线程（基本上）同时工作
 

@@ -12,7 +12,8 @@
 
 +++[#Pink] 语句执行流程（五）
 
-++++[#MediumSpringGreen] 客户端提交 SQL（使用连接池的连接，通过数据库驱动访问服务端），服务端连接器获得 SQL
+++++[#MediumSpringGreen] 客户端提交 SQL（使用连接池的连接，通过数据库驱动访问服务端）
+++++[#MediumSpringGreen] 服务端连接器获得 SQL
 ++++[#MediumSpringGreen] 解析器解析 SQL，生成解析树
 ++++[#MediumSpringGreen] 优化器优化 SQL（执行计划缓存）
 ++++[#MediumSpringGreen] 执行器从数据库引擎获取数据（数据缓存）

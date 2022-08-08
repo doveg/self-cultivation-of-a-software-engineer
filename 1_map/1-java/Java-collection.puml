@@ -1,0 +1,71 @@
+@startmindmap
+
++[#OrangeRed] Collection
+
+++[#yellow] List
+
++++[#Pink] 列表
+
+++++[#MediumSpringGreen] ArrayList
++++++[#LightGreen] 扩容
+++++++[#Aquamarine] Arrays.copyOf()
+
+++++[#MediumSpringGreen] LikedList
++++++[#LightGreen] 双向链表
+++++++[#Aquamarine] Node
+
+
+
+
+++[#yellow] Set
+
++++[#Pink] 集合
+
+++++[#MediumSpringGreen] HashSet
++++++[#LightGreen] Hash 算法
+
+++++[#MediumSpringGreen] TreeSet
++++++[#LightGreen] 堆排序
+
+
+
+
+++[#yellow] Queue
+
++++[#Pink] 队列
+
+++++[#MediumSpringGreen] 阻塞队列
+
++++++[#LightGreen] 特性
+++++++[#Aquamarine] 队列为空，消费者线程被阻塞，并唤醒生产者线程
+++++++[#Aquamarine] 队列容量满载，生产者线程被阻塞，并唤醒消费者线程
+
++++++[#LightGreen] 有界
+++++++[#Aquamarine] ArrayBlockingQueue
+++++++[#Aquamarine] 场景：线程池
+++++++[#Aquamarine] 场景：生产者消费者模型
+
++++++[#LightGreen] 无界
+++++++[#Aquamarine] LinkedBlockingQueue
+++++++[#Aquamarine] 容量很大，感受不到长度的限制
+++++++[#Aquamarine] 风险：并发量大，容易发生线程过度，内存一处的问题
+
+
+
+++[#yellow] 3
+
+
+
++++[#Pink] 3
+
+++++[#MediumSpringGreen] 4
++++++[#LightGreen] 5
+++++++[#Aquamarine] 6
++++++++[#Aquamarine]_ 7
+++++++[#PowderBlue] 6
++++++++[#PowderBlue]_ 7
+++++[#AliceBlue] 4
++++++[#GhostWhite] 5
+
+
+@endmindmap

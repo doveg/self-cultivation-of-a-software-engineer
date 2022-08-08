@@ -95,9 +95,20 @@
 
 +++[#Pink] JDK 7、JDK 8
 
-++++[#MediumSpringGreen] 集合框架
-+++++[#LightGreen] HashMap
-+++++[#LightGreen] ConcurrentHashMap
+++++[#MediumSpringGreen] 优化
+
++++++[#LightGreen] 集合框架
+++++++[#Aquamarine] HashMap
+++++++[#Aquamarine] ConcurrentHashMap
++++++[#LightGreen] JVM 元空间
+
+++++[#MediumSpringGreen] 新特性
+
++++++[#LightGreen] lambda 表达式
++++++[#LightGreen] 方法引用
++++++[#LightGreen] 默认方法
++++++[#LightGreen] 重复注解
++++++[#LightGreen] 类型注解
 
 
 

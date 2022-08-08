@@ -24,6 +24,8 @@
 +++++[#LightGreen]_ 查询条件中的字段必须都在二级索引中
 
 ++++[#MediumSpringGreen] 聚簇索引、非聚簇索引的区别
++++++[#LightGreen]_ 聚簇索引的主索引的叶子结点存储的是键值对应的数据本身，二级索引的叶子结点存储的是键值对应的数据的主键键值。
++++++[#LightGreen]_ 非聚簇索引的数据表和索引表是分开存储的。
 
 ++++[#MediumSpringGreen] 主键索引、非主键索引的区别
 
@@ -45,19 +47,37 @@
 ++++[#MediumSpringGreen] B+ Tree 特点
 +++++[#LightGreen] 扫表能力更强：叶子节点形成了链表
 +++++[#LightGreen] 效率更加稳定：key 和 数据都存在叶子节点
-+++++[#LightGreen] IO 次数更少：节点不存数据，所以可以存储更多的元素，查询的 IO 次数更少
++++++[#LightGreen] IO 次数更少：节点不存数据，所以可以存储更多的元素，树高度更低，查询的 IO 次数更少
 +++++[#LightGreen] 排序能力更强
 
 ++++[#MediumSpringGreen] B 树、B+ 树的区别
-+++++[#LightGreen] 叶子节点
-++++++[#Aquamarine] B 树的叶子节点是不相连的
-++++++[#Aquamarine] B+ 树的叶子节点是通过链表串联的
-+++++[#LightGreen] 叶子节点
-++++++[#Aquamarine] B 树的叶子节点存的全是数据的物理地址
-++++++[#Aquamarine] B+ 树的叶子节点存有字段和值，叶子节点的 key 还存了数据的物理地址
++++++[#LightGreen] 叶子节点关系
+++++++[#Aquamarine]_ B 树的叶子节点是不相连的
+++++++[#Aquamarine]_ B+ 树的叶子节点是通过链表串联的
++++++[#LightGreen] 叶子节点数据
+++++++[#Aquamarine]_ B 树的叶子节点存的全是数据的物理地址
+++++++[#Aquamarine]_ B+ 树的叶子节点存有字段和值，叶子节点的 key 还存了数据的物理地址
 +++++[#LightGreen] 非叶子节点
-++++++[#Aquamarine] B 树因为节点存的是主键的地址，查找的过程过，在非叶子节点查到匹配的数据，不会继续查子节点
-++++++[#Aquamarine] B+ 树的非叶子节点不存数据，只存值
+++++++[#Aquamarine]_ B 树因为节点存的是主键的地址，查找的过程过，在非叶子节点查到匹配的数据，不会继续查子节点
+++++++[#Aquamarine]_ B+ 树的非叶子节点不存数据，只存值
+
+
+++++[#MediumSpringGreen] 二叉树、二叉查找树、平衡二叉树、B 树
++++++[#LightGreen] 二叉树
+++++++[#Aquamarine]_ 每个节点最多有两个子节点
++++++[#LightGreen] 二叉查找树
+++++++[#Aquamarine]_ 左子节点小于父节点，右子节点大于父节点
++++++[#LightGreen] 平衡二叉树
+++++++[#Aquamarine]_ 左右子树的高度差，不能超过一
+++++++[#Aquamarine]_ 通过左旋和右旋实现
++++++[#LightGreen] B 树
+++++++[#Aquamarine]_ 子路的数量，等于关键字的数量加一
++++++[#LightGreen] B+ 树
+++++++[#Aquamarine]_ 子路的数量，等于关键字的数量
+++++++[#Aquamarine]_ 叶子节点使用双向链表连接
+
+
+
 
 
 +++[#Pink] 存储引擎

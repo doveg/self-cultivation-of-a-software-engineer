@@ -25,11 +25,15 @@
 ++++++[#Aquamarine]_ http 协议：表单序列化
 ++++++[#Aquamarine]_ webservice 协议：SOAP 文本序列化
 
-+++++[#LightGreen] 负载均衡策略
-++++++[#Aquamarine]_ 一致性 Hash 策略 / ConstantHash LoadBalance
-++++++[#Aquamarine]_ 最少活跃调用策略 / LeastActive LoadBalance
-++++++[#Aquamarine]_ 随机选取提供者策略 / Random LoadBalance
-++++++[#Aquamarine]_ 轮循选取提供者策略 / RoundRobin LoadBalance
++++++[#LightGreen] 负载均衡策略（六）
+++++++[#Aquamarine]_ 不确定性
++++++++[#Aquamarine]_ 随机选取提供者策略 / Random LoadBalance
++++++++[#Aquamarine]_ 加权随机
++++++++[#Aquamarine]_ 最少活跃调用策略 / LeastActive LoadBalance
++++++++[#Aquamarine]_ 最小请求时间
+++++++[#Aquamarine]_ 确定性
++++++++[#Aquamarine]_ 一致性 Hash 策略 / ConstantHash LoadBalance
++++++++[#Aquamarine]_ 轮询选取提供者策略 / RoundRobin LoadBalance
 
 +++++[#LightGreen] Dubbo 和 Feign 区别
 ++++++[#Aquamarine]_ Feign 是 Spring Cloud 提供的一个声明式的伪 Http 客户端，使用起来更方便
@@ -39,13 +43,14 @@
 
 ++++[#MediumSpringGreen] 治理
 
-+++++[#LightGreen] 集群容错
-++++++[#Aquamarine]_ 失败自动切换 / Failover Cluster：当出现失败，重试其它服务器
-++++++[#Aquamarine]_ 快速失败 / Failfast Cluster：只发起一次调用，失败立即报错
-++++++[#Aquamarine]_ 失败安全 / Failsafe Cluster：出现异常时，直接忽略
++++++[#LightGreen] 容错策略
+++++++[#Aquamarine]_ 失败自动切换 / Failover Cluster（默认）：失败后重试其它服务器，接口要做好幂等处理
+++++++[#Aquamarine]_ 快速失败 / Failfast Cluster：失败后立即报错
+++++++[#Aquamarine]_ 失败安全 / Failsafe Cluster：失败后不做任何处理，直接忽略
 ++++++[#Aquamarine]_ 失败自动恢复 / Failback Cluster：后台记录失败请求，定时重发
-++++++[#Aquamarine]_ 并行调用多个服务器 / Forking Cluster：只要一个成功即返回
-++++++[#Aquamarine]_ 广播调用所有提供者 / Broadcast Cluster：逐个调用，任意一台报错则报错
+++++++[#Aquamarine]_ 并行调用多个服务 / Forking Cluster：只要一个成功即返回
+++++++[#Aquamarine]_ 广播调用 / Broadcast Cluster：逐个调用服务，任一节点报错则报错
+
 
 
 ++[#yellow] 提高
@@ -59,15 +64,19 @@
 +++++[#LightGreen] 优点：很容易的对 Dubbo 进行拓展
 
 ++++[#MediumSpringGreen] 框架设计分层（九）
-+++++[#LightGreen]_ 服务接口层 / Service
-+++++[#LightGreen]_ 配置层 / Config
-+++++[#LightGreen]_ 服务代理层 / Proxy
-+++++[#LightGreen]_ 服务注册层 / Registry
-+++++[#LightGreen]_ 集群层 / Cluster
-+++++[#LightGreen]_ 监控层 / Monitor
-+++++[#LightGreen]_ 远程调用层 / Protocol
-+++++[#LightGreen]_ 信息交换层 / Exchange
-+++++[#LightGreen]_ 网络传输层 / Transport
++++++[#LightGreen]_ 服务层
+++++++[#Aquamarine]_ 服务接口层 / Service
++++++[#LightGreen]_ 配置层
+++++++[#Aquamarine]_ 配置层 / Config
+++++++[#Aquamarine]_ 服务代理层 / Proxy
+++++++[#Aquamarine]_ 服务注册层 / Registry
+++++++[#Aquamarine]_ 集群层 / Cluster
+++++++[#Aquamarine]_ 监控层 / Monitor
++++++[#LightGreen]_ 协议层
+++++++[#Aquamarine]_ 远程调用层 / Protocol
+++++++[#Aquamarine]_ 信息交换层 / Exchange
+++++++[#Aquamarine]_ 网络传输层 / Transport
+
 
 +++[#Pink] 常见问题
 
@@ -81,6 +90,45 @@
 ++++[#MediumSpringGreen] 安全机制
 +++++[#LightGreen]_ 通过 Token 令牌防止用户绕过注册中心直连
 +++++[#LightGreen]_ 提供服务黑白名单，来控制服务所允许的调用方
+
+++++[#MediumSpringGreen] Dubbo 动态感知服务的下线
++++++[#LightGreen]_ 服务提供者和消费者和 zk 通过长连接，用心跳感应服务的状态
++++++[#LightGreen]_ 如果某个服务状态异常，zk 上的服务注册节点状态会变化
++++++[#LightGreen]_ 利用 zk 的 watch 机制实现节点监听，Dubbo 客户端会收到服务状态变化的通知，删除或者增加服务节点
+
+++++[#MediumSpringGreen] Dubbo 的功能
++++++[#LightGreen]_ 高性能 RPC
++++++[#LightGreen]_ 服务注册和发现
++++++[#LightGreen]_ 容错和负载均衡
++++++[#LightGreen]_ 服务治理
++++++[#LightGreen]_ 流量调度
+
+++++[#MediumSpringGreen] Dubbo 的服务发现流程
++++++[#LightGreen]_ 服务启动
+++++++[#Aquamarine]_ 服务提供者和消费者，根据配置信息，连接注册中心
+++++++[#Aquamarine]_ 注册和订阅服务
++++++[#LightGreen]_ 注册中心
+++++++[#Aquamarine]_ 根据注册和订阅的关系，返回服务信息给各个服务提供者和消费者
+++++++[#Aquamarine]_ 服务消费者把服务提供者的信息缓存到本地
+++++++[#Aquamarine]_ 服务信息变更之后，服务消费者会收到推送，更新本地的缓存
++++++[#LightGreen]_ 服务消费者
+++++++[#Aquamarine]_ 生成代理对象，根据负载均衡策略选择服务提供者
+++++++[#Aquamarine]_ 通过 monitor 监听器记录调用次数和响应时间信息
+++++++[#Aquamarine]_ 通过代理对象，向服务提供者发起接口调用
++++++[#LightGreen]_ 服务提供者
+++++++[#Aquamarine]_ 收到请求后，反序列化数据
+++++++[#Aquamarine]_ 通过代理，调用具体的接口实现
+
+++++[#MediumSpringGreen] Dubbo 和 SpringCloud
++++++[#LightGreen]_ 目的
+++++++[#Aquamarine]_ Dubbo 是服务调用和治理的框架
+++++++[#Aquamarine]_ SpringCloud 是一种微服务解决方案，是一套技术生态体系，是一种行业标准
++++++[#LightGreen]_ 服务调用
+++++++[#Aquamarine]_ Dubbo 的服务调用采用的是 rpc，用 netty 和 tcp 协议传输数据
+++++++[#Aquamarine]_ SpringCloud 的服务调用，采用的是 Rest 风格的 http 协议
+
+++++[#MediumSpringGreen] Dubbo 的服务请求失败
++++++[#LightGreen] 参考容错策略
 
 
 ++[#yellow] 实践

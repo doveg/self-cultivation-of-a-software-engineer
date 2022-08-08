@@ -2,7 +2,7 @@
 
 +[#OrangeRed] Spring Framework
 
-++[#yellow] 两剑客
+++[#yellow] 三剑客
 
 +++[#Pink] AOP
 
@@ -17,8 +17,19 @@
 +++++[#GhostWhite]_ 切面
 
 ++++[#AliceBlue] 代理方式
+
 +++++[#GhostWhite] JDK 动态代理
+++++++[#LightGreen]_ 对原始类做拦截，实现功能的增强
+++++++[#LightGreen]_ Proxy.newProxyInstance() 实现，接收被代理接口
+++++++[#LightGreen]_ 底层在代理期间生成 $Proxy0
+++++++[#LightGreen]_ 动态代理类都继承了 java.lang.reflect.Proxy 类
+++++++[#LightGreen]_ Proxy 类持有 InvocationHandler
+
 +++++[#GhostWhite] CGLib / Code Generation Library
+++++++[#LightGreen]_ 动态生成被代理类的子类，覆写父类的非 final 方法
+++++++[#LightGreen]_ 在子类中去拦截所有父类方法的调用
+
++++++[#GhostWhite] 区别
 
 
 +++[#Pink] IoC
@@ -48,6 +59,47 @@
 +++++[#LightGreen] 容器启动时，一次性创建所有的 Bean
 
 
++++[#Pink] 事务传播
+
+++++[#AliceBlue] 解释
++++++[#Aquamarine] 多个声明了事务的方法，相互调用时，事务如何传递
+
+++++[#AliceBlue] 行为（七）
+
++++++[#Aquamarine]_ 事务操作
+
+++++++[#Aquamarine] REQUIRED（合并）
++++++++[#Aquamarine]_ 默认，不需要定义，除非存在事务嵌套
++++++++[#Aquamarine]_ 如果当前存在事务，就加入当前事务
++++++++[#Aquamarine]_ 如果不存在事务，就开启新事务
+
+++++++[#Aquamarine] REQUIRES_NEW（独立）
++++++++[#Aquamarine]_ 创建新事务，和当前存在的事务相互独立
+
+++++++[#Aquamarine]_ NESTED（嵌套）
++++++++[#Aquamarine]_ 如果当前存在事务，就嵌套在当前事务；外层事务能回滚嵌套事务
++++++++[#Aquamarine]_ 如果不存在事务，就开启新事务
+
+++++++[#Aquamarine]_ MANDATORY（强制）
++++++++[#Aquamarine]_ 强制进行事务
++++++++[#Aquamarine]_ 如果不存在事务，抛出异常
+
++++++[#Aquamarine]_ 非事务
+
+++++++[#Aquamarine]_ NOT_SUPPORTED
++++++++[#Aquamarine]_ 如果当前存在事务，就挂起事务
+
+++++++[#Aquamarine]_ NEVER
++++++++[#Aquamarine]_ 如果当前存在事务，抛出异常
+
++++++[#Aquamarine]_ 其他
+
+++++++[#Aquamarine] SUPPORTS
++++++++[#Aquamarine]_ 支撑当前事务
++++++++[#Aquamarine]_ 如果不存在事务，也不开新事务
+
+
+
 ++[#yellow] 实现
 
 +++[#Pink] 模块
@@ -62,6 +114,25 @@
 ++++[#AliceBlue]_ spring-jdbc
 ++++[#AliceBlue]_ spring-orm
 ++++[#AliceBlue]_ spring-webmvc
+
+
+
+++[#yellow] 常见问题
+
+
+
+++[#yellow] 2
+
++++[#Pink] 3
+
+++++[#MediumSpringGreen] 4
+++++[#AliceBlue] 4
++++++[#LightGreen] 5
++++++[#GhostWhite] 5
+++++++[#Aquamarine] 6
++++++++[#Aquamarine]_ 7
+++++++[#PowderBlue] 6
++++++++[#PowderBlue]_ 7
 
 
 @endmindmap

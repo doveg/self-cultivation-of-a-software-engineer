@@ -25,15 +25,19 @@
 +++++[#LightGreen] 串行化 / Serializable
 
 ++++[#MediumSpringGreen] 三剑客
-+++++[#LightGreen] 脏读
-+++++[#LightGreen] 不可重复读
-+++++[#LightGreen] 幻读
 
-++++++[#LightBlue] 原因
-+++++++[#Aquamarine]_ 快照读和当前读一起使用
++++++[#LightGreen] 脏读
+
++++++[#LightGreen] 不可重复读
+
++++++[#LightGreen] 幻读
+++++++[#LightBlue]_ 原因
++++++++[#Aquamarine]_ 一般来说：一个事务中同样的查询，两次返回结果不一致
++++++++[#Aquamarine]_ InnoDB：快照读和当前读一起使用
 
 ++++++[#LightBlue] 解决
 +++++++[#Aquamarine]_ 临键锁 / Next-Key Lock：行锁加间隙锁
++++++++[#Aquamarine]_ 采用读已提交的事务级别
 
 ++++[#MediumSpringGreen] 快照读和当前读
 +++++[#GhostWhite] 快照读：读取开启事务时的版本数据
@@ -67,6 +71,12 @@
 ++++[#MediumSpringGreen] MySQL 如何实现一致性
 +++++[#LightGreen]_ 数据库本身提供保障
 +++++[#LightGreen]_ 应用层面进行保障
+
+
+
+
+
+
 
 
 @endmindmap

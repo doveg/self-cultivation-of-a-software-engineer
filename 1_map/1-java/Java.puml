@@ -84,6 +84,25 @@
 +++++[#LightGreen] 静态的（变量，方法，代码块）会被执行
 +++++[#LightGreen]_ 类加载的时候执行一次
 
+++++[#MediumSpringGreen] 对象的创建过程（五）
++++++[#LightGreen] 类加载检查：首先检查是否被加载，加载未加载的对象
++++++[#LightGreen] 分配内存空间
++++++[#LightGreen] 初始化零值
++++++[#LightGreen] 设置对象头
++++++[#LightGreen] init 方法来做初始化操作
+
+
+
++++[#Pink] JDK 7、JDK 8
+
+++++[#MediumSpringGreen] 集合框架
++++++[#LightGreen] HashMap
++++++[#LightGreen] ConcurrentHashMap
+
+
+
+
+
 
 
 

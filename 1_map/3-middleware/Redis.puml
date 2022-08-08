@@ -63,14 +63,21 @@
 +++++[#AliceBlue]_ 单线程没有锁竞争开销，不需要考虑线程安全问题
 
 +++[#Pink] 三剑客
+
 ++++[#AliceBlue] 缓存雪崩
 +++++[#AliceBlue]_ 同时大面积失效
++++++[#AliceBlue]_ 内存淘汰策略选清理最少访问
+
 ++++[#MediumSpringGreen] 缓存击穿
 +++++[#MediumSpringGreen]_ 热点 key 失效
++++++[#MediumSpringGreen]_ 热点 key 可以不设置失效的时间
+
 ++++[#AliceBlue] 缓存穿透
 +++++[#AliceBlue]_ 同时大量无效的 key（恶意请求）
++++++[#AliceBlue]_ 布隆过滤器可以解决
 
 +++[#Pink] key
+
 ++++[#MediumSpringGreen] 过期 key 的清理策略
 +++++[#MediumSpringGreen]_ 被动删除，访问时顺便删除
 +++++[#MediumSpringGreen]_ 主动删除，定时遍历清理
@@ -87,6 +94,26 @@
 ++++[#AliceBlue] 场景优化：内存不够用
 +++++[#MediumSpringGreen]_ 内存淘汰策略：删除过期数据，再使用 LRU 算法进行淘汰，酌情使用 LFU 算法
 +++++[#MediumSpringGreen]_ 转码压缩
+
+
++++[#Pink] 内存淘汰
+
+++++[#MediumSpringGreen] 内存淘汰策略（四）
++++++[#MediumSpringGreen]_ 内存达到 MaxMemory 上限
++++++[#MediumSpringGreen]_ LRU 按时间早晚淘汰
+++++++[#LightGreen]_ 候选池，根据空闲时间排序
++++++[#MediumSpringGreen]_ LFU 按访问次数的多少淘汰
+++++++[#LightGreen]_ 维护访问次数：二维的双向链表（次数和相同次数的元素）
++++++[#MediumSpringGreen]_ TTL
+++++++[#LightGreen]_ 寻找过期时间的 key
++++++[#MediumSpringGreen]_ 随机算法
++++++[#MediumSpringGreen]_ 内存不足，默认是直接报错
+
+++++[#MediumSpringGreen] 过期策略（二）
++++++[#MediumSpringGreen]_ 定期删除
+++++++[#LightGreen]_ 默认是每隔 100ms 就随机抽取一些设置了过期时间的 key
++++++[#MediumSpringGreen]_ 惰性删除
+++++++[#LightGreen]_ 客户端访问 key 的时候检查 key 是否过期
 
 
 ++[#yellow] ACID
@@ -161,8 +188,18 @@
 +++++[#GhostWhite] Availability / 可用性
 +++++[#LightGreen] Partition Tolerance / 分区容错性
 
+++++[#MediumSpringGreen] 生命周期
++++++[#LightGreen] 跨进程跨机器节点
+
+++++[#MediumSpringGreen] 问题
++++++[#LightGreen] 分布式锁过期
++++++[#LightGreen] 主从切换，节点同步失败，分布式锁失效
+
 ++++[#AliceBlue] Redis 实现
-+++++[#LightGreen] 使用 redisson
++++++[#LightGreen] 命令：setNX + expire
++++++[#LightGreen] 使用 redisson：watch dog
++++++[#LightGreen] RedLock
+
 
 +++[#Pink] 集成 SpringBoot
 ++++[#AliceBlue] 依赖 spring-boot-starter-data-redis

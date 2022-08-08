@@ -1,0 +1,73 @@
+@startmindmap
+
++[#OrangeRed] 招聘
+
+++[#yellow] 业务
+
++++[#Pink] 求职者
+
+++++[#MediumSpringGreen] 基本信息
+++++[#MediumSpringGreen] 简历
++++++[#LightGreen] 工作经历
++++++[#LightGreen] 教育经历
+++++[#MediumSpringGreen] 证件
+
+
++++[#Pink] 招聘者
+
+++++[#MediumSpringGreen] 简历评估
+++++[#MediumSpringGreen] 面试邀请
+++++[#MediumSpringGreen] 视频面试
+
+
++++[#Pink] 培训机构
+
+++++[#MediumSpringGreen] 培训广告
+++++[#MediumSpringGreen] 意向沟通
+++++[#MediumSpringGreen] 销售课程
+
+
++++[#Pink] 平台运营方
+
+++++[#MediumSpringGreen] 权限
++++++[#LightGreen] 人员
++++++[#LightGreen] 角色
+
+++++[#MediumSpringGreen] 规则
++++++[#LightGreen] 招聘启示计价
++++++[#LightGreen] 培训广告计价
+
+
+
+++[#yellow] 技术
+
++++[#Pink] 前端
+++++[#MediumSpringGreen] 管理后台
++++++[#LightGreen] Vue.js
+++++[#MediumSpringGreen] 微信公众号
++++++[#LightGreen] HTML5
+
++++[#Pink] 后端
+++++[#MediumSpringGreen] MySQL
+++++[#MediumSpringGreen] Redis
+++++[#MediumSpringGreen] SpringBoot + MyBatis
+
+
+
+
+++[#yellow] 2
+
++++[#Pink] 3
+
+++++[#MediumSpringGreen] 4
+++++[#AliceBlue] 4
++++++[#LightGreen] 5
++++++[#GhostWhite] 5
+++++++[#Aquamarine] 6
++++++++[#Aquamarine]_ 7
+++++++[#PowderBlue] 6
++++++++[#PowderBlue]_ 7
+
+
+
+@endmindmap

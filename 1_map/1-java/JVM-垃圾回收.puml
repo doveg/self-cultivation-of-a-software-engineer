@@ -12,14 +12,14 @@
 ++++++[#Aquamarine] 伊甸区 / Eden
 +++++++[#Aquamarine]_ 伊甸区约是存活区的八倍，因为产生的多幸存的少
 ++++++[#Aquamarine] 存活区 / Survivor
-++++++[#Aquamarine] 标记复制算法
-++++++[#Aquamarine] Minor GC
 +++++++[#Aquamarine]_ 存活 0 区别名 from 区，存活 1 区别名 to 区
+++++++[#Aquamarine]_ 标记复制算法
+++++++[#Aquamarine]_ Minor GC
 
 +++++[#LightGreen] 老年代 / Tenured Generation
-++++++[#Aquamarine] 标记整理算法
-++++++[#Aquamarine] Major GC
-++++++[#GhostWhite] 老年代空间分配担保机制
+++++++[#Aquamarine]_ 标记整理算法
+++++++[#Aquamarine]_ Major GC
+++++++[#GhostWhite]_ 老年代空间分配担保机制
 
 +++++[#LightGreen] FullGC
 ++++++_ 同时 GC 年轻代和老年代
@@ -29,12 +29,13 @@
 ++++++[#Aquamarine] 抽象数据结构：记录从非收集区域指向收集区域的指针集合
 
 ++++[#MediumSpringGreen] 三色标记理论
-+++++[#LightGreen] 白色
-++++++[#Aquamarine] 尚未被垃圾收集器访问过
-+++++[#LightGreen] 黑色
-++++++[#Aquamarine] 已经被垃圾收集器访问过，且这个对象的所有引用都已经扫描过
-+++++[#LightGreen] 灰色
-++++++[#Aquamarine] 已经被垃圾收集器访问过，但这个对象上至少存在一个引用还没有被扫描过
++++++[#LightGreen]_ 白色
+++++++[#Aquamarine]_ 尚未被垃圾收集器访问过
++++++[#LightGreen]_ 黑色
+++++++[#Aquamarine]_ 已经被垃圾收集器访问过，且这个对象的所有引用都已经扫描过
++++++[#LightGreen]_ 灰色
+++++++[#Aquamarine]_ 已经被垃圾收集器访问过，但这个对象上至少存在一个引用还没有被扫描过
+
 
 +++[#Pink] 垃圾回收算法（四）
 
@@ -49,7 +50,7 @@
 +++++_ 代价比较大：让所有存活的对象都向内存空间一端移动，然后直接清理掉边界以外的内存
 +++++_ 比标记复制节省一半的空间
 
-++++[#MediumSpringGreen] 分代回收算法
+++++[#MediumSpringGreen]_ 分代回收算法
 
 
 +++[#Pink] 垃圾回收器（四）
@@ -84,7 +85,7 @@
 +++++++[#Aquamarine]_ 并行与并发好，充分利用多 CPU，多核环境下的硬件优势
 +++++++[#Aquamarine]_ 空间碎片少，整体上基于标记整理算法，局部上基于标记复制算法
 
-++++++[#Aquamarine] Mixed GC 模式
+++++++[#Aquamarine]_ Mixed GC 模式
 
 ++++++[#Aquamarine] Region 堆内存布局
 +++++++[#Aquamarine]_ 把连续的 Java 堆划分为多个大小相等的独立区域 / Region
@@ -117,6 +118,7 @@
 +++++[#LightGreen] Phantom Reference / 虚引用
 ++++++[#LightGreen]_ 幽灵引用 / 幻影引用
 ++++++[#LightGreen]_ 垃圾收集器工作时直接回收
+
 
 
 @endmindmap

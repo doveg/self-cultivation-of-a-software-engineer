@@ -5,6 +5,7 @@
 ++[#yellow] 应用架构
 
 +++[#Pink] 分库分表
+
 ++++[#LightBlue] 分库
 +++++[#AliceBlue] 垂直拆分
 ++++++[#Aquamarine]_ 业务细分、领域拆分
@@ -28,6 +29,7 @@
 ++++++[#Aquamarine] 分片策略
 
 +++[#Pink] 主从同步
+
 ++++[#MediumSpringGreen] 实现
 +++++[#LightGreen] 一主多从
 ++++++[#LightGreen]_ 数据从主服务器，异步同步到从服务器
@@ -35,6 +37,26 @@
 +++++[#GhostWhite]_ 读写分离
 +++++[#GhostWhite]_ 数据备份
 +++++[#GhostWhite]_ 提高查询性能
+
++++[#Pink] 高可用
+
+++++[#MediumSpringGreen] 原因
++++++[#LightGreen] 服务器资源耗尽，比如硬盘容量不足
++++++[#LightGreen] 单点故障，比如磁盘坏道导致宕机
++++++[#LightGreen] 人为因素，比如操作失误
++++++[#LightGreen] 网络问题，比如光缆被挖断
+
+++++[#MediumSpringGreen] 方案
++++++[#LightGreen] 一主一从
++++++[#LightGreen] 一主多从
+
+++++[#MediumSpringGreen] 实现
++++++[#LightGreen] 从库连接主库，向主库索要 binlog
++++++[#LightGreen] 主库通过 Dump 线程，把 binlog 文件发送给从库
++++++[#LightGreen] 从库把 binlog 写入中继日志，并执行中继日志，实现备份和提供查询服务
+
+++++[#MediumSpringGreen] 主节点选举
+
 
 
 ++[#yellow] 内部架构
@@ -47,6 +69,9 @@
 +++++[#GhostWhite] 优化器
 +++++[#GhostWhite] 执行器
 ++++[#AliceBlue] 存储引擎
+
+
+
 
 
 @endmindmap

@@ -53,5 +53,20 @@
 ++++++[#Aquamarine]_ 垂直拆分（按业务拆分）
 ++++++[#Aquamarine]_ 水平拆分（按主键哈希值取模、时间维度拆分）
 
++++++[#LightGreen] 水平分表算法
+++++++[#Aquamarine]_ Hash 算法
+++++++[#Aquamarine]_ 一致性 Hash 算法
++++++++[#Aquamarine]_ Hash 环
++++++++[#Aquamarine]_ 顺时针找最近的节点
++++++++[#Aquamarine]_ 数据迁移的代价更小
+
+
+++++[#MediumSpringGreen] 配置优化
+
++++++[#LightGreen] 读写分离
+++++++[#Aquamarine]_ 主库负责写
+
+
+
 
 @endmindmap

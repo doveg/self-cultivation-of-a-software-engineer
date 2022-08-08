@@ -70,8 +70,7 @@ hash 分区：
 
 ### exist 和 in 的区别
 
-exists 用于对外表记录做筛选。exists 会遍历外表，将外查询表的每一行，代入内查询进行判断。当 exists 里的条件语句能够返回记录行时，条件就为真，返回外表当前记录。反之如果
-exists 里的条件语句不能返回记录行，条件为假，则外表当前记录被丢弃。
+exists 用于对外表记录做筛选。exists 会遍历外表，将外查询表的每一行，代入内查询进行判断。当 exists 里的条件语句能够返回记录行时，条件就为真，返回外表当前记录。反之如果 exists 里的条件语句不能返回记录行，条件为假，则外表当前记录被丢弃。
 
 select a.* from A awhere exists(select 1 from B b where a.id=b.id)
 
@@ -108,6 +107,22 @@ select * from Awhere id in(select id from B)
 where 子句作用于表和视图，having 作用于组。
 
 视频讲解：[WHERE 和 HAVING 以及 ON 的区别](https://www.bilibili.com/video/BV1ma411h7PP)
+
+### count(1) 和 count(*) 的区别
+
+在 InnoDB 中
+
+1.count(1) 和 count() 一般用来统计全表数据量，包含 null 值。
+
+count(列名) 只会统计该列不为 null 的总数。
+
+所以数量上 count(1) = count() >= count(列名)。
+
+2. 从 MySQL5.7 开始，提供了追踪优化器功能。
+
+优化器在优化 SQL 之前，就把 couont () 格式化成 count (0)。
+
+但是，count (列名) 并没有优化成其他，因为要去掉 null 值 所以性能上 count (1) = count () > count (列名)
 
 
 

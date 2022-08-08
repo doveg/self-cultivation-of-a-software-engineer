@@ -44,7 +44,17 @@ JMM / Java Memory Model 定义了线程和主内存之间的抽象关系：
 
 3、内存系统重排序。由于处理器使用缓存和读 / 写缓冲区，这使得加载和存储操作看上去可能是在乱序执行。
 
-###
+### Comparator 和 Comparable 的不同
+
+Comparable 更像是自然排序
+
+Comparator 更像是定制排序
+
+同时存在时采用 Comparator（定制排序）的规则进行比较。
+
+对于一些普通的数据类型（比如 String, Integer, Double…），它们默认实现了Comparable 接口，实现了 compareTo 方法，我们可以直接使用。
+
+而对于一些自定义类，它们可能在不同情况下需要实现不同的比较策略，我们可以新创建 Comparator 接口，然后使用特定的 Comparator 实现进行比较。
 
 ###
 

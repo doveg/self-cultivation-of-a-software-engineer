@@ -26,7 +26,7 @@
     - [MyBatis](https://github.com/bourneo/self-cultivation-of-a-software-engineer/blob/master/2_note/java/MyBatis.md)
     - [Spring-Boot-annotation](https://github.com/bourneo/self-cultivation-of-a-software-engineer/blob/master/2_note/java/Spring-Boot-annotation.md)
     - [Spring-Boot-AOP](https://github.com/bourneo/self-cultivation-of-a-software-engineer/blob/master/2_note/java/Spring-Boot-AOP.md)
-    - [Spring-Boot-IOC](https://github.com/bourneo/self-cultivation-of-a-software-engineer/blob/master/2_note/java/Spring-Boot-IOC.md)
+    - [Spring-Boot-IoC](https://github.com/bourneo/self-cultivation-of-a-software-engineer/blob/master/2_note/java/Spring-Boot-IOC.md)
     - [Spring-Cloud](https://github.com/bourneo/self-cultivation-of-a-software-engineer/blob/master/2_note/java/Spring-Cloud.md)
     - [Thread-pool](https://github.com/bourneo/self-cultivation-of-a-software-engineer/blob/master/2_note/java/Thread-pool.md)
 - [middleware / 中间件](https://github.com/bourneo/self-cultivation-of-a-software-engineer/blob/master/2_note/middleware/)

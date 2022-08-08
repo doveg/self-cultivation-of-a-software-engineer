@@ -179,7 +179,7 @@ Java SPI 约定在 Classpath 下的 META-INF/services/ 目录里创建一个以�
 
 2、延迟加载，可以一次只加载自己想要加载的扩展实现。
 
-3、增加了对扩展点 IOC 和 AOP 的支持，一个扩展点可以直接 setter 注入其它扩展点。
+3、增加了对扩展点 IoC 和 AOP 的支持，一个扩展点可以直接 setter 注入其它扩展点。
 
 4、Dubbo 的扩展机制能很好的支持第三方 IoC 容器，默认支持 Spring Bean。
 

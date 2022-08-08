@@ -41,6 +41,16 @@
 - 通过下标访问；
 - 元素可以为空。
 
+ArrayList 初始容量为 10，新增的元素超过容量之后，ArrayList 会自动扩容。
+
+扩容流程：
+
+新建一个容量为当前 1.5 倍的新数组，
+
+调用 Arrays.copyOf() 方法把原来的数据拷贝到新数组，
+
+然后把新增的元素写进新数组。
+
 ### Set 接口的实现
 
 **HashSet**：
@@ -99,6 +109,28 @@ PriorityQueue 的 peek() 和 element 操作是常数时间，add(), offer(), 无
 
 ---
 
+### ArrayList、LinkedList 和 Vector 的区别
+
+**ArrayList**：
+
+底层是动态数组，它是基于数组的特性而演变出来的，所以ArrayList 遍历访问非常快，但是增删比较慢，因为会涉及到数组的拷贝。
+
+ArrayList 是一个非线程安全的容器，在并发场景下会造成问题，如果想使用线程安全的容器的话，推荐使用 Collections.synchronizedList；ArrayList 在扩容时会增加 50% 的容量。
+
+**LinkedList**：
+
+底层是双向链表，所以 LinkedList 的增加和删除非常快，只需把元素删除，把各自的指针指向新的元素即可。
+
+但是 LinkedList 遍历比较慢，因为只有每次访问一个元素才能知道下一个元素的值。
+
+LinkedList 也是一个非线程安全的容器，推荐使用 Collections.synchronizedList
+
+**Vector**：
+
+向量是最早出现的集合容器，Vector 是一个线程安全的容器，它的每个方法都粗暴的加上了 synchronized 锁，所以它的增删、遍历效率都很低。
+
+Vector 在扩容时，它的容量会增加一倍。
+
 ### 数组和链表实现队列哪个好
 
 链表
@@ -106,6 +138,9 @@ PriorityQueue 的 peek() 和 element 操作是常数时间，add(), offer(), 无
 ### 队列的特性
 
 FIFO / 先入先出
+
+
+
 
 ---
 

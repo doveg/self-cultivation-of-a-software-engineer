@@ -130,6 +130,32 @@ JUC-executors 执行器框架：
 
 锁只能升级，不能降级。
 
+### synchronized 锁升级
+
+synchronized 锁升级的顺序为：偏向锁->轻量级锁->重量级锁，每一步触发锁升级的情况如下：
+
+**偏向锁**：
+
+在 JDK1.8 中，其实默认是轻量级锁，但如果设定了 -XX:BiasedLockingStartupDelay = 0 ， 那在对一个 Object 做 syncronized 的时候，会立即上一把偏向锁。
+
+当处于偏向锁状态时， markwork 会记录当前线程 ID 。
+
+**升级到轻量级锁**：
+
+当下一个线程参与到偏向锁竞争时，会先判断 markword 中保存的线程 ID 是否与这个线程 ID 相等，如果不相等，会立即撤销偏向锁，升级为轻量级锁。
+
+每个线程在自己的线程栈中生成一个 LockRecord ( LR )，然后每个线程通过 CAS (自旋)的操作将锁对象头中的 markwork 设置为指 向自己的 LR 的指针，哪个线程设置成功，就意味着获得锁。
+
+关于 synchronized 中此时执行的 CAS 操作是通过 native 的调用 HotSpot 中 bytecodeInterpreter.cpp 文件 C++ 代码实现的， 有兴趣的可以继续深挖。
+
+**升级到重量级锁**：
+
+如果锁竞争加剧（如线程自旋次数或者自旋的线程数超过某阈值，JDK1.6 之后，由 JVM 自己控 制该规则），就会升级为重量级锁。
+
+此时就会向操作系统申请资源，线程挂起，进入到操作系统 内核态的等待队列中，等待操作系统调度，然后映射回用户态。
+
+在重量级锁中，由于需要做内核 态到用户态的转换，而这个过程中需要消耗较多时间，也就是"重"的原因之一。
+
 ### 锁的使用
 
 互斥锁：
@@ -152,18 +178,17 @@ CAS（比较并交换）是 CPU 指令级的操作，只有一步原子操作（
 
 在实际应用中，如果 CAS 失败，会让线程自旋，不断重试；通常会配置自旋次数来避免死循环。
 
-在原子类变量中，如 java.util.concurrent.atomic 中的 AtomicXXX，都使用了这些底层的 JVM 支持为数字类型的引用类型提供一种高效的 CAS 操作，而在
-java.util.concurrent 中的大多数类在实现时都直接或间接的使用了这些原子变量类。
+在原子类变量中，如 java.util.concurrent.atomic 中的 AtomicXXX，都使用了这些底层的 JVM 支持为数字类型的引用类型提供一种高效的 CAS 操作，而在 java.util.concurrent
+中的大多数类在实现时都直接或间接的使用了这些原子变量类。
 
-AtomicInteger.incrementAndGet 的实现用了乐观锁技术，调用了类 sun.misc.Unsafe 库里面的 CAS 算法，用 CPU
-指令来实现无锁自增。所以，AtomicInteger.incrementAndGet 的自增比用 synchronized 的锁效率倍增。
+AtomicInteger.incrementAndGet 的实现用了乐观锁技术，调用了类 sun.misc.Unsafe 库里面的 CAS 算法，用 CPU 指令来实现无锁自增。所以，AtomicInteger.incrementAndGet 的自增比用
+synchronized 的锁效率倍增。
 
 ### AQS / AbstractQueuedSynchronizer / 抽象队列同步器
 
 AQS 中 维护了一个 volatile int state（代表共享资源）和一个 FIFO 线程等待队列（多线程争用资源被阻塞时会进入此队列）。
 
-这里 volatile 能够保证多线程下的可见性，当 state=1 则代表当前对象锁已经被占有，其他线程来加锁时则会失败，加锁失败的线程会被放入一个 FIFO 的等待队列中，并且会被
-UNSAFE.park() 操作挂起，等待其他获取锁的线程释放锁才能够被唤醒。
+这里 volatile 能够保证多线程下的可见性，当 state=1 则代表当前对象锁已经被占有，其他线程来加锁时则会失败，加锁失败的线程会被放入一个 FIFO 的等待队列中，并且会被 UNSAFE.park() 操作挂起，等待其他获取锁的线程释放锁才能够被唤醒。
 
 另外 state 的操作都是通过 CAS 来保证其并发修改的安全性。
 
@@ -199,8 +224,7 @@ Object.notify()) 调用。
 
 ### ReentrantReadWriteLock / 可重入读写锁
 
-ReentrantLock 是独占锁，某一时刻只有一个线程可以获取该锁，而实际中会有写少读多的场景，显然 ReentrantLock 满足不了这个需求，所以
-ReentrantReadWriteLock 应运而生。
+ReentrantLock 是独占锁，某一时刻只有一个线程可以获取该锁，而实际中会有写少读多的场景，显然 ReentrantLock 满足不了这个需求，所以 ReentrantReadWriteLock 应运而生。
 
 ReentrantReadWriteLock 采用读写分离的策略，允许多个线程可以同时获取读锁。
 
@@ -262,21 +286,18 @@ synchronized 基本上都是排它锁，意味着这些锁在同一时刻只允�
 
 针对两个特定的锁，开发者可以尝试按照锁对象的 hashCode 值大小的顺序，分别获得两个锁，这样锁总是会以特定的顺序获得锁，那么死锁也不会发生。
 
-问题变得更加复杂一些，如果此时有多个线程，都在竞争不同的锁，简单按照锁对象的 hashCode 进行排序（单纯按照 hashCode 顺序排序会出现
-“环路等待”），可能就无法满足要求了，这个时候开发者可以使用银行家算法，所有的锁都按照特定的顺序获取，同样可以防止死锁的发。
+问题变得更加复杂一些，如果此时有多个线程，都在竞争不同的锁，简单按照锁对象的 hashCode 进行排序（单纯按照 hashCode 顺序排序会出现 “环路等待”），可能就无法满足要求了，这个时候开发者可以使用银行家算法，所有的锁都按照特定的顺序获取，同样可以防止死锁的发。
 
 2、超时放弃：
 
-当使用 synchronized 关键词提供的内置锁时，只要线程没有获得锁，那么就会永远等待下去，然而 Lock 接口提供了 boolean tryLock (long time, TimeUnit
-unit) throws InterruptedException
+当使用 synchronized 关键词提供的内置锁时，只要线程没有获得锁，那么就会永远等待下去，然而 Lock 接口提供了 boolean tryLock (long time, TimeUnit unit) throws InterruptedException
 方法，该方法可以按照固定时长等待锁，因此线程可以在获取锁超时以后，主动释放之前已经获得的所有的锁。通过这种方式，也可以很有效地避免死锁。
 
 3、银行家算法：
 
 银行家算法：首先需要定义状态和安全状态的概念。系统的状态是当前给进程分配的资源情况。
 
-因此，状态包含两个向量 Resource（系统中每种资源的总量）和 Available（未分配给进程的每种资源的总量）及两个矩阵 Claim（表示进程对资源的需求）和
-Allocation（表示当前分配给进程的资源）。
+因此，状态包含两个向量 Resource（系统中每种资源的总量）和 Available（未分配给进程的每种资源的总量）及两个矩阵 Claim（表示进程对资源的需求）和 Allocation（表示当前分配给进程的资源）。
 
 安全状态是指至少有一个资源分配序列不会导致死锁。
 
@@ -346,7 +367,7 @@ ThreadLocal 用完之后要在 finally remove 掉。
 
 ### ConcurrentHashMap
 
-视频讲解：[动画讲解 - ConcurrentHashmap 的底层实现](https://www.bilibili.com/video/BV1Gq4y1Z7yM)
+视频讲解：[动画讲解 - ConcurrentHashMap 的底层实现](https://www.bilibili.com/video/BV1Gq4y1Z7yM)
 
 JDK 8 中，主要采用 CAS 思想，是乐观锁机制。
 
@@ -357,6 +378,30 @@ JDK 8 中，主要采用 CAS 思想，是乐观锁机制。
 数据结构和 JDK 8 的 HashMap 一样。
 
 ConcurrentHashMap 中，key 和 value 都不能为空。
+
+ConcurrentHashMap 是线程安全的 Map，它也是高并发场景下的首选数据结构，ConcurrentHashMap 底层是使用分段锁来实现的。
+
+### ConcurrentHashMap 和 HashMap
+
+1.7数组+链表，分段锁
+
+1.8数组+链表+红黑树，cas+synchronized
+
+**在 JDK1.7 的时候，`ConcurrentHashMap`（分段锁）** 对整个桶数组进行了分割分段(`Segment`)，每一把锁只锁容器其中一部分数据，多线程访问容器里不同数据段的数据，就不会存在锁竞争，提高并发访问率。
+
+**到了 JDK1.8 的时候已经摒弃了 `Segment` 的概念，而是直接用 `Node` 数组+链表+红黑树的数据结构来实现，并发控制使用 `synchronized` 和 CAS 来操作。**
+
+（JDK1.6 以后 对 `synchronized` 锁做了很多优化）
+
+整个看起来就像是优化过且线程安全的 `HashMap`，虽然在 JDK1.8 中还能看到 `Segment` 的数据结构，但是已经简化了属性，只是为了兼容旧版本；
+
+### HashMap 线程安全的实现
+
+ConcurrentHashMap
+
+Collections 包下的线程安全的容器，比如说 Collections.synchronizedMap(new HashMap());
+
+HashTable
 
 ### BlockingQueue / 阻塞队列
 

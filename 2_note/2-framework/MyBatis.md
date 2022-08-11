@@ -8,6 +8,85 @@
 
 ### foreach
 
+根据 foreach 元素的属性，重新拼接成完整的 SQL。
+
+支持 List、Array、Map 三种类型遍历。
+
+List 类型示例：
+
+```
+<select id="countByUserList" resultType="_int" parameterType="list">
+select count(*) from users
+  <where>
+    id in
+    <foreach item="item" collection="list" separator="," open="(" close=")" index="">
+      #{item.id, jdbcType=NUMERIC}
+    </foreach>
+  </where>
+</select>
+```
+
+### 缓存
+
+当开启缓存后，数据的查询执行的流程：二级缓存 -> 一级缓存 -> 数据库。
+
+建议 MyBatis 缓存特性在生产环境中进行关闭，单纯作为一个 ORM 框架使用可能更为合适。
+
+### 一级缓存
+
+一级缓存的生命周期和 SqlSession 一致。
+
+一级缓存内部设计简单，只是一个没有容量限定的 HashMap，在缓存的功能性上有所欠缺。
+
+一级缓存最大范围是 SqlSession 内部。
+
+有多个 SqlSession 或者分布式的环境下，数据库写操作会引起脏数据，建议设定缓存级别为 Statement。
+
+### 一级缓存的缓存级别
+
+SESSION 级别：在一个 MyBatis 会话中执行的所有语句，都会共享这一个缓存。
+
+STATEMENT 级别：缓存只对当前执行的这一个 Statement 有效。
+
+### 二级缓存
+
+命名空间全局缓存：实现了 SqlSession 之间缓存数据的共享。
+
+**优点：**
+
+相对于一级缓存来说，粒度更加的细，能够到 namespace 级别，
+
+通过 Cache 接口实现类不同的组合，对 Cache 的可控性也更强。
+
+**缺点：**
+
+在多表查询时，极大可能会出现脏数据，有设计上的缺陷，安全使用二级缓存的条件比较苛刻。
+
+分布式环境下必然会出现读取到脏数据，需要使用集中式缓存将 MyBatis 的 Cache 接口实现，有一定的开发成本，直接使用 Redis、Memcached 等分布式缓存可能成本更低，安全性也更高。
+
+
+---
+
+## 常见问题
+
+---
+
+### 插入主键冲突
+
+ON DUPLICATE KEY UPDATE
+
+### 批量插入
+
+insert into VALUES
+
+### 自增主键的回显
+
+设置回显之后，会注入到传入的对象中。
+
+### foreach 对象的大小要大于零
+
+foreach 对象要在代码中判空和判断大小。
+
 ---
 
 ## 提高部分
@@ -42,6 +121,10 @@ BoundSql：表示动态生成的 SQL 语句以及相应的参数信息
 
 
 
+
+
+
+
 ---
 
 
@@ -51,7 +134,7 @@ BoundSql：表示动态生成的 SQL 语句以及相应的参数信息
 参考链接：
 
 - [Mybatis 层次结构与执行流程](https://blog.csdn.net/LIZHONGPING00/article/details/123887586)
-- []()
+- [聊聊 MyBatis 缓存机制](https://tech.meituan.com/2018/01/19/mybatis-cache.html)
 - []()
 - []()
 

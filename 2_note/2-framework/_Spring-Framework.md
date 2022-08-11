@@ -128,6 +128,18 @@ PROPAGATION_NESTED 与 PROPAGATION_REQUIRES_NEW 的区别：
 
 ### Spring Bean 的生命周期
 
+4 个阶段：
+
+实例化（Instantiation）：实例化一个 bean 对象
+
+属性赋值（Populate）：为 bean 设置相关属性和依赖
+
+初始化（Initialization）：init 方法
+
+销毁（Destruction）：先在使用前注册了销毁的相关调用接口
+
+### Bean 的生命周期
+
 IoC 方便管理，通过注解的方式告诉容器
 
 作用域：
@@ -179,6 +191,18 @@ globalSession：全局会话共享一个 Bean 实例。
     - ApplicationContext 是 Spring 的中央接口
     - **ApplicationContext 继承了 BeanFactory 接口**，所以 ApplicationContext 包含 BeanFactory 的所有功能
     - ApplicationContext 在容器启动时，一次性创建所有的 Bean
+
+### Aware 接口
+
+若 Spring 检测到 bean 实现了 Aware 接口，则会为其注入相应的依赖。
+
+所以通过让 bean 实现 Aware 接口，则能在 bean 中获得相应的 Spring 容器资源。
+
+Spring 中提供的 Aware 接口有：
+
+    BeanNameAware：注入当前 bean 对应 beanName；
+    BeanClassLoaderAware：注入加载当前 bean 的 ClassLoader；
+    BeanFactoryAware：注入 当前 BeanFactory 容器 的引用。
 
 ---
 

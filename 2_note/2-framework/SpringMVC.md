@@ -24,6 +24,31 @@
 
 8、把 View 返回给请求者（浏览器）
 
+### SpringMVC 和 Struts2 的区别
+
+**入口的不同：**
+
+Struts2 是 filter
+
+SpringMVC 的入口是 servlet
+
+**拦截器机制：**
+
+Struts2 有以自己的 interceptor 机制。
+
+SpringMVC 用的是独立的 AOP 方式。
+
+**开发效率：**
+
+SpringMVC 可以认为已经零配置
+
+### servlet
+
+Servlet：Java 用来处理网络请求的 API 接口。
+
+Web 服务器，比如 Tomcat，实现 Servlet 的 API 接口，就能处理 HTTP 请求。
+
+
 ---
 
 ## 提高部分

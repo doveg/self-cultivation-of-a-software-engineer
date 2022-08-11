@@ -179,7 +179,11 @@ spring-cloud-commons 是一系列操作和对象的标准抽象。
 
 所以在 Spring-cloud 中，可以切换类似的组件，比如我们不想使用 eureka-server 做云服务框架，我们可以使用 spring-cloud-zookeeper 代替。
 
-###
+### 服务网格 Service Mesh
+
+第三代微服务架构
+
+在大规模微服务架构中，每个服务的通信都是由 SideCar 来代理的，各个服务之间的通信拓扑图，看起来就像一个网格形状。
 
 ###
 

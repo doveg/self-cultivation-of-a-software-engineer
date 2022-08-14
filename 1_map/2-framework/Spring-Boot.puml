@@ -5,13 +5,36 @@
 ++[#yellow] 基础
 
 +++[#Pink] 注解
+
 ++++[#AliceBlue] @Transaction 注解的失效场景
 +++++[#LightGreen] 用在非 public 的方法上
 +++++[#LightGreen] 被同一个类中方法调用
 +++++[#LightGreen] 数据库引擎不支持事务
 
+++++[#MediumSpringGreen] @Async 注解
++++++[#LightGreen] 使用
+++++++[#Aquamarine] 重新实现接口 AsyncConfigurer
+++++++[#Aquamarine] 配置自定义的 TaskExecutor
+++++++[#Aquamarine] 指定线程池的名字
+++++++[#Aquamarine] 返回 CompletableFuture
++++++++[#Aquamarine]_ 7
+
+
 +++[#Pink] 自动装配
 
+
+++[#yellow] 2
+
++++[#Pink] 3
+
+++++[#MediumSpringGreen] 4
++++++[#LightGreen] 5
+++++++[#Aquamarine] 6
++++++++[#Aquamarine]_ 7
+++++++[#PowderBlue] 6
++++++++[#PowderBlue]_ 7
+++++[#AliceBlue] 4
++++++[#GhostWhite] 5
 
 
 @endmindmap

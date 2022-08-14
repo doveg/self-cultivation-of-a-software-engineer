@@ -1,0 +1,63 @@
+@startmindmap
+
++[#OrangeRed] MyBatis
+
+++[#yellow] 基础
+
++++[#Pink] 标签
+
+++++[#MediumSpringGreen] foreach
++++++[#LightGreen] 类型（三）
+++++++[#Aquamarine]_ List
+++++++[#Aquamarine]_ Array
+++++++[#Aquamarine]_ Map
+
++++++[#LightGreen] 属性（六）
+++++++[#Aquamarine]_ collection
+++++++[#Aquamarine]_ item
+++++++[#Aquamarine]_ index
+++++++[#Aquamarine]_ open
+++++++[#Aquamarine]_ separator
+++++++[#Aquamarine]_ close
+
+
+++[#yellow] 提高
+
++++[#Pink] 缓存
+++++[#MediumSpringGreen] 查询流程
++++++[#LightGreen]_ 二级缓存、一级缓存、数据库
+++++[#MediumSpringGreen] 一级缓存
++++++[#LightGreen]_ SqlSession
++++++[#LightGreen]_ 设计：HashMap
++++++[#LightGreen]_ 级别：Session、Statement（推荐）
+
+++++[#MediumSpringGreen] 二级缓存
++++++[#LightGreen]_ nameSpace
++++++[#LightGreen]_ 命名空间全局缓存
+
++++[#Pink] 插件
+++++[#MediumSpringGreen] 分页
++++++[#LightGreen]_ AOP 拦截，基于分页对象算开始值和结束值
++++++[#LightGreen]_ 动态拼接 SQL
+
+
+
+
+++[#yellow] 2
+
++++[#Pink] 3
+
+++++[#MediumSpringGreen] 4
++++++[#LightGreen] 5
+++++++[#Aquamarine] 6
++++++++[#Aquamarine]_ 7
+++++++[#PowderBlue] 6
++++++++[#PowderBlue]_ 7
+++++[#AliceBlue] 4
++++++[#GhostWhite] 5
+
+
+
+
+
+@endmindmap

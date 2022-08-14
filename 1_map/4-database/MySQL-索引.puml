@@ -33,11 +33,17 @@
 +++[#Pink] 提高
 
 ++++[#MediumSpringGreen] 索引的设计原则
-+++++[#LightGreen]_ 索引列的区分度越高越好
++++++[#LightGreen]_ 索引列的区分度越高越好，数据散列度越高效果越好
 +++++[#LightGreen]_ 利用联合索引和最左前缀原则
 +++++[#LightGreen]_ 尽量使用短索引
 +++++[#LightGreen]_ 索引不是越多越好
 
+++++[#MediumSpringGreen] 为什么索引能提升效率
++++++[#LightGreen]_ 原因：减少了磁盘 IO 的次数
++++++[#LightGreen]_ InnoDB 采用 B+ 树的数据结构来存储索引
++++++[#LightGreen]_ 树的层度代表查询时磁盘 IO 的次数
++++++[#LightGreen]_ B+ 树高度一般是 1-3 层，能满足千万级的数据存储
++++++[#LightGreen]_ 非叶子节点的大小为 16K（页大小）
 
 +++[#Pink] 索引数据结构
 
@@ -51,18 +57,18 @@
 +++++[#LightGreen] 排序能力更强
 
 ++++[#MediumSpringGreen] B 树、B+ 树的区别
++++++[#LightGreen] 非叶子节点
+++++++[#Aquamarine]_ B 树因为节点存的是主键的地址，查找的过程过，在非叶子节点查到匹配的数据，不会继续查子节点
+++++++[#Aquamarine]_ B+ 树的非叶子节点不存数据，只存值
 +++++[#LightGreen] 叶子节点关系
 ++++++[#Aquamarine]_ B 树的叶子节点是不相连的
 ++++++[#Aquamarine]_ B+ 树的叶子节点是通过链表串联的
 +++++[#LightGreen] 叶子节点数据
 ++++++[#Aquamarine]_ B 树的叶子节点存的全是数据的物理地址
 ++++++[#Aquamarine]_ B+ 树的叶子节点存有字段和值，叶子节点的 key 还存了数据的物理地址
-+++++[#LightGreen] 非叶子节点
-++++++[#Aquamarine]_ B 树因为节点存的是主键的地址，查找的过程过，在非叶子节点查到匹配的数据，不会继续查子节点
-++++++[#Aquamarine]_ B+ 树的非叶子节点不存数据，只存值
 
 
-++++[#MediumSpringGreen] 二叉树、二叉查找树、平衡二叉树、B 树
+++++[#MediumSpringGreen] 二叉树、二叉查找树、平衡二叉树、B 树、B+ 树
 +++++[#LightGreen] 二叉树
 ++++++[#Aquamarine]_ 每个节点最多有两个子节点
 +++++[#LightGreen] 二叉查找树

@@ -9,7 +9,7 @@
 ++++[#AliceBlue] mapping / 映射
 
 ++++[#MediumSpringGreen] 反向索引 / 倒排索引
-+++++_ 单词在文档中存储位置的映射
++++++_ 背景：单词在文档中存储位置的映射
 +++++_ 根据关键字，查找文档 id
 +++++_ 存储形式：单词 - 文档矩阵
 
@@ -45,6 +45,40 @@
 ++++[#MediumSpringGreen] token / 词条
 +++++_ 词项在字段中的一次出现，包括词项的文本、开始和结束的位移、类型等信息
 
+
+++[#yellow] 提高
+
++++[#Pink] 架构
+
+++++[#MediumSpringGreen] 分布式
++++++[#LightGreen] 主分片
++++++[#LightGreen] 副本
+
+++++[#MediumSpringGreen] 部署配置
++++++[#LightGreen] 节点数量：3
++++++[#LightGreen] 分片数量：6
++++++[#LightGreen] 副本数量：1
++++++[#LightGreen] 索引数量：20
++++++[#LightGreen] 文档数量：千万级别
+
+
+
+
+
+
+
+++[#yellow] 2
+
++++[#Pink] 3
+
+++++[#MediumSpringGreen] 4
++++++[#LightGreen] 5
+++++++[#Aquamarine] 6
++++++++[#Aquamarine]_ 7
+++++++[#PowderBlue] 6
++++++++[#PowderBlue]_ 7
+++++[#AliceBlue] 4
++++++[#GhostWhite] 5
 
 
 @endmindmap

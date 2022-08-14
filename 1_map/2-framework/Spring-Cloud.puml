@@ -53,5 +53,27 @@
 +++++[#GhostWhite] 区分核心和非核心功能
 
 
+++[#yellow] 提高
+
++++[#Pink] 链路追踪
+
+++++[#MediumSpringGreen] 背景
++++++[#GhostWhite]_ 谷歌的论文 Dapper
++++++[#GhostWhite]_ 请求路径的可视化监控
+
+++++[#MediumSpringGreen] 作用
++++++[#GhostWhite]_ 监控的可视化，展示系统各项指标
++++++[#GhostWhite]_ 服务调用的依赖关系管理
++++++[#GhostWhite]_ 故障的快速定位和性能优化
++++++[#GhostWhite]_ 数据分析能力（用户的行为路径）
+
+++++[#MediumSpringGreen] 工具
++++++[#GhostWhite]_ zipkin
++++++[#GhostWhite]_ cat
++++++[#GhostWhite]_ skywalking
++++++[#GhostWhite]_ byteTrace
+
+
+
 
 @endmindmap

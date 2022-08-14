@@ -12,8 +12,11 @@
 ++++[#GhostWhite] 代理类
 ++++[#GhostWhite] 被代理类
 
-+++[#AliceBlue] 适配器模式
-++++[#GhostWhite] 适配类根据参数返还一个合适的实例
+
++++[#MediumSpringGreen] 策略模式
+++++[#GhostWhite] 接口
+++++[#GhostWhite] 将每一个算法封装到具有共同接口的独立的类
+
 
 ++[#yellow] 简单的
 
@@ -22,15 +25,27 @@
 ++++[#GhostWhite] 静态内部类
 ++++[#GhostWhite] 饿汉
 ++++[#LightGreen] （懒汉）双重检查锁 + volatile
++++++[#Aquamarine] new 对象的操作不是原子的，会被编译器成三条指令
+++++++[#Aquamarine]_ 为对象分配内存空间
+++++++[#Aquamarine]_ 初始化对象
+++++++[#Aquamarine]_ 把实例对象，赋值给 instance 引用
++++++[#Aquamarine] 指令重排序
+++++++[#Aquamarine]_ 在不影响单线程执行结果的情况下，允许对两个不相互依赖的指令进行重新排序
++++++[#Aquamarine] 其他线程可能会拿到还未初始化的实例
++++++[#Aquamarine] volatile
+++++++[#Aquamarine]_ 内存屏障机制，避免指令重排序
+
 
 +++[#MediumSpringGreen] 观察者
 ++++[#GhostWhite]_ 生产者
 ++++[#GhostWhite]_ 消费者
 ++++[#GhostWhite]_ 观察者
 
-+++[#MediumSpringGreen] 策略模式
-++++[#GhostWhite] 接口
-++++[#GhostWhite] 将每一个算法封装到具有共同接口的独立的类
++++[#AliceBlue] 适配器模式
+++++[#GhostWhite] 适配类根据参数返还一个合适的实例
+
+
+
 
 ++[#yellow] 讨巧的
 

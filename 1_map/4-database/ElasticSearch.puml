@@ -9,12 +9,16 @@
 ++++[#AliceBlue] mapping / 映射
 
 ++++[#MediumSpringGreen] 反向索引 / 倒排索引
-+++++_ 背景：单词在文档中存储位置的映射
-+++++_ 根据关键字，查找文档 id
-+++++_ 存储形式：单词 - 文档矩阵
++++++[#LightGreen]_ 背景：单词在文档中存储位置的映射
++++++[#LightGreen]_ 根据关键字，查找文档 id
++++++[#LightGreen]_ 存储形式：Term Index + term List - 文档 id List
+++++++[#Aquamarine]_ 矩阵：term 索引，term 词项，拥有该词项的文档 id 列表
++++++[#LightGreen] 索引树
+++++++[#Aquamarine]_ Term Index
+++++++[#Aquamarine]_ 为了提高匹配 term 的查询速度
 
 ++++[#AliceBlue] 正向索引
-+++++_ 扫描索引库中的所有文档，查找是否含有关键词
++++++[#LightGreen]_ 扫描索引库中的所有文档，查找是否含有关键词
 
 ++++[#AliceBlue] 聚合索引
 
@@ -22,11 +26,11 @@
 +++[#Pink] 查询
 
 ++++[#MediumSpringGreen] primary shard / 主分片
-+++++_ 默认 5 个
-+++++_ 每个分片最好不超过 30 GB
++++++[#LightGreen]_ 默认 5 个
++++++[#LightGreen]_ 每个分片最好不超过 30 GB
 
 ++++[#MediumSpringGreen] replica shard / 副本
-+++++_ 默认 1 个
++++++[#LightGreen]_ 默认 1 个
 
 ++++[#AliceBlue] scroll / 游标查询
 
@@ -34,16 +38,16 @@
 +++[#Pink] Lucene
 
 ++++[#MediumSpringGreen] index / 索引
-+++++_ 相似特性的文档的集合
++++++[#LightGreen]_ 相似特性的文档的集合
 ++++[#MediumSpringGreen] shard / 分片
 ++++[#MediumSpringGreen] segment / 段文件
-+++++_ 分片下的索引文件被拆分成的多个子文件
++++++[#LightGreen]_ 分片下的索引文件被拆分成的多个子文件
 ++++[#AliceBlue] document / 文档
 ++++[#AliceBlue] field / 字段
 ++++[#MediumSpringGreen] term / 词项
-+++++_ 文本中词
++++++[#LightGreen]_ 文本中词
 ++++[#MediumSpringGreen] token / 词条
-+++++_ 词项在字段中的一次出现，包括词项的文本、开始和结束的位移、类型等信息
++++++[#LightGreen]_ 词项在字段中的一次出现，包括词项的文本、开始和结束的位移、类型等信息
 
 
 ++[#yellow] 提高
@@ -51,19 +55,30 @@
 +++[#Pink] 架构
 
 ++++[#MediumSpringGreen] 分布式
-+++++[#LightGreen] 主分片
-+++++[#LightGreen] 副本
++++++[#LightGreen]_ 节点 / 实例
++++++[#LightGreen]_ 主分片
++++++[#LightGreen]_ 副本
 
 ++++[#MediumSpringGreen] 部署配置
-+++++[#LightGreen] 节点数量：3
-+++++[#LightGreen] 分片数量：6
-+++++[#LightGreen] 副本数量：1
-+++++[#LightGreen] 索引数量：20
-+++++[#LightGreen] 文档数量：千万级别
++++++[#LightGreen]_ 节点数量：3
++++++[#LightGreen]_ 分片数量：6
++++++[#LightGreen]_ 副本数量：1
++++++[#LightGreen]_ 索引数量：20
++++++[#LightGreen]_ 文档数量：千万级别
+
+
++++[#Pink] 性能问题
+++++[#MediumSpringGreen] 分片副本也可以提高吞吐量
+++++[#MediumSpringGreen] 聚合查询
++++++[#LightGreen]_ 默认深度优先聚合改为广度优先聚合
++++++[#LightGreen]_ 每一层 terms aggregation 内部加一个 “execution_hint”: “map”
 
 
 
-
++++[#Pink] 性能优化
+++++[#MediumSpringGreen] 数据模型和索引配置优化
+++++[#MediumSpringGreen] 查询语句优化
+++++[#MediumSpringGreen] 数据规模过大，则通过 Filter 减少不必要的数据计算
 
 
 
@@ -79,6 +94,10 @@
 +++++++[#PowderBlue]_ 7
 ++++[#AliceBlue] 4
 +++++[#GhostWhite] 5
+
+
+
+'https://segmentfault.com/a/1190000038278889
 
 
 @endmindmap

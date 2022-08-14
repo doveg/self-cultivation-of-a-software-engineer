@@ -11,6 +11,7 @@
 ++++++[#LightBlue]_ 不要使用 select *
 ++++++[#LightBlue]_ where 字段加索引
 ++++++[#LightBlue]_ limit 分页的参数不应过大
+++++++[#LightBlue]_ 用小结果集驱动大结果集
 
 +++++[#LightGreen] 执行计划
 ++++++[#Aquamarine] EXPLAIN 分析查询的执行计划
@@ -18,6 +19,9 @@
 +++++++[#Aquamarine]_ Extra
 +++++++[#Aquamarine]_ key
 +++++++[#Aquamarine]_ rows
+
++++++[#LightGreen] 慢 SQL 的定位和排查
+++++++[#Aquamarine] 通过慢查询日志和慢查询日志分析工具得到有问题的 SQL 列表
 
 +++++[#LightGreen] 系统资源
 ++++++[#Aquamarine] performance_schema
@@ -45,6 +49,9 @@
 
 ++++[#MediumSpringGreen] 架构优化
 
++++++[#LightGreen] 主从集群
+++++++[#Aquamarine]_ 保证服务高可用
+
 +++++[#LightGreen] 读写分离
 ++++++[#Aquamarine]_ 主库负责写
 ++++++[#Aquamarine]_ 从库负责读
@@ -52,7 +59,6 @@
 +++++[#LightGreen] 分库分表
 ++++++[#Aquamarine]_ 垂直拆分（按业务拆分）
 ++++++[#Aquamarine]_ 水平拆分（按主键哈希值取模、时间维度拆分）
-
 +++++[#LightGreen] 水平分表算法
 ++++++[#Aquamarine]_ Hash 算法
 ++++++[#Aquamarine]_ 一致性 Hash 算法
@@ -60,13 +66,46 @@
 +++++++[#Aquamarine]_ 顺时针找最近的节点
 +++++++[#Aquamarine]_ 数据迁移的代价更小
 
++++++[#LightGreen] 热点数据，引入缓存
+++++++[#Aquamarine]_ Redis
 
-+++[#Pink] 常见问题
+
+++++[#MediumSpringGreen] 硬件及操作系统层面优化
+
++++++[#LightGreen] 硬件
+++++++[#Aquamarine]_ CPU
+++++++[#Aquamarine]_ 可用内存大小
+++++++[#Aquamarine]_ 磁盘读写速度
+++++++[#Aquamarine]_ 网络带宽
++++++[#LightGreen] 操作系统
+++++++[#Aquamarine]_ 应用文件句柄数
+++++++[#Aquamarine]_ 操作系统网络的配置
+
 
 ++++[#MediumSpringGreen] 配置优化
 
-+++++[#LightGreen] 5
++++++[#LightGreen] my.cnf
+++++++[#Aquamarine]_ 5.7 版本默认的最大连接数是 151 个
+++++++[#Aquamarine]_ binlog 日志，默认是不开启
+++++++[#Aquamarine]_ 缓存池 bufferpoll 的默认大小配置
 
+
+
++++[#Pink] 常见问题
+
+
+++[#yellow] 2
+
++++[#Pink] 3
+
+++++[#MediumSpringGreen] 4
++++++[#LightGreen] 5
+++++++[#Aquamarine] 6
++++++++[#Aquamarine]_ 7
+++++++[#PowderBlue] 6
++++++++[#PowderBlue]_ 7
+++++[#AliceBlue] 4
++++++[#GhostWhite] 5
 
 
 

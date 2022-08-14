@@ -5,6 +5,7 @@
 ++[#yellow] 基础
 
 +++[#Pink] 三大范式
+
 ++++[#MediumSpringGreen] 字段都具备原子性；表需要有一个主键
 ++++[#MediumSpringGreen] 非主键字段完全依赖主键，不能部分依赖
 ++++[#MediumSpringGreen] 非主键字段不能依赖于其他非主键字段，非主键字段和主键之间不能产生传递依赖，不能间接依赖
@@ -18,6 +19,25 @@
 ++++[#MediumSpringGreen] 优化器优化 SQL（执行计划缓存）
 ++++[#MediumSpringGreen] 执行器从数据库引擎获取数据（数据缓存）
 ++++[#MediumSpringGreen] 返回查询结果
+
++++[#Pink] SQL
+
+++++[#MediumSpringGreen] if 和 case when
++++++[#LightGreen]_ IF (expr1 , expr2 , expr3)
++++++[#LightGreen]_ CASE 列名 WHEN 条件 THEN 结果  ELSE 其他结果 END 别名
+
+
+
+
+++[#yellow] 2
+
++++[#Pink] 3
+
+++++[#MediumSpringGreen] 4
++++++[#LightGreen] 5
+++++++[#Aquamarine] 6
++++++++[#Aquamarine]_ 7
+
 
 
 @endmindmap

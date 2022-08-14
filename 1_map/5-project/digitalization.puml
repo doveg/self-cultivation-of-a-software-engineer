@@ -45,15 +45,43 @@
 
 ++++[#LightYellow] Nginx
 ++++[#MediumSpringGreen] Zookeeper
-++++[#MediumSpringGreen] Spring Cloud
 ++++[#MediumSpringGreen] Dubbo
 ++++[#MediumSpringGreen] RocketMQ
-++++[#MediumSpringGreen] 缓存
+++++[#MediumSpringGreen] Redis
+++++[#MediumSpringGreen] Spring Cloud
+++++[#MediumSpringGreen] Zuul 网关
+
 +++++[#LightGreen] Redis
+++++++[#Aquamarine] 登录信息、token
+++++++[#Aquamarine] 手机验证码
+++++++[#Aquamarine] 地区编码
+
+++++++[#Aquamarine] 千人千面的推荐数据
+++++++[#Aquamarine] 分布式锁
+
 +++++[#LightGreen] ElasticSearch
+++++++[#Aquamarine] 标准数据
+
+
 ++++[#MediumSpringGreen] 数据库
 +++++[#LightGreen] Oracle
 +++++[#LightGreen] MySQL
+
+
+
+++[#yellow] 2
+
++++[#Pink] 3
+
+++++[#MediumSpringGreen] 4
++++++[#LightGreen] 5
+++++++[#Aquamarine] 6
++++++++[#Aquamarine]_ 7
+++++++[#PowderBlue] 6
++++++++[#PowderBlue]_ 7
+++++[#AliceBlue] 4
++++++[#GhostWhite] 5
+
 
 
 @endmindmap

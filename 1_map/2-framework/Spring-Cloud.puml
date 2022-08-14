@@ -53,7 +53,7 @@
 +++++[#GhostWhite] 区分核心和非核心功能
 
 
-++[#yellow] 提高
+++[#yellow] 其他问题
 
 +++[#Pink] 链路追踪
 
@@ -74,6 +74,48 @@
 +++++[#GhostWhite]_ byteTrace
 
 
++++[#Pink] Seata
 
+++++[#MediumSpringGreen]_ 分布式事务框架
+
+++++[#MediumSpringGreen] 强一致性
++++++[#LightGreen]_ 所有的事务参与者要么全部成功，要么全部失败
++++++[#LightGreen]_ 全局事务协调者需要知道每个事务参与者的执行状态，再根据状态来决定数据的提交或者回滚
++++++[#LightGreen]_ 强一致性方案对于应用的性能和可用性会有影响
++++++[#LightGreen]_ 可以通过基于 XA 协议下的二阶段提交来实现
+
+++++[#MediumSpringGreen] 弱一致性
++++++[#LightGreen]_ 最终一致性
++++++[#LightGreen]_ 多个网络节点的数据允许出现不一致的情况，但是在最终的某个时间点会达成数据一致
++++++[#LightGreen]_ 可以基于 TCC 事务模型、可靠性消息模型等方案来实现
+
+++++[#MediumSpringGreen] 四种模式
++++++[#LightGreen] AT 模式
+++++++[#Aquamarine]_ 基于本地事务+二阶段协议来实现，Seata 默认的解决方案
++++++[#LightGreen] TCC 模式
+++++++[#Aquamarine]_ Try、Confirm、Cancel 三个词语的缩写
+++++++[#Aquamarine]_ 把一个完整的业务逻辑拆分成三个阶段，然后通过事务管理器，
+++++++[#Aquamarine]_ 在业务逻辑层面根据每个分支事务的执行情况，分别调用该业务的 Confirm 或者 Cancel 方法
++++++[#LightGreen] Saga 模式
+++++++[#Aquamarine]_ SEATA 提供的长事务解决方案
+++++++[#Aquamarine]_ 业务流程中每个参与者都提交本地事务，当出现某一个参与者失败则补偿前面已经成功的参与者
++++++[#LightGreen] XA 模式
+++++++[#Aquamarine]_ 一种强一致性的事务解决方法
+++++++[#Aquamarine]_ 利用事务资源（数据库、消息服务等）对 XA 协议的支持，以 XA 协议的机制来管理分支事务的一种事务模式
+
+
+
+++[#yellow] 2
+
++++[#Pink] 3
+
+++++[#MediumSpringGreen] 4
++++++[#LightGreen] 5
+++++++[#Aquamarine] 6
++++++++[#Aquamarine]_ 7
+++++++[#PowderBlue] 6
++++++++[#PowderBlue]_ 7
+++++[#AliceBlue] 4
++++++[#GhostWhite] 5
 
 @endmindmap

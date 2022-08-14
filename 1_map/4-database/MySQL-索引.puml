@@ -61,11 +61,14 @@
 ++++++[#Aquamarine]_ B 树因为节点存的是主键的地址，查找的过程过，在非叶子节点查到匹配的数据，不会继续查子节点
 ++++++[#Aquamarine]_ B+ 树的非叶子节点不存数据，只存值
 +++++[#LightGreen] 叶子节点关系
-++++++[#Aquamarine]_ B 树的叶子节点是不相连的
-++++++[#Aquamarine]_ B+ 树的叶子节点是通过链表串联的
+++++++[#Aquamarine]_ B 树的叶子节点不相连
+++++++[#Aquamarine]_ B+ 树的叶子节点是通过双向链表串联的
 +++++[#LightGreen] 叶子节点数据
 ++++++[#Aquamarine]_ B 树的叶子节点存的全是数据的物理地址
 ++++++[#Aquamarine]_ B+ 树的叶子节点存有字段和值，叶子节点的 key 还存了数据的物理地址
++++++[#LightGreen] 子路数量
+++++++[#Aquamarine]_ B 树的子路数量等于关键字数 + 1
+++++++[#Aquamarine]_ B+ 树的子路数量等于关键字数
 
 
 ++++[#MediumSpringGreen] 二叉树、二叉查找树、平衡二叉树、B 树、B+ 树

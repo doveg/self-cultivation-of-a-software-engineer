@@ -7,20 +7,50 @@
 +++[#Pink] 注解
 
 ++++[#AliceBlue] @Transaction 注解的失效场景
-+++++[#LightGreen] 用在非 public 的方法上
-+++++[#LightGreen] 被同一个类中方法调用
-+++++[#LightGreen] 数据库引擎不支持事务
++++++[#LightGreen]_ 用在非 public 的方法上
++++++[#LightGreen]_ 被同一个类中方法调用
++++++[#LightGreen]_ 数据库引擎不支持事务
 
 ++++[#MediumSpringGreen] @Async 注解
 +++++[#LightGreen] 使用
-++++++[#Aquamarine] 重新实现接口 AsyncConfigurer
-++++++[#Aquamarine] 配置自定义的 TaskExecutor
-++++++[#Aquamarine] 指定线程池的名字
-++++++[#Aquamarine] 返回 CompletableFuture
-+++++++[#Aquamarine]_ 7
+++++++[#Aquamarine]_ 重新实现接口 AsyncConfigurer
+++++++[#Aquamarine]_ 配置自定义的 TaskExecutor
+++++++[#Aquamarine]_ 指定线程池的名字
+++++++[#Aquamarine]_ 返回 CompletableFuture
 
 
 +++[#Pink] 自动装配
+
+++++[#MediumSpringGreen] 原理
++++++[#LightGreen]_ 自动把第三方组件的 Bean 装载到 Spring IOC 器里面
++++++[#LightGreen]_ 只需要在启动类加上 @SpringBootApplication 注解就可以实现自动装配
++++++[#LightGreen]_ 复合注解 @SpringBootApplication = @EnableAutoConfiguration
+
+++++[#MediumSpringGreen] 实现
++++++[#LightGreen]_ 通过扫描约定 classpath 路径下的 spring.factories 文件来识别配置类，实现 Bean 的自动装配
+
+
++++[#Pink] 约定优于配置
+
+++++[#MediumSpringGreen] Spring Boot
++++++[#LightGreen]_ 类似于 Spring 框架下的一个脚手架
++++++[#LightGreen]_ 通过 Spring Boot，我们可以快速开发基于 Spring 生态下的应用程序
+
+++++[#MediumSpringGreen] 表现
++++++[#LightGreen]_ 能帮我们管理所有 jar 包版本
++++++[#LightGreen]_ 如果应用依赖了 spring mvc 相关的包，Spring Boot 会自动内置 Tomcat 容器来运行 web 应用
++++++[#LightGreen]_ Bean 的自动装配
++++++[#LightGreen]_ 默认加载的配置文件 application.properties
+
+++++[#MediumSpringGreen] 开发 web 应用的老步骤
++++++[#LightGreen]_ 管理 jar 包依赖
++++++[#LightGreen]_ web.xml 维护
++++++[#LightGreen]_ Dispatch-Servlet.xml 配置项维护
++++++[#LightGreen]_ 应用部署到 Web 容器
++++++[#LightGreen]_ 第三方组件集成到 Spring IOC 容器中的配置项维护
+
+
+
 
 
 ++[#yellow] 2

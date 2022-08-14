@@ -33,7 +33,7 @@
 
 +++[#Pink] 基础
 
-++++[#MediumSpringGreen] 常用命令
+++++[#MediumSpringGreen] 排查问题
 +++++[#LightGreen] top
 ++++++[#Aquamarine]_ 当前时间、上一次开机的时间、当前在线用户数、CPU 负载信息
 ++++++[#Aquamarine]_ 任务数量，运行的数量、睡眠的数量、停止的数量、僵死的数量
@@ -41,12 +41,47 @@
 ++++++[#Aquamarine]_ 内存：物理内存总量、使用的物理内存量、空闲的物理内存量、用作内核缓存的物理内存量
 ++++++[#Aquamarine]_ 交换空间：交换区总量、使用的交换区量、空闲的交换区量、缓冲交换区总量
 +++++[#GhostWhite]_ pidstat
-+++++[#GhostWhite]_ grep
-+++++[#GhostWhite]_ cat grep
-+++++[#GhostWhite]_ kill
-+++++[#GhostWhite]_ ftp
 +++++[#GhostWhite]_ telnet
 +++++[#GhostWhite]_ ping
+
+
+++++[#MediumSpringGreen] 部署服务
++++++[#LightGreen]_ kill
++++++[#LightGreen]_ ftp
++++++[#LightGreen]_ grep
++++++[#LightGreen]_ cat grep
+
+
+++++[#MediumSpringGreen] 其他命令
++++++[#LightGreen]_ chmod 权限 文件
+
+
+++[#yellow] 系统
+
++++[#Pink] 硬件
+
+++++[#MediumSpringGreen] CPU 飙高
++++++[#LightGreen] CPU 上下文切换过多
++++++[#LightGreen] CPU 资源过度消耗
++++++[#LightGreen] CPU 利用率过高之后，导致应用中的线程无法获得 CPU 的调度，从而影响程序的执行效率！
++++++[#LightGreen] 5
++++++[#LightGreen] 5
+++++++[#Aquamarine] 6
++++++++[#Aquamarine]_ 7
+
+++[#yellow] 2
+
++++[#Pink] 3
+
+++++[#MediumSpringGreen] 4
++++++[#LightGreen] 5
+++++++[#Aquamarine] 6
++++++++[#Aquamarine]_ 7
+++++++[#PowderBlue] 6
++++++++[#PowderBlue]_ 7
+++++[#AliceBlue] 4
++++++[#GhostWhite] 5
+
 
 
 

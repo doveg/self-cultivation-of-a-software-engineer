@@ -9,6 +9,7 @@
 ++++[#MediumSpringGreen] 堆 / Heap
 
 +++++[#GhostWhite] 对象
+
 +++++[#LightGreen] 字符串常量池
 ++++++[#Aquamarine]_ 由于字符串不可变，字符串常量池可以节约堆空间
 
@@ -16,17 +17,24 @@
 ++++++[#Aquamarine]_ 对象头（Header）
 +++++++[#Aquamarine]_ Mark Word被设计成一个有着动态定义的数据结构，以便在极小的空间内存储尽量多的数据，根据对象的状态复用自己的存储空间
 ++++++[#Aquamarine]_ 实例数据（Instance Data）
-++++++[#Aquamarine]_ 和对齐填充（Padding）
+++++++[#Aquamarine]_ 对齐填充（Padding）
 
 
-++++[#MediumSpringGreen] 方法区 / Method Area
+++++[#MediumSpringGreen] 元空间 / 方法区 / Method Area
 
-+++++[#LightGreen] 运行时常量池
-+++++[#LightGreen] 静态常量池
-+++++[#LightGreen] 静态变量
-+++++[#GhostWhite] 被虚拟机加载的类型信息
-+++++[#GhostWhite] 即时编译器编译后的代码缓存
-+++++[#GhostWhite] 方法区的垃圾收集主要回收两部分内容：废弃的常量和不再使用的类型
++++++[#LightGreen] 内容
+++++++[#Aquamarine]_ 运行时常量池
+++++++[#Aquamarine]_ 静态常量池
+++++++[#Aquamarine]_ 静态变量
+++++++[#Aquamarine]_ 被虚拟机加载的类型信息
+++++++[#Aquamarine]_ 即时编译器编译后的代码缓存
+++++++[#Aquamarine]_ 方法区的垃圾收集主要回收两部分内容：废弃的常量和不再使用的类型
+
++++++[#LightGreen] 问题
+++++++[#Aquamarine]_ 大小：本地内存，上限比较大
+++++++[#Aquamarine]_ OOM 原因：类过多，占用内存过大
+++++++[#Aquamarine]_ 垃圾回收：FullGC
+
 
 
 +++[#Pink] 线程私有（三）

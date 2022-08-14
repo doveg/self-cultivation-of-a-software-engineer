@@ -112,7 +112,40 @@
 
 
 
++++[#Pink] 异常
 
+++++[#MediumSpringGreen] Throwable
++++++[#LightGreen] Error（错误）
+++++++[#Aquamarine]_ 程序报错，系统收到无法处理的错误消息
+++++++[#Aquamarine]_ 比如：IOError
++++++[#LightGreen] Exception（异常）
+++++++[#Aquamarine] 受检异常
++++++++[#Aquamarine]_ 编译器要求必须处置的异常
++++++++[#Aquamarine]_ 通过 try/catch 捕获该异常
++++++++[#Aquamarine]_ 通过 throw 抛出异常
+++++++[#Aquamarine] 非受检异常
++++++++[#Aquamarine]_ 编译器不要求强制处置的异常
+++++++[#Aquamarine] 运行时异常
++++++++[#Aquamarine]_ RuntimeException
+++++++[#Aquamarine] 非运行时异常
++++++++[#Aquamarine]_ RuntimeException 以外的异常
+
+
+
+
+
+++[#yellow] 2
+
++++[#Pink] 3
+
+++++[#MediumSpringGreen] 4
++++++[#LightGreen] 5
+++++++[#Aquamarine] 6
++++++++[#Aquamarine]_ 7
+++++++[#PowderBlue] 6
++++++++[#PowderBlue]_ 7
+++++[#AliceBlue] 4
++++++[#GhostWhite] 5
 
 
 

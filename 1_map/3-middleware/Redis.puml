@@ -5,6 +5,7 @@
 ++[#yellow] 数据类型
 
 +++[#Pink] 五大类型
+
 ++++[#MediumSpringGreen] String / 字符串
 +++++[#LightBlue] 使用场景
 ++++++[#LightGreen] 分布式 Session
@@ -52,15 +53,21 @@
 ++[#yellow] 常见问题
 
 +++[#Pink] 特性
+
 ++++[#MediumSpringGreen] Redis 为什么这么快
-+++++[#MediumSpringGreen]_ 内存：没有磁盘 IO 开销
-+++++[#MediumSpringGreen]_ 零拷贝：IO 多路复用
-+++++[#MediumSpringGreen]_ 单线程：没有锁竞争开销，不需要考虑线程安全问题
-+++++[#MediumSpringGreen]_ 数据结构的底层优化：比如编码、跳表、压缩表
++++++[#LightGreen] IO
+++++++[#Aquamarine]_ 内存：没有磁盘 IO 开销
+++++++[#Aquamarine]_ 零拷贝：IO 多路复用
++++++[#LightGreen] 锁竞争开销
+++++++[#Aquamarine]_ 单线程：没有锁竞争开销，不需要考虑线程安全问题
++++++[#LightGreen] 数据结构
+++++++[#Aquamarine]_ 查询方式：k-v 数据，不需要做关联查询和聚合查询
+++++++[#Aquamarine]_ 数据结构的底层优化：比如编码、跳表、压缩表
 
 ++++[#MediumSpringGreen] 为什么使用单线程
 +++++[#AliceBlue]_ CPU 不是瓶颈，Redis 的瓶颈最有可能是机器内存的大小，或者网络带宽
 +++++[#AliceBlue]_ 单线程没有锁竞争开销，不需要考虑线程安全问题
+
 
 +++[#Pink] 三剑客
 
@@ -75,6 +82,7 @@
 ++++[#AliceBlue] 缓存穿透
 +++++[#AliceBlue]_ 同时大量无效的 key（恶意请求）
 +++++[#AliceBlue]_ 布隆过滤器可以解决
+
 
 +++[#Pink] key
 
@@ -205,6 +213,20 @@
 
 +++[#Pink] 和 MySQL 的一致性问题
 ++++[#LightGreen] 延迟双删
+
+
+++[#yellow] 2
+
++++[#Pink] 3
+
+++++[#MediumSpringGreen] 4
++++++[#LightGreen] 5
+++++++[#Aquamarine] 6
++++++++[#Aquamarine]_ 7
+++++++[#PowderBlue] 6
++++++++[#PowderBlue]_ 7
+++++[#AliceBlue] 4
++++++[#GhostWhite] 5
 
 
 'https://www.cnblogs.com/qdhxhz/p/15684650.html

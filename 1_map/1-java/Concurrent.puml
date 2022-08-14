@@ -8,10 +8,15 @@
 
 ++++[#MediumSpringGreen] CAS 机制
 
-+++++[#LightGreen]_ 背景：CompareAndSwap，CAS 是 Java 中 Unsafe 类中的方法
-+++++[#LightGreen]_ Unsafe 类中的 compareAndSwapInt() 方法
-+++++[#LightGreen]_ 比较内存地址的偏移量对应的值和传入的预期值是否相等
-+++++[#LightGreen]_ 多 CPU 情况下，对 CPU 加 Lock 的汇编指令，对缓存或者总线加锁
++++++[#LightGreen]_ 背景
+++++++[#Aquamarine]_ CompareAndSwap，CAS 是 Java 中 Unsafe 类中的方法
++++++[#LightGreen] 原理
+++++++[#Aquamarine]_ Unsafe 类中的 compareAndSwapInt() 方法
+++++++[#Aquamarine]_ 比较内存地址的偏移量对应的值和传入的预期值是否相等
+++++++[#Aquamarine]_ 多 CPU 情况下，对 CPU 加 Lock 的汇编指令，对缓存或者总线加锁
++++++[#LightGreen] 使用场景
+++++++[#Aquamarine]_ Atomic 的原子实现，比如 AtomicInteger，AtomicLong
+++++++[#Aquamarine]_ AQS、ConcurrentHashMap、ConcurrentLinkedQueue 等
 
 
 ++++[#MediumSpringGreen] AQS
@@ -64,10 +69,10 @@
 +++++++[#Aquamarine]_ 需要做内核态到用户态的转换
 
 +++++[#LightGreen] 实现
-++++++[#Aquamarine] 通过 JVM 实现
+++++++[#Aquamarine]_ 通过 JVM 实现
++++++++[#Aquamarine]_ 非公平锁
 +++++++[#Aquamarine]_ 重量级锁：mutex
 +++++++[#Aquamarine]_ 重量级以下：对象头
-+++++++[#Aquamarine]_ 非公平锁
 
 
 
@@ -85,8 +90,8 @@
 ++++++[#Aquamarine]_ java 7：对分段 Segment 进行加锁
 
 +++++[#LightGreen] 性能优化
-++++++[#Aquamarine]_ 锁粒度的一个缩小
-++++++[#Aquamarine]_ 红黑树的引入
+++++++[#Aquamarine]_ 锁粒度的一个缩小：锁数组中的某一个节点
+++++++[#Aquamarine]_ 红黑树的引入：hash 冲突过多，链表过长
 ++++++[#Aquamarine]_ 多线程并发扩容
 +++++++[#Aquamarine]_ 扩容中使用多线程，各自迁移自己的分片
 ++++++[#Aquamarine]_ size() 方法
@@ -170,14 +175,61 @@
 +++++++[#Aquamarine]_ 公平锁和非公平锁：让排队的去竞争锁是公平锁
 
 +++++[#LightGreen] 优化
-++++++[#Aquamarine] Synchronized 使用锁升级机制
+++++++[#Aquamarine]_ Synchronized 使用锁升级机制
 +++++++[#Aquamarine]_ 轻量锁、重量锁
-++++++[#Aquamarine] Lock 使用自旋锁
+++++++[#Aquamarine]_ Lock 使用自旋锁
 
-+++++[#LightGreen] 性能差别不大
 
-+++++[#LightGreen] 功能相同，解决线程安全的工具
++++++[#LightGreen] 相似
+++++++[#Aquamarine]_ 性能差别不大
+++++++[#Aquamarine]_ 功能相同，解决线程安全的工具
 
+
+++++[#MediumSpringGreen] Condition
+
++++++[#LightGreen] 原理
+++++++[#Aquamarine]_ 相当于 wait/notify 在 JUC 包里面的实现
+
+
+
++++[#Pink] 其他问题
+
+++++[#MediumSpringGreen] 并行和并发
++++++[#LightGreen] 并行
+++++++[#Aquamarine]_ 同一时刻，多个任务同时执行
+++++++[#Aquamarine]_ 由核心数量决定
++++++[#LightGreen] 并发
+++++++[#Aquamarine]_ 同一时刻 CPU 处理任务的能力
+++++++[#Aquamarine]_ CPU 通过时间片机制实现
+
+++++[#MediumSpringGreen] fail-safe 与 fail-fast
++++++[#LightGreen]_ 背景：是多线程并发操作集合时的一种失败处理机制
++++++[#LightGreen] fail-safe
+++++++[#Aquamarine]_ 快速失败
+++++++[#Aquamarine]_ 在集合遍历过程中，一旦发现容器中的数据被修改了，立刻抛出 ConcurrentModificationException 异常
++++++[#LightGreen] fail-fast
+++++++[#Aquamarine]_ 失败安全
+++++++[#Aquamarine]_ 出现集合元素的修改，不会抛出 ConcurrentModificationException 异常
+
+
+++++[#MediumSpringGreen] 阻塞队列的有界和无界
++++++[#LightGreen] 阻塞队列
+++++++[#Aquamarine]_ 当队列为空的时候，获取队列中元素的消费者线程会被阻塞，同时唤醒生产者线程
+++++++[#Aquamarine]_ 当队列满了的时候，向队列中添加元素的生产者线程被阻塞，同时唤醒消费者线程
+++++++[#Aquamarine]_ 队列为空的时候，获取元素的线程会等待队列变为非空
+++++++[#Aquamarine]_ 当队列满时，存储元素的线程会等待队列可用
++++++[#LightGreen] 有界队列
+++++++[#Aquamarine]_ 阻塞队列中可以设置容纳的元素个数
++++++[#LightGreen] 无界队列
+++++++[#Aquamarine]_ 没有设置固定大小的队列
+++++++[#Aquamarine]_ 存在比较大的潜在风险，在并发量较大的情况下，线程池可以几乎无限制的添加任务，容易内存溢出
+
+
+++++[#MediumSpringGreen] wait 和 notify 这个为什么要在synchronized 代码块中
+++++[#MediumSpringGreen] ThreadLocal
++++++[#LightGreen] 一种线程隔离机制，它提供了多线程环境下对于共享变量访问的安全性
++++++[#LightGreen] 每个线程里面，都有一个容器来存储共享变量的副本
++++++[#LightGreen] 原理是，Thread 类里面的一个成员变量 ThreadLocalMap
 
 
 

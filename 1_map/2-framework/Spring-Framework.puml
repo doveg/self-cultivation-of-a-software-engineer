@@ -134,6 +134,18 @@
 '+++++[#LightGreen]_ globalSession：全局会话共享一个 Bean 实例。
 
 
++++[#Pink] 循环依赖
+
+++++[#MediumSpringGreen] 循环依赖有三种形态
++++++[#LightGreen]_ A B 互相依赖
++++++[#LightGreen]_ A 自依赖
++++++[#LightGreen]_ A B C 循环依赖
+++++[#MediumSpringGreen] 设计原理
++++++[#LightGreen]_ 一级缓存中存放所有的成熟 Bean
++++++[#LightGreen]_ 二级缓存中存放所有的早期 Bean，标记是否存在循环依赖
++++++[#LightGreen]_ 三级缓存是用来存储代理 Bean
++++++[#LightGreen]_ 先取一级缓存，再去二级缓存
++++++[#LightGreen]_ 一、二级缓存中都没有找到，意味着该目标 Bean 还没有实例化
 
 
 

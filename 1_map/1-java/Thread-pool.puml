@@ -68,6 +68,12 @@
 +++++++[#GhostWhite] 没满则创建线程执行任务
 +++++++[#Aquamarine] 执行拒绝策略
 
++++[#Pink] 常见问题
+
+++++[#MediumSpringGreen] 线程池如何知道一个线程的任务已经执行完成
++++++[#LightGreen] 线程池提供了一个 isTerminated()方法，可以判断线程池的运行状态
++++++[#LightGreen] 不管是线程池内部还是外部，要想知道线程是否执行结束，我们必须要获取线程执行结束后的状态
++++++[#LightGreen] 而线程本身没有返回值，所以只能通过阻塞-唤醒的方式来实现，future.get 和 CountDownLatch 都是这样一个原理
 
 
 +++[#Pink] 3

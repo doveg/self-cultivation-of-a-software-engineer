@@ -7,9 +7,51 @@
 +++[#Pink] 基本原则（五） / SOLID
 ++++[#MediumSpringGreen] 单一职责原则 / Single Responsibility Principle
 ++++[#MediumSpringGreen] 开放关闭原则 / Open Closed Principle
-++++[#MediumSpringGreen] 接口隔离原则 / Interface Segregation Principle / 迪米特法则
 ++++[#AliceBlue] 里氏替代原则 / Liskov Substitution Principle
+++++[#MediumSpringGreen] 接口隔离原则 / Interface Segregation Principle / 迪米特法则
 ++++[#AliceBlue] 依赖倒置原则 / Dependence Inversion Principle
+
+
+
+++[#yellow] 面试常客
+
++++[#Pink] 数据一致性
+
+++++[#MediumSpringGreen] 缓存和数据库一致性
+
+++++[#MediumSpringGreen] 事务中多数据源的一致性问题
+
+
++++[#Pink] 索引
+
+++++[#MediumSpringGreen] 联合索引生效场景
+
+++++[#MediumSpringGreen] 索引命中的过程
+
+
++++[#Pink] 锁
+
+++++[#MediumSpringGreen] 同步锁和重入锁
+
+
+
+
+
+
+
+
+++[#yellow] 2
+
++++[#Pink] 3
+
+++++[#MediumSpringGreen] 4
++++++[#LightGreen] 5
+++++++[#Aquamarine] 6
++++++++[#Aquamarine]_ 7
+
+
+
+
 
 
 

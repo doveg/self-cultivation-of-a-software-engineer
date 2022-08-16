@@ -7,14 +7,20 @@
 +++[#Pink] 常用实现
 
 ++++[#MediumSpringGreen] HashMap
-+++++[#LightGreen] 5
-++++++[#Aquamarine] 6
-+++++++[#Aquamarine]_ 7
 
++++++[#LightGreen] 数据结构
+++++++[#Aquamarine] 数组
++++++++[#Aquamarine]_ 初始值为 16
+++++++[#Aquamarine] 单向链表
++++++++[#Aquamarine]_ 头节点是数组元素
+++++++[#Aquamarine] 红黑树
++++++++[#Aquamarine]_ 数组长度大于 64，链表长度大于等于 8 时转化
 
+++++[#MediumSpringGreen] ConcurrentHashMap
++++++[#MediumSpringGreen]_ 在 HashMap 的基础上，加入分段锁，解决线程安全和性能问题
 
 ++++[#MediumSpringGreen] TreeMap
-
++++++[#LightGreen] 通过红黑树（R-B tree）实现
 
 
 +++[#Pink] 常见问题
@@ -22,9 +28,9 @@
 ++++[#MediumSpringGreen] HashMap 的 Hash 冲突
 
 +++++[#LightGreen] 原因
-++++++[#Aquamarine] Hash 算法
-++++++[#Aquamarine] Hash 表
-++++++[#Aquamarine] Hash 算法对不同的数据，输出相同的散列值，导致 Hash 表中 key 冲突
+++++++[#Aquamarine]_ Hash 算法
+++++++[#Aquamarine]_ Hash 表
+++++++[#Aquamarine]_ Hash 算法对不同的数据，输出相同的散列值，导致 Hash 表中 key 冲突
 
 +++++[#LightGreen] 解决
 ++++++[#Aquamarine] 开放定值寻址，线性探测法
@@ -37,16 +43,14 @@
 
 
 
+++[#yellow] 2
+
 +++[#Pink] 3
 
 ++++[#MediumSpringGreen] 4
 +++++[#LightGreen] 5
 ++++++[#Aquamarine] 6
 +++++++[#Aquamarine]_ 7
-++++++[#PowderBlue] 6
-+++++++[#PowderBlue]_ 7
-++++[#AliceBlue] 4
-+++++[#GhostWhite] 5
 
 
 @endmindmap

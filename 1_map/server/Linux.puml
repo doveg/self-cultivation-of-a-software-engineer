@@ -41,8 +41,12 @@
 ++++++[#Aquamarine]_ 内存：物理内存总量、使用的物理内存量、空闲的物理内存量、用作内核缓存的物理内存量
 ++++++[#Aquamarine]_ 交换空间：交换区总量、使用的交换区量、空闲的交换区量、缓冲交换区总量
 +++++[#GhostWhite]_ pidstat
+
+++++[#MediumSpringGreen] 网络问题
+
 +++++[#GhostWhite]_ telnet
 +++++[#GhostWhite]_ ping
++++++[#GhostWhite]_ curl
 
 
 ++++[#MediumSpringGreen] 部署服务
@@ -61,13 +65,12 @@
 +++[#Pink] 硬件
 
 ++++[#MediumSpringGreen] CPU 飙高
-+++++[#LightGreen] CPU 上下文切换过多
-+++++[#LightGreen] CPU 资源过度消耗
-+++++[#LightGreen] CPU 利用率过高之后，导致应用中的线程无法获得 CPU 的调度，从而影响程序的执行效率！
-+++++[#LightGreen] 5
-+++++[#LightGreen] 5
-++++++[#Aquamarine] 6
-+++++++[#Aquamarine]_ 7
++++++[#LightGreen]_ CPU 上下文切换过多
++++++[#LightGreen]_ CPU 资源过度消耗
++++++[#LightGreen]_ CPU 利用率过高之后，导致应用中的线程无法获得 CPU 的调度，从而影响程序的执行效率！
+
+
+
 
 ++[#yellow] 2
 

@@ -2,7 +2,7 @@
 
 +[#OrangeRed] JVM
 
-++[#yellow] 内存模型 / 运行时数据区
+++[#yellow] 内存模型
 
 +++[#Pink] 线程共享（二）
 
@@ -40,33 +40,29 @@
 +++[#Pink] 线程私有（三）
 
 ++++[#MediumSpringGreen] 虚拟机栈
-+++++[#LightGreen] 局部变量表
-++++++[#MediumSpringGreen]_ 存的是地址，实际指向的是堆里面的对象
-+++++[#GhostWhite] 方法出口
-+++++[#LightGreen] 操作数栈
-+++++[#GhostWhite] 动态链接
-
-++++[#AliceBlue] 本地方法栈
-+++++[#GhostWhite] 由 native 修饰，由 C 语言实现
-
-++++[#AliceBlue] 程序计数器
-+++++[#GhostWhite] 记录线程执行的虚拟机字节码指令的地址
-+++++[#GhostWhite] 一块较小的内存空间，可以看作当前线程所执行的字节码的行号指示器
-
-
-
-+++[#Pink] 运行时栈帧的结构
-
-++++[#MediumSpringGreen] 栈帧
-+++++[#LightGreen] 一个线程中两个不同的栈帧是完全相互独立的
++++++[#LightGreen] 栈帧
+++++++[#Aquamarine]_ 一个线程中两个不同的栈帧是完全相互独立的
 +++++[#LightGreen] 当前栈帧
 ++++++[#Aquamarine] 局部变量表
++++++++[#Aquamarine]_ 存的是地址，实际指向的是堆里面的对象
 ++++++[#Aquamarine] 操作栈 / 操作数栈
 +++++++[#Aquamarine]_ 后入先出（Last In First Out，LIFO）栈
 ++++++[#Aquamarine] 动态链接
 +++++++[#Aquamarine]_ 每一次运行期间都转化为直接引用
-++++++[#Aquamarine] 返回地址
+++++++[#Aquamarine] 返回地址、方法出口
 +++++++[#Aquamarine]_ 方法返回时可能需要在栈帧中保存一些信息，用来帮助恢复上层主调方法的执行状态
+
+
+
+
+++++[#AliceBlue] 本地方法栈
++++++[#GhostWhite]_ 由 native 修饰，由 C 语言实现
+
+++++[#AliceBlue] 程序计数器
++++++[#GhostWhite]_ 记录线程执行的虚拟机字节码指令的地址
++++++[#GhostWhite]_ 一块较小的内存空间，可以看作当前线程所执行的字节码的行号指示器
+
+
 
 
 

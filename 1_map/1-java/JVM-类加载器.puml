@@ -4,33 +4,39 @@
 
 ++[#yellow] ClassLoader / 类加载器
 
-***[#Pink]: 类的生命周期（五）
-/ 类加载的过程（三）;
-++++[#AliceBlue] 加载
-+++++[#Aquamarine]_ 通过一个类的全限定名来获取定义此类的二进制字节流
-+++++[#Aquamarine]_ 将这个字节流所代表的静态存储结构转化为方法区的运行时数据结构
++++[#Pink] 类的生命周期（五）
 
-++++[#MediumSpringGreen] 链接（三）
-+++++[#LightGreen] 验证（四）
-++++++[#Aquamarine]_ 文件格式验证
-++++++[#Aquamarine]_ 元数据验证
-++++++[#Aquamarine]_ 字节码验证
-++++++[#Aquamarine]_ 符号引用验证
+++++[#MediumSpringGreen] 类加载过程（三）
 
-+++++[#LightGreen] 准备
-++++++[#Aquamarine]_ 为类中的变量（即静态变量，被 static 修饰的变量）分配内存，并设置类变量初始值
++++++[#LightGreen] 加载
 
-+++++[#LightGreen] 解析
-++++++[#Aquamarine]_ JVM 将常量池内的符号引用替换为直接引用的过程
+++++++[#Aquamarine]_ 通过一个类的全限定名来获取定义此类的二进制字节流
+++++++[#Aquamarine]_ 将这个字节流所代表的静态存储结构转化为方法区的运行时数据结构
 
-++++[#MediumSpringGreen] 初始化
-+++++[#Aquamarine]_ 初始化阶段就是执行类构造器<clinit>()方法的过程
-+++++[#Aquamarine]_ 根据程序员通过程序编码制定的主观计划去初始化类变量和其他资源
-+++++[#LightGreen] 初始化的顺序
-++++++[#Aquamarine]_ 静态的（变量，方法，代码块）会被执行
++++++[#LightGreen] 链接（三）
 
-++++[#AliceBlue] 使用
-++++[#AliceBlue] 卸载
+++++++[#Aquamarine] 验证（四）
++++++++[#Aquamarine]_ 文件格式验证
++++++++[#Aquamarine]_ 元数据验证
++++++++[#Aquamarine]_ 字节码验证
++++++++[#Aquamarine]_ 符号引用验证
+
+++++++[#Aquamarine] 准备
++++++++[#Aquamarine]_ 为类中的变量（即静态变量，被 static 修饰的变量）分配内存，并设置类变量初始值
+
+++++++[#Aquamarine] 解析
++++++++[#Aquamarine]_ JVM 将常量池内的符号引用替换为直接引用的过程
+
++++++[#LightGreen] 初始化
+++++++[#Aquamarine] 背景
++++++++[#Aquamarine]_ 初始化阶段就是执行类构造器 <clinit>() 方法的过程
++++++++[#Aquamarine]_ 根据程序员通过程序编码制定的主观计划去初始化类变量和其他资源
+++++++[#Aquamarine] 顺序
++++++++[#Aquamarine]_ 静态的（变量，方法，代码块）会被执行
+
+++++[#MediumSpringGreen] 其他
++++++[#LightGreen] 使用
++++++[#LightGreen] 卸载
 
 
 +++[#Pink]  加载器的等级（三）
@@ -44,9 +50,26 @@
 
 +++[#Pink]  类加载的原理
 ++++[#MediumSpringGreen] 双亲委派机制
-+++++[#AliceBlue]_ Java 中的类随着它的类加载器一起，具备了一种带有优先级的层次关系
-+++++[#AliceBlue]_ 可以避免重复加载
-+++++[#AliceBlue]_ 可以防止核心 class 被篡改
++++++[#AliceBlue]_ 背景
+++++++[#Aquamarine]_ java 源文件到最终运行，必须要经过编译和类加载两个阶段
+++++++[#Aquamarine]_ 把 class 文件装载到 JVM 内存中，装载完成以后就会得到一个 Class 对象
+++++++[#Aquamarine]_ 按照类加载器的层级关系，逐层进行委派加载器去执行
++++++[#AliceBlue]_ 原因
+++++++[#Aquamarine]_ 可以避免重复加载
+++++++[#Aquamarine]_ 可以防止核心 class 被篡改
+
+
+
+++[#yellow] 2
+
++++[#Pink] 3
+
+++++[#MediumSpringGreen] 4
++++++[#LightGreen] 5
+++++++[#Aquamarine] 6
++++++++[#Aquamarine]_ 7
+
+
 
 
 @endmindmap

@@ -6,74 +6,83 @@
 
 +++[#Pink] 线程的状态（六）
 
-++++[#AliceBlue]_ 初始 / new
-+++++[#GhostWhite]_ 线程被构建
-++++[#AliceBlue]_ 运行 / runnable
-+++++[#GhostWhite]_ 操作系统中的就绪和运行两种状态
-++++[#AliceBlue]_ 终止 / terminated
-+++++[#GhostWhite]_ 当前线程执行完毕
-++++[#AliceBlue]_ 阻塞 / blocked
-+++++[#GhostWhite]_ 线程阻塞于锁
-++++[#AliceBlue]_ 等待 / waiting
-+++++[#GhostWhite]_ 当前线程需要其他线程通知
-++++[#AliceBlue]_ 定时等待 / timed_waiting
-+++++[#GhostWhite]_ 指定等待时间自己返回
+++++[#MediumSpringGreen] 非阻塞
+
++++++[#LightGreen]_ 初始 / new
+++++++[#Aquamarine]_ 线程被构建
++++++[#LightGreen]_ 运行 / runnable
+++++++[#Aquamarine]_ 操作系统中的就绪和运行两种状态
++++++[#LightGreen]_ 终止 / terminated
+++++++[#Aquamarine]_ 当前线程执行完毕
+
+++++[#MediumSpringGreen] 阻塞
+
++++++[#LightGreen]_ 阻塞 / blocked
+++++++[#Aquamarine]_ 线程阻塞于锁
++++++[#LightGreen]_ 等待 / waiting
+++++++[#Aquamarine]_ 当前线程需要其他线程通知
++++++[#LightGreen]_ 定时等待 / timed_waiting
+++++++[#Aquamarine]_ 指定等待时间自己返回
 
 
 +++[#Pink] 创建线程的方式（四）
 
 ++++[#MediumSpringGreen] 继承 Thread
-+++++[#GhostWhite]_ 继承 Thread 类，并重写 run () 方法
++++++[#LightGreen]_ 继承 Thread 类，并重写 run () 方法
 ++++[#MediumSpringGreen] 实现 Runnable
-+++++[#GhostWhite]_ 实现 Runnable，并实现 run () 方法
++++++[#LightGreen]_ 实现 Runnable，并实现 run () 方法
 ++++[#MediumSpringGreen] 实现 Callable
-+++++[#GhostWhite]_ 实现 Callable 接口，并结合 Future 实现
-++++[#AliceBlue] 使用 Executors
-+++++[#GhostWhite]_ 使用线程池，例如用 JDK 自带的 Executors 创建线程池对象
++++++[#LightGreen]_ 实现 Callable 接口，并结合 Future 实现
+++++[#AliceBlue]_ 使用 Executors
++++++[#LightGreen]_ 使用线程池，例如用 JDK 自带的 Executors 创建线程池对象
 
 
 ++[#yellow] 线程池
 
-+++[#Pink] 线程池的核心配置参数（六）
++++[#Pink] 线程池配置参数（六）
 
-++++[#MediumSpringGreen] 核心线程数
-+++++[#LightGreen]_ CPU 密集型
-++++++[#Aquamarine]_ CPU 核心数 + 1
-+++++[#LightGreen]_ IO 密集型
-++++++[#Aquamarine]_ 2 * CPU 核心数
+++++[#MediumSpringGreen] 核心（四）
 
-++++[#MediumSpringGreen] 最大线程数
-+++++[#LightGreen]_ IO 密集型
-++++++[#Aquamarine]_ 25 * CPU 核心数
++++++[#LightGreen] 核心线程数
+++++++[#Aquamarine]_ CPU 密集型
++++++++[#Aquamarine]_ CPU 核心数 + 1
+++++++[#Aquamarine]_ IO 密集型
++++++++[#Aquamarine]_ 2 * CPU 核心数
 
-++++[#MediumSpringGreen] 等待队列的容量
++++++[#LightGreen] 最大线程数
+++++++[#Aquamarine]_ IO 密集型
++++++++[#Aquamarine]_ 25 * CPU 核心数
 
-++++[#MediumSpringGreen] 拒绝策略（四）
-+++++[#LightGreen]_ CallerRunsPolicy / 调用者自己执行
-+++++[#LightGreen]_ AbortPolicy / 抛异常
-+++++[#LightGreen]_ DiscardOldestPolicy / 丢弃最老的
-+++++[#LightGreen]_ DiscardPolicy / 丢弃
++++++[#LightGreen] 等待队列的容量
 
-++++[#AliceBlue] 线程的最大存活时间
-++++[#AliceBlue] 线程池线程名的前缀
++++++[#LightGreen] 拒绝策略（四）
+++++++[#Aquamarine]_ AbortPolicy / 抛异常
+++++++[#Aquamarine]_ CallerRunsPolicy / 调用者自己执行
+++++++[#Aquamarine]_ DiscardOldestPolicy / 丢弃最老的
+++++++[#Aquamarine]_ DiscardPolicy / 丢弃
+
+++++[#MediumSpringGreen] 非核心（二）
+
++++++[#LightGreen]_ 线程的最大存活时间
++++++[#LightGreen]_ 线程池线程名的前缀
 
 
 +++[#Pink] 线程池的处理流程（三）
 
 ++++[#MediumSpringGreen] 判断核心线程池是否已满
-+++++[#GhostWhite] 没满则创建线程执行任务
++++++[#GhostWhite]_ 没满则创建线程执行任务
 +++++[#LightGreen] 判断等待队列是否已满
-++++++[#GhostWhite] 没满则把任务存储在队列
+++++++[#GhostWhite]_ 没满则把任务存储在队列
 ++++++[#LightBlue] 判断整个线程池是否已满
-+++++++[#GhostWhite] 没满则创建线程执行任务
++++++++[#GhostWhite]_ 没满则创建线程执行任务
 +++++++[#Aquamarine] 执行拒绝策略
 
 +++[#Pink] 常见问题
 
 ++++[#MediumSpringGreen] 线程池如何知道一个线程的任务已经执行完成
-+++++[#LightGreen] 线程池提供了一个 isTerminated()方法，可以判断线程池的运行状态
-+++++[#LightGreen] 不管是线程池内部还是外部，要想知道线程是否执行结束，我们必须要获取线程执行结束后的状态
-+++++[#LightGreen] 而线程本身没有返回值，所以只能通过阻塞-唤醒的方式来实现，future.get 和 CountDownLatch 都是这样一个原理
++++++[#LightGreen]_ 线程池提供了一个 isTerminated()方法，可以判断线程池的运行状态
++++++[#LightGreen]_ 不管是线程池内部还是外部，要想知道线程是否执行结束，我们必须要获取线程执行结束后的状态
++++++[#LightGreen]_ 而线程本身没有返回值，所以只能通过阻塞-唤醒的方式来实现，future.get 和 CountDownLatch 都是这样一个原理
 
 
 +++[#Pink] 3
@@ -82,6 +91,9 @@
 +++++[#LightGreen] 5
 ++++++[#Aquamarine] 6
 +++++++[#Aquamarine]_ 7
+
+
+
 
 
 @endmindmap

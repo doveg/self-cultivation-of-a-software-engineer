@@ -24,13 +24,13 @@
 
 
 +++[#Pink] Spring Cloud Netflix
-++++[#AliceBlue]_ Eureka
-++++[#AliceBlue]_ Feign
-++++[#AliceBlue]_ Hystrix
-++++[#AliceBlue]_ Zuul
-++++[#AliceBlue]_ Config
-++++[#AliceBlue]_ Ribbon
-++++[#AliceBlue]_ RabbitMQ
+++++[#AliceBlue] Zuul
+++++[#AliceBlue] Hystrix
+++++[#AliceBlue] Eureka
+++++[#AliceBlue] Feign
+++++[#AliceBlue] Config
+++++[#AliceBlue] Ribbon
+++++[#AliceBlue] RabbitMQ
 
 
 ++[#yellow] 常见问题
@@ -38,19 +38,19 @@
 +++[#Pink] 三剑客
 
 ++++[#MediumSpringGreen] 负载均衡
-+++++[#GhostWhite] RandomRule：随机
-+++++[#GhostWhite] RoundRobinRule：轮询
-+++++[#GhostWhite] WeightedResponseTimeRule：权重
++++++[#LightGreen] RandomRule：随机
++++++[#LightGreen] RoundRobinRule：轮询
++++++[#LightGreen] WeightedResponseTimeRule：权重
 
 ++++[#MediumSpringGreen] 服务降级
-+++++[#GhostWhite] 超时降级
-+++++[#GhostWhite] 失败次数降级
-+++++[#GhostWhite] 故障降级
++++++[#LightGreen]_ 超时降级
++++++[#LightGreen]_ 失败次数降级
++++++[#LightGreen]_ 故障降级
 
 ++++[#MediumSpringGreen] 服务熔断
-+++++[#GhostWhite] 自动熔断时机
-+++++[#GhostWhite] 熔断恢复的条件
-+++++[#GhostWhite] 区分核心和非核心功能
++++++[#LightGreen]_ 自动熔断时机
++++++[#LightGreen]_ 熔断恢复的条件
++++++[#LightGreen]_ 区分核心和非核心功能
 
 
 ++[#yellow] 其他问题
@@ -84,8 +84,8 @@
 +++++[#LightGreen]_ 强一致性方案对于应用的性能和可用性会有影响
 +++++[#LightGreen]_ 可以通过基于 XA 协议下的二阶段提交来实现
 
-++++[#MediumSpringGreen] 弱一致性
-+++++[#LightGreen]_ 最终一致性
+++++[#MediumSpringGreen] 最终一致性
++++++[#LightGreen]_ 弱一致性
 +++++[#LightGreen]_ 多个网络节点的数据允许出现不一致的情况，但是在最终的某个时间点会达成数据一致
 +++++[#LightGreen]_ 可以基于 TCC 事务模型、可靠性消息模型等方案来实现
 
@@ -113,9 +113,7 @@
 +++++[#LightGreen] 5
 ++++++[#Aquamarine] 6
 +++++++[#Aquamarine]_ 7
-++++++[#PowderBlue] 6
-+++++++[#PowderBlue]_ 7
-++++[#AliceBlue] 4
-+++++[#GhostWhite] 5
+
+
 
 @endmindmap

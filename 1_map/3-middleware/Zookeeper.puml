@@ -92,4 +92,30 @@
 +++++[#LightGreen] Watch 机制唤醒：锁请求者只 watch 前一个锁请求者，避免羊群效应
 
 
+++[#yellow] 提高
+
++++[#Pink] 常见问题
+
+++++[#MediumSpringGreen] Watch 机制的原理？？
+
+
+
+
+
+
+
+
+
+
+++[#yellow] 2
+
++++[#Pink] 3
+
+++++[#MediumSpringGreen] 4
++++++[#LightGreen] 5
+++++++[#Aquamarine] 6
++++++++[#Aquamarine]_ 7
+
+
+
 @endmindmap

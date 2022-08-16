@@ -18,7 +18,7 @@
 ++++++[#LightGreen]_ 字符串大小限制：521 M
 
 +++++[#LightBlue] 底层实现
-++++++[#Aquamarine] sds 数据类型
+++++++[#Aquamarine]_ sds 数据类型
 +++++++[#GhostWhite] 封装原因
 ++++++++[#LightGreen]_ C 语言原生字符串不能存空格
 +++++++[#LightGreen] 属性
@@ -31,11 +31,12 @@
 +++++++[#LightGreen] 惰性删除
 ++++++++[#LightGreen]_ 删除字符后，free 保持不变
 ++++++++[#LightGreen]_ 可以调 api 主动释放
-+++++++[#LightGreen] 支持二进制文件的存储
++++++++[#LightGreen]_ 支持二进制文件的存储
 
 ++++[#AliceBlue] List / 队列
 +++++[#GhostWhite]_ 时间轴列表
 +++++[#GhostWhite]_ 最新新闻
++++++[#GhostWhite]_ 最热推荐
 
 ++++[#AliceBlue] Set / 集合
 +++++[#GhostWhite]_ 好友推荐
@@ -67,6 +68,11 @@
 ++++[#MediumSpringGreen] 为什么使用单线程
 +++++[#AliceBlue]_ CPU 不是瓶颈，Redis 的瓶颈最有可能是机器内存的大小，或者网络带宽
 +++++[#AliceBlue]_ 单线程没有锁竞争开销，不需要考虑线程安全问题
+
+++++[#MediumSpringGreen] 线程安全问题？？
++++++[#AliceBlue]_ Redis 6.0 里面，增加了多线程的模型
++++++[#AliceBlue]_ 增加的多线程只是用来处理网络 IO 事件，对于指令的执行过程，仍然是由主线程来处理
+
 
 
 +++[#Pink] 三剑客
@@ -125,14 +131,14 @@
 ++[#yellow] ACID
 
 +++[#Pink] ACID 属性
-++++[#MediumSpringGreen] Atomicity / 原子性
+++++[#MediumSpringGreen]_ Atomicity / 原子性
 +++++[#AliceBlue]_ 不支持，需要 lua 脚本实现
 +++++[#AliceBlue]_ 传统事务比较复杂，Redis 追求简单高效
-++++[#AliceBlue] Consistency / 一致性
+++++[#MediumSpringGreen]_ Consistency / 一致性
 +++++[#AliceBlue]_ 支持，数据和命令都符合要求
-++++[#AliceBlue] Isolation / 隔离性
+++++[#MediumSpringGreen]_ Isolation / 隔离性
 +++++[#AliceBlue]_ 支持，命令独立操作
-++++[#MediumSpringGreen] Durability / 持久性
+++++[#MediumSpringGreen]_ Durability / 持久性
 +++++[#AliceBlue]_ 开启持久化之后才支持
 
 +++[#Pink] 持久性
@@ -147,7 +153,7 @@
 ++++++[#AliceBlue]_ 每五分钟同步一次，会丢数据
 ++++++[#AliceBlue]_ 可快速恢复
 ++++++[#AliceBlue]_ 文件体积小
-+++++[#LightGreen] 混合持久化方式
++++++[#LightGreen]_ 混合持久化方式
 
 ++++++[#AliceBlue]_ 集成了 RDB 和 AOF 的优点
 
@@ -162,9 +168,9 @@
 ++[#yellow] 集群
 
 +++[#Pink] 高可用
-++++[#AliceBlue] 主从复制
+++++[#AliceBlue]_ 主从复制
 +++++[#AliceBlue]_ 从一台主服务器同步数据到多台伺服务器
-++++[#AliceBlue] 哨兵模式
+++++[#AliceBlue]_ 哨兵模式
 +++++[#AliceBlue]_ 监控主从服务器，可以自动容灾恢复
 ++++[#MediumSpringGreen] Redis Cluster
 +++++[#AliceBlue]_ 去中心化，数据分布在不同的服务器
@@ -190,29 +196,40 @@
 +++[#Pink] 分布式锁
 
 ++++[#MediumSpringGreen] CAP
-+++++[#LightGreen] Consistency / 一致性
-+++++[#GhostWhite] Availability / 可用性
-+++++[#LightGreen] Partition Tolerance / 分区容错性
++++++[#LightGreen]_ Consistency / 一致性
++++++[#GhostWhite]_ Availability / 可用性
++++++[#LightGreen]_ Partition Tolerance / 分区容错性
 
-++++[#MediumSpringGreen] 生命周期
-+++++[#LightGreen] 跨进程跨机器节点
+++++[#MediumSpringGreen]_ 生命周期
++++++[#LightGreen]_ 跨进程跨机器节点
 
 ++++[#MediumSpringGreen] 问题
 +++++[#LightGreen] 分布式锁过期
 +++++[#LightGreen] 主从切换，节点同步失败，分布式锁失效
 
 ++++[#AliceBlue] Redis 实现
-+++++[#LightGreen] 命令：setNX + expire
-+++++[#LightGreen] 使用 redisson：watch dog
-+++++[#LightGreen] RedLock
++++++[#LightGreen]_ 命令：setNX + expire
++++++[#LightGreen]_ 使用 redisson：watch dog
++++++[#LightGreen]_ RedLock
 
 
 +++[#Pink] 集成 SpringBoot
-++++[#AliceBlue] 依赖 spring-boot-starter-data-redis
-++++[#AliceBlue] 配置 RedisTemplate
+++++[#AliceBlue]_ 依赖 spring-boot-starter-data-redis
+++++[#AliceBlue]_ 配置 RedisTemplate
+
 
 +++[#Pink] 和 MySQL 的一致性问题
-++++[#LightGreen] 延迟双删
+
+++++[#MediumSpringGreen] 延迟双删
++++++[#LightGreen] 在更新数据库之后再删一次缓存
++++++[#LightGreen] 延迟时间大于业务的一次读操作时间
+
+++++[#MediumSpringGreen] RocketMQ
++++++[#LightGreen] 基于 RocketMQ 的可靠性消息通信，来实现最终一致性
+
+++++[#MediumSpringGreen] Canal
++++++[#LightGreen] 通过 Canal 组件，监控 Mysql 中 binlog 的日志，把更新后的数据同步到 Redis 里面
+
 
 
 ++[#yellow] 2
@@ -223,10 +240,8 @@
 +++++[#LightGreen] 5
 ++++++[#Aquamarine] 6
 +++++++[#Aquamarine]_ 7
-++++++[#PowderBlue] 6
-+++++++[#PowderBlue]_ 7
-++++[#AliceBlue] 4
-+++++[#GhostWhite] 5
+
+
 
 
 'https://www.cnblogs.com/qdhxhz/p/15684650.html

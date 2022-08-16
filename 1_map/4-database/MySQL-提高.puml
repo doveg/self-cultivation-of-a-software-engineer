@@ -4,7 +4,7 @@
 
 ++[#yellow] 提高
 
-+++[#Pink] 性能优化
++++[#Pink] 性能优化：开发
 
 ++++[#MediumSpringGreen] SQL 优化
 +++++[#LightGreen] SQL 优化
@@ -47,6 +47,32 @@
 ++++++[#Aquamarine]_ 删除不再使用或者很少使用的索引
 
 
+++++[#MediumSpringGreen] 表优化
+
++++++[#LightGreen] 表设计
+++++++[#Aquamarine]_ 冗余字段
+++++++[#Aquamarine]_ 以空间换时间
+
++++++[#LightGreen] 表分区
+++++++[#Aquamarine]_ 大表分区
+++++++[#Aquamarine]_ 大小超过 2G
+
++++++[#LightGreen] 分库分表
+++++++[#Aquamarine]_ 垂直拆分
++++++++[#Aquamarine]_ 按业务拆分
+++++++[#Aquamarine]_ 水平拆分
++++++++[#Aquamarine]_ 按主键哈希值取模
++++++++[#Aquamarine]_ 时间维度拆分
++++++++[#LightGreen] 水平分表算法
+++++++++[#Aquamarine]_ Hash 算法
+++++++++[#Aquamarine]_ 一致性 Hash 算法
++++++++++[#Aquamarine]_ Hash 环
++++++++++[#Aquamarine]_ 顺时针找最近的节点
++++++++++[#Aquamarine]_ 数据迁移的代价更小
+
+
++++[#Pink] 性能优化：DBA
+
 ++++[#MediumSpringGreen] 架构优化
 
 +++++[#LightGreen] 主从集群
@@ -55,16 +81,6 @@
 +++++[#LightGreen] 读写分离
 ++++++[#Aquamarine]_ 主库负责写
 ++++++[#Aquamarine]_ 从库负责读
-
-+++++[#LightGreen] 分库分表
-++++++[#Aquamarine]_ 垂直拆分（按业务拆分）
-++++++[#Aquamarine]_ 水平拆分（按主键哈希值取模、时间维度拆分）
-+++++[#LightGreen] 水平分表算法
-++++++[#Aquamarine]_ Hash 算法
-++++++[#Aquamarine]_ 一致性 Hash 算法
-+++++++[#Aquamarine]_ Hash 环
-+++++++[#Aquamarine]_ 顺时针找最近的节点
-+++++++[#Aquamarine]_ 数据迁移的代价更小
 
 +++++[#LightGreen] 热点数据，引入缓存
 ++++++[#Aquamarine]_ Redis

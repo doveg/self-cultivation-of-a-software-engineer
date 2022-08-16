@@ -23,7 +23,7 @@
 
 ++[#yellow] 提高
 
-+++[#Pink] 缓存
++++[#Pink] 两级缓存
 ++++[#MediumSpringGreen] 查询流程
 +++++[#LightGreen]_ 二级缓存、一级缓存、数据库
 ++++[#MediumSpringGreen] 一级缓存

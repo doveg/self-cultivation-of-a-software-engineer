@@ -65,24 +65,28 @@
 +++[#Pink] 设计
 
 ++++[#MediumSpringGreen] Dubbo SPI
-+++++[#LightGreen]_ Service Provider Interface
-+++++[#LightGreen]_ Java SPI 会一次加载和实例化所有的实现类。
-+++++[#LightGreen]_ Dubbo SPI 可以通过名字实例化指定的实现类，并且实现了 IOC 、AOP 与 自适应扩展 SPI
-+++++[#LightGreen] 本质：将接口实现类的全限定名，配置在文件中；服务加载器读取配置文件，加载实现类
-+++++[#LightGreen] 目的：动态替换接口的实现类
-+++++[#LightGreen] 优点：很容易的对 Dubbo 进行拓展
++++++[#LightGreen]_ 背景
+++++++[#Aquamarine]_ Service Provider Interface
+++++++[#Aquamarine]_ Java SPI 会一次加载和实例化所有的实现类。
+++++++[#Aquamarine]_ Dubbo SPI 可以通过名字实例化指定的实现类，并且实现了 IOC 、AOP 与 自适应扩展 SPI
++++++[#LightGreen]_ 本质
+++++++[#Aquamarine]_ 将接口实现类的全限定名，配置在文件中；服务加载器读取配置文件，加载实现类
++++++[#LightGreen]_ 目的
+++++++[#Aquamarine]_ 动态替换接口的实现类
++++++[#LightGreen]_ 优点
+++++++[#Aquamarine]_ 很容易的对 Dubbo 进行拓展
 
-++++[#MediumSpringGreen] 框架设计分层（九）
-+++++[#LightGreen]_ 业务逻辑层
+++++[#MediumSpringGreen] 框架设计分层（十）
++++++[#LightGreen] 业务逻辑层
 ++++++[#Aquamarine]_ 服务接口层 / Service
-+++++[#LightGreen] RPC 调用
++++++[#LightGreen] RPC 调用（六）
 ++++++[#Aquamarine]_ 配置层 / Config
 ++++++[#Aquamarine]_ 服务代理层 / Proxy
 ++++++[#Aquamarine]_ 服务注册层 / Registry
 ++++++[#Aquamarine]_ 集群层 / Cluster
 ++++++[#Aquamarine]_ 监控层 / Monitor
 ++++++[#Aquamarine]_ 远程调用层 / Protocol
-+++++[#LightGreen] Remoting
++++++[#LightGreen] Remoting（三）
 ++++++[#Aquamarine]_ 信息交换层 / Exchange
 ++++++[#Aquamarine]_ 网络传输层 / Transport
 ++++++[#Aquamarine]_ 序列化层 / Serialize

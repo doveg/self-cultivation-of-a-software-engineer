@@ -50,14 +50,17 @@
 ++[#yellow] 讨巧的
 
 +++[#MediumSpringGreen] 原型模式
-++++[#GhostWhite] 对象复制、克隆方法
-
-+++[#AliceBlue] 责任链模式
-++++[#GhostWhite] 每一个对象对其下家的引用而连接起来
+++++[#GhostWhite]_ 实现 Cloneable 接口
+++++[#GhostWhite]_ 重写 clone() 方法
+++++[#GhostWhite]_ Client / 客户类 / 使用者
+++++[#GhostWhite]_ 对象复制、克隆方法
 
 +++[#AliceBlue] 装饰器模式
 ++++[#GhostWhite] 扩展对象的功能
 ++++[#GhostWhite] 继承关系的一个替代方案
+
++++[#AliceBlue] 责任链模式
+++++[#GhostWhite] 每一个对象对其下家的引用而连接起来
 
 
 --[#yellow] 创建型

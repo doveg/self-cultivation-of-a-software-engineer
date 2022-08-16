@@ -26,7 +26,8 @@
 
 ++++[#MediumSpringGreen] 跨代引用
 +++++[#LightGreen] 记忆集
-++++++[#Aquamarine] 抽象数据结构：记录从非收集区域指向收集区域的指针集合
+++++++[#Aquamarine]_ 抽象数据结构
+++++++[#Aquamarine]_ 记录从非收集区域指向收集区域的指针集合
 
 ++++[#MediumSpringGreen] 三色标记理论
 +++++[#LightGreen]_ 白色
@@ -43,7 +44,7 @@
 +++++_ 需要两倍内存，比较浪费空间
 +++++_ 内存间复制的开销大
 
-++++[#MediumSpringGreen] 标记清理算法
+++++[#MediumSpringGreen]_ 标记清理算法
 +++++_ 空间碎片太多，可能导致当以后在程序运行过程中需要分配较大对象时无法找到足够的连续内存
 
 ++++[#MediumSpringGreen] 标记整理算法

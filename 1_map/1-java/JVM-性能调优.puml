@@ -8,6 +8,8 @@
 
 ++++[#MediumSpringGreen] 分析 heap dump 文件
 
++++++[#LightGreen] jmap + dump + mat
+
 +++++[#LightGreen] JVM 启动参数
 ++++++[#Aquamarine] HeapDumpOnOutOfMemoryError
 ++++++[#Aquamarine] HeapDumpPath
@@ -35,6 +37,33 @@
 +++++[#LightGreen]_ -XX:MaxNewSize：新生代最大值
 +++++[#LightGreen]_ -XX:MetaspaceSize 元空间初始化大小
 +++++[#LightGreen]_ -XX:MaxMetaspaceSize 元空间最大值
+
+
+++++[#MediumSpringGreen] OutOfMemoryError
+
++++++[#LightGreen] java.lang.OutOfMemoryError: Java heap space
+++++++[#Aquamarine] Java堆溢出
+
++++++[#LightGreen] java.lang.OutOfMemoryError: GC overhead limit exceeded
+++++++[#Aquamarine] 超出GC开销限制
+++++++[#Aquamarine] 当超过 98% 的时间用来做 GC，但是却回收了不到 2% 的堆内存时会抛出此异常。
+
++++++[#LightGreen] java.lang.OutOfMemoryError: unable to create new native thread
+++++++[#Aquamarine] 创建的线程过多
+
++++++[#LightGreen] java.lang.OutOfMemoryError: Metaspace
+++++++[#Aquamarine] 元数据区域的内存溢出
+
++++++[#LightGreen] java.lang.OutOfMemoryError: PermGen space
+++++++[#Aquamarine] 运行时常量池的内存溢出
+
++++++[#LightGreen] java.lang.OutOfMemoryError
+++++++[#Aquamarine] 直接内存溢出
+
++++++[#LightGreen] java.lang.StackOverflowError
+++++++[#Aquamarine] 单个线程请求的栈深度过大
+
+
 
 
 ++++[#MediumSpringGreen] 4

@@ -2,7 +2,7 @@
 
 +[#OrangeRed] Java
 
-++[#yellow] 基础部分
+++[#yellow] 基础
 
 +++[#Pink] 数据
 
@@ -40,38 +40,16 @@
 ++++++[#LightBlue]_ 编译器识别出对数组类型的 length 的访问，生成对应的字节码
 ++++++[#LightBlue]_ 获取数组长度是 JVM 用 arraylength 这个专用字节码指令
 
-++++[#MediumSpringGreen] 数据结构
-
-+++++[#LightGreen] Collection
-++++++[#LightBlue] List
-+++++++[#MediumSpringGreen] LinkedList
-++++++++[#MediumSpringGreen]_ 底层是链表
-+++++++[#MediumSpringGreen] ArrayList
-++++++++[#MediumSpringGreen]_ 底层是数组，动态的 Object []
-++++++++[#MediumSpringGreen]_ CopyOnWriteArrayList 才能保证线程安全（适合多写少读）
-
-++++++[#LightBlue] Set
-+++++++[#MediumSpringGreen] HashSet
-++++++++[#MediumSpringGreen]_ 底层是 HashMap，返回 keys
-+++++++[#MediumSpringGreen] TreeSet
-
-++++++[#LightBlue] Queue
-+++++++[#MediumSpringGreen] PriorityQueue
-++++++++[#MediumSpringGreen]_ 底层是堆
-
-+++++[#LightGreen] Map
-++++++[#MediumSpringGreen] HashMap
-+++++++[#MediumSpringGreen]_ 底层是数组、链表 / 红黑树
-++++++[#MediumSpringGreen] ConcurrentHashMap
-+++++++[#MediumSpringGreen]_ 在 HashMap 的基础上，加入分段锁，解决线程安全和性能问题
-++++++[#MediumSpringGreen] TreeMap
 
 
 +++[#Pink] 对象
 
-++++[#MediumSpringGreen] 对象拷贝
-+++++[#LightGreen] 深拷贝
-+++++[#LightGreen] 浅拷贝
+++++[#MediumSpringGreen] 对象的创建过程（五）
++++++[#LightGreen] 类加载检查：首先检查是否被加载，加载未加载的对象
++++++[#LightGreen] 分配内存空间
++++++[#LightGreen] 初始化零值
++++++[#LightGreen] 设置对象头
++++++[#LightGreen] init 方法来做初始化操作
 
 ++++[#MediumSpringGreen] 对象初始化
 +++++[#LightGreen] 父类实例变量和代码块
@@ -84,12 +62,9 @@
 +++++[#LightGreen] 静态的（变量，方法，代码块）会被执行
 +++++[#LightGreen]_ 类加载的时候执行一次
 
-++++[#MediumSpringGreen] 对象的创建过程（五）
-+++++[#LightGreen] 类加载检查：首先检查是否被加载，加载未加载的对象
-+++++[#LightGreen] 分配内存空间
-+++++[#LightGreen] 初始化零值
-+++++[#LightGreen] 设置对象头
-+++++[#LightGreen] init 方法来做初始化操作
+++++[#MediumSpringGreen] 对象拷贝
++++++[#LightGreen] 深拷贝
++++++[#LightGreen] 浅拷贝
 
 
 
@@ -98,17 +73,17 @@
 ++++[#MediumSpringGreen] 优化
 
 +++++[#LightGreen] 集合框架
-++++++[#Aquamarine] HashMap
-++++++[#Aquamarine] ConcurrentHashMap
+++++++[#Aquamarine]_ HashMap
+++++++[#Aquamarine]_ ConcurrentHashMap
 +++++[#LightGreen] JVM 元空间
 
 ++++[#MediumSpringGreen] 新特性
 
-+++++[#LightGreen] lambda 表达式
-+++++[#LightGreen] 方法引用
-+++++[#LightGreen] 默认方法
-+++++[#LightGreen] 重复注解
-+++++[#LightGreen] 类型注解
++++++[#LightGreen]_ lambda 表达式
++++++[#LightGreen]_ 方法引用
++++++[#LightGreen]_ 默认方法
++++++[#LightGreen]_ 重复注解
++++++[#LightGreen]_ 类型注解
 
 
 
@@ -119,17 +94,33 @@
 ++++++[#Aquamarine]_ 程序报错，系统收到无法处理的错误消息
 ++++++[#Aquamarine]_ 比如：IOError
 +++++[#LightGreen] Exception（异常）
-++++++[#Aquamarine] 受检异常
+++++++[#Aquamarine]_ 受检异常
 +++++++[#Aquamarine]_ 编译器要求必须处置的异常
 +++++++[#Aquamarine]_ 通过 try/catch 捕获该异常
 +++++++[#Aquamarine]_ 通过 throw 抛出异常
-++++++[#Aquamarine] 非受检异常
+++++++[#Aquamarine]_ 非受检异常
 +++++++[#Aquamarine]_ 编译器不要求强制处置的异常
-++++++[#Aquamarine] 运行时异常
+++++++[#Aquamarine]_ 运行时异常
 +++++++[#Aquamarine]_ RuntimeException
-++++++[#Aquamarine] 非运行时异常
+++++++[#Aquamarine]_ 非运行时异常
 +++++++[#Aquamarine]_ RuntimeException 以外的异常
 
+
+
+++[#yellow] 提高
+
++++[#Pink] 常见问题
+
+++++[#MediumSpringGreen] 如何解决幂等性问题
++++++[#LightGreen] 背景
+++++++[#Aquamarine]_ 指一个方法被多次重复执行的时候产生的影响和第一次执行的影响相同
++++++[#LightGreen] 接口只允许调用一次，比如唯一约束、基于 redis 的锁机制。
+++++++[#Aquamarine]_ 使用数据库的唯一约束实现幂等，比如对于数据插入类的场景，比如创建订单，因为订单号肯定是唯一的，所以如果是多次调用就会触发数据库的唯一约束异常，从而避免一个请求创建多个订单的问题
+++++++[#Aquamarine]_ 使用状态机来实现幂等，所谓的状态机是指一条数据的完整运行状态的转换流程，比如订单状态，因为它的状态只会向前变更，所以多次修改同一条数据的时候，一旦状态发生变更，那么对这条数据修改造成的影响只会发生一次
+++++++[#Aquamarine]_ 还可以基于 token 机制、去重表等方法来实现
++++++[#LightGreen] 对数据的影响只会触发一次，比如幂等性、乐观锁
+
+++++[#MediumSpringGreen] IO 和 NIO 有什么区别？？
 
 
 
@@ -142,11 +133,6 @@
 +++++[#LightGreen] 5
 ++++++[#Aquamarine] 6
 +++++++[#Aquamarine]_ 7
-++++++[#PowderBlue] 6
-+++++++[#PowderBlue]_ 7
-++++[#AliceBlue] 4
-+++++[#GhostWhite] 5
-
 
 
 

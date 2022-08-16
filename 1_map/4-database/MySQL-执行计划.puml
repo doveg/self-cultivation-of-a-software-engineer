@@ -14,14 +14,17 @@
 ++++[#AliceBlue] partitions / 分区
 
 ++++[#MediumSpringGreen] type / 扫描类型（八）
-+++++[#Aquamarine] const / 命中主键索引或唯一索引
-+++++[#Aquamarine] eq_ref / 关联查询，命中主键索引或非空唯一索引
-+++++[#Aquamarine] ref / 命中非唯一索引
-+++++[#Aquamarine]_ ref_or_null / 子查询联接
-+++++[#Aquamarine]_ unique_subquery / IN 子查询
-+++++[#Aquamarine] range / 索引上的范围扫描
-+++++[#Aquamarine] index / 整个索引扫描
-+++++[#Aquamarine] ALL / 全表扫描
++++++[#LightGreen] 理想
+++++++[#Aquamarine] const / 命中主键索引或唯一索引
+++++++[#Aquamarine] eq_ref / 关联查询，命中主键索引或非空唯一索引
++++++[#LightGreen] 接受
+++++++[#Aquamarine] ref / 命中非唯一索引
+++++++[#Aquamarine]_ ref_or_null / 子查询联接
+++++++[#Aquamarine]_ unique_subquery / IN 子查询
+++++++[#Aquamarine] range / 索引上的范围扫描
+++++++[#Aquamarine] index / 整个索引扫描
++++++[#LightGreen] 糟糕
+++++++[#Aquamarine] ALL / 全表扫描
 
 ++++[#AliceBlue] possible_keys
 
@@ -45,6 +48,19 @@
 +++++[#Aquamarine]_ Using temporary / 使用临时表
 +++++[#Aquamarine]_ Using MRR / 让主键升序排列，采用并发分段升序，效率较高
 +++++[#Aquamarine]_ Backward index scan / 反向索引扫描
+
+
+
+++[#yellow] 2
+
++++[#Pink] 3
+
+++++[#MediumSpringGreen] 4
++++++[#LightGreen] 5
+++++++[#Aquamarine] 6
++++++++[#Aquamarine]_ 7
+
+
 
 
 @endmindmap

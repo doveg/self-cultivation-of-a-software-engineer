@@ -26,17 +26,16 @@
 ++++[#MediumSpringGreen] 顺序消息
 +++++[#GhostWhite]_ SelectMessageQueueByHash
 ++++[#MediumSpringGreen] 消息重试
++++++[#GhostWhite]_ 自动重试次数，最多 20 次
 ++++[#MediumSpringGreen] 死信队列
 +++++[#GhostWhite]_ 不会将有问题的消息立刻丢弃
++++++[#GhostWhite]_ 3 天内及时处理
 ++++[#MediumSpringGreen] 事务消息
 ++++[#AliceBlue] 流量控制
 
 
 +++[#Pink] 提高
 
-++++[#AliceBlue] 消息过滤
-+++++[#GhostWhite]_ Broker 端
-+++++[#GhostWhite]_ Consumer 端
 ++++[#MediumSpringGreen] 高可用机制
 +++++[#GhostWhite]_ 主从复制，同步和异步
 ++++[#AliceBlue] 负载均衡
@@ -53,6 +52,9 @@
 +++++[#GhostWhite]_ 异步刷盘
 ++++[#AliceBlue] 数据存储
 +++++[#GhostWhite]_ 刷盘持久化，保存至 CommitLog 中
+++++[#AliceBlue] 消息过滤
++++++[#GhostWhite]_ Broker 端
++++++[#GhostWhite]_ Consumer 端
 
 
 +++[#Pink] 消息问题

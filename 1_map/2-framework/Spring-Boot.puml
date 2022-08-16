@@ -6,7 +6,7 @@
 
 +++[#Pink] 注解
 
-++++[#AliceBlue] @Transaction 注解的失效场景
+++++[#MediumSpringGreen] @Transaction 注解的失效场景
 +++++[#LightGreen]_ 用在非 public 的方法上
 +++++[#LightGreen]_ 被同一个类中方法调用
 +++++[#LightGreen]_ 数据库引擎不支持事务
@@ -18,13 +18,25 @@
 ++++++[#Aquamarine]_ 指定线程池的名字
 ++++++[#Aquamarine]_ 返回 CompletableFuture
 
+++++[#MediumSpringGreen] @SpringBootApplication 复合注解
++++++[#LightGreen]_ 相当于 @SpringBootConfiguration + @EnableAutoConfiguration + @ComponentScan
+
+++++[#AliceBlue] @SpringBootConfiguration 注解
++++++[#LightGreen]_ 把 @Bean 注解标记的方法的实例纳入到 Spring 容器
+
+++++[#AliceBlue] @EnableAutoConfiguration 注解
++++++[#LightGreen]_ 自动添加 webmvc 和 tomcat
+
+++++[#AliceBlue] @ComponentScan 注解
++++++[#LightGreen]_ 扫描当前包及其子包下被 @Component，@Controller，@Service，@Repository 注解标记的类并纳入到 Spring 容器
+
+
 
 +++[#Pink] 自动装配
 
 ++++[#MediumSpringGreen] 原理
 +++++[#LightGreen]_ 自动把第三方组件的 Bean 装载到 Spring IOC 器里面
 +++++[#LightGreen]_ 只需要在启动类加上 @SpringBootApplication 注解就可以实现自动装配
-+++++[#LightGreen]_ 复合注解 @SpringBootApplication = @EnableAutoConfiguration
 
 ++++[#MediumSpringGreen] 实现
 +++++[#LightGreen]_ 通过扫描约定 classpath 路径下的 spring.factories 文件来识别配置类，实现 Bean 的自动装配
@@ -52,6 +64,15 @@
 
 
 
+++[#yellow] 提高
+
++++[#Pink] 常见问题
+
+++++[#MediumSpringGreen] Spring Boot 中的 Starter？？
+
+
+
+
 
 ++[#yellow] 2
 
@@ -61,10 +82,6 @@
 +++++[#LightGreen] 5
 ++++++[#Aquamarine] 6
 +++++++[#Aquamarine]_ 7
-++++++[#PowderBlue] 6
-+++++++[#PowderBlue]_ 7
-++++[#AliceBlue] 4
-+++++[#GhostWhite] 5
 
 
 @endmindmap

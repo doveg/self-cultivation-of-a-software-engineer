@@ -7,14 +7,18 @@
 +++[#Pink] 基础
 
 ++++[#AliceBlue] 索引的分类
-+++++[#GhostWhite]_ 主键索引 / 主索引
-+++++[#GhostWhite]_ 普通索引
-+++++[#GhostWhite]_ 唯一索引
-+++++[#GhostWhite]_ 全文索引
-+++++[#GhostWhite]_ 联合索引
-+++++[#GhostWhite]_ 前缀索引
++++++[#LightGreen] 核心类型
+++++++[#Aquamarine]_ 主键索引 / 主索引
+++++++[#Aquamarine]_ 普通索引 / 二级索引
++++++[#LightGreen] 二级索引细分
+++++++[#Aquamarine]_ 唯一索引
+++++++[#Aquamarine]_ 全文索引
++++++[#LightGreen] 优化方式
+++++++[#Aquamarine]_ 联合索引
+++++++[#Aquamarine]_ 前缀索引
 
-++++[#MediumSpringGreen] 联合索引 / 组合索引 / 复合索引
+++++[#MediumSpringGreen] 联合索引
++++++[#LightGreen]_ 背景：联合索引 / 组合索引 / 复合索引
 +++++[#LightGreen] 最左前缀原则
 +++++[#LightGreen] 覆盖索引
 
@@ -23,11 +27,16 @@
 +++++[#LightGreen]_ index_condition_pushdown 不关
 +++++[#LightGreen]_ 查询条件中的字段必须都在二级索引中
 
-++++[#MediumSpringGreen] 聚簇索引、非聚簇索引的区别
-+++++[#LightGreen]_ 聚簇索引的主索引的叶子结点存储的是键值对应的数据本身，二级索引的叶子结点存储的是键值对应的数据的主键键值。
-+++++[#LightGreen]_ 非聚簇索引的数据表和索引表是分开存储的。
-
 ++++[#MediumSpringGreen] 主键索引、非主键索引的区别
++++++[#LightGreen]_ 主键索引的叶子结点，存储的是键值对应的数据本身
++++++[#LightGreen]_ 二级索引的叶子结点，存储的是键值对应的数据的主键键值
+
+++++[#MediumSpringGreen] 聚簇索引、非聚簇索引的区别
++++++[#LightGreen]_ 背景：聚集索引、非聚集索引的区别
++++++[#LightGreen]_ 聚簇索引，主键索引的叶子结点，存储的是键值对应的数据本身
++++++[#LightGreen]_ 非聚簇索引，数据表和索引表分开存储
++++++[#LightGreen]_ InnoDB 的二级索引也属于非聚簇索引
+
 
 
 +++[#Pink] 提高
@@ -100,7 +109,9 @@
 +++++[#GhostWhite]_ 是否支持事务和崩溃后的安全恢复
 +++++[#GhostWhite]_ 是否支持外键
 +++++[#GhostWhite]_ 是否支持 MVCC
-+++++[#GhostWhite]_ 是否支持聚集索引
++++++[#GhostWhite]_ 是否支持聚簇索引
+
+
 
 
 @endmindmap

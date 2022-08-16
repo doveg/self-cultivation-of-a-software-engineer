@@ -23,5 +23,28 @@
 ++++++[#Aquamarine] 分布式事务框架
 
 
+++[#yellow] 分布式难题
+
++++[#Pink] 系统同步性
++++[#Pink] 幂等
++++[#Pink] 扩容
++++[#Pink] 唯一 ID
++++[#Pink] 网络因素
++++[#Pink] CAP 定律
+++++[#MediumSpringGreen] 一致性
++++[#Pink] 共识算法
++++[#Pink] 分布式事务
+++++[#MediumSpringGreen] 可靠消息
++++[#Pink] 分布式锁
++++[#Pink] 数据均衡分布问题
+++++[#MediumSpringGreen] 一致性哈希
++++[#Pink] 可靠性
+++++[#MediumSpringGreen] 几个 9 的指标
+
+
+
+
+
+
 
 @endmindmap

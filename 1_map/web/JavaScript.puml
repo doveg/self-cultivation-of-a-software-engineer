@@ -1,0 +1,84 @@
+@startmindmap
+
++[#OrangeRed] Web
+
+++[#yellow] JavaScript
+
++++[#Pink] 基础
+
+++++[#MediumSpringGreen] 声明
++++++[#LightGreen] const 常量；不可变
++++++[#LightGreen] let 变量
++++++[#LightGreen] var 变量；因为作用域问题，已被淘汰
++++++[#LightGreen] function 函数
+
+++++[#MediumSpringGreen] 对象
++++++[#LightGreen] 原始值
+++++++[#Aquamarine]_ string 字符串
+++++++[#Aquamarine]_ number 数字
++++++++[#Aquamarine]_ int
++++++++[#Aquamarine]_ float
+++++++[#Aquamarine]_ boolean 布尔
+++++++[#Aquamarine]_ bigint 大整数；几乎不用
+++++++[#Aquamarine]_ null 空值
+++++++[#Aquamarine]_ undefined 未定义
+++++++[#Aquamarine]_ symbol 符号；很少用
++++++[#LightGreen] 数组
++++++[#LightGreen] 日期
++++++[#LightGreen] 函数
++++++[#LightGreen] 正则
+
+++++[#MediumSpringGreen] 大前端
++++++[#LightGreen] 浏览器
+++++++[#Aquamarine] localStorage
+++++++[#Aquamarine] session
+++++++[#Aquamarine] cookie
++++++[#LightGreen] App
++++++[#LightGreen] 小程序
++++++[#LightGreen] PC
++++++[#LightGreen] VR / MR
+
+++++[#MediumSpringGreen] 函数
++++++[#LightGreen] 标准函数
+++++++[#Aquamarine] function name(){}
++++++[#LightGreen] 箭头函数
+++++++[#Aquamarine] ()=>{}：省略 function 关键词
++++++[#LightGreen] 异步函数
+++++++[#Aquamarine] 回调函数：把另一个函数当参数传入
+++++++[#Aquamarine] promise 函数：通过 then 函数进一步处理
+++++++[#Aquamarine] async 函数：可使用 await 关键字等待计算结果
++++++[#LightGreen] 类 class
+
++++[#Pink] Vue
+
+++++[#MediumSpringGreen] 4
++++++[#LightGreen] 5
+++++++[#Aquamarine] 6
++++++++[#PowderBlue] 7
+
+
+
+
+
+
+
+
+
+
+++++[#MediumSpringGreen] 4
++++++[#LightGreen] 5
+++++++[#Aquamarine] 6
++++++++[#PowderBlue] 7
+++++[#AliceBlue] 4
++++++[#GhostWhite] 5
+++++++[#PowderBlue]_ 6
++++++++[#PowderBlue]_ 7
+
+
+
+
+
+
+
+
+@endmindmap

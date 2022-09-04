@@ -1,0 +1,105 @@
+@startmindmap
+
++[#OrangeRed] Web
+
+++[#yellow] CSS
+
++++[#Pink] 基础
+
+++++[#MediumSpringGreen] 方式
+
++++++[#LightGreen] 内联样式
+++++++[#Aquamarine] 会出现大量重复的样式代码
++++++[#LightGreen] 内部样式
+++++++[#Aquamarine] class 选择器: 按类名
+++++++[#Aquamarine] 标签选择器：按标签名
+++++++[#Aquamarine] id 选择器：按 id
++++++[#LightGreen] 外部样式
+++++++[#Aquamarine] link 标签引入文件
+
+++++[#MediumSpringGreen] 边距
+
++++++[#LightGreen] margin 外边距：外部与边框的距离
+++++++[#Aquamarine] 边框之外
++++++[#LightGreen] padding 内边距：填充
+++++++[#Aquamarine] 边框之内，边框与内容之前的距离
++++++[#LightGreen] border 边框
+++++++[#Aquamarine] 粗细可调
+
+++++[#MediumSpringGreen] 布局
+
++++++[#LightGreen] block 块盒子
+++++++[#Aquamarine] display: block
++++++[#LightGreen] flex 弹性盒子
+++++++[#Aquamarine] display: flex
+++++++[#Aquamarine] 默认属性
++++++++[#PowderBlue] 排列方式
+++++++++[#PowderBlue]_ 主轴(main-axis)、交叉轴(cross-axis)
+++++++++[#PowderBlue]_ flex-direction: row
+++++++++[#PowderBlue]_ flex-direction: row-reverse
+++++++++[#PowderBlue]_ flex-direction: column-reverse
++++++++[#PowderBlue] 垂直对齐
+++++++++[#PowderBlue]_ justify-content: flex-start
+++++++++[#PowderBlue]_ justify-content: center
+++++++++[#PowderBlue]_ justify-content: flex-end
+++++++++[#PowderBlue]_ justify-content: space-between
+++++++++[#PowderBlue]_ justify-content: space-evenly
+++++++++[#PowderBlue]_ justify-content: space-around
++++++++[#PowderBlue] 水平对齐
+++++++++[#PowderBlue]_ align-items: stretch
+++++++++[#PowderBlue]_ align-items: flex-start
+++++++++[#PowderBlue]_ align-items: center
+++++++++[#PowderBlue]_ align-items: flex-end
+++++++++[#PowderBlue]_ align-items: baseline
+++++++++[#PowderBlue]_ align-items: align-content
+
+++++++[#Aquamarine] 空间
++++++++[#Aquamarine]_ flex: 1; 大小倍数
+
+++++++[#Aquamarine] 缩放
++++++++[#Aquamarine]_ flex-basis: 200px; 行模式下是子元素的高度，列模式下是宽度
++++++++[#Aquamarine]_ flex-grow: 1; 容器在有剩余空间的时候，子元素占据剩余空间的占比；默认占据整个剩余空间：
++++++++[#Aquamarine]_ flex-shrink: 2; 超过 flex 容器之后，子元素收缩的值比父元素大 2 倍
+
+++++++[#Aquamarine] 折行
++++++++[#Aquamarine]_ flex-wrap: wrap;
+
+++++++[#Aquamarine] 嵌套
++++++++[#Aquamarine]_ 嵌套 flex 容器的 min-width 改为 0，就可以正常收缩了
+
+
+
+++++[#MediumSpringGreen] 位置
+
++++++[#LightGreen] relative 和 absolute
+++++++[#Aquamarine] 这两者必须同时出现才有效
+++++++[#Aquamarine] 给上级标签一个 position
++++++++[#PowderBlue] relative 属性相当于以这个标签为起始建立了一个坐标轴
+++++++[#Aquamarine] 给下级标签一个 position
++++++++[#PowderBlue] absolute 属性，然后用 top、bottom、left、right 这四个属性加上 px 像素，就是该标签相对上级坐标轴的上下左右距离
+
+
+
+'https://www.bilibili.com/video/BV1di4y1U75N
+'https://juejin.cn/post/6844904116141948936
+
+
+
+
+
+
+
+
+
+
+++++[#MediumSpringGreen] 4
++++++[#LightGreen] 5
+++++++[#Aquamarine] 6
++++++++[#Aquamarine]_ 7
+++++++[#PowderBlue] 6
++++++++[#PowderBlue]_ 7
+++++[#AliceBlue] 4
++++++[#GhostWhite] 5
+
+
+@endmindmap

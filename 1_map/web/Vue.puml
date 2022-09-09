@@ -1,0 +1,83 @@
+@startmindmap
+
++[#OrangeRed] web
+
+++[#yellow] Vue.js
+
++++[#Pink] 基础
+
+++++[#MediumSpringGreen] 项目结构
++++++[#LightGreen]_ dist | 编译目录
++++++[#LightGreen]_ locales | I18n文件
++++++[#LightGreen]_ mock | 模拟数据文件
++++++[#LightGreen]_ public | 网站公共目录
++++++[#LightGreen]_ src | 源码目录
+++++++[#Aquamarine]_ App.vue | 页面入口
+++++++[#Aquamarine]_ assets | 静态资源
+++++++[#Aquamarine]_ components | 公共组件
+++++++[#Aquamarine]_ directives | 指令库
+++++++[#Aquamarine]_ enum | 全局枚举文件
+++++++[#Aquamarine]_ hooks | 自定义 hooks
+++++++[#Aquamarine]_ layouts | 项目布局文件
+++++++[#Aquamarine]_ main.ts | 程序入口
+++++++[#Aquamarine]_ model | 模型定义类型文件
+++++++[#Aquamarine]_ plugins | 插件文件
+++++++[#Aquamarine]_ router | 路由文件
+++++++[#Aquamarine]_ store | 全局状态
+++++++[#Aquamarine]_ style | 全局样式
+++++++[#Aquamarine]_ utils | 工具库
+++++++[#Aquamarine]_ views | 视图
++++++[#LightGreen]_ types | ts 类型定义
+
+
+++++[#MediumSpringGreen] 核心
+
++++++[#LightGreen] 模板语法
+++++++[#Aquamarine]_ template 模板
+++++++[#Aquamarine]_ 双花括号
+++++++[#Aquamarine]_ 元素值：id 捆绑
+++++++[#Aquamarine]_ 生命周期函数
+
++++++[#LightGreen] 事件处理
+++++++[#Aquamarine]_ 元素事件：方法名捆绑
+
++++++[#LightGreen] 绑定
+++++++[#Aquamarine]_ 类和样式绑定
+++++++[#Aquamarine]_ 表单输入绑定
+++++++[#Aquamarine]_ 条件渲染
+++++++[#Aquamarine]_ 列表渲染
+++++++[#Aquamarine]_ 生命周期功能
+
++++++[#LightGreen] 组件
+++++++[#Aquamarine]_ 组件
+++++++[#Aquamarine]_ 单文件组件
+++++++[#Aquamarine]_ 计算属性
+++++++[#Aquamarine]_ 侦听器
+++++++[#Aquamarine]_ Vuex
+
+
+
+
+
+++++[#MediumSpringGreen] 常客
+
++++++[#LightGreen] 生命周期
+++++++[#Aquamarine] 6
+
+++[#yellow] Element UI
+
++++[#Pink] 3
+
+++++[#MediumSpringGreen] 4
+
++++++[#LightGreen] 5
+++++++[#Aquamarine] 6
++++++++[#PowderBlue] 7
+
+++++[#AliceBlue] 4
++++++[#GhostWhite]_ 5
+++++++[#PowderBlue]_ 6
++++++++[#PowderBlue]_ 7
+
+
+@endmindmap

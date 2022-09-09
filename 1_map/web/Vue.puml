@@ -36,7 +36,7 @@
 ++++++[#Aquamarine]_ template 模板
 ++++++[#Aquamarine]_ 双花括号
 ++++++[#Aquamarine]_ 元素值：id 捆绑
-++++++[#Aquamarine]_ 生命周期函数
+++++++[#Aquamarine]_ 生命周期函数：before、after
 
 +++++[#LightGreen] 事件处理
 ++++++[#Aquamarine]_ 元素事件：方法名捆绑
@@ -46,7 +46,7 @@
 ++++++[#Aquamarine]_ 表单输入绑定
 ++++++[#Aquamarine]_ 条件渲染
 ++++++[#Aquamarine]_ 列表渲染
-++++++[#Aquamarine]_ 生命周期功能
+++++++[#Aquamarine]_ 实例生命周期
 
 +++++[#LightGreen] 组件
 ++++++[#Aquamarine]_ 组件
@@ -61,7 +61,7 @@
 
 ++++[#MediumSpringGreen] 常客
 
-+++++[#LightGreen] 生命周期
++++++[#LightGreen] 实例生命周期
 ++++++[#Aquamarine] 6
 
 ++[#yellow] Element UI

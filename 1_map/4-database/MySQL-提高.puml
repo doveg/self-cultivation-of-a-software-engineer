@@ -73,6 +73,14 @@
 
 +++[#Pink] 性能优化：DBA
 
+++++[#MediumSpringGreen] 配置优化
+
++++++[#LightGreen] my.cnf
+++++++[#Aquamarine]_ 5.7 版本默认的最大连接数是 151 个
+++++++[#Aquamarine]_ binlog 日志，默认是不开启
+++++++[#Aquamarine]_ 缓存池 bufferpoll 的默认大小配置
+
+
 ++++[#MediumSpringGreen] 架构优化
 
 +++++[#LightGreen] 主从集群
@@ -98,16 +106,9 @@
 ++++++[#Aquamarine]_ 操作系统网络的配置
 
 
-++++[#MediumSpringGreen] 配置优化
-
-+++++[#LightGreen] my.cnf
-++++++[#Aquamarine]_ 5.7 版本默认的最大连接数是 151 个
-++++++[#Aquamarine]_ binlog 日志，默认是不开启
-++++++[#Aquamarine]_ 缓存池 bufferpoll 的默认大小配置
 
 
-
-+++[#Pink] 常见问题
+'+++[#Pink] 常见问题
 
 
 ++[#yellow] 2

@@ -16,7 +16,7 @@
 ++++++[#Aquamarine]_ 重新实现接口 AsyncConfigurer
 ++++++[#Aquamarine]_ 配置自定义的 TaskExecutor
 ++++++[#Aquamarine]_ 指定线程池的名字
-++++++[#Aquamarine]_ 返回 CompletableFuture
+++++++[#Aquamarine]_ 返回 Future 或者 CompletableFuture
 
 ++++[#MediumSpringGreen] @SpringBootApplication 复合注解
 +++++[#LightGreen]_ 相当于 @SpringBootConfiguration + @EnableAutoConfiguration + @ComponentScan

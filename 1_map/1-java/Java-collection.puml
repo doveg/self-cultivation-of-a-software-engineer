@@ -25,7 +25,7 @@
 
 ++++[#MediumSpringGreen] HashSet
 +++++[#LightGreen]_ Hash 算法
-+++++[#LightGreen]_ 底层是 HashMap，返回 keys
++++++[#LightGreen] 底层是 HashMap，返回 keys
 
 ++++[#MediumSpringGreen] TreeSet
 +++++[#LightGreen] 基于 TreeMap 的 NavigableSet 实现
@@ -39,7 +39,7 @@
 +++[#Pink] 队列
 
 ++++[#MediumSpringGreen] PriorityQueue
-+++++[#LightGreen]_ 底层是堆
++++++[#LightGreen] 底层是堆
 
 
 

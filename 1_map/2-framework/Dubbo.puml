@@ -67,7 +67,7 @@
 ++++[#MediumSpringGreen] Dubbo SPI
 +++++[#LightGreen]_ 背景
 ++++++[#Aquamarine]_ Service Provider Interface
-++++++[#Aquamarine]_ Java SPI 会一次加载和实例化所有的实现类。
+++++++[#Aquamarine]_ Java SPI 会一次加载和实例化所有的实现类
 ++++++[#Aquamarine]_ Dubbo SPI 可以通过名字实例化指定的实现类，并且实现了 IOC 、AOP 与 自适应扩展 SPI
 +++++[#LightGreen]_ 本质
 ++++++[#Aquamarine]_ 将接口实现类的全限定名，配置在文件中；服务加载器读取配置文件，加载实现类
@@ -96,17 +96,16 @@
 
 ++++[#MediumSpringGreen] Dubbo 的服务发现流程
 +++++[#LightGreen]_ 服务启动
-++++++[#Aquamarine]_ 服务提供者和消费者，根据配置信息，连接注册中心
-++++++[#Aquamarine]_ 注册和订阅服务
+++++++[#Aquamarine]_ 服务提供者和消费者，根据配置信息，连接注册中心，注册和订阅服务
 +++++[#LightGreen]_ 注册中心
 ++++++[#Aquamarine]_ 根据注册和订阅的关系，返回服务信息给各个服务提供者和消费者
 ++++++[#Aquamarine]_ 服务消费者把服务提供者的信息缓存到本地
 ++++++[#Aquamarine]_ 服务信息变更之后，服务消费者会收到推送，更新本地的缓存
-+++++[#LightGreen]_ 服务消费者
++++++[#LightGreen]_ 消费者
 ++++++[#Aquamarine]_ 生成代理对象，根据负载均衡策略选择服务提供者
 ++++++[#Aquamarine]_ 通过 monitor 监听器记录调用次数和响应时间信息
 ++++++[#Aquamarine]_ 通过代理对象，向服务提供者发起接口调用
-+++++[#LightGreen]_ 服务提供者
++++++[#LightGreen]_ 提供者
 ++++++[#Aquamarine]_ 收到请求后，反序列化数据
 ++++++[#Aquamarine]_ 通过代理，调用具体的接口实现
 

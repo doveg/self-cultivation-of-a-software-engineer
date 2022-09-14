@@ -18,12 +18,7 @@
 ++++++[#Aquamarine]_ Atomic 的原子实现，比如 AtomicInteger，AtomicLong
 ++++++[#Aquamarine]_ AQS、ConcurrentHashMap、ConcurrentLinkedQueue 等
 
-
-++++[#MediumSpringGreen] AQS
-
-+++++[#LightGreen] 背景
-++++++[#Aquamarine]_ AbstractQueuedSynchronizer / 抽象队列同步器
-++++++[#Aquamarine]_ 并发包组件的底层实现：锁 Lock、信号量 Semaphore、倒数计数器 countDownLatch
+++++[#MediumSpringGreen] 锁分类
 
 +++++[#LightGreen] 排他锁
 ++++++[#Aquamarine]_ 竞争同一个共享资源，获得锁来实现独占
@@ -31,7 +26,13 @@
 
 +++++[#LightGreen] 共享锁
 ++++++[#Aquamarine]_ 允许多个线程同时获得锁
-++++++[#Aquamarine]_ 例如：信号量 Semaphore、倒数计数器 CountDownLatch
+++++++[#Aquamarine]_ 例如：倒数计数器 CountDownLatch、信号量 Semaphore
+
+++++[#MediumSpringGreen] AQS
+
++++++[#LightGreen] 背景
+++++++[#Aquamarine]_ AbstractQueuedSynchronizer / 抽象队列同步器
+++++++[#Aquamarine]_ 并发包组件的底层实现：锁 Lock、倒数计数器 countDownLatch、信号量 Semaphore
 
 +++++[#LightGreen] 实现
 ++++++[#Aquamarine] 互斥变量的设计
@@ -102,6 +103,13 @@
 
 +++[#Pink] 线程安全
 
+++++[#MediumSpringGreen] 根本原因
++++++[#LightGreen] CPU 利用率最大化
+++++++[#Aquamarine]_ CPU 三级缓存
+++++++[#Aquamarine]_ StoreBuffer
+++++++[#Aquamarine]_ 缓存行
+++++++[#Aquamarine]_ 操作系统的线程模型
+
 ++++[#MediumSpringGreen] 具体表现
 +++++[#LightGreen]_ 原子性
 ++++++[#Aquamarine]_ 原因：CPU 的上下文切换
@@ -113,6 +121,11 @@
 ++++++[#Aquamarine]_ 原因：CPU 的高速缓存、CPU 的指令重排序、编译器的指令重排序
 ++++++[#Aquamarine]_ volatile 解决可见性
 
+++++[#MediumSpringGreen] 线程安全与性能
++++++[#LightGreen]_ CPU 三级缓存
++++++[#LightGreen]_ MySQL 的 buffer_pool
++++++[#LightGreen]_ Synchronized 锁升级
+
 ++++[#MediumSpringGreen] 伪共享？？
 +++++[#LightGreen] 概念
 ++++++[#Aquamarine] 6
@@ -120,27 +133,13 @@
 ++++++[#Aquamarine] 6
 +++++++[#Aquamarine]_ 7
 
-++++[#MediumSpringGreen] 根本原因
-+++++[#LightGreen] CPU 利用率最大化
-++++++[#Aquamarine]_ CPU 三级缓存
-++++++[#Aquamarine]_ StoreBuffer
-++++++[#Aquamarine]_ 缓存行
-++++++[#Aquamarine]_ 操作系统的线程模型
-
-
-++++[#MediumSpringGreen] 线程安全与性能
-+++++[#LightGreen]_ CPU 三级缓存
-+++++[#LightGreen]_ MySQL 的 buffer_pool
-+++++[#LightGreen]_ Synchronized 锁升级
-
-
 
 
 +++[#Pink] 常见问题
 
 ++++[#MediumSpringGreen] volatile 作用
 
-+++++[#LightGreen] 多线程环境下的共享变量内存可见性
++++++[#LightGreen] 共享变量内存可见性
 ++++++[#Aquamarine]_ 缓存一致性
 +++++++[#Aquamarine]_ CPU 高速缓存
 
@@ -153,7 +152,7 @@
 ++++++++[#Aquamarine]_ 缓存锁是对总线锁的优化
 ++++++++[#Aquamarine]_ 缓存锁是使用 MESI 缓存一致性来实现的
 
-+++++[#LightGreen] 防止指令重排序导致执行顺序不符合预期
++++++[#LightGreen] 防止指令重排序
 ++++++[#Aquamarine]_ 指令编写和执行的顺序
 ++++++[#Aquamarine]_ CPU 高速缓存
 +++++++[#Aquamarine]_ 一级缓存（L1 Cache）、二级缓存（L2 Cache）、三级缓存（L3 Cache）
@@ -206,10 +205,10 @@
 ++++[#MediumSpringGreen] 阻塞队列
 
 +++++[#LightGreen] 特性
-++++++[#Aquamarine]_ 当队列为空的时候，获取队列中元素的消费者线程会被阻塞，同时唤醒生产者线程
-++++++[#Aquamarine]_ 当队列满了的时候，向队列中添加元素的生产者线程被阻塞，同时唤醒消费者线程
-++++++[#Aquamarine]_ 队列为空的时候，获取元素的线程会等待队列变为非空
-++++++[#Aquamarine]_ 当队列满时，存储元素的线程会等待队列可用
+'++++++[#Aquamarine]_ 当队列为空的时候，获取队列中元素的消费者线程会被阻塞，同时唤醒生产者线程
+'++++++[#Aquamarine]_ 当队列满了的时候，向队列中添加元素的生产者线程被阻塞，同时唤醒消费者线程
+'++++++[#Aquamarine]_ 队列为空的时候，获取元素的线程会等待队列变为非空
+'++++++[#Aquamarine]_ 当队列满时，存储元素的线程会等待队列可用
 ++++++[#Aquamarine]_ 队列为空，消费者线程被阻塞，并唤醒生产者线程
 ++++++[#Aquamarine]_ 队列容量满载，生产者线程被阻塞，并唤醒消费者线程
 
@@ -239,19 +238,16 @@
 ++++[#MediumSpringGreen] fail-safe 与 fail-fast
 +++++[#LightGreen]_ 背景：是多线程并发操作集合时的一种失败处理机制
 +++++[#LightGreen] fail-safe
-++++++[#Aquamarine]_ 快速失败
+++++++[#Aquamarine]_ 快速失败：抛异常
 ++++++[#Aquamarine]_ 在集合遍历过程中，一旦发现容器中的数据被修改了，立刻抛出 ConcurrentModificationException 异常
 +++++[#LightGreen] fail-fast
-++++++[#Aquamarine]_ 失败安全
+++++++[#Aquamarine]_ 失败安全：不抛异常
 ++++++[#Aquamarine]_ 出现集合元素的修改，不会抛出 ConcurrentModificationException 异常
 
 ++++[#MediumSpringGreen] ThreadLocal
 +++++[#LightGreen] 一种线程隔离机制，它提供了多线程环境下对于共享变量访问的安全性
 +++++[#LightGreen] 每个线程里面，都有一个容器来存储共享变量的副本
 +++++[#LightGreen] 原理是，Thread 类里面的一个成员变量 ThreadLocalMap
-
-
-++++[#MediumSpringGreen] wait 和 notify 这个为什么要在synchronized 代码块中？？
 
 ++++[#MediumSpringGreen] 死锁的发生原因
 
@@ -265,6 +261,8 @@
 ++++++[#Aquamarine]_ 请求和保持：可以一次性申请所有的资源
 ++++++[#Aquamarine]_ 不可抢占：占用部分资源的线程申请其他资源时，如果申请不到，主动释放占有的资源
 ++++++[#Aquamarine]_ 循环等待：按序申请资源
+
+++++[#MediumSpringGreen] wait 和 notify 这个为什么要在synchronized 代码块中？？
 
 
 

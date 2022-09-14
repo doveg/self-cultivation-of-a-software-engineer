@@ -48,14 +48,8 @@
 ++++++[#Aquamarine] promise 函数：通过 then 函数进一步处理
 ++++++[#Aquamarine] async 函数：可使用 await 关键字等待计算结果
 +++++[#LightGreen] 类 class
-
-+++[#Pink] Vue
-
-++++[#MediumSpringGreen] 4
-+++++[#LightGreen] 5
-++++++[#Aquamarine] 6
-+++++++[#PowderBlue] 7
-
++++++[#LightGreen] 闭包
++++++[#LightGreen] 跨域
 
 
 
@@ -73,11 +67,6 @@
 +++++[#GhostWhite] 5
 ++++++[#PowderBlue]_ 6
 +++++++[#PowderBlue]_ 7
-
-
-
-
-
 
 
 

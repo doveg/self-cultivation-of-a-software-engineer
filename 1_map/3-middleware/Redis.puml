@@ -59,9 +59,9 @@
 +++++[#LightGreen] IO
 ++++++[#Aquamarine]_ 内存：没有磁盘 IO 开销
 ++++++[#Aquamarine]_ 零拷贝：IO 多路复用
-+++++[#LightGreen] 锁竞争开销
++++++[#LightGreen] 没有锁竞争
 ++++++[#Aquamarine]_ 单线程：没有锁竞争开销，不需要考虑线程安全问题
-+++++[#LightGreen] 数据结构
++++++[#LightGreen] 数据结构优化
 ++++++[#Aquamarine]_ 查询方式：k-v 数据，不需要做关联查询和聚合查询
 ++++++[#Aquamarine]_ 数据结构的底层优化：比如编码、跳表、压缩表
 

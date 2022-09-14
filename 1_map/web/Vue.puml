@@ -4,6 +4,42 @@
 
 ++[#yellow] Vue.js
 
++++[#Pink] 面试
+
+++++[#MediumSpringGreen] 常考
++++++[#LightGreen] v-if 和 v-for 优先级
+++++++[#Aquamarine] v-for 优先级高，基于性能的考虑，建议 v-for 前先 v-if
++++++[#LightGreen] 单向数据和双向数据流绑定
+++++++[#Aquamarine] 单向：v-bind、Vuex
+++++++[#Aquamarine] 双向：v-model
++++++[#LightGreen] Vuex 修改数据
+++++++[#Aquamarine] mutations
++++++[#LightGreen] 性能优化
+++++++[#Aquamarine] 交互：懒加载
+++++++[#Aquamarine] 瀑布流
++++++[#LightGreen] Web 安全问题
+++++++[#Aquamarine] sql 注入
+++++++[#Aquamarine] xss
+++++++[#Aquamarine] require 第三方包
++++++[#LightGreen] mvvm 和 mvc
+++++++[#Aquamarine] MVVM（Model-View-ViewModel 视图层-模型层-视图模型层）采用双向数据绑定，Model-View 隔离
++++++++[#PowderBlue] View：用户界面
++++++++[#PowderBlue] ViewModel：业务逻辑
++++++++[#PowderBlue] Model：数据结构
++++++++[#PowderBlue] View 中数据变化将反映到 ViewModel 上，Model 中数据变化也会展示在 View 上
+++++++[#Aquamarine] MVC（Model-View-Controller 视图层-模型层-控制层）采用单向数据流
++++++++[#PowderBlue] Controller 接收用户侧 或者 View 端的指令，把 Model 返回给 View
++++++[#LightGreen] ajax
++++++[#LightGreen] 进阶算法
+
+++++[#MediumSpringGreen] 常客
+
++++++[#LightGreen] 实例生命周期
+++++++[#Aquamarine] 6
+
+
+
+
 +++[#Pink] 基础
 
 ++++[#MediumSpringGreen] 项目结构
@@ -57,14 +93,14 @@
 
 
 
-
-
-++++[#MediumSpringGreen] 常客
-
-+++++[#LightGreen] 实例生命周期
-++++++[#Aquamarine] 6
-
 ++[#yellow] Element UI
+
+
+
+
+
+
+
 
 +++[#Pink] 3
 
@@ -78,6 +114,10 @@
 +++++[#GhostWhite]_ 5
 ++++++[#PowderBlue]_ 6
 +++++++[#PowderBlue]_ 7
+
+
+'https://www.ruanyifeng.com/blog/2015/02/mvcmvp_mvvm.html
+
 
 
 @endmindmap

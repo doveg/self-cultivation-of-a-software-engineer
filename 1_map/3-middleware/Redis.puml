@@ -66,8 +66,8 @@
 ++++++[#Aquamarine]_ 数据结构的底层优化：比如编码、跳表、压缩表
 
 ++++[#MediumSpringGreen] 为什么使用单线程
-+++++[#AliceBlue]_ CPU 不是瓶颈，Redis 的瓶颈最有可能是机器内存的大小，或者网络带宽
 +++++[#AliceBlue]_ 单线程没有锁竞争开销，不需要考虑线程安全问题
++++++[#AliceBlue]_ CPU 不是瓶颈，Redis 的瓶颈最有可能是机器内存的大小，或者网络带宽
 
 ++++[#MediumSpringGreen] 线程安全问题？？
 +++++[#AliceBlue]_ Redis 6.0 里面，增加了多线程的模型
@@ -208,9 +208,9 @@
 +++++[#LightGreen] 主从切换，节点同步失败，分布式锁失效
 
 ++++[#AliceBlue] Redis 实现
-+++++[#LightGreen]_ 命令：setNX + expire
++++++[#LightGreen]_ 命令：setNX（SET if Not eXists） + expire
++++++[#LightGreen]_ RedLock / Redis Distributed Lock；一种实现分布式锁的算法
 +++++[#LightGreen]_ 使用 redisson：watch dog
-+++++[#LightGreen]_ RedLock
 
 
 +++[#Pink] 集成 SpringBoot

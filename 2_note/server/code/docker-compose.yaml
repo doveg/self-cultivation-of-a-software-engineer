@@ -1,0 +1,122 @@
+version: "3"
+
+services:
+  mysql:
+    # image: mysql:5.7.26
+    image: 10.188.0.26:8084/mysql:5.7.26
+    ports:
+    - "3306:3306"
+    restart: unless-stopped
+    volumes:
+    - ./data/mysql/data:/var/lib/mysql
+    - ./data/mysql/conf:/etc/mysql
+    - ./mysql/setup:/docker-entrypoint-initdb.d
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    environment:
+    - TZ=Asia/Shanghai
+    - MYSQL_ROOT_PASSWORD=ccs
+    - MYSQL_DATABASE=ccs
+    - MYSQL_USER=ccs
+    - MYSQL_PASSWORD=ccs
+    
+  redis:
+    # image: redis:4.0.12-alpine
+    image: 10.188.0.26:8084/redis:4.0.12-alpine
+    ports:
+    - "6379:6379"
+    restart: unless-stopped
+    volumes:
+    - ./data/redis:/data
+    command: redis-server --appendonly yes
+    environment:
+    - TZ=Asia/Shanghai
+    
+  sftp:
+    # image: atmoz/sftp:alpine
+    image: 10.188.0.26:8084/atmoz/sftp:alpine
+    ports:
+    - "2222:22"
+    restart: unless-stopped
+    volumes:
+    - ./data/sftp:/home
+    command: ccs:ccs:::data
+    environment:
+    - TZ=Asia/Shanghai
+    
+  lts-admin:
+    # image: caixinjiang/lts-admin:1.8.0
+    image: 10.188.0.26:8084/lts-admin:1.8.0
+    ports:
+    - "8081:8081"
+    - "8730:8730"
+    restart: unless-stopped
+    volumes:
+    - ./lts/conf:/opt/lts/conf
+    - ./data/lts/log:/opt/lts/logs
+    depends_on:
+    - mysql
+    - redis
+    - sftp
+    environment:
+    - TZ=Asia/Shanghai
+
+  lts-jobtracker:
+    # image: caixinjiang/lts-jobtracker:1.8.0
+    image: 10.188.0.26:8084/lts-jobtracker:1.8.0
+    ports:
+    - "3502:3502"
+    - "8719:8719"
+    restart: unless-stopped
+    volumes:
+    - ./lts/conf:/opt/lts/conf
+    - ./data/lts/log:/opt/lts/logs
+    depends_on:
+    - mysql
+    - redis
+    - sftp
+    environment:
+    - TZ=Asia/Shanghai
+    
+  ccs-server:
+    # image: caixinjiang/spring-boot-web:0.0.1
+    image: 10.188.0.26:8084/spring-boot-web:0.0.1
+    ports:
+    - "8080:8080"
+    restart: unless-stopped
+    volumes:
+    - ./ccs-work:/opt/jar
+    - ./data/ccs/log:/log
+    depends_on:
+    - mysql
+    - redis
+    - sftp
+    environment:
+    - TZ=Asia/Shanghai
+    command: java -Xms256m -Xmx1024m -Xss256K -XX:MetaspaceSize=128m -XX:MaxMetaspaceSize=256m -jar /opt/jar/ccs-server.jar --spring.profiles.active=development
+    
+  ccs-mock:
+    # image: caixinjiang/spring-boot-web:0.0.1
+    image: 10.188.0.26:8084/spring-boot-web:0.0.1
+    ports:
+    - "8082:8080"
+    restart: unless-stopped
+    volumes:
+    - ./mock-work:/opt/jar
+    depends_on:
+    - redis
+    environment:
+    - TZ=Asia/Shanghai
+    command: java -Xms64m -Xmx256m -Xss256K -XX:MetaspaceSize=64m -XX:MaxMetaspaceSize=128m -jar /opt/jar/ccs-mock.jar
+    
+  ccs-demo:
+    # image: caixinjiang/spring-boot-web:0.0.1
+    image: 10.188.0.26:8084/spring-boot-web:0.0.1
+    ports:
+    - "8083:8080"
+    restart: unless-stopped
+    volumes:
+    - ./demo-work:/opt/jar
+    environment:
+    - TZ=Asia/Shanghai
+    command: java -Xms64m -Xmx256m -Xss256K -XX:MetaspaceSize=64m -XX:MaxMetaspaceSize=128m -jar /opt/jar/ccs-demo.jar
+    

@@ -1,0 +1,37 @@
+@startmindmap
+
++[#OrangeRed] 1
+
+++[#yellow] 2
+
+
++++[#Pink] 前端
+
+++++[#MediumSpringGreen] 京东布局
+++++[#MediumSpringGreen] 十个特效
+++++[#MediumSpringGreen] 后台管理、app
++++++[#LightGreen] 5
+++++++[#Aquamarine] 6
++++++++[#PowderBlue] 7
+
+
+
+
+
+
+
++++[#Pink] 3
+
+++++[#MediumSpringGreen] 4
+
++++++[#LightGreen] 5
+++++++[#Aquamarine] 6
++++++++[#PowderBlue] 7
+
+++++[#AliceBlue] 4
++++++[#GhostWhite]_ 5
+++++++[#PowderBlue]_ 6
++++++++[#PowderBlue]_ 7
+
+
+@endmindmap

@@ -195,11 +195,6 @@
 
 +++[#Pink] 分布式锁
 
-++++[#MediumSpringGreen] CAP
-+++++[#LightGreen]_ Consistency / 一致性
-+++++[#GhostWhite]_ Availability / 可用性
-+++++[#LightGreen]_ Partition Tolerance / 分区容错性
-
 ++++[#MediumSpringGreen]_ 生命周期
 +++++[#LightGreen]_ 跨进程跨机器节点
 

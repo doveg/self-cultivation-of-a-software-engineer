@@ -16,6 +16,15 @@
 ++++++[#Aquamarine] 红黑树
 +++++++[#Aquamarine]_ 数组长度大于 64，链表长度大于等于 8 时转化
 
++++++[#LightGreen] JDK7 和 JDK8
+++++++[#Aquamarine] JDK7
++++++++[#Aquamarine]_ 数组、链表
++++++++[#Aquamarine]_ 使用的是头插入法，扩容后与原位置相反 (resize会导致环形链表)
+++++++[#Aquamarine] JDK8
++++++++[#Aquamarine]_ 数组、链表 / 红黑树
++++++++[#Aquamarine]_ 使用的尾插法，扩容后位置与原链表相同
+
+
 ++++[#MediumSpringGreen] ConcurrentHashMap
 +++++[#MediumSpringGreen]_ 在 HashMap 的基础上，加入分段锁，解决线程安全和性能问题
 

@@ -94,8 +94,10 @@
 +++++[#GhostWhite]_ 策略：保证每条消息都有唯一编号
 
 ++++[#MediumSpringGreen] 消费的流程
-+++++[#GhostWhite]_ Producer 与 NameServer 集群中的任一个节点（随机选择）建立长连接
-+++++[#GhostWhite]_ Consumer 和提供 Topic 服务的 Master 和 Slave 建立长连接
++++++[#GhostWhite]_ Broker 和所有 Name Server 保持长连接
++++++[#GhostWhite]_ Producer、Consumer 与 NameServer 集群中的任一个节点（随机选择）建立长连接
++++++[#GhostWhite]_ Producer、Consumer 和关联的所有 broker 保持长连接
++++++[#GhostWhite]_ 轮询时间 : 默认情况下，消费者每隔 30 秒从 NameServer 获取所有 Topic 的最新队列情况，这意味着某个 Broker 如果宕机，客户端最多要 30 秒才能感知。
 ++++[#AliceBlue] 消费的可靠性
 
 +++[#Pink] 分布式事务

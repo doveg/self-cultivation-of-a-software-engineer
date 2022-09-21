@@ -22,6 +22,11 @@
 +++++[#LightGreen] Seata
 ++++++[#Aquamarine] 分布式事务框架
 
+++++[#MediumSpringGreen] CAP
++++++[#LightGreen]_ Consistency / 一致性
++++++[#GhostWhite]_ Availability / 可用性
++++++[#LightGreen]_ Partition Tolerance / 分区容错性
+
 
 ++[#yellow] 分布式难题
 

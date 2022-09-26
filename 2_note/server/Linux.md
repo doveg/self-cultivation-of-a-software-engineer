@@ -56,8 +56,7 @@ Linux 按照特权等级，把进程的运行空间分为内核空间和用户�
 
 buffer 是缓冲区，cache 是缓存。
 
-buffer 和 cache 都是内存中的一块区域，当 CPU 需要写数据到磁盘时，由于磁盘速度比较慢，所以 CPU 先把数据存进 buffer，然后 CPU 去执行其他任务，buffer
-中的数据会定期写入磁盘；
+buffer 和 cache 都是内存中的一块区域，当 CPU 需要写数据到磁盘时，由于磁盘速度比较慢，所以 CPU 先把数据存进 buffer，然后 CPU 去执行其他任务，buffer 中的数据会定期写入磁盘；
 
 当 CPU 需要从磁盘读入数据时，由于磁盘速度比较慢，可以把即将用到的数据提前存入 cache，CPU 直接从 Cache 中拿数据要快的多。
 
@@ -67,8 +66,8 @@ buffer 和 cache 都是内存中的一块区域，当 CPU 需要写数据到磁�
 | :---: | :---: | :---: |
 | ping | ip | ip 通信 |
 | telnet | ip port | 端口通信 |
-| grep | grep keyword file name | 搜索文件 |
-| cat grep | cat 文件名 grep keyword | 搜关键字 |
+| grep | grep keyword "file name" | 搜索文件 |
+| cat grep | cat "file name" grep "keyword" | 搜关键字 |
 | pidstat | pid | 进程的 CPU 状态 |
 | kill | pid | 关闭进程 |
 | ftp | domain | ftp 协议 |

@@ -6,6 +6,20 @@
 
 +++[#Pink] JUC
 
+++++[#MediumSpringGreen] 锁分类
+
++++++[#LightGreen] 排他锁
+++++++[#Aquamarine]_ 竞争同一个共享资源，获得锁来实现独占
+++++++[#Aquamarine]_ 例如：Synchronized、ReentrantLock
+
++++++[#LightGreen] 共享锁
+++++++[#Aquamarine]_ 允许多个线程同时获得锁
+++++++[#Aquamarine]_ 例如：倒数计数器 CountDownLatch、信号量 Semaphore
+
++++++[#LightGreen] 公平锁和非公平锁
+++++++[#Aquamarine]_ 公平锁：只让排队的去竞争锁
+++++++[#Aquamarine]_ 非公平锁：和排队的一起去竞争锁
+
 ++++[#MediumSpringGreen] CAS 机制
 
 +++++[#LightGreen]_ 背景
@@ -17,16 +31,6 @@
 +++++[#LightGreen] 使用场景
 ++++++[#Aquamarine]_ Atomic 的原子实现，比如 AtomicInteger，AtomicLong
 ++++++[#Aquamarine]_ AQS、ConcurrentHashMap、ConcurrentLinkedQueue 等
-
-++++[#MediumSpringGreen] 锁分类
-
-+++++[#LightGreen] 排他锁
-++++++[#Aquamarine]_ 竞争同一个共享资源，获得锁来实现独占
-++++++[#Aquamarine]_ 例如：Synchronized
-
-+++++[#LightGreen] 共享锁
-++++++[#Aquamarine]_ 允许多个线程同时获得锁
-++++++[#Aquamarine]_ 例如：倒数计数器 CountDownLatch、信号量 Semaphore
 
 ++++[#MediumSpringGreen] AQS
 
@@ -148,7 +152,7 @@
 ++++++++[#Aquamarine]_ 同一时间，只有一个线程使用内存通信
 ++++++++[#Aquamarine]_ 总线锁导致了 CPU 的使用效率大幅度下降，缓存锁只针对 CPU 三级缓存中的目标数据加锁
 +++++++[#Aquamarine]_ 缓存锁
-++++++++[#Aquamarine]_ 对三级缓存种的目标数据加锁
+++++++++[#Aquamarine]_ 对三级缓存中的目标数据加锁
 ++++++++[#Aquamarine]_ 缓存锁是对总线锁的优化
 ++++++++[#Aquamarine]_ 缓存锁是使用 MESI 缓存一致性来实现的
 
@@ -182,6 +186,8 @@
 +++++++[#Aquamarine]_ 加锁解锁的灵活性更高
 
 ++++++[#Aquamarine] Lock 特性
++++++++[#Aquamarine]_ synchronized 无法获取锁的状态，lock 可以判断是否获得了锁
++++++++[#Aquamarine]_ synchronized 会自动释放锁，lock 不会自动释放锁，需要手动释放锁，不释放会造成死锁
 +++++++[#Aquamarine]_ 非阻塞竞争锁：tryLock() 方法，返回布尔值
 +++++++[#Aquamarine]_ 公平锁和非公平锁：让排队的去竞争锁是公平锁
 

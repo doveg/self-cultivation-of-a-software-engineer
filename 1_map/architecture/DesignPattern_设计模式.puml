@@ -14,7 +14,7 @@
 
 
 +++[#MediumSpringGreen] 策略模式
-++++[#GhostWhite] 接口
+++++[#GhostWhite] 接口 + 多个实现类
 ++++[#GhostWhite] 将每一个算法封装到具有共同接口的独立的类
 
 
@@ -41,19 +41,19 @@
 ++++[#GhostWhite]_ 消费者
 ++++[#GhostWhite]_ 观察者
 
-+++[#AliceBlue] 适配器模式
-++++[#GhostWhite] 适配类根据参数返还一个合适的实例
-
-
-
-
-++[#yellow] 讨巧的
 
 +++[#MediumSpringGreen] 原型模式
 ++++[#GhostWhite]_ 实现 Cloneable 接口
 ++++[#GhostWhite]_ 重写 clone() 方法
 ++++[#GhostWhite]_ Client / 客户类 / 使用者
 ++++[#GhostWhite]_ 对象复制、克隆方法
+
+
+
+++[#yellow] 讨巧的
+
++++[#AliceBlue] 适配器模式
+++++[#GhostWhite] 适配类根据参数返还一个合适的实例
 
 +++[#AliceBlue] 装饰器模式
 ++++[#GhostWhite] 扩展对象的功能

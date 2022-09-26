@@ -15,7 +15,7 @@
 +++++[#LightGreen]_ 终止 / terminated
 ++++++[#Aquamarine]_ 当前线程执行完毕
 
-++++[#MediumSpringGreen] 阻塞
+++++[#MediumSpringGreen] 阻塞类
 
 +++++[#LightGreen]_ 阻塞 / blocked
 ++++++[#Aquamarine]_ 线程阻塞于锁
@@ -27,13 +27,13 @@
 
 +++[#Pink] 创建线程的方式（四）
 
-++++[#MediumSpringGreen] 继承 Thread
-+++++[#LightGreen]_ 继承 Thread 类，并重写 run () 方法
-++++[#MediumSpringGreen] 实现 Runnable
-+++++[#LightGreen]_ 实现 Runnable，并实现 run () 方法
-++++[#MediumSpringGreen] 实现 Callable
-+++++[#LightGreen]_ 实现 Callable 接口，并结合 Future 实现
-++++[#AliceBlue]_ 使用 Executors
+++++[#MediumSpringGreen] 继承 Thread 类
++++++[#LightGreen]_ 重写 run () 方法
+++++[#MediumSpringGreen] 实现 Runnable 接口
++++++[#LightGreen]_ 实现 run () 方法
+++++[#MediumSpringGreen] 实现 Callable 接口
++++++[#LightGreen]_ 结合 Future 实现
+++++[#AliceBlue] 使用 Executors
 +++++[#LightGreen]_ 使用线程池，例如用 JDK 自带的 Executors 创建线程池对象
 
 

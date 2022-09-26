@@ -9,13 +9,25 @@
 ++++[#MediumSpringGreen] ArrayList
 +++++[#LightGreen] 扩容
 ++++++[#Aquamarine] Arrays.copyOf()
-+++++[#MediumSpringGreen]_ 底层是数组，动态的 Object []
-+++++[#MediumSpringGreen]_ CopyOnWriteArrayList 才能保证线程安全（适合多写少读）
++++++[#LightGreen]_ 底层是数组，动态的 Object []
++++++[#LightGreen]_ 默认容量 10，扩容时 1.5 倍
++++++[#LightGreen]_ Collections.synchronizedList() 可以得到一个线程安全的 ArrayList
 
 ++++[#MediumSpringGreen] LikedList
 +++++[#LightGreen] 双向链表
 ++++++[#Aquamarine] Node
 
+++++[#MediumSpringGreen] CopyOnWriteArrayList
++++++[#LightGreen] 线程安全
++++++[#LightGreen] 适合写多读少
++++++[#LightGreen] 原理
+++++++[#Aquamarine]_ 读写分离：写操作是在一个复制的数组上进行，读操作还是在原始数组中进行
+++++++[#Aquamarine]_ 写操作加锁，防止并发写入时导致写入数据丢失
+++++++[#Aquamarine]_ 写操作结束之后，把原始数组指向新的复制数组
+
+++++[#MediumSpringGreen] Vector
++++++[#LightGreen] 默认容量 10，扩容时翻倍
++++++[#LightGreen] 不推荐
 
 
 

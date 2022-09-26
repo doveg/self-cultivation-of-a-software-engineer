@@ -40,6 +40,12 @@
 +++++[#LightGreen]_ AOP 拦截，基于分页对象算开始值和结束值
 +++++[#LightGreen]_ 动态拼接 SQL
 
++++[#Pink] Mybatis Plus
+
+++++[#MediumSpringGreen] Mybatis Plus 的代码生成器
++++++[#LightGreen]_ 自动生成Entity、Mapper、Service、Controller等
+++++[#MediumSpringGreen] 增强工具
++++++[#LightGreen]_ 提供了一些很有意思的插件，比如SQL性能监控、乐观锁、执行分析等
 
 
 

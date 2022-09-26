@@ -68,10 +68,17 @@
 +++++[#GhostWhite]_ 数据分析能力（用户的行为路径）
 
 ++++[#MediumSpringGreen] 工具
++++++[#GhostWhite]_ SkyWalking
+++++++[#Aquamarine] 模块
++++++++[#Aquamarine]_ SkyWalking Agent
++++++++[#Aquamarine]_ SkyWalking Collector
++++++++[#Aquamarine]_ Storage
++++++++[#Aquamarine]_ SkyWalking UI
+++++++[#Aquamarine] 核心概念
++++++++[#Aquamarine]_ 服务 (Service)
++++++++[#Aquamarine]_ 服务实例 (Service Instance)
++++++++[#Aquamarine]_ 端点 (Endpoint)
 +++++[#GhostWhite]_ zipkin
-+++++[#GhostWhite]_ cat
-+++++[#GhostWhite]_ skywalking
-+++++[#GhostWhite]_ byteTrace
 
 
 +++[#Pink] Seata
@@ -114,6 +121,8 @@
 ++++++[#Aquamarine] 6
 +++++++[#Aquamarine]_ 7
 
+
+'skywalking简单原理 https://www.jianshu.com/p/e29973236ffb
 
 
 @endmindmap

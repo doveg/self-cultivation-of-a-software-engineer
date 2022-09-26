@@ -25,7 +25,7 @@
 
 +++[#Pink] 两级缓存
 ++++[#MediumSpringGreen] 查询流程
-+++++[#LightGreen]_ 二级缓存、一级缓存、数据库
++++++[#LightGreen]_ 二级缓存 —> 一级缓存 —> 数据库
 ++++[#MediumSpringGreen] 一级缓存
 +++++[#LightGreen]_ SqlSession
 +++++[#LightGreen]_ 设计：HashMap
@@ -43,9 +43,9 @@
 +++[#Pink] Mybatis Plus
 
 ++++[#MediumSpringGreen] Mybatis Plus 的代码生成器
-+++++[#LightGreen]_ 自动生成Entity、Mapper、Service、Controller等
++++++[#LightGreen]_ 自动生成 Entity、Mapper、Service、Controller 等
 ++++[#MediumSpringGreen] 增强工具
-+++++[#LightGreen]_ 提供了一些很有意思的插件，比如SQL性能监控、乐观锁、执行分析等
++++++[#LightGreen]_ 提供了一些很有意思的插件，比如 SQL 性能监控、乐观锁、执行分析等
 
 
 

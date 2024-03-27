@@ -1,0 +1,153 @@
+			
+Go 核心
+			
+			
+	术语：
+		
+		接收器(Receiver)：
+		结构体(Structure)：struct；
+		
+		空白标识符(Blank Identifier)：_
+		错误屏蔽器：
+		
+		导出名字(Exported Names)：
+		导出类型(Exported Type)：
+		
+		函数(Function)：func name() {}；
+		方法(Method)：func (t type) name(parameter list) {}；
+		接口：interface；
+		接口断言：type assertions；
+		空接口：interface{}；
+		零值(Zero Value)：nil：空指针、空接口；
+		元组：type+value；
+		
+		rune：int32；
+		fallthrough：switch 不短路，实现 case 跨越；
+		goto：跳出循环；
+		defer：延迟执行语句；
+		panic：宕机，—程序终止运行；
+		recover：宕机恢复，防止程序崩溃；
+		go：启动新协程；
+		make()：新建(切片、map、信道)
+		
+		指针(Pointer)：*；
+		解引用：解指针：*T；
+		指针取值：&；
+		
+		信道：channel；
+		协程：goroutine；
+		
+		数组(Array)：[n]T；
+		切片(Slice)：[]T；
+		
+		写入器(Writer)：
+		关闭器(Closer)：
+		写入关闭器(WriteCloser)：
+		
+		变量(Variable)：var；
+		常量：const；
+		类型(Type)：type；系统原生数据类型；
+		种类(Kind)：对象归属的品种；
+		动态类型：
+		类型断言(Type Assertion)：用于提取接口的底层值；语法：v, ok := i.(T)，接口 i 的具体类型是 T；
+		底层值(Underlying Value)：
+		键(Key)：非动态类型、非指针、函数、闭包。
+		
+		闭包(Closure)：
+		包：package；
+		GOPATH：工作目录；
+		
+		关键字：type；
+		
+			
+	关键：
+		函数：
+			func functionName(parameterName type) returnType {
+			}
+			
+		方法：
+			func (t Type) methodName(parameter list) returnType {
+			}
+			
+		接口：
+			type InterfaceName interface {
+				MethodName() returnType
+			}
+			
+			
+	常用函数：
+		Printf()：
+			%T 可以打印变量的类型；
+			%d 可以打印数值型变量的值；
+			%v 底层值；
+			%x 字节；
+			%c 字符；
+			%s 字符串；
+			%f 浮点类型；
+			%.2f 可以将浮点数截断到小数点两位；
+			\n 换行；
+			
+		make()：
+			切片的创建：
+				make（[]T，len，cap）
+			map 的初始化；
+				make(map[string]int)
+			定义信道：
+				make(chan int)
+			
+			
+	归纳：
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
